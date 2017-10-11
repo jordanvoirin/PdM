@@ -1,9 +1,6 @@
 #%% Script to acquire images average over nbrImgAveraging images and save them into fits file
 
 from ximea import xiapi
-#import numpy as np
-#from matplotlib import pyplot  as plt
-#import scipy.optimize as opt
 import datetime
 import functionsXimea as fX
 
@@ -12,6 +9,11 @@ import functionsXimea as fX
 nbrImgAveraging = 10000
 numberOfFinalFocusedImages = 1
 numberOfFinalDefocusedImages = 1
+
+#Cropping information
+sizeImgX = 256
+sizeImgY = 256
+initial_guess = (250,711,482,5,5)
 
 #Parameter of camera and saving
 folderPath = '../../data/PD/'
@@ -49,8 +51,8 @@ if bool(dark):
     print 'Acquiring dark focused images...'
     # Acquire focused images
     [darkData,stdDarkData] = fX.acquireImg(cam,img,nbrImgAveraging)
-    fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,darkData,stdDarkData,'DarkFocus','0',nbrImgAveraging)
-
+    fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,darkData,stdDarkData,'DarkDefocus','3.17',nbrImgAveraging)
+    
 #Acquire focused images -------------------------
 cond = 1
 while bool(cond):
@@ -66,7 +68,8 @@ if bool(focus):
     # Acquire focused images
     for iImg in range(numberOfFinalFocusedImages):
         [data,stdData] = fX.acquireImg(cam,img,nbrImgAveraging)
-        fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,data-darkData,stdData+stdDarkData,'Focus','0',nbrImgAveraging)
+        [data,stdData] = fX.cropAroundPSF(data-darkData,stdData+stdDarkData,sizeImgX,sizeImgY,initial_guess)
+        fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,data,stdData,'Focus','0',nbrImgAveraging)
 
 
 #Acquire defocused images -----------------------
@@ -85,7 +88,7 @@ if bool(dark):
     # Acquire focused images
     [darkData,stdDarkData] = fX.acquireImg(cam,img,nbrImgAveraging)
     fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,darkData,stdDarkData,'DarkDefocus','3.17',nbrImgAveraging)
-
+    
 cond = 1
 while bool(cond):
     focus = ''
@@ -104,8 +107,9 @@ if not bool(focus):
     print 'Acquiring defocused images background corrected...'
     for iImg in range(numberOfFinalDefocusedImages):
         [data,stdData] = fX.acquireImg(cam,img,nbrImgAveraging)
-        fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,data-darkData,stdData+stdDarkData,'Defocused','3.17',nbrImgAveraging)
-        
+        [data,stdData] = fX.cropAroundPSF(data-darkData,stdData+stdDarkData,sizeImgX,sizeImgY,initial_guess)
+        fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,data,stdData,'Focus','0',nbrImgAveraging)
+
 ##Stop the acquisition
 cam.stop_acquisition()
 cam.close_device()

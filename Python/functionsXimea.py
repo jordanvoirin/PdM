@@ -1,6 +1,7 @@
 import numpy as np
 import pyfits
 import os
+import scipy.optimize as opt
 #%% Functions -----------------------------------------------------------------
 
 
@@ -17,9 +18,11 @@ def saveImg2Fits(date,folderPath,Detector,data,stdData,Type,pos,nbrAveragingImg)
     imgHdu = pyfits.PrimaryHDU(data)
     stdHdu = pyfits.ImageHDU(stdData,name = 'imgStdData')
     hdulist = pyfits.HDUList([imgHdu,stdHdu])
+    
     if not os.path.isdir(folderPath):
         os.makedirs(folderPath)
-        hdulist.writeto(folderPath + date.strftime('%Y%m%d%H%M%S')+'_'+Detector+'_'+Type+'_'+pos+'.fits')
+    
+    hdulist.writeto(folderPath + date.strftime('%Y%m%d%H%M%S')+'_'+Detector+'_'+Type+'_'+pos+'.fits')
         
 def acquireImg(cam,img,nbrImgAveraging):
     imgData = np.zeros([1024,1280])
@@ -55,3 +58,24 @@ def determineUnsaturatedExposureTime(cam,img,precision):
          print 'exposure time between %d and %d' %(exposureTimes[0],exposureTimes[1])
          
      return int(np.floor(np.nanmean(exposureTimes)))
+ 
+def TwoDGaussian((x, y), A, xo, yo, sigma_x, sigma_y):
+    g = A*np.exp( - ((x-xo)**2/(2*sigma_x**2) + ((y-yo)**2)/(2*sigma_y**2)))
+    return g.ravel() 
+ 
+def cropAroundPSF(data,stdData,sizeX,sizeY,initialGuessFit):
+    
+    x = np.linspace(0,np.size(data,1),np.size(data,1))
+    y = np.linspace(0,np.size(data,0),np.size(data,0))
+    x, y = np.meshgrid(x, y)
+    
+    
+    popt, pcov = opt.curve_fit(TwoDGaussian, (x,y), data.ravel(), p0 = initialGuessFit)
+    
+    dataCropped = data[np.floor(popt[0])-np.ceil(sizeY/2):np.ceil(popt[0])+np.ceil(sizeY/2), \
+                    np.floor(popt[1])-np.ceil(sizeX/2):np.ceil(popt[1])+np.ceil(sizeX/2)]
+    
+    stdDataCropped = stdData[np.floor(popt[0])-np.ceil(sizeY/2):np.floor(popt[0])+np.ceil(sizeY/2), \
+                    np.floor(popt[1])-np.ceil(sizeX/2):np.floor(popt[1])+np.ceil(sizeX/2)]
+    
+    return [dataCropped,stdDataCropped]

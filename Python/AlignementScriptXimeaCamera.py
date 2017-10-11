@@ -8,11 +8,7 @@ from matplotlib import pyplot  as plt
 import scipy.optimize as opt
 import datetime
 import functionsXimea as fX
-#%% instanciation and function definition
-
-def TwoDGaussian((x, y), A, xo, yo, sigma_x, sigma_y):
-    g = A*np.exp( - ((x-xo)**2/(2*sigma_x**2) + ((y-yo)**2)/(2*sigma_y**2)))
-    return g.ravel()
+#%% instanciation 
 
 #create the matrix grid of the detector CCD
 x = np.linspace(0,1280,1280)
@@ -79,7 +75,7 @@ while answer == 'y':
 
     #Fit the img data on the 2D Gaussian to compute the FWHM
     print('Fitting 2D Gaussian...')
-    popt, pcov = opt.curve_fit(TwoDGaussian, (x,y), data[i].ravel(), p0 = initial_guess)
+    popt, pcov = opt.curve_fit(fX.TwoDGaussian, (x,y), data[i].ravel(), p0 = initial_guess)
     print('Fitting done')
     
     FWHMx.append(2*np.sqrt(2*np.log(2))*popt[3])
