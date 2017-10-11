@@ -14,8 +14,8 @@ numberOfFinalFocusedImages = 1
 numberOfFinalDefocusedImages = 1
 
 #Parameter of camera and saving
-folderPathFocused = '../fig/focused/'
-folderPathDefocused = '../fig/defocused/'
+folderPathFocused = '../../fig/focused/'
+folderPathDefocused = '../../fig/defocused/'
 nameCamera = 'Ximea'
 
 
@@ -49,7 +49,7 @@ if bool(dark):
     print 'Acquiring dark focused images...'
     # Acquire focused images
     [darkData,stdDarkData] = fX.acquireImg(cam,img,nbrImgAveraging)
-    fX.saveImg2Fits(datetime.datetime.today(),folderPathFocused,nameCamera,darkData,stdDarkData,'DarkFocus',nbrImgAveraging)
+    fX.saveImg2Fits(datetime.datetime.today(),folderPathFocused,nameCamera,darkData,stdDarkData,'DarkFocus','0',nbrImgAveraging)
 
 #Acquire focused images -------------------------
 cond = 1
@@ -66,7 +66,7 @@ if bool(focus):
     # Acquire focused images
     for iImg in range(numberOfFinalFocusedImages):
         [data,stdData] = fX.acquireImg(cam,img,nbrImgAveraging)
-        fX.saveImg2Fits(datetime.datetime.today(),folderPathFocused,nameCamera,data-darkData,stdData+stdDarkData,'Focus',nbrImgAveraging)
+        fX.saveImg2Fits(datetime.datetime.today(),folderPathFocused,nameCamera,data-darkData,stdData+stdDarkData,'Focus','0',nbrImgAveraging)
 
 
 #Acquire defocused images -----------------------
@@ -84,7 +84,7 @@ if bool(dark):
     print 'Acquiring dark defocused images...'
     # Acquire focused images
     [darkData,stdDarkData] = fX.acquireImg(cam,img,nbrImgAveraging)
-    fX.saveImg2Fits(datetime.datetime.today(),folderPathFocused,nameCamera,darkData,stdDarkData,'DarkDefocus',nbrImgAveraging)
+    fX.saveImg2Fits(datetime.datetime.today(),folderPathFocused,nameCamera,darkData,stdDarkData,'DarkDefocus','0',nbrImgAveraging)
 
 cond = 1
 while bool(cond):
@@ -104,7 +104,7 @@ if not bool(focus):
     print 'Acquiring defocused images background corrected...'
     for iImg in range(numberOfFinalDefocusedImages):
         [data,stdData] = fX.acquireImg(cam,img,nbrImgAveraging)
-        fX.saveImg2Fits(datetime.datetime.today(),folderPathDefocused,nameCamera,data-darkData,stdData+stdDarkData,'Defocused',nbrImgAveraging)
+        fX.saveImg2Fits(datetime.datetime.today(),folderPathDefocused,nameCamera,data-darkData,stdData+stdDarkData,'Defocused','0',nbrImgAveraging)
         
 ##Stop the acquisition
 cam.stop_acquisition()

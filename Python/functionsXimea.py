@@ -5,7 +5,7 @@ import os
 
 
 #Create and save .fits from numpy array
-def saveImg2Fits(date,folderPath,Detector,data,stdData,Type,nbrAveragingImg):
+def saveImg2Fits(date,folderPath,Detector,data,stdData,Type,pos,nbrAveragingImg):
     
     #date : datetime at which the data where taken
     #folderPath : where to save the data$
@@ -19,7 +19,7 @@ def saveImg2Fits(date,folderPath,Detector,data,stdData,Type,nbrAveragingImg):
     hdulist = pyfits.HDUList([imgHdu,stdHdu])
     if not os.path.isdir(folderPath):
         os.makedirs(folderPath)
-        hdulist.writeto(folderPath + date.strftime('%Y%m%d%H%M%S')+Detector+Type+'.fits')
+        hdulist.writeto(folderPath + date.strftime('%Y%m%d%H%M%S')+Detector+Type+pos+'.fits')
         
 def acquireImg(cam,img,nbrImgAveraging):
     imgData = np.zeros([1024,1280])
