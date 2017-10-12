@@ -1,13 +1,9 @@
-PdM project
------------
+PdM project : : Evaluation of optical aberrations using Phase Diversity (PD)
+----------------------------------------------------------------------------
 
 This project gather all the codes I write for my master thesis in the optical laboratory of the HEIG-VD in Yverdon-les-bains.
 
-Title of the Project : Evaluation of optical aberrations using Phase Diversity (PD)
------------------------------------------------------------------------------------
-
-First, I will acquire PSF and treat them with an ONERA code which is not shared in this project, contact Laurent Mugnier, ONERA, PARIS
-for the code of phase diversity.
+The first part of my project is to acquire PSF in/out of focus and treat them with an ONERA code which is not shared in this project, contact Laurent Mugnier, ONERA, PARIS for the code of phase diversity.
 
 The acquisition is done with a Ximea Camera MQ013MG-E2 using the python library https://github.com/pupil-labs/pyximea
 
@@ -23,3 +19,5 @@ Python Code :
 IDL Code :
 
 - phaseRetrieval.pro  : script to treat the *.fits PSF data in order to retrieve the phase of the wavefront
+
+The second part of my project is more theoretical on the subject of phase diversity.
