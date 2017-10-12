@@ -69,8 +69,9 @@ def cropAroundPSF(data,stdData,sizeX,sizeY,initialGuessFit):
     y = np.linspace(0,np.size(data,0),np.size(data,0))
     x, y = np.meshgrid(x, y)
     
-    
+    print('Fitting 2D Gaussian...')
     popt, pcov = opt.curve_fit(TwoDGaussian, (x,y), data.ravel(), p0 = initialGuessFit)
+    print('Fitting done')
     
     dataCropped = data[np.floor(popt[0])-np.ceil(sizeY/2):np.ceil(popt[0])+np.ceil(sizeY/2), \
                     np.floor(popt[1])-np.ceil(sizeX/2):np.ceil(popt[1])+np.ceil(sizeX/2)]
