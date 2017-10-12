@@ -16,9 +16,9 @@ Python Code :
 - AlignementScriptXimeaCamera.py : Script to align the camera on the focus point of the last lens.
 - AcquisAndSaveXimea.py : Script to acquire images using the Ximea camera
 - functionsXimea.py : some functions for the ximea 
-    -- saveImg2Fits()
-    -- AcquireImg()
-    -- determineUnsaturatedExposureTime()
+    - saveImg2Fits()
+    - AcquireImg()
+    - determineUnsaturatedExposureTime()
     
 IDL Code :
 
