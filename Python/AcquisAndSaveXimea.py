@@ -22,7 +22,7 @@ darkFolderPath = '../../data/dark/'
 nameCamera = 'Ximea'
 
 #Sound
-duration = 2000  # millisecond
+duration = 1000  # millisecond
 freq = 2000  # Hz
 
 #------------------------------------------------------------------------------
@@ -69,7 +69,7 @@ if bool(dark):
     print 'Acquiring dark focused image...'
     # Acquire focused images
     [darkData,stdDarkData] = fX.acquireImg(cam,img,nbrImgAveraging)
-    fX.saveImg2Fits(datetime.datetime.today(),darkFolderPath,nameCamera,darkData,stdDarkData,'DarkFocus',str(pos-11.5),nbrImgAveraging)
+    fX.saveImg2Fits(datetime.datetime.today(),darkFolderPath,nameCamera,darkData,stdDarkData,'DarkFocus',str(11.5-pos),nbrImgAveraging)
     
 #Acquire focused images -------------------------
 cond = 1
@@ -93,7 +93,7 @@ if bool(focus):
         print 'Cropping'
         [data,stdData] = fX.cropAroundPSF(data-darkData,stdData+stdDarkData,sizeImgX,sizeImgY,initial_guess)
         print 'Saving'
-        fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,data,stdData,'Focus',str(pos-11.5),nbrImgAveraging)
+        fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,data,stdData,'Focus',str(11.5-pos),nbrImgAveraging)
 
 
 #Acquire defocused images -----------------------
@@ -115,7 +115,7 @@ if bool(dark):
     print 'Acquiring dark defocused images...'
     # Acquire focused images
     [darkData,stdDarkData] = fX.acquireImg(cam,img,nbrImgAveraging)
-    fX.saveImg2Fits(datetime.datetime.today(),darkFolderPath,nameCamera,darkData,stdDarkData,'DarkDefocus',str(pos-11.5),nbrImgAveraging)
+    fX.saveImg2Fits(datetime.datetime.today(),darkFolderPath,nameCamera,darkData,stdDarkData,'DarkDefocus',str(11.5-pos),nbrImgAveraging)
     
 cond = 1
 while bool(cond):
@@ -143,9 +143,12 @@ if not bool(focus):
         print 'Cropping'
         [data,stdData] = fX.cropAroundPSF(data-darkData,stdData+stdDarkData,sizeImgX,sizeImgY,initial_guess)
         print 'Saving'
-        fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,data,stdData,'Focus',str(pos-11.5),nbrImgAveraging)
+        fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,data,stdData,'Defocus',str(11.5-pos),nbrImgAveraging)
 
 ##Stop the acquisition
 cam.stop_acquisition()
 cam.close_device()
 
+winsound.Beep(freq, duration)
+
+print 'Acquisition finished'

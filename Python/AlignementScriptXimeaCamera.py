@@ -87,7 +87,7 @@ while answer == 'y':
     
     print 'Fig %d : FWHM x = %3.2f, FWHM y  = %3.2f' %(i,FWHMx[i],FWHMy[i])
     
-    data_fitted.append(fX.TwoDGaussian((x, y), *popt).reshape(1024, 1280))
+    data_fitted.append(fX.TwoDGaussian((x, y), popt).reshape(1024, 1280))
     
     #plot the beamspot
     fig, ax = plt.subplots(1, 1)
