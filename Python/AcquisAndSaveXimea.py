@@ -62,6 +62,7 @@ while bool(cond):
     else:
         print 'Please shut down the source and/or place the camera on the focus point.'
 
+winsound.Beep(freq, duration)
 pos = float(raw_input('What is the position of the camera in mm ? '))
 
 if bool(dark):
@@ -80,7 +81,7 @@ while bool(cond):
         cond = 0
     else:
         print 'Please place the camera on the focus point (11.5 mm)'
-
+winsound.Beep(freq, duration)
 pos = float(raw_input('What is the position of the camera in mm ? '))
     
 if bool(focus):
@@ -106,7 +107,8 @@ while bool(cond):
         cond = 0
     else:
         print 'Please shut down the source and/or place the camera on the defocus point.'
-        
+
+winsound.Beep(freq, duration)     
 pos = float(raw_input('What is the position of the camera in mm ? '))
 
 if bool(dark):
@@ -125,6 +127,7 @@ while bool(cond):
     else:
         print 'Please place the camera on the defocus point'
 
+winsound.Beep(freq, duration)
 pos = float(raw_input('What is the position of the camera in mm ? '))
        
 if focus == 1:
