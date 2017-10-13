@@ -4,7 +4,8 @@ from ximea import xiapi
 import datetime
 import functionsXimea as fX
 import winsound
-import numpy as np
+#import numpy as np
+
 #%%instanciation --------------------------------------------------------------
 #number of image to average
 nbrImgAveraging = 5000
@@ -37,118 +38,80 @@ cam.set_gain(0)
 img = xiapi.Image()
 if cam.get_acquisition_status() == 'XI_OFF':
     cam.start_acquisition()
+#%% exposition    
 cond = 1
 while bool(cond):
-    focus = ''
+    source = ''
     winsound.Beep(freq, duration)
-    focus = int(raw_input('Is the source turned on and the camera on the focus point (yes = 1) ? '))
-    if focus == 1:
+    source = int(raw_input('Is the source turned on and at 11.5 mm (yes = 1) ? '))
+    if source == 1:
         cond = 0
     else:
-        print 'Please place the camera on the focus point (11.5 mm)'
+        print 'Please turn on the source and place the camera on the focus point (11.5 mm)'
         
-if bool(focus):        
+if bool(source):        
     #Set exposure time
     cam.set_exposure(fX.determineUnsaturatedExposureTime(cam,img,1))
-    #Acquire dark images for background correction---
 
-cond = 1
-while bool(cond):
-    dark = ''
-    winsound.Beep(freq, duration)
-    dark = int(raw_input('Is the source turned off and the camera on the focus point (yes = 1) ? '))
-    if dark == 1:
-        cond = 0
-    else:
-        print 'Please shut down the source and/or place the camera on the focus point.'
+#%%Acquire images at different camera position
 
-winsound.Beep(freq, duration)
-pos = float(raw_input('What is the position of the camera in mm ? '))
-
-if bool(dark):
-    print 'Acquiring dark focused image...'
-    # Acquire focused images
-    [darkData,stdDarkData] = fX.acquireImg(cam,img,nbrImgAveraging)
-    fX.saveImg2Fits(datetime.datetime.today(),darkFolderPath,nameCamera,darkData,stdDarkData,'DarkFocus',str(11.5-pos),nbrImgAveraging)
+acquire = 1
+while bool(acquire):
+    cond = 1
+    while bool(cond):
+        dark = ''
+        winsound.Beep(freq, duration)
+        dark = int(raw_input('Is the source turned off (yes = 1) ? '))
+        if dark == 1:
+            cond = 0
+        else:
+            print 'Please shut down the source.'
     
-#Acquire focused images -------------------------
-cond = 1
-while bool(cond):
-    focus = ''
     winsound.Beep(freq, duration)
-    focus = int(raw_input('Is the source turned on and the camera on the focus point (yes = 1) ? '))
-    if focus == 1:
-        cond = 0
-    else:
-        print 'Please place the camera on the focus point (11.5 mm)'
-winsound.Beep(freq, duration)
-pos = float(raw_input('What is the position of the camera in mm ? '))
+    pos = float(raw_input('What is the position of the camera in mm focused (11.5 mm) dephase 2Pi (Delta = 3.19mm) ? '))
     
-if bool(focus):
-    print 'Acquiring focused images...'
-    # Acquire focused images
-    for iImg in range(numberOfFinalFocusedImages):
-        print 'Acquiring Image %d'%iImg
-        [data,stdData] = fX.acquireImg(cam,img,nbrImgAveraging)
-        print 'Cropping'
-        [data,stdData] = fX.cropAroundPSF(data-darkData,stdData+stdDarkData,sizeImgX,sizeImgY,initial_guess)
-        print 'Saving'
-        fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,data,stdData,'Focus',str(11.5-pos),nbrImgAveraging)
-
-
-#Acquire defocused images -----------------------
-
-cond = 1
-while bool(cond):
-    dark = ''
-    winsound.Beep(freq, duration)
-    dark = int(raw_input('Is the source turned off and the camera on the defocus point (yes = 1) ? '))
-    if dark == 1:
-        cond = 0
-    else:
-        print 'Please shut down the source and/or place the camera on the defocus point.'
-
-winsound.Beep(freq, duration)     
-pos = float(raw_input('What is the position of the camera in mm ? '))
-
-if bool(dark):
-    print 'Acquiring dark defocused images...'
-    # Acquire focused images
-    [darkData,stdDarkData] = fX.acquireImg(cam,img,nbrImgAveraging)
-    fX.saveImg2Fits(datetime.datetime.today(),darkFolderPath,nameCamera,darkData,stdDarkData,'DarkDefocus',str(11.5-pos),nbrImgAveraging)
-    
-cond = 1
-while bool(cond):
-    focus = ''
-    winsound.Beep(freq, duration)
-    focus = int(raw_input('Is the source turned on and the camera on the defocus point (yes = 1) ? '))
-    if focus==1:
-        cond = 0
-    else:
-        print 'Please place the camera on the defocus point'
-
-winsound.Beep(freq, duration)
-pos = float(raw_input('What is the position of the camera in mm ? '))
-       
-if focus == 1:
-    focus = 0
-else:
-    focus = 1
+    if bool(dark):
+        print 'Acquiring dark focused image...'
+        # Acquire dark images
+        [darkData,stdDarkData] = fX.acquireImg(cam,img,nbrImgAveraging)
+        fX.saveImg2Fits(datetime.datetime.today(),darkFolderPath,nameCamera,darkData,stdDarkData,'DarkFocus',str(11.5-pos),nbrImgAveraging)
         
-if not bool(focus):
-    print 'Acquiring defocused images background corrected...'
-    for iImg in range(numberOfFinalDefocusedImages):
-        print 'Acquiring Image %d'%iImg
-        [data,stdData] = fX.acquireImg(cam,img,nbrImgAveraging)
-        print 'Cropping'
-        [data,stdData] = fX.cropAroundPSF(data-darkData,stdData+stdDarkData,sizeImgX,sizeImgY,initial_guess)
-        print 'Saving'
-        fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,data,stdData,'Defocus',str(11.5-pos),nbrImgAveraging)
-
+    #Acquire focused images -------------------------
+    cond = 1
+    while bool(cond):
+        source = ''
+        winsound.Beep(freq, duration)
+        focus = int(raw_input('Is the source turned on (yes = 1) ? '))
+        if source == 1:
+            cond = 0
+        else:
+            print 'Please place turn on the camera'
+    winsound.Beep(freq, duration)
+    
+    if bool(source):
+        print 'Acquiring images...'
+        # Acquire focused images
+        for iImg in range(numberOfFinalFocusedImages):
+            print 'Acquiring Image %d'%iImg
+            [data,stdData] = fX.acquireImg(cam,img,nbrImgAveraging)
+            print 'Cropping'
+            [data,stdData] = fX.cropAroundPSF(data-darkData,stdData+stdDarkData,sizeImgX,sizeImgY,initial_guess)
+            print 'Saving'
+            fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,data,stdData,str(11.5-pos),nbrImgAveraging)
+    
+    cond = 1
+    while bool(cond):
+        acquire = ''
+        winsound.Beep(freq, duration)
+        acquire = int(raw_input('Do you want to acquire at an other camera position (yes = 1, no = 0) ? '))
+        if acquire == 1:
+            cond = 0
+        elif acquire == 0:
+            cond = 0
+        else:
+             print 'please answer with 0 or 1 for no or yes, respectively'   
 ##Stop the acquisition
 cam.stop_acquisition()
 cam.close_device()
-
-winsound.Beep(freq, duration)
 
 print 'Acquisition finished'
