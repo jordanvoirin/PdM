@@ -73,10 +73,11 @@ def cropAroundPSF(data,stdData,sizeX,sizeY,initialGuessFit):
     popt, pcov = opt.curve_fit(TwoDGaussian, (x,y), data.ravel(), p0 = initialGuessFit)
     print('Fitting done')
     
-    dataCropped = data[np.floor(popt[0])-np.ceil(sizeY/2):np.ceil(popt[0])+np.ceil(sizeY/2), \
-                    np.floor(popt[1])-np.ceil(sizeX/2):np.ceil(popt[1])+np.ceil(sizeX/2)]
+    pxX = [int(np.floor(popt[1])-np.ceil(sizeX/2)),int(np.floor(popt[1])+np.ceil(sizeX/2))]
+    pxY = [int(np.floor(popt[0])-np.ceil(sizeY/2)),int(np.floor(popt[0])+np.ceil(sizeY/2))]   
     
-    stdDataCropped = stdData[np.floor(popt[0])-np.ceil(sizeY/2):np.floor(popt[0])+np.ceil(sizeY/2), \
-                    np.floor(popt[1])-np.ceil(sizeX/2):np.floor(popt[1])+np.ceil(sizeX/2)]
+    dataCropped = data[pxY[0]:pxY[1],pxX[0]:pxX[1]]
+    
+    stdDataCropped = stdData[pxY[0]:pxY[1],pxX[0]:pxX[1]]
     
     return [dataCropped,stdDataCropped]

@@ -4,10 +4,10 @@ from ximea import xiapi
 import datetime
 import functionsXimea as fX
 import winsound
-
+import numpy as np
 #%%instanciation --------------------------------------------------------------
 #number of image to average
-nbrImgAveraging = 10000
+nbrImgAveraging = 5000
 numberOfFinalFocusedImages = 10
 numberOfFinalDefocusedImages = 10
 
@@ -18,7 +18,7 @@ initial_guess = (250,708,481,3,3)
 
 #Parameter of camera and saving
 folderPath = '../../data/PD/'
-darkFolderPath = '../../data/dark'
+darkFolderPath = '../../data/dark/'
 nameCamera = 'Ximea'
 
 #Sound
@@ -61,12 +61,14 @@ while bool(cond):
         cond = 0
     else:
         print 'Please shut down the source and/or place the camera on the focus point.'
-    
+
+pos = float(raw_input('What is the position of the camera in mm ? '))
+
 if bool(dark):
     print 'Acquiring dark focused image...'
     # Acquire focused images
     [darkData,stdDarkData] = fX.acquireImg(cam,img,nbrImgAveraging)
-    fX.saveImg2Fits(datetime.datetime.today(),darkFolderPath,nameCamera,darkData,stdDarkData,'DarkFocus','0.0',nbrImgAveraging)
+    fX.saveImg2Fits(datetime.datetime.today(),darkFolderPath,nameCamera,darkData,stdDarkData,'DarkFocus',str(pos-11.5),nbrImgAveraging)
     
 #Acquire focused images -------------------------
 cond = 1
@@ -78,6 +80,8 @@ while bool(cond):
         cond = 0
     else:
         print 'Please place the camera on the focus point (11.5 mm)'
+
+pos = float(raw_input('What is the position of the camera in mm ? '))
     
 if bool(focus):
     print 'Acquiring focused images...'
@@ -88,7 +92,7 @@ if bool(focus):
         print 'Cropping'
         [data,stdData] = fX.cropAroundPSF(data-darkData,stdData+stdDarkData,sizeImgX,sizeImgY,initial_guess)
         print 'Saving'
-        fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,data,stdData,'Focus','0',nbrImgAveraging)
+        fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,data,stdData,'Focus',str(pos-11.5),nbrImgAveraging)
 
 
 #Acquire defocused images -----------------------
@@ -102,12 +106,14 @@ while bool(cond):
         cond = 0
     else:
         print 'Please shut down the source and/or place the camera on the defocus point.'
-    
+        
+pos = float(raw_input('What is the position of the camera in mm ? '))
+
 if bool(dark):
     print 'Acquiring dark defocused images...'
     # Acquire focused images
     [darkData,stdDarkData] = fX.acquireImg(cam,img,nbrImgAveraging)
-    fX.saveImg2Fits(datetime.datetime.today(),darkFolderPath,nameCamera,darkData,stdDarkData,'DarkDefocus','3.19',nbrImgAveraging)
+    fX.saveImg2Fits(datetime.datetime.today(),darkFolderPath,nameCamera,darkData,stdDarkData,'DarkDefocus',str(pos-11.5),nbrImgAveraging)
     
 cond = 1
 while bool(cond):
@@ -118,7 +124,9 @@ while bool(cond):
         cond = 0
     else:
         print 'Please place the camera on the defocus point'
-        
+
+pos = float(raw_input('What is the position of the camera in mm ? '))
+       
 if focus == 1:
     focus = 0
 else:
@@ -132,7 +140,7 @@ if not bool(focus):
         print 'Cropping'
         [data,stdData] = fX.cropAroundPSF(data-darkData,stdData+stdDarkData,sizeImgX,sizeImgY,initial_guess)
         print 'Saving'
-        fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,data,stdData,'Focus','3.19',nbrImgAveraging)
+        fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,data,stdData,'Focus',str(pos-11.5),nbrImgAveraging)
 
 ##Stop the acquisition
 cam.stop_acquisition()
