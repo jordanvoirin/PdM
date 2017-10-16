@@ -43,8 +43,8 @@ D1=3.2*1e-3
 D2=0.0
 jmax = 66
 pxSize = 5.3*1e-6
-fdist = 80*1e-3
-pxSizeArcSec = pxSize/fdist*!RADEG/3600
+fdist = 80.d*1e-3
+pxSizeArcSec = pxSize/fdist*!RADEG*3600.d
 mode = 'MODAL'
 
 Phase = diversity(psfs,deltaZ,lambda,fdist,pxSizeArcSec,threshold,mode,D1=D1,D2=D2,jmax=jmax)

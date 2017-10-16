@@ -76,8 +76,8 @@ def getPSFCentroid(cam,img,initialGuessFit):
  
 def cropAroundPSF(data,stdData,centroid,sizeX,sizeY,):
     
-    pxX = [int(np.floor(centroid[1])-np.ceil(sizeX/2)),int(np.floor(centroid[1])+np.ceil(sizeX/2))]
-    pxY = [int(np.floor(centroid[2])-np.ceil(sizeY/2)),int(np.floor(centroid[2])+np.ceil(sizeY/2))]   
+    pxX = [int(np.floor(centroid[0])-np.ceil(sizeX/2)),int(np.floor(centroid[0])+np.ceil(sizeX/2))]
+    pxY = [int(np.floor(centroid[1])-np.ceil(sizeY/2)),int(np.floor(centroid[1])+np.ceil(sizeY/2))]   
     
     dataCropped = data[pxY[0]:pxY[1],pxX[0]:pxX[1]]
     

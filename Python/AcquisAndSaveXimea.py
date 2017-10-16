@@ -54,6 +54,8 @@ if bool(source):
     cam.set_exposure(fX.determineUnsaturatedExposureTime(cam,img,1))
     #get centroid
     centroid = fX.getPSFCentroid(cam,img,initial_guess)
+    print 'centroid at (%d, %d)' %(centroid[0],centroid[1])    
+    
 #%%Acquire images at different camera position
 
 acquire = 1
@@ -75,7 +77,9 @@ while bool(acquire):
         print 'Acquiring dark image...'
         # Acquire dark images
         [darkData,stdDarkData] = fX.acquireImg(cam,img,nbrImgAveraging)
-        fX.saveImg2Fits(datetime.datetime.today(),darkFolderPath,nameCamera,darkData,stdDarkData,str(int(np.around(100*(11.5-pos),0))),nbrImgAveraging)
+        print 'Cropping'
+        [darkdataCropped,stddarkDataCropped] = fX.cropAroundPSF(darkData,stdDarkData,centroid,sizeImgX,sizeImgY)
+        fX.saveImg2Fits(datetime.datetime.today(),darkFolderPath,nameCamera,darkdataCropped,stddarkDataCropped,str(int(np.around(100*(11.5-pos),0))),nbrImgAveraging)
         
     #Acquire images -------------------------
     cond = 1
