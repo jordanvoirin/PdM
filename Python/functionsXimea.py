@@ -61,20 +61,23 @@ def determineUnsaturatedExposureTime(cam,img,precision):
  
 def TwoDGaussian((x, y), A, yo, xo, sigma_y, sigma_x):
     g = A*np.exp( - ((x-xo)**2/(2*sigma_x**2) + ((y-yo)**2)/(2*sigma_y**2)))
-    return g.ravel() 
- 
-def cropAroundPSF(data,stdData,sizeX,sizeY,initialGuessFit):
+    return g.ravel()
     
-    x = np.linspace(0,np.size(data,1),np.size(data,1))
-    y = np.linspace(0,np.size(data,0),np.size(data,0))
+def getPSFCentroid(cam,img,initialGuessFit):
+    #create the matrix grid of the detector CCD
+    x = np.linspace(0,1280,1280)
+    y = np.linspace(0,1024,1024)
     x, y = np.meshgrid(x, y)
-    
+    data = acquireImg(cam,img,200)[0]
     print('Fitting 2D Gaussian...')
     popt, pcov = opt.curve_fit(TwoDGaussian, (x,y), data.ravel(), p0 = initialGuessFit)
     print('Fitting done')
+    return [popt[2],popt[1]]
+ 
+def cropAroundPSF(data,stdData,centroid,sizeX,sizeY,):
     
-    pxX = [int(np.floor(popt[1])-np.ceil(sizeX/2)),int(np.floor(popt[1])+np.ceil(sizeX/2))]
-    pxY = [int(np.floor(popt[2])-np.ceil(sizeY/2)),int(np.floor(popt[2])+np.ceil(sizeY/2))]   
+    pxX = [int(np.floor(centroid[1])-np.ceil(sizeX/2)),int(np.floor(centroid[1])+np.ceil(sizeX/2))]
+    pxY = [int(np.floor(centroid[2])-np.ceil(sizeY/2)),int(np.floor(centroid[2])+np.ceil(sizeY/2))]   
     
     dataCropped = data[pxY[0]:pxY[1],pxX[0]:pxX[1]]
     

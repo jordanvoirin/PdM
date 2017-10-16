@@ -15,7 +15,7 @@ numberOfFinalDefocusedImages = 10
 #Cropping information
 sizeImgX = 256
 sizeImgY = 256
-initial_guess = (250,708,481,3,3)
+initial_guess = (250,481,708,3,3)
 
 #Parameter of camera and saving
 folderPath = '../../data/PD/'
@@ -52,7 +52,8 @@ while bool(cond):
 if bool(source):        
     #Set exposure time
     cam.set_exposure(fX.determineUnsaturatedExposureTime(cam,img,1))
-
+    #get centroid
+    centroid = fX.getPSFCentroid(cam,img,initial_guess)
 #%%Acquire images at different camera position
 
 acquire = 1
@@ -71,10 +72,10 @@ while bool(acquire):
     pos = float(raw_input('What is the position of the camera in mm focused (11.5 mm) dephase 2Pi (Delta = 3.19mm) ? '))
     
     if bool(dark):
-        print 'Acquiring dark focused image...'
+        print 'Acquiring dark image...'
         # Acquire dark images
         [darkData,stdDarkData] = fX.acquireImg(cam,img,nbrImgAveraging)
-        fX.saveImg2Fits(datetime.datetime.today(),darkFolderPath,nameCamera,darkData,stdDarkData,str(int(100*(11.5-pos))),nbrImgAveraging)
+        fX.saveImg2Fits(datetime.datetime.today(),darkFolderPath,nameCamera,darkData,stdDarkData,str(int(np.around(100*(11.5-pos),0))),nbrImgAveraging)
         
     #Acquire images -------------------------
     cond = 1
@@ -94,7 +95,7 @@ while bool(acquire):
             print 'Acquiring Image %d'%iImg
             [data,stdData] = fX.acquireImg(cam,img,nbrImgAveraging)
             print 'Cropping'
-            [dataCropped,stdDataCropped] = fX.cropAroundPSF(data-darkData,stdData+stdDarkData,sizeImgX,sizeImgY,initial_guess)
+            [dataCropped,stdDataCropped] = fX.cropAroundPSF(data-darkData,stdData+stdDarkData,centroid,sizeImgX,sizeImgY)
             print 'Saving'
             fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,dataCropped,stdDataCropped,str(int(np.around(100*(11.5-pos),0))),nbrImgAveraging)
     
