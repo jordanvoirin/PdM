@@ -59,7 +59,7 @@ def determineUnsaturatedExposureTime(cam,img,precision):
          
      return int(np.floor(np.nanmean(exposureTimes)))
  
-def TwoDGaussian((x, y), A, xo, yo, sigma_x, sigma_y):
+def TwoDGaussian((x, y), A, yo, xo, sigma_y, sigma_x):
     g = A*np.exp( - ((x-xo)**2/(2*sigma_x**2) + ((y-yo)**2)/(2*sigma_y**2)))
     return g.ravel() 
  
@@ -74,7 +74,7 @@ def cropAroundPSF(data,stdData,sizeX,sizeY,initialGuessFit):
     print('Fitting done')
     
     pxX = [int(np.floor(popt[1])-np.ceil(sizeX/2)),int(np.floor(popt[1])+np.ceil(sizeX/2))]
-    pxY = [int(np.floor(popt[0])-np.ceil(sizeY/2)),int(np.floor(popt[0])+np.ceil(sizeY/2))]   
+    pxY = [int(np.floor(popt[2])-np.ceil(sizeY/2)),int(np.floor(popt[2])+np.ceil(sizeY/2))]   
     
     dataCropped = data[pxY[0]:pxY[1],pxX[0]:pxX[1]]
     

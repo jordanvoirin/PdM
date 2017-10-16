@@ -28,7 +28,7 @@ for i = 1, n_elements(sFilePaths)-1 do begin
   sepFilePath = strsplit(sFilePaths[i],'\',/EXTRACT)
   sFile = sepFilePath[n_elements(sepFilePath)-1]
   sepsFile = strsplit(sFile,"_.",/EXTRACT)
-  deltaZ[i] = double(sepsFile[n_elements(sepsFile)-2])
+  deltaZ[i] = double(sepsFile[n_elements(sepsFile)-2])/100
   
   psf = mrdfits(sFilePaths[i],0,header)
   psfs[*,*,i]=psf

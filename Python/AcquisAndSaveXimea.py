@@ -4,7 +4,7 @@ from ximea import xiapi
 import datetime
 import functionsXimea as fX
 import winsound
-#import numpy as np
+import numpy as np
 
 #%%instanciation --------------------------------------------------------------
 #number of image to average
@@ -74,19 +74,18 @@ while bool(acquire):
         print 'Acquiring dark focused image...'
         # Acquire dark images
         [darkData,stdDarkData] = fX.acquireImg(cam,img,nbrImgAveraging)
-        fX.saveImg2Fits(datetime.datetime.today(),darkFolderPath,nameCamera,darkData,stdDarkData,'DarkFocus',str(11.5-pos),nbrImgAveraging)
+        fX.saveImg2Fits(datetime.datetime.today(),darkFolderPath,nameCamera,darkData,stdDarkData,str(int(100*(11.5-pos))),nbrImgAveraging)
         
-    #Acquire focused images -------------------------
+    #Acquire images -------------------------
     cond = 1
     while bool(cond):
         source = ''
         winsound.Beep(freq, duration)
-        focus = int(raw_input('Is the source turned on (yes = 1) ? '))
+        source = int(raw_input('Is the source turned on (yes = 1) ? '))
         if source == 1:
             cond = 0
         else:
             print 'Please place turn on the camera'
-    winsound.Beep(freq, duration)
     
     if bool(source):
         print 'Acquiring images...'
@@ -95,9 +94,9 @@ while bool(acquire):
             print 'Acquiring Image %d'%iImg
             [data,stdData] = fX.acquireImg(cam,img,nbrImgAveraging)
             print 'Cropping'
-            [data,stdData] = fX.cropAroundPSF(data-darkData,stdData+stdDarkData,sizeImgX,sizeImgY,initial_guess)
+            [dataCropped,stdDataCropped] = fX.cropAroundPSF(data-darkData,stdData+stdDarkData,sizeImgX,sizeImgY,initial_guess)
             print 'Saving'
-            fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,data,stdData,str(11.5-pos),nbrImgAveraging)
+            fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,dataCropped,stdDataCropped,str(int(np.around(100*(11.5-pos),0))),nbrImgAveraging)
     
     cond = 1
     while bool(cond):
@@ -109,7 +108,9 @@ while bool(acquire):
         elif acquire == 0:
             cond = 0
         else:
-             print 'please answer with 0 or 1 for no or yes, respectively'   
+             print 'please answer with 0 or 1 for no or yes, respectively' 
+             
+             
 ##Stop the acquisition
 cam.stop_acquisition()
 cam.close_device()
