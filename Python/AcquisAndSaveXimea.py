@@ -38,7 +38,7 @@ cam.set_gain(0)
 img = xiapi.Image()
 if cam.get_acquisition_status() == 'XI_OFF':
     cam.start_acquisition()
-#%% exposition    
+#%% exposition
 cond = 1
 while bool(cond):
     source = ''
@@ -48,14 +48,14 @@ while bool(cond):
         cond = 0
     else:
         print 'Please turn on the source and place the camera on the focus point (11.5 mm)'
-        
-if bool(source):        
+
+if bool(source):
     #Set exposure time
     cam.set_exposure(fX.determineUnsaturatedExposureTime(cam,img,1))
     #get centroid
     centroid = fX.getPSFCentroid(cam,img,initial_guess)
-    print 'centroid at (%d, %d)' %(centroid[0],centroid[1])    
-    
+    print 'centroid at (%d, %d)' %(centroid[0],centroid[1])
+
 #%%Acquire images at different camera position
 
 acquire = 1
@@ -69,10 +69,10 @@ while bool(acquire):
             cond = 0
         else:
             print 'Please shut down the source.'
-    
+
     winsound.Beep(freq, duration)
     pos = float(raw_input('What is the position of the camera in mm focused (11.5 mm) dephase 2Pi (Delta = 3.19mm) ? '))
-    
+
     if bool(dark):
         print 'Acquiring dark image...'
         # Acquire dark images
@@ -80,7 +80,7 @@ while bool(acquire):
         print 'Cropping'
         [darkdataCropped,stddarkDataCropped] = fX.cropAroundPSF(darkData,stdDarkData,centroid,sizeImgX,sizeImgY)
         fX.saveImg2Fits(datetime.datetime.today(),darkFolderPath,nameCamera,darkdataCropped,stddarkDataCropped,str(int(np.around(100*(11.5-pos),0))),nbrImgAveraging)
-        
+
     #Acquire images -------------------------
     cond = 1
     while bool(cond):
@@ -91,7 +91,7 @@ while bool(acquire):
             cond = 0
         else:
             print 'Please place turn on the camera'
-    
+
     if bool(source):
         print 'Acquiring images...'
         # Acquire focused images
@@ -102,7 +102,7 @@ while bool(acquire):
             [dataCropped,stdDataCropped] = fX.cropAroundPSF(data-darkData,stdData+stdDarkData,centroid,sizeImgX,sizeImgY)
             print 'Saving'
             fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,dataCropped,stdDataCropped,str(int(np.around(100*(11.5-pos),0))),nbrImgAveraging)
-    
+
     cond = 1
     while bool(cond):
         acquire = ''
@@ -113,9 +113,9 @@ while bool(acquire):
         elif acquire == 0:
             cond = 0
         else:
-             print 'please answer with 0 or 1 for no or yes, respectively' 
-             
-             
+             print 'please answer with 0 or 1 for no or yes, respectively'
+
+
 ##Stop the acquisition
 cam.stop_acquisition()
 cam.close_device()

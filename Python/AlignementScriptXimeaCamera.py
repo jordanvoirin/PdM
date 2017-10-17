@@ -1,4 +1,4 @@
-    
+
 ##Script to compute the FWHM of the beam on the camera averaging
  #over "nbrImgAveraging" images and see which position minimizes it.
 
@@ -9,6 +9,7 @@ import scipy.optimize as opt
 import datetime
 import functionsXimea as fX
 import seaborn as sns
+sns.set()
 #%% instanciation
 
 #create the matrix grid of the detector CCD
