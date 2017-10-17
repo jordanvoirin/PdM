@@ -29,7 +29,7 @@ for i = 1, n_elements(sFilePaths)-1 do begin
   sFile = sepFilePath[n_elements(sepFilePath)-1]
   sepsFile = strsplit(sFile,"_.",/EXTRACT)
   deltaZ[i] = double(sepsFile[n_elements(sepsFile)-2])/100
-  
+
   psf = mrdfits(sFilePaths[i],0,header)
   psfs[*,*,i]=psf
 endfor
@@ -45,9 +45,9 @@ jmax = 66
 pxSize = 5.3*1e-6
 fdist = 80.d*1e-3
 pxSizeArcSec = pxSize/fdist*!RADEG*3600.d
-mode = 'MODAL'
+mode = 'modal'
 res = 1
 
-Phase = diversityNEW(psfs,deltaZ,lambda,fdist,pxSizeArcSec,threshold,mode,res,D1=D1,D2=D2,jmax=jmax)
+Phase = diversity(psfs,deltaZ,lambda,fdist,pxSizeArcSec,threshold,mode,D1=D1,D2=D2,jmax=jmax)
 
 end

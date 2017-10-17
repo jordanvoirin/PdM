@@ -1,5 +1,5 @@
-
-##Script to compute the FWHM of the beam on the camera averaging 
+    
+##Script to compute the FWHM of the beam on the camera averaging
  #over "nbrImgAveraging" images and see which position minimizes it.
 
 from ximea import xiapi
@@ -8,7 +8,8 @@ from matplotlib import pyplot  as plt
 import scipy.optimize as opt
 import datetime
 import functionsXimea as fX
-#%% instanciation 
+import seaborn as sns
+#%% instanciation
 
 #create the matrix grid of the detector CCD
 x = np.linspace(0,1280,1280)
@@ -23,7 +24,7 @@ nbrImgAveraging = 10
 
 #%%data acquisition and treatment
 
-#create instance for first connected camera 
+#create instance for first connected camera
 cam = xiapi.Camera()
 #start communication
 print('Opening camera...')
@@ -37,7 +38,7 @@ img = xiapi.Image()
 print('Starting data acquisition...')
 if cam.get_acquisition_status() == 'XI_OFF':
          cam.start_acquisition()
-         
+
 cam.set_exposure(fX.determineUnsaturatedExposureTime(cam,img,1))
 
 #instanciation for the while loop
@@ -54,12 +55,12 @@ sigmaX0 = []
 sigmaY0 = []
 
 while answer == 'y':
-    
+
     try:
         relativePos.append(float(raw_input('What is the position on the screw [mm] ? ')))
     except ValueError:
         print('Not a float number')
-        
+
     #get data and pass them from camera to img
     cam.get_image(img)
     #create numpy array with data from camera. Dimensions of array are determined
@@ -68,27 +69,27 @@ while answer == 'y':
     for iImg in range(nbrImgAveraging) :
         cam.get_image(img)
         tmpData.append(img.get_image_data_numpy())
-    
+
     tmpData = np.array(tmpData)
-    
+
     data.append(np.nanmean(tmpData,0))
 
     #Fit the img data on the 2D Gaussian to compute the FWHM
     print('Fitting 2D Gaussian...')
     popt, pcov = opt.curve_fit(fX.TwoDGaussian, (x,y), data[i].ravel(), p0 = initial_guess)
     print('Fitting done')
-    
+
     FWHMx.append(2*np.sqrt(2*np.log(2))*popt[3])
     FWHMy.append(2*np.sqrt(2*np.log(2))*popt[4])
     x0.append(popt[1])
     sigmaX0.append(popt[3])
     y0.append(popt[2])
     sigmaY0.append(popt[4])
-    
+
     print 'Fig %d : FWHM x = %3.2f, FWHM y  = %3.2f' %(i,FWHMx[i],FWHMy[i])
-    
+
     data_fitted.append(fX.TwoDGaussian((x, y), popt).reshape(1024, 1280))
-    
+
     #plot the beamspot
     fig, ax = plt.subplots(1, 1)
     ax.imshow(data[i], cmap=plt.cm.jet,origin='bottom',
@@ -97,7 +98,7 @@ while answer == 'y':
     plt.xlim( (popt[1]-4*popt[3], popt[1]+4*popt[3]) )
     plt.ylim( (popt[2]-4*popt[4], popt[2]+4*popt[4]) )
     plt.show()
-    
+
     #ask if the person wants to acquire a new image to improve the alignement
     pressedkey = raw_input('Do you want to acquire an other image [y (yes) or n (no)]: ')
     if (pressedkey =='n'):
