@@ -11,11 +11,14 @@ Python Code :
 
 - AlignementScriptXimeaCamera.py : Script to align the camera on the focus point of the last lens.
 - AcquisAndSaveXimea.py : Script to acquire images using the Ximea camera
-- functionsXimea.py : some functions for the ximea 
+- functionsXimea.py : some functions for the ximea
     - saveImg2Fits()
     - AcquireImg()
     - determineUnsaturatedExposureTime()
-    
+    - TwoDGaussian()
+    - getPSFCentroid()
+    - cropAroundPSF()
+
 IDL Code :
 
 - phaseRetrieval.pro  : script to treat the *.fits PSF data in order to retrieve the phase of the wavefront
