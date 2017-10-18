@@ -48,6 +48,6 @@ pxSizeArcSec = pxSize/fdist*!RADEG*3600.d
 mode = 'MODAL'
 res = 1
 
-Phase = diversity(psfs,deltaZ,lambda,fdist,pxSizeArcSec,threshold,mode,D1=D1,D2=D2,jmax=jmax)
+Phase = diversity(psfs,deltaZ,lambda,fdist,pxSizeArcSec,threshold,mode,D1=D1,D2=D2,jmax=jmax,/show)
 
 end
