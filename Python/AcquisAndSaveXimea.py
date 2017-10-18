@@ -9,17 +9,16 @@ import numpy as np
 #%%instanciation --------------------------------------------------------------
 #number of image to average
 nbrImgAveraging = 5000
-numberOfFinalFocusedImages = 10
-numberOfFinalDefocusedImages = 10
+numberOfFinalImages = 2
 
 #Cropping information
 sizeImgX = 256
 sizeImgY = 256
-initial_guess = (250,481,708,3,3)
+initial_guess = (250,451,1218,3,3)
 
 #Parameter of camera and saving
-folderPath = '../../data/PD/'
-darkFolderPath = '../../data/dark/'
+folderPath = '../../data/PD/astigmatism/'
+darkFolderPath = '../../data/dark/astigmatism/'
 nameCamera = 'Ximea'
 
 #Sound
@@ -51,7 +50,7 @@ while bool(cond):
 
 if bool(source):
     #Set exposure time
-    cam.set_exposure(fX.determineUnsaturatedExposureTime(cam,img,1))
+    cam.set_exposure(fX.determineUnsaturatedExposureTime(cam,img,[1,1000],1))
     #get centroid
     centroid = fX.getPSFCentroid(cam,img,initial_guess)
     print 'centroid at (%d, %d)' %(centroid[0],centroid[1])
@@ -95,7 +94,7 @@ while bool(acquire):
     if bool(source):
         print 'Acquiring images...'
         # Acquire focused images
-        for iImg in range(numberOfFinalFocusedImages):
+        for iImg in range(numberOfFinalImages):
             print 'Acquiring Image %d'%iImg
             [data,stdData] = fX.acquireImg(cam,img,nbrImgAveraging)
             print 'Cropping'

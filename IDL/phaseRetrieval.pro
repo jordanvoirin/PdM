@@ -10,12 +10,12 @@ sFilePaths = file_search(filePath+fileExt)
 Nfiles =  n_elements(sFilePaths)
 deltaZ = DINDGEN(Nfiles)
 
-psf = mrdfits(sFilePaths[0],0)
+psf = readfits(sFilePaths[0])
 
 psfDim = size(psf,/dimension)
 
 psfs = make_array([psfDim[0],psfDim[1],Nfiles],/DOUBLE,value = 0.0)
-psfs[*,*,1] = psf
+psfs[*,*,0] = [[psf]]
 
 sepFilePath = strsplit(sFilePaths[0],'\',/EXTRACT)
 sFile = sepFilePath[n_elements(sepFilePath)-1]
@@ -30,24 +30,23 @@ for i = 1, n_elements(sFilePaths)-1 do begin
   sepsFile = strsplit(sFile,"_.",/EXTRACT)
   deltaZ[i] = double(sepsFile[n_elements(sepsFile)-2])/100
 
-  psf = mrdfits(sFilePaths[i],0,header)
-  psfs[*,*,i]=psf
+  psf = readfits(sFilePaths[i])
+  psfs[*,*,i]=[[psf]]
 endfor
 
 
 ;Run diversity
 
-lambda = 0.6375 ;microns
+lambda = 0.6375d ;microns
 threshold = 1e-3
 D1=3.2*1e-3
-D2=0.0
-jmax = 66
-pxSize = 5.3*1e-6
-fdist = 80.d*1e-3
+D2=0.d
+jmax = 231
+pxSize = 5.3e-6
+fdist = 80e-3
 pxSizeArcSec = pxSize/fdist*!RADEG*3600.d
-mode = 'MODAL'
-res = 1
+mode = 'zonal'
 
-Phase = diversity(psfs,deltaZ,lambda,fdist,pxSizeArcSec,threshold,mode,D1=D1,D2=D2,jmax=jmax,/show)
+res1 = diversity(psfs,deltaZ,lambda,fdist,pxSizeArcSec,threshold,mode,d1=D1,d2=D2,jmax=jmax,/show)
 
 end

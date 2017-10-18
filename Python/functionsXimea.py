@@ -40,8 +40,8 @@ def acquireImg(cam,img,nbrImgAveraging):
     return [imgData,stdData]
     
     
-def determineUnsaturatedExposureTime(cam,img,precision):
-     exposureTimes = [1,500]
+def determineUnsaturatedExposureTime(cam,img,exposureLimit,precision):
+     exposureTimes = exposureLimit
      if cam.get_acquisition_status() == 'XI_OFF':
          cam.start_acquisition()
          
@@ -49,7 +49,7 @@ def determineUnsaturatedExposureTime(cam,img,precision):
          expTime2check = int(np.round(np.nanmean(exposureTimes)))
          print 'Try expTime : %d [us]' %expTime2check
          cam.set_exposure(expTime2check)
-         data = acquireImg(cam,img,200)[0]
+         data = acquireImg(cam,img,10)[0]
          
          if np.sum(data>250)>1:
              exposureTimes[1] = int(np.ceil(np.nanmean(exposureTimes)))
