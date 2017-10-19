@@ -10,30 +10,55 @@ sFilePaths = file_search(filePath+fileExt)
 Nfiles =  n_elements(sFilePaths)
 deltaZ = DINDGEN(Nfiles)
 
-minSize = getMinImgSize(sFilePaths)
+imgSizes = getImgSize(sFilePaths)
+
+minSize = min(imgSizes[where(imgSizes ge 118)])
+
+if minSize mod 2 ne 0 then begin
+  minSize = minSize - 1
+endif
+
+print, 'Image size = ' + string(minSize) + 'x' + string(minSize)
 
 psf = readfits(sFilePaths[0])
-
 psfDim = size(psf,/dimension)
 
-psfs = make_array([psfDim[0],psfDim[1],Nfiles],/DOUBLE,value = 0.0)
-psfs[*,*,0] = [[psf]]
+psfs = []
+deltaZ = []
 
-sepFilePath = strsplit(sFilePaths[0],'\',/EXTRACT)
-sFile = sepFilePath[n_elements(sepFilePath)-1]
-sepsFile = strsplit(sFile,"_.",/EXTRACT)
-deltaZ[0] = double(sepsFile[n_elements(sepsFile)-2])
+if psfDim[0] ge minSize and psfDim[1] ge minSize then begin
+
+  ;get the deltaZ which is written in the filename
+  sepFilePath = strsplit(sFilePaths[0],'\',/EXTRACT)
+  sFile = sepFilePath[n_elements(sepFilePath)-1]
+  sepsFile = strsplit(sFile,"_.",/EXTRACT)
+  deltaZ = [deltaZ,double(sepsFile[n_elements(sepsFile)-2])/100]
+  
+  psfs=[[[psfs]],[[psf[psfDim[0]/2-minSize/2:psfDim[0]/2+minSize/2-1,psfDim[1]/2-minSize/2:psfDim[1]/2+minSize/2-1]]]]
+
+else then begin
+  print, 'img0 is to small and is not taken into account for the phase retrieval'
+endif
 
 ;Treat filenames to get the focused or defocused property of the PSFs and fill the vector deltaZ of dimension M for the diversity.pro
 for i = 1, n_elements(sFilePaths)-1 do begin
-  ;get the deltaZ which is written in the filename
-  sepFilePath = strsplit(sFilePaths[i],'\',/EXTRACT)
-  sFile = sepFilePath[n_elements(sepFilePath)-1]
-  sepsFile = strsplit(sFile,"_.",/EXTRACT)
-  deltaZ[i] = double(sepsFile[n_elements(sepsFile)-2])/100
-
+  
   psf = readfits(sFilePaths[i])
-  psfs[*,*,i]=[[psf]]
+  psfDim = size(psf,/dimension)
+  
+  if psfDim[0] ge minSize and psfDim[1] ge minSize then begin
+  
+    ;get the deltaZ which is written in the filename
+    sepFilePath = strsplit(sFilePaths[i],'\',/EXTRACT)
+    sFile = sepFilePath[n_elements(sepFilePath)-1]
+    sepsFile = strsplit(sFile,"_.",/EXTRACT)
+    deltaZ = [deltaZ,double(sepsFile[n_elements(sepsFile)-2])/100]
+  
+    psfs=[[[psfs]],[[psf[psfDim[0]/2-minSize/2:psfDim[0]/2+minSize/2-1,psfDim[1]/2-minSize/2:psfDim[1]/2+minSize/2-1]]]]
+  else then begin
+    print, 'img'+string(i)+' is to small and is not taken into account for the phase retrieval'
+  endif
+  
 endfor
 
 
