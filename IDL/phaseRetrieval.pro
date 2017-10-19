@@ -1,7 +1,7 @@
 ;Script to retrieve the phase of the wavefront
 ;
 
-filePath = 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\PD\'
+filePath = 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\PD\astigmatism\'
 fileExt = '*.fits'
 
 
@@ -9,6 +9,8 @@ fileExt = '*.fits'
 sFilePaths = file_search(filePath+fileExt)
 Nfiles =  n_elements(sFilePaths)
 deltaZ = DINDGEN(Nfiles)
+
+minSize = getMinImgSize(sFilePaths)
 
 psf = readfits(sFilePaths[0])
 
