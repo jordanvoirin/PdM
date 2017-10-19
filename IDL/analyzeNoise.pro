@@ -1,7 +1,7 @@
 ; Script to analyse the data
-; 
+;
 
-sfolderPath = 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\PD\astigmatism\test\*'
+sfolderPath = 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\PD\noise_study\*'
 
 sFolderPaths = file_search(sfolderPath,/Test_Directory)
 
@@ -12,7 +12,7 @@ results = []
 for iFol = 0, Nfolders-1 do begin
 
   results = [results,phaseRetrieval(sFolderPaths[iFol]+'\')]
-  
+
 ;  sepFolderPath = strsplit(sFolderPaths[iFol],'\',/EXTRACT)
 ;  snbrImages = sepFilePath[n_elements(sepFolderPath)-1]/100
 ;  nbrImages = [Angles,double(sAngle)]
@@ -25,7 +25,7 @@ for iFol = 0, Nfolders-1 do begin
   pres = plot(results[iFol].res.j,result.res.a_j,'b-2',xtitle='Zernike polynome j',ytitle = 'a_j',name='modal',xrange = [4,jmax])
   pzon = plot(results[iFol].zon.j,result.zon.a_j,'r-2',name='zonal',/overplot)
   !null = LEGEND(target=[pres, pzon])
-  
+
 endfor
 
 end
