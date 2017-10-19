@@ -36,9 +36,9 @@ if psfDim[0] ge minSize and psfDim[1] ge minSize then begin
   
   psfs=[[[psfs]],[[psf[psfDim[0]/2-minSize/2:psfDim[0]/2+minSize/2-1,psfDim[1]/2-minSize/2:psfDim[1]/2+minSize/2-1]]]]
 
-else then begin
+endif else begin
   print, 'img0 is to small and is not taken into account for the phase retrieval'
-endif
+endelse
 
 ;Treat filenames to get the focused or defocused property of the PSFs and fill the vector deltaZ of dimension M for the diversity.pro
 for i = 1, n_elements(sFilePaths)-1 do begin
@@ -55,9 +55,9 @@ for i = 1, n_elements(sFilePaths)-1 do begin
     deltaZ = [deltaZ,double(sepsFile[n_elements(sepsFile)-2])/100]
   
     psfs=[[[psfs]],[[psf[psfDim[0]/2-minSize/2:psfDim[0]/2+minSize/2-1,psfDim[1]/2-minSize/2:psfDim[1]/2+minSize/2-1]]]]
-  else then begin
+  endif else begin
     print, 'img'+string(i)+' is to small and is not taken into account for the phase retrieval'
-  endif
+  endelse
   
 endfor
 
@@ -68,12 +68,12 @@ lambda = 0.6375d ;microns
 threshold = 1e-3
 D1=3.2*1e-3
 D2=0.d
-jmax = 231
+jmax = 20
 pxSize = 5.3e-6
 fdist = 80e-3
 pxSizeArcSec = pxSize/fdist*!RADEG*3600.d
 mode = 'zonal'
 
-res1 = diversity(psfs,deltaZ,lambda,fdist,pxSizeArcSec,threshold,mode,d1=D1,d2=D2,jmax=jmax,/show)
+res = diversity(psfs,deltaZ,lambda,fdist,pxSizeArcSec,threshold,mode,d1=D1,d2=D2,jmax=jmax,/show)
 
 end
