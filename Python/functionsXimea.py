@@ -13,7 +13,7 @@ def saveImg2Fits(date,folderPath,Detector,data,stdData,pos,nbrAveragingImg):
     #Detector : name of detector (ex:Ximea)
     #data : np.array containing the image
     #stdData: np.array containing the error on each pixel
-    #focusType : 1 (focused) or 0 (defocused)
+    #pos : the position of the camera on the sliding holder in mm
 
     imgHdu = pyfits.PrimaryHDU(data)
     stdHdu = pyfits.ImageHDU(stdData,name = 'imgStdData')
