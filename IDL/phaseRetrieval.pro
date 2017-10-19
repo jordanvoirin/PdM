@@ -1,7 +1,7 @@
-;Script to retrieve the phase of the wavefront
+;function to retrieve the phase of the wavefront
 ;
-
-filePath = 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\PD\astigmatism\'
+function phaseRetrieval, filePath
+;filePath = 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\PD\astigmatism\'
 fileExt = '*.fits'
 
 
@@ -72,8 +72,17 @@ jmax = 20
 pxSize = 5.3e-6
 fdist = 80e-3
 pxSizeArcSec = pxSize/fdist*!RADEG*3600.d
-mode = 'zonal'
 
-res = diversity(psfs,deltaZ,lambda,fdist,pxSizeArcSec,threshold,mode,d1=D1,d2=D2,jmax=jmax,/show)
+res = diversity(psfs,deltaZ,lambda,fdist,pxSizeArcSec,threshold,'modal',d1=D1,d2=D2,jmax=jmax,/show)
+zon = diversity(psfs,deltaZ,lambda,fdist,pxSizeArcSec,threshold,'zonal',d1=D1,d2=D2,jmax=jmax,/show)
+
+loadct, 34
+tvsg,res.wavefront,6,1
+tvsg,zon.wavefront,6,2
+pres = plot(res.j,res.a_j,'b-2',xtitle='Zernike polynome j',ytitle = 'a_j',name='modal',xrange = [4,jmax])
+pzon = plot(zon.j,zon.a_j,'r-2',name='zonal',/overplot)
+!null = LEGEND(target=[pres, pzon])
+
+return, [res,zon]
 
 end
