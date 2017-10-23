@@ -63,7 +63,7 @@ def TwoDGaussian((x, y), A, yo, xo, sigma_y, sigma_x):
     g = A*np.exp( - ((x-xo)**2/(2*sigma_x**2) + ((y-yo)**2)/(2*sigma_y**2)))
     return g.ravel()
 
-def acquirePSFCentroid(cam,img,initialGuessFit):
+def acquirePSFCentroid(cam,img):
     #create the matrix grid of the detector CCD
     x = np.linspace(0,1280,1280)
     y = np.linspace(0,1024,1024)

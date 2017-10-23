@@ -15,7 +15,7 @@ for iFol = 0, Nfolders-1 do begin
 
 ;  sepFolderPath = strsplit(sFolderPaths[iFol],'\',/EXTRACT)
 ;  snbrImages = sepFilePath[n_elements(sepFolderPath)-1]/100
-;  nbrImages = [Angles,double(sAngle)]
+;  nbrImages = [nbrImages,double(snbrImages)]
 
   resDim = size(results[iFol].res.wavefront,/dimension)
   imres = image(results[iFol].res.wavefront,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],yrange=[0,resDim[1]],title='Modal', MARGIN=0,layout=[2,1,1])

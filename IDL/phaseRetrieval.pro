@@ -73,8 +73,8 @@ pxSize = 5.3e-6
 fdist = 80e-3
 pxSizeArcSec = pxSize/fdist*!RADEG*3600.d
 
-res = diversity(psfs,deltaZ,lambda,fdist,pxSizeArcSec,threshold,'modal',d1=D1,d2=D2,jmax=jmax,/show)
-zon = diversity(psfs,deltaZ,lambda,fdist,pxSizeArcSec,threshold,'zonal',d1=D1,d2=D2,jmax=jmax,/show)
+res = diversity(psfs,deltaZ,lambda,fdist,pxSizeArcSec,threshold,'modal',d1=D1,d2=D2,jmax=jmax)
+zon = diversity(psfs,deltaZ,lambda,fdist,pxSizeArcSec,threshold,'zonal',d1=D1,d2=D2,jmax=jmax)
 
 return, {res:res, zon:zon}
 

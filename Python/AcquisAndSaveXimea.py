@@ -9,15 +9,14 @@ import numpy as np
 #%%instanciation --------------------------------------------------------------
 #number of image to average
 nbrImgAveraging = 5000
-numberOfFinalImages = 2
+numberOfFinalImages = 1
 
 #Cropping information
 sizeImg = 256
-initial_guess = (250,451,1218,3,3)
 
 #Parameter of camera and saving
-folderPath = '../../data/PD/astigmatism/'
-darkFolderPath = '../../data/dark/astigmatism/'
+folderPath = '../../data/PD/astigmatism/angle_study/55/'
+darkFolderPath = '../../data/dark/astigmatism/angle_study/55/'
 nameCamera = 'Ximea'
 
 #Sound
@@ -49,9 +48,9 @@ while bool(cond):
 
 if bool(source):
     #Set exposure time
-    cam.set_exposure(fX.determineUnsaturatedExposureTime(cam,img,[1,1000],1))
+    cam.set_exposure(fX.determineUnsaturatedExposureTime(cam,img,[1,10000],1))
     #get centroid
-    centroid = fX.acquirePSFCentroid(cam,img,initial_guess)
+    centroid = fX.acquirePSFCentroid(cam,img)
     print 'centroid at (%d, %d)' %(centroid[0],centroid[1])
 
 #%%Acquire images at different camera position
@@ -76,7 +75,8 @@ while bool(acquire):
         # Acquire dark images
         [darkData,stdDarkData] = fX.acquireImg(cam,img,nbrImgAveraging)
         print 'Cropping'
-        [darkdataCropped,stddarkDataCropped] = fX.cropAroundPSF(darkData,stdDarkData,[512,640],sizeImg,sizeImg)
+        [darkdataCropped,stddarkDataCropped] = fX.cropAroundPSF(darkData,stdDarkData,centroid,sizeImg,sizeImg)
+        print 'saving'        
         fX.saveImg2Fits(datetime.datetime.today(),darkFolderPath,nameCamera,darkdataCropped,stddarkDataCropped,str(int(np.around(100*(11.5-pos),0))),nbrImgAveraging)
 
     #Acquire images -------------------------
@@ -94,10 +94,11 @@ while bool(acquire):
         print 'Acquiring images...'
         # Acquire focused images
         for iImg in range(numberOfFinalImages):
-            print 'Acquiring Image %d'%iImg
+            imgNumber = iImg+1
+            print 'Acquiring Image %d'%imgNumber
             [data,stdData] = fX.acquireImg(cam,img,nbrImgAveraging)
             print 'Cropping'
-            [dataCropped,stdDataCropped] = fX.cropAndCenterPSF(data-darkData,stdData+stdDarkData,centroid,sizeImg)
+            [dataCropped,stdDataCropped] = fX.cropAndCenterPSF(data-darkData,stdData+stdDarkData,sizeImg)
             print 'Saving'
             fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,dataCropped,stdDataCropped,str(int(np.around(100*(11.5-pos),0))),nbrImgAveraging)
 
