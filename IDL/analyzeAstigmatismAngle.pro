@@ -10,13 +10,11 @@ Nfolders =  n_elements(sFolderPaths)
 Angles = []
 results = []
 for iFol = 0, Nfolders-1 do begin
-
   results = [results,phaseRetrieval(sFolderPaths[iFol]+'\')]
 
   sepFolderPath = strsplit(sFolderPaths[iFol],'\',/EXTRACT)
   sAngle = sepFolderPath[n_elements(sepFolderPath)-1]
   Angles = [Angles,double(sAngle)]
-
 endfor
 
 astAjres = []
@@ -28,8 +26,16 @@ endfor
 
 sortedInd = sort(Angles)
 
-pAstAngleres = plot(Angles[sortedInd],astAjres[sortedInd],'b-2',xtitle='Parallel Faces Angle [deg]',ytitle = 'Astigmatism Coef Norm',name='modal')
-pAstAnglezon = plot(Angles[sortedInd],astAjzon[sortedInd],'r-2',name='zonal',/overplot)
+;plot Norm astigmatism vs. angle
+
+pAstAngleres = plot(Angles[sortedInd],astAjres[sortedInd]*1000.d,'b-2',xtitle='Parallel Faces Angle [deg]',ytitle = 'Astigmatism Coef Norm [nm]',name='modal')
+pAstAnglezon = plot(Angles[sortedInd],astAjzon[sortedInd]*1000.d,'r-2',name='zonal',/overplot)
+!null = LEGEND(target=[pAstAngleres, pAstAnglezon])
+
+; plot defocus coeff. vs. angle
+
+pAstAngleres = plot(Angles[sortedInd],results[sortedInd].res.a_j[4]*1000.d,'b-2',xtitle='Parallel Faces Angle [deg]',ytitle = 'Defocus Coef [nm]',name='modal')
+pAstAnglezon = plot(Angles[sortedInd],results[sortedInd].zon.a_j[4]*1000.d,'r-2',name='zonal',/overplot)
 !null = LEGEND(target=[pAstAngleres, pAstAnglezon])
 
 nbrRows = Nfolders
@@ -50,12 +56,12 @@ pzon = plot(results[0].zon.j,results[0].zon.a_j,'r-2',name='zonal',/overplot)
 for iFol = 1, Nfolders-1 do begin
   
   resDim = size(results[iFol].res.wavefront,/dimension)
-  imres = image(results[iFol].res.wavefront,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],yrange=[0,resDim[1]],title=string(long(Angles[iFol]))+ ' Modal', MARGIN=marge,/current,layout=[nbrCol,nbrRows,iFol*2+iFol-2])
+  imres = image(results[iFol].res.wavefront,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],yrange=[0,resDim[1]],title=string(long(Angles[iFol]))+ ' Modal', MARGIN=marge,/current,layout=[nbrCol,nbrRows,(iFol+1)*2+(iFol+1)-2])
   zonDim = size(results[iFol].zon.wavefront,/dimension)
-  imzon = image(results[iFol].zon.wavefront,rgb_table=34,image_dimensions=zonDim,xrange=[0,zonDim[0]],yrange=[0,zonDim[1]],title='Zonal', MARGIN=marge,/current,layout=[nbrCol,nbrRows,iFol*2+iFol-1])
+  imzon = image(results[iFol].zon.wavefront,rgb_table=34,image_dimensions=zonDim,xrange=[0,zonDim[0]],yrange=[0,zonDim[1]],title='Zonal', MARGIN=marge,/current,layout=[nbrCol,nbrRows,(iFol+1)*2+(iFol+1)-1])
   
   jmax = max(results[iFol].res.j)
-  pres = plot(results[iFol].res.j,results[iFol].res.a_j,'b-2',xtitle='Zernike polynome j',ytitle = 'a_j',name='modal',xrange = [4,jmax], MARGIN=marge,/current,layout=[nbrCol,nbrRows,iFol*2+iFol])
+  pres = plot(results[iFol].res.j,results[iFol].res.a_j,'b-2',xtitle='Zernike polynome j',ytitle = 'a_j',name='modal',xrange = [4,jmax], MARGIN=marge,/current,layout=[nbrCol,nbrRows,(iFol+1)*2+(iFol+1)])
   pzon = plot(results[iFol].zon.j,results[iFol].zon.a_j,'r-2',name='zonal',/overplot)
   
 endfor

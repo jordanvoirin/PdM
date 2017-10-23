@@ -63,33 +63,29 @@ def TwoDGaussian((x, y), A, yo, xo, sigma_y, sigma_x):
     g = A*np.exp( - ((x-xo)**2/(2*sigma_x**2) + ((y-yo)**2)/(2*sigma_y**2)))
     return g.ravel()
 
-def acquirePSFCentroid(cam,img):
+def acquirePSFCentroid(cam,img,initial_guess):
     #create the matrix grid of the detector CCD
+
+    data = acquireImg(cam,img,200)[0]
+    centroid = getPSFCentroid(data,initial_guess)
+    return centroid
+
+def getPSFCentroid(data,initial_guess):
+    
     x = np.linspace(0,1280,1280)
     y = np.linspace(0,1024,1024)
     x, y = np.meshgrid(x, y)
-    data = acquireImg(cam,img,200)[0]
-    centroid = getPSFCentroid(data)
-    return centroid
-
-def getPSFCentroid(data):
-    xmean = 0
-    ymean = 0
-    for ix in range(np.size(data,1)):
-        xmean += np.sum(data[:,ix])*ix
-    xmean = int(np.around(xmean/np.sum(data)))
-    for iy in range(np.size(data,0)):
-        ymean += np.sum(data[iy,:])*iy
-    ymean = int(np.around(ymean/np.sum(data)))
-
-    return [xmean,ymean]
+    print 'fitting'
+    popt,pcov = opt.curve_fit(TwoDGaussian, (x,y), data.ravel(), p0 = initial_guess)
+    print 'fitting done'
+    return [popt[2],popt[1]]
 
 
-def cropAndCenterPSF(data,stdData,size):
+def cropAndCenterPSF(data,stdData,size,initial_guess):
     Xextent = np.size(data,1)-1
     Yextent = np.size(data,0)-1
 
-    centroid = getPSFCentroid(data)
+    centroid = getPSFCentroid(data,initial_guess)
 
     minMarge = np.min([centroid[0],centroid[1],Xextent-centroid[0],Yextent-centroid[1]])
 
