@@ -1,6 +1,6 @@
 ;function to retrieve the phase of the wavefront
 ;
-function phaseRetrieval, filePath
+function phaseRetrieval, filePath, jmax, modal, zonal
 ;filePath = 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\PD\astigmatism\'
 fileExt = '*.fits'
 
@@ -68,14 +68,24 @@ lambda = 0.6375d ;microns
 threshold = 1e-3
 D1=3.2*1e-3
 D2=0.d
-jmax = 20
+jmax = jmax
 pxSize = 5.3e-6
 fdist = 80e-3
 pxSizeArcSec = pxSize/fdist*!RADEG*3600.d
 
-res = diversity(psfs,deltaZ,lambda,fdist,pxSizeArcSec,threshold,'modal',d1=D1,d2=D2,jmax=jmax)
-zon = diversity(psfs,deltaZ,lambda,fdist,pxSizeArcSec,threshold,'zonal',d1=D1,d2=D2,jmax=jmax)
+if modal eq 1 and zonal ne 1 then begin
+  res = diversity(psfs,deltaZ,lambda,fdist,pxSizeArcSec,threshold,'modal',d1=D1,d2=D2,jmax=jmax)
+  return, {res:res}
+endif
+if modal ne 1 and zonal eq 1 then begin
+  zon = diversity(psfs,deltaZ,lambda,fdist,pxSizeArcSec,threshold,'zonal',d1=D1,d2=D2,jmax=jmax)
+  return, {zon:zon}
+endif
+if modal eq 1 and zonal eq 1 then begin
+  res = diversity(psfs,deltaZ,lambda,fdist,pxSizeArcSec,threshold,'modal',d1=D1,d2=D2,jmax=jmax)
+  zon = diversity(psfs,deltaZ,lambda,fdist,pxSizeArcSec,threshold,'zonal',d1=D1,d2=D2,jmax=jmax)
+  return, {res:res, zon:zon}
+endif
 
-return, {res:res, zon:zon}
 
 end

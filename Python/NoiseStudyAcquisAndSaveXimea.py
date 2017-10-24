@@ -8,6 +8,8 @@ import numpy as np
 #%%instanciation --------------------------------------------------------------
 #number of image to average
 nbrImgAveragings = [10,50,100,150,200,250,300,350,400,500,600,700,800,900,1000,1250,1500,1750,2000,2500,3000,3500,4000,4500,5000]
+
+nbrImgAveragings = [900,1000,1250,1500,1750,2000,2500,3000,3500,4000,4500,5000]
 numberOfFinalImages = 1
 
 #Cropping information
@@ -85,12 +87,15 @@ while bool(acquire):
         print 'Acquiring images...'
         for nbrAveraging in nbrImgAveragings:
             #Parameter of camera and saving
-            folderPath = '../../data/PD/noise_study/%d/'%nbrAveraging
-            darkFolderPath = '../../data/dark/noise_study/%d/'%nbrAveraging
+            folderPathCropped = '../../data/PD/noise_study/cropped/%d/'%nbrAveraging
+            darkFolderPathCropped = '../../data/dark/noise_study/cropped/%d/'%nbrAveraging
+            folderPathfull = '../../data/PD/noise_study/full/%d/'%nbrAveraging
+            darkFolderPathfull = '../../data/dark/noise_study/full/%d/'%nbrAveraging
             nameCamera = 'Ximea'
             
             print 'saving dark nbrAveraging %d' %nbrAveraging        
-            fX.saveImg2Fits(datetime.datetime.today(),darkFolderPath,nameCamera,darkdataCropped,stddarkDataCropped,str(int(np.around(100*(11.5-pos),0))),nbrAveraging)
+            fX.saveImg2Fits(datetime.datetime.today(),darkFolderPathCropped,nameCamera,darkdataCropped,stddarkDataCropped,str(int(np.around(100*(11.5-pos),0))),nbrAveraging)
+            fX.saveImg2Fits(datetime.datetime.today(),darkFolderPathfull,nameCamera,darkData,stdDarkData,str(int(np.around(100*(11.5-pos),0))),nbrAveraging)
     
             # Acquire focused images
             for iImg in range(numberOfFinalImages):
@@ -100,7 +105,8 @@ while bool(acquire):
                 print 'Cropping'
                 [dataCropped,stdDataCropped] = fX.cropAndCenterPSF(data-darkData,stdData+stdDarkData,sizeImg,initial_guess)
                 print 'Saving'
-                fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,dataCropped,stdDataCropped,str(int(np.around(100*(11.5-pos),0))),nbrAveraging)
+                fX.saveImg2Fits(datetime.datetime.today(),folderPathCropped,nameCamera,dataCropped,stdDataCropped,str(int(np.around(100*(11.5-pos),0))),nbrAveraging)
+                fX.saveImg2Fits(datetime.datetime.today(),folderPathfull,nameCamera,data-darkData,stdData+stdDarkData,str(int(np.around(100*(11.5-pos),0))),nbrAveraging)
         
     cond = 1
     while bool(cond):

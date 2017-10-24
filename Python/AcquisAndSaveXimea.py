@@ -15,8 +15,10 @@ numberOfFinalImages = 1
 sizeImg = 256
 
 #Parameter of camera and saving
-folderPath = '../../data/PD/noise_study/300/'
-darkFolderPath = '../../data/dark/noise_study/300/'
+folderPathCropped = '../../data/PD/noise_study/Cropped/300/'
+darkFolderPathCropped = '../../data/dark/noise_study/Cropped/300/'
+folderPathFull = '../../data/PD/noise_study/Full/300/'
+darkFolderPathFull = '../../data/dark/noise_study/Full/300/'
 nameCamera = 'Ximea'
 
 #Sound
@@ -77,7 +79,8 @@ while bool(acquire):
         print 'Cropping'
         [darkdataCropped,stddarkDataCropped] = fX.cropAroundPSF(darkData,stdDarkData,centroid,sizeImg,sizeImg)
         print 'saving'        
-        fX.saveImg2Fits(datetime.datetime.today(),darkFolderPath,nameCamera,darkdataCropped,stddarkDataCropped,str(int(np.around(100*(11.5-pos),0))),nbrImgAveraging)
+        fX.saveImg2Fits(datetime.datetime.today(),darkFolderPathCropped,nameCamera,darkdataCropped,stddarkDataCropped,str(int(np.around(100*(11.5-pos),0))),nbrImgAveraging)
+        fX.saveImg2Fits(datetime.datetime.today(),darkFolderPathFull,nameCamera,darkData,stdDarkData,str(int(np.around(100*(11.5-pos),0))),nbrImgAveraging)
 
     #Acquire images -------------------------
     cond = 1
@@ -100,7 +103,8 @@ while bool(acquire):
             print 'Cropping'
             [dataCropped,stdDataCropped] = fX.cropAndCenterPSF(data-darkData,stdData+stdDarkData,sizeImg)
             print 'Saving'
-            fX.saveImg2Fits(datetime.datetime.today(),folderPath,nameCamera,dataCropped,stdDataCropped,str(int(np.around(100*(11.5-pos),0))),nbrImgAveraging)
+            fX.saveImg2Fits(datetime.datetime.today(),folderPathCropped,nameCamera,dataCropped,stdDataCropped,str(int(np.around(100*(11.5-pos),0))),nbrImgAveraging)
+            fX.saveImg2Fits(datetime.datetime.today(),folderPathFull,nameCamera,data-darkData,stdData+stdDarkData,str(int(np.around(100*(11.5-pos),0))),nbrImgAveraging)
 
     cond = 1
     while bool(cond):

@@ -1,22 +1,24 @@
-; Script to analyse the data
+; Script to analyse the astigmatism data
 ;
-
+;instanciate folderPath------------------------------------------------------------------------
 sfolderPath = 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\PD\astigmatism\angle_study\*'
 
 sFolderPaths = file_search(sfolderPath,/Test_Directory)
 
 Nfolders =  n_elements(sFolderPaths)
 
+;run phaseRetrieval----------------------------------------------------------------------------
 Angles = []
 results = []
 for iFol = 0, Nfolders-1 do begin
-  results = [results,phaseRetrieval(sFolderPaths[iFol]+'\')]
+  results = [results,phaseRetrieval(sFolderPaths[iFol]+'\',20)]
 
   sepFolderPath = strsplit(sFolderPaths[iFol],'\',/EXTRACT)
   sAngle = sepFolderPath[n_elements(sepFolderPath)-1]
   Angles = [Angles,double(sAngle)]
 endfor
 
+;compute the astigmatism coefficient norm -----------------------------------------------------
 astAjres = []
 astAjzon = []
 for iFol = 0, Nfolders-1 do begin
@@ -26,18 +28,20 @@ endfor
 
 sortedInd = sort(Angles)
 
-;plot Norm astigmatism vs. angle
+;plot Norm astigmatism vs. angle--------------------------------------------------------------------
 
 pAstAngleres = plot(Angles[sortedInd],astAjres[sortedInd]*1000.d,'b-2',xtitle='Parallel Faces Angle [deg]',ytitle = 'Astigmatism Coef Norm [nm]',name='modal')
 pAstAnglezon = plot(Angles[sortedInd],astAjzon[sortedInd]*1000.d,'r-2',name='zonal',/overplot)
 !null = LEGEND(target=[pAstAngleres, pAstAnglezon])
 
-; plot defocus coeff. vs. angle
+; plot defocus coeff. vs. angle----------------------------------------------------------------------
 
 pAstAngleres = plot(Angles[sortedInd],results[sortedInd].res.a_j[4]*1000.d,'b-2',xtitle='Parallel Faces Angle [deg]',ytitle = 'Defocus Coef [nm]',name='modal')
 pAstAnglezon = plot(Angles[sortedInd],results[sortedInd].zon.a_j[4]*1000.d,'r-2',name='zonal',/overplot)
 !null = LEGEND(target=[pAstAngleres, pAstAnglezon])
 
+
+;Compare Phase and zernike modal vs. zonal-----------------------------------------------------------
 nbrRows = Nfolders
 nbrCol = 3
 
