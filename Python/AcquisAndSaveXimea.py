@@ -8,22 +8,26 @@ import numpy as np
 
 #%%instanciation --------------------------------------------------------------
 #number of image to average
-nbrImgAveraging = 300
+nbrImgAveraging = 5000
 numberOfFinalImages = 1
 
 #Cropping information
 sizeImg = 256
 
 #Parameter of camera and saving
-folderPathCropped = '../../data/PD/noise_study/Cropped/300/'
-darkFolderPathCropped = '../../data/dark/noise_study/Cropped/300/'
-folderPathFull = '../../data/PD/noise_study/Full/300/'
-darkFolderPathFull = '../../data/dark/noise_study/Full/300/'
+folderPathCropped = '../../data/PD/astigmatism/angle_study/cropped/50/'
+darkFolderPathCropped = '../../data/dark/astigmatism/angle_study/cropped/50/'
+folderPathFull = '../../data/PD/astigmatism/angle_study/full/50/'
+darkFolderPathFull = '../../data/dark/astigmatism/angle_study/full/50/'
 nameCamera = 'Ximea'
+focusPos = 10.71
 
 #Sound
 duration = 1000  # millisecond
 freq = 2000  # Hz
+
+#initial guess for the fit depending on the position of the beam in the CCD
+initial_guess = [250, 465, 1148, 3, 3]
 
 #------------------------------------------------------------------------------
 #%% data acquisition ----------------------------------------------------------
@@ -42,17 +46,17 @@ cond = 1
 while bool(cond):
     source = ''
     winsound.Beep(freq, duration)
-    source = int(raw_input('Is the source turned on and at 11.5 mm (yes = 1) ? '))
+    source = int(raw_input('Is the source turned on and at focus point (usually %5.3f mm) (yes = 1) ? '%focusPos))
     if source == 1:
         cond = 0
     else:
-        print 'Please turn on the source and place the camera on the focus point (11.5 mm)'
+        print 'Please turn on the source and place the camera on the focus point (%5.3f mm)'%focusPos
 
 if bool(source):
     #Set exposure time
     cam.set_exposure(fX.determineUnsaturatedExposureTime(cam,img,[1,10000],1))
     #get centroid
-    centroid = fX.acquirePSFCentroid(cam,img)
+    centroid = fX.acquirePSFCentroid(cam,img,initial_guess)
     print 'centroid at (%d, %d)' %(centroid[0],centroid[1])
 
 #%%Acquire images at different camera position
@@ -70,7 +74,7 @@ while bool(acquire):
             print 'Please shut down the source.'
 
     winsound.Beep(freq, duration)
-    pos = float(raw_input('What is the position of the camera in mm focused (11.5 mm) dephase 2Pi (Delta = 3.19mm) ? '))
+    pos = float(raw_input('What is the position of the camera in mm focused (%5.3f mm) dephase 2Pi (Delta = 3.19mm) ? '%focusPos))
 
     if bool(dark):
         print 'Acquiring dark image...'
@@ -79,8 +83,8 @@ while bool(acquire):
         print 'Cropping'
         [darkdataCropped,stddarkDataCropped] = fX.cropAroundPSF(darkData,stdDarkData,centroid,sizeImg,sizeImg)
         print 'saving'        
-        fX.saveImg2Fits(datetime.datetime.today(),darkFolderPathCropped,nameCamera,darkdataCropped,stddarkDataCropped,str(int(np.around(100*(11.5-pos),0))),nbrImgAveraging)
-        fX.saveImg2Fits(datetime.datetime.today(),darkFolderPathFull,nameCamera,darkData,stdDarkData,str(int(np.around(100*(11.5-pos),0))),nbrImgAveraging)
+        fX.saveImg2Fits(datetime.datetime.today(),darkFolderPathCropped,nameCamera,darkdataCropped,stddarkDataCropped,str(int(np.around(100*(focusPos-pos),0))),nbrImgAveraging)
+        fX.saveImg2Fits(datetime.datetime.today(),darkFolderPathFull,nameCamera,darkData,stdDarkData,str(int(np.around(100*(focusPos-pos),0))),nbrImgAveraging)
 
     #Acquire images -------------------------
     cond = 1
@@ -101,10 +105,10 @@ while bool(acquire):
             print 'Acquiring Image %d'%imgNumber
             [data,stdData] = fX.acquireImg(cam,img,nbrImgAveraging)
             print 'Cropping'
-            [dataCropped,stdDataCropped] = fX.cropAndCenterPSF(data-darkData,stdData+stdDarkData,sizeImg)
+            [dataCropped,stdDataCropped] = fX.cropAndCenterPSF(data-darkData,stdData+stdDarkData,sizeImg,initial_guess)
             print 'Saving'
-            fX.saveImg2Fits(datetime.datetime.today(),folderPathCropped,nameCamera,dataCropped,stdDataCropped,str(int(np.around(100*(11.5-pos),0))),nbrImgAveraging)
-            fX.saveImg2Fits(datetime.datetime.today(),folderPathFull,nameCamera,data-darkData,stdData+stdDarkData,str(int(np.around(100*(11.5-pos),0))),nbrImgAveraging)
+            fX.saveImg2Fits(datetime.datetime.today(),folderPathCropped,nameCamera,dataCropped,stdDataCropped,str(int(np.around(100*(focusPos-pos),0))),nbrImgAveraging)
+            fX.saveImg2Fits(datetime.datetime.today(),folderPathFull,nameCamera,data-darkData,stdData+stdDarkData,str(int(np.around(100*(focusPos-pos),0))),nbrImgAveraging)
 
     cond = 1
     while bool(cond):
