@@ -9,9 +9,9 @@ Nfolders =  n_elements(sFolderPaths)
 
 ;run phaseRetrieval----------------------------------------------------------------------------
 Angles = []
-results = []
+results = list()
 for iFol = 0, Nfolders-1 do begin
-  results = [results,phaseRetrieval(sFolderPaths[iFol]+'\',20,1,1)]
+  results.add, phaseRetrieval(sFolderPaths[iFol]+'\',20,1,1)
 
   sepFolderPath = strsplit(sFolderPaths[iFol],'\',/EXTRACT)
   sAngle = sepFolderPath[n_elements(sepFolderPath)-1]
@@ -21,9 +21,13 @@ endfor
 ;compute the astigmatism coefficient norm -----------------------------------------------------
 astAjres = []
 astAjzon = []
+defocAjres = []
+defocAjzon = []
 for iFol = 0, Nfolders-1 do begin
-  astAjres = [astAjres,sqrt(results[iFol].res.a_j[5]*results[iFol].res.a_j[5]+results[iFol].res.a_j[6]*results[iFol].res.a_j[6])]
-  astAjzon = [astAjzon,sqrt(results[iFol].zon.a_j[5]*results[iFol].zon.a_j[5]+results[iFol].zon.a_j[6]*results[iFol].zon.a_j[6])]
+  astAjres = [astAjres,sqrt(results[iFol].res.a_j[1]*results[iFol].res.a_j[1]+results[iFol].res.a_j[2]*results[iFol].res.a_j[2])]
+  astAjzon = [astAjzon,sqrt(results[iFol].zon.a_j[1]*results[iFol].zon.a_j[1]+results[iFol].zon.a_j[2]*results[iFol].zon.a_j[2])]
+  defocAjres = [defocAjres,results[iFol].res.a_j[0]]
+  defocAjzon = [defocAjzon,results[iFol].zon.a_j[0]]
 endfor
 
 sortedInd = sort(Angles)
@@ -32,13 +36,16 @@ sortedInd = sort(Angles)
 
 pAstAngleres = plot(Angles[sortedInd],astAjres[sortedInd]*1000.d,'b-2',xtitle='Parallel Faces Angle [deg]',ytitle = 'Astigmatism Coef Norm [nm]',name='modal')
 pAstAnglezon = plot(Angles[sortedInd],astAjzon[sortedInd]*1000.d,'r-2',name='zonal',/overplot)
-!null = LEGEND(target=[pAstAngleres, pAstAnglezon])
-
+!null = LEGEND(target=[pAstAngleres, pAstAnglezon],/DATA)
+pAstAngleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\astigmatism_angle.pdf', BORDER=10, RESOLUTION=350
+pAstAngleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\astigmatism_angle.png', BORDER=10, RESOLUTION=350, /TRANSPARENT
 ; plot defocus coeff. vs. angle----------------------------------------------------------------------
 
-pAstAngleres = plot(Angles[sortedInd],results[sortedInd].res.a_j[4]*1000.d,'b-2',xtitle='Parallel Faces Angle [deg]',ytitle = 'Defocus Coef [nm]',name='modal')
-pAstAnglezon = plot(Angles[sortedInd],results[sortedInd].zon.a_j[4]*1000.d,'r-2',name='zonal',/overplot)
-!null = LEGEND(target=[pAstAngleres, pAstAnglezon])
+pdefocAngleres = plot(Angles[sortedInd],defocAjres[sortedInd]*1000.d,'b-2',xtitle='Parallel Faces Angle [deg]',ytitle = 'Defocus Coef [nm]',name='modal')
+pdefocAnglezon = plot(Angles[sortedInd],defocAjzon[sortedInd]*1000.d,'r-2',name='zonal',/overplot)
+!null = LEGEND(target=[pdefocAngleres, pdefocAnglezon],/DATA)
+pdefocAngleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\defoc_angle.pdf', BORDER=10, RESOLUTION=350
+pdefocAngleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\defoc_angle.png', BORDER=10, RESOLUTION=350, /TRANSPARENT
 
 
 ;Compare Phase and zernike modal vs. zonal-----------------------------------------------------------
@@ -55,7 +62,7 @@ imzon = image(results[0].zon.wavefront,rgb_table=34,image_dimensions=zonDim,xran
 jmax = max(results[0].res.j)
 pres = plot(results[0].res.j,results[0].res.a_j,'b-2',xtitle='Zernike polynome j',ytitle = 'a_j',name='modal',xrange = [4,jmax], MARGIN=marge,/current,layout=[nbrCol,nbrRows,3])
 pzon = plot(results[0].zon.j,results[0].zon.a_j,'r-2',name='zonal',/overplot)
-!null = LEGEND(target=[pres, pzon])
+;!null = LEGEND(target=[pres, pzon])
 
 for iFol = 1, Nfolders-1 do begin
   
@@ -69,5 +76,9 @@ for iFol = 1, Nfolders-1 do begin
   pzon = plot(results[iFol].zon.j,results[iFol].zon.a_j,'r-2',name='zonal',/overplot)
   
 endfor
+
+imres.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\phaseModZonZer.pdf', BORDER=10, RESOLUTION=350
+imres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\phaseModZonZer.png', BORDER=10, RESOLUTION=350, /TRANSPARENT
+
 
 end
