@@ -89,9 +89,9 @@ def cropAndCenterPSF(data,stdData,size,initial_guess):
 
     minMarge = np.min([centroid[0],centroid[1],Xextent-centroid[0],Yextent-centroid[1]])
 
-    if minMarge>size:
+    if minMarge>size/2:
         return cropAroundPSF(data,stdData,centroid,size,size)
-    elif minMarge<size:
+    elif minMarge<size/2:
         return cropAroundPSF(data,stdData, centroid,minMarge,minMarge)
 
 

@@ -1,7 +1,7 @@
 ; Script to analyse the astigmatism data
 ;
 ;instanciate folderPath------------------------------------------------------------------------
-sfolderPath = 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\PD\astigmatism\angle_study\*'
+sfolderPath = 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\PD\astigmatism\angle_study\cropped\*'
 
 sFolderPaths = file_search(sfolderPath,/Test_Directory)
 
@@ -11,7 +11,7 @@ Nfolders =  n_elements(sFolderPaths)
 Angles = []
 results = []
 for iFol = 0, Nfolders-1 do begin
-  results = [results,phaseRetrieval(sFolderPaths[iFol]+'\',20)]
+  results = [results,phaseRetrieval(sFolderPaths[iFol]+'\',20,1,1)]
 
   sepFolderPath = strsplit(sFolderPaths[iFol],'\',/EXTRACT)
   sAngle = sepFolderPath[n_elements(sepFolderPath)-1]
