@@ -1,4 +1,4 @@
-function abberationAstigmatismModel, nplate,e,phi
+function aberrationAstigmatismModel, nplate,e,phi
 
 beta = phi*!pi/180.d
 pup = 3.2e-3

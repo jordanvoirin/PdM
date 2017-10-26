@@ -1,0 +1,19 @@
+% Encoding: UTF-8
+
+@MastersThesis{Bouxin_PDM,
+  author = {A. Bouxin},
+  title =  {Phasor diversity to measure the static aberrations of an optical system},
+  school = {HEIG-VD},
+  year =   {2017}
+}
+
+@Book{ODFIS_Riedl2001,
+  title =     {Opical Design Fundamentals for Infrared Systems},
+  publisher = {SPIE Press},
+  year =      {2001},
+  author =    {Max J. Riedl},
+  editor =    {Arthur R. Weeks,Jr.},
+  volume =    {TT48},
+  edition =   {2}
+}
+

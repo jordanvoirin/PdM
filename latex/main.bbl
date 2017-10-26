@@ -1,0 +1,45 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.8 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\sortlist[entry]{nyt/global/}
+  \entry{Bouxin_PDM}{thesis}{}
+    \name{author}{1}{}{%
+      {{hash=BA}{%
+         family={Bouxin},
+         familyi={B\bibinitperiod},
+         given={A.},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BA1}
+    \strng{fullhash}{BA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2017}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{Phasor diversity to measure the static aberrations of an
+  optical system}
+    \list{institution}{1}{%
+      {HEIG-VD}%
+    }
+    \field{type}{mathesis}
+    \field{year}{2017}
+  \endentry
+\endsortlist
+\endinput

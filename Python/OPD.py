@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def abberationAstigmatism(n,e,up,N):
+def aberrationAstigmatism(n,e,up,N):
     return (n**2-1)*e*up**2/(2*n**3*N)
     
 n = 1.49
@@ -17,7 +17,7 @@ alphamin = np.arctan(-pup/2/f)
 upmax = beta*np.pi/180+alphamax
 upmin = beta*np.pi/180+alphamin
 
-OPDmaxmin = abberationAstigmatism(n,e,upmax,N)-abberationAstigmatism(n,e,upmin,N)
+OPDmaxmin = aberrationAstigmatism(n,e,upmax,N)-aberrationAstigmatism(n,e,upmin,N)
 
 plt.figure()
 plt.plot(phi,OPDmaxmin*1e9,'b-2')

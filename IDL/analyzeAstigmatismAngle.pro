@@ -40,7 +40,7 @@ endfor
 
 sortedInd = sort(Angles)
 
-OPDtot = (abberationAstigmatismModel(1.49,1.4e-3,Angles[sortedInd]))*1e9
+OPDtot = (aberrationAstigmatismModel(1.49,1.4e-3,Angles[sortedInd]))*1e9
 
 ;plot Norm astigmatism vs. angle--------------------------------------------------------------------
 
