@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Éditeur de Spyder
-
-Ceci est un script temporaire.
-"""
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -18,10 +12,10 @@ beta = 90-theta
 pup = 3.2e-3
 f = 200e-3
 N = f/pup
-alphamax = np.arctan(pup/f)
-alphamin = np.arctan(-pup/f)
-upmax = (beta+alphamax)*np.pi/180
-upmin = (beta+alphamin)*np.pi/180
+alphamax = np.arctan(pup/2/f)
+alphamin = np.arctan(-pup/2/f)
+upmax = beta*np.pi/180+alphamax
+upmin = beta*np.pi/180+alphamin
 
 OPDmaxmin = abberationAstigmatism(n,e,upmax,N)-abberationAstigmatism(n,e,upmin,N)
 

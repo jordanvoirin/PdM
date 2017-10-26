@@ -18,34 +18,58 @@ for iFol = 0, Nfolders-1 do begin
   Angles = [Angles,double(sAngle)]
 endfor
 
-;compute the astigmatism coefficient norm -----------------------------------------------------
-astAjres = []
-astAjzon = []
+;get the zernike coefficient----------------------------------------------------------------------
+normAstAjres = []
+normAstAjzon = []
+a5res = []
+a6res = []
+a5zon = []
+a6zon = []
 defocAjres = []
 defocAjzon = []
 for iFol = 0, Nfolders-1 do begin
-  astAjres = [astAjres,sqrt(results[iFol].res.a_j[1]*results[iFol].res.a_j[1]+results[iFol].res.a_j[2]*results[iFol].res.a_j[2])]
-  astAjzon = [astAjzon,sqrt(results[iFol].zon.a_j[1]*results[iFol].zon.a_j[1]+results[iFol].zon.a_j[2]*results[iFol].zon.a_j[2])]
+  a5res = [a5res,results[iFol].res.a_j[1]]
+  a6res = [a6res,results[iFol].res.a_j[2]]
+  a5zon = [a5zon,results[iFol].zon.a_j[1]]
+  a6zon = [a6zon,results[iFol].zon.a_j[2]]
+  normAstAjres = [astAjres,sqrt(results[iFol].res.a_j[1]*results[iFol].res.a_j[1]+results[iFol].res.a_j[2]*results[iFol].res.a_j[2])]
+  normAstAjzon = [astAjzon,sqrt(results[iFol].zon.a_j[1]*results[iFol].zon.a_j[1]+results[iFol].zon.a_j[2]*results[iFol].zon.a_j[2])]
   defocAjres = [defocAjres,results[iFol].res.a_j[0]]
   defocAjzon = [defocAjzon,results[iFol].zon.a_j[0]]
 endfor
 
 sortedInd = sort(Angles)
 
+OPDtot = (abberationAstigmatismModel(1.49,1.4e-3,Angles[sortedInd]))*1e9
+
 ;plot Norm astigmatism vs. angle--------------------------------------------------------------------
 
-pAstAngleres = plot(Angles[sortedInd],astAjres[sortedInd]*1000.d,'b-2',xtitle='Parallel Faces Angle [deg]',ytitle = 'Astigmatism Coef Norm [nm]',name='modal')
-pAstAnglezon = plot(Angles[sortedInd],astAjzon[sortedInd]*1000.d,'r-2',name='zonal',/overplot)
-!null = LEGEND(target=[pAstAngleres, pAstAnglezon],/DATA)
-pAstAngleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\astigmatism_angle.pdf', BORDER=10, RESOLUTION=350
-pAstAngleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\astigmatism_angle.png', BORDER=10, RESOLUTION=350, /TRANSPARENT
+pNAstAngleres = plot(Angles[sortedInd],normAstAjres[sortedInd]*1000.d,'b-2',xtitle='Parallel Faces Angle [deg]',ytitle = 'Astigmatism Coef Norm [nm]',name='modal')
+pNAstAnglezon = plot(Angles[sortedInd],normAstAjzon[sortedInd]*1000.d,'r-2',name='zonal',/overplot)
+pNAstAnglemod = plot(Angles[sortedInd],OPDtot/sqrt(6)/2,'k-2',name='model',/overplot) ; factor sqrt(6) to pass from seidel to zernike and /2 to pass from P2V to coef
+!null = LEGEND(target=[pNAstAngleres, pNAstAnglezon,pNastAnglemod],/DATA)
+pNAstAngleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\astigmatismNorm_angle.pdf', BORDER=10, RESOLUTION=350
+pNAstAngleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\astigmatismNorm_angle.png', BORDER=10, RESOLUTION=350
+
+;plot astigmatism vs. angle------------------------------------------------------------------------
+
+pA5Angleres = plot(Angles[sortedInd],abs(a5res[sortedInd]*1000.d),'b-2',xtitle='Parallel Faces Angle [deg]',ytitle = 'astigmatism coef [nm]',name='a5 modal')
+pA6Angleres = plot(Angles[sortedInd],abs(a6res[sortedInd]*1000.d),'b--2',name='a6 modal',/overplot)
+pA5Anglezon = plot(Angles[sortedInd],abs(a5zon[sortedInd]*1000.d),'r-2',name='a5 zonal',/overplot)
+pA6Anglezon = plot(Angles[sortedInd],abs(a6zon[sortedInd]*1000.d),'r--2',name='a6 zonal',/overplot)
+pNAstAnglemod = plot(Angles[sortedInd],OPDtot/sqrt(6)/2,'k-2',name='model',/overplot); factor sqrt(6) to pass from seidel to zernike and /2 to pass from P2V to coef
+!null = LEGEND(target=[pA5Angleres, pA6Angleres,pA5Anglezon,pA6Anglezon,pNAstAnglemod],/DATA)
+
+pA5Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\astigmatism_angle.pdf', BORDER=10, RESOLUTION=350
+pA5Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\astigmatism_angle.png', BORDER=10, RESOLUTION=350
+
 ; plot defocus coeff. vs. angle----------------------------------------------------------------------
 
 pdefocAngleres = plot(Angles[sortedInd],defocAjres[sortedInd]*1000.d,'b-2',xtitle='Parallel Faces Angle [deg]',ytitle = 'Defocus Coef [nm]',name='modal')
 pdefocAnglezon = plot(Angles[sortedInd],defocAjzon[sortedInd]*1000.d,'r-2',name='zonal',/overplot)
 !null = LEGEND(target=[pdefocAngleres, pdefocAnglezon],/DATA)
 pdefocAngleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\defoc_angle.pdf', BORDER=10, RESOLUTION=350
-pdefocAngleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\defoc_angle.png', BORDER=10, RESOLUTION=350, /TRANSPARENT
+pdefocAngleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\defoc_angle.png', BORDER=10, RESOLUTION=350
 
 
 ;Compare Phase and zernike modal vs. zonal-----------------------------------------------------------
@@ -78,7 +102,7 @@ for iFol = 1, Nfolders-1 do begin
 endfor
 
 imres.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\phaseModZonZer.pdf', BORDER=10, RESOLUTION=350
-imres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\phaseModZonZer.png', BORDER=10, RESOLUTION=350, /TRANSPARENT
+imres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\phaseModZonZer.png', BORDER=10, RESOLUTION=350
 
 
 end
