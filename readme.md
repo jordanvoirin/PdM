@@ -1,5 +1,4 @@
-PdM project : Evaluation of optical aberrations using Phase Diversity (PD)
-----------------------------------------------------------------------------
+#PdM project : Evaluation of optical aberrations using Phase Diversity (PD)
 ____________________________________________________________________________
 
 This project gathers all the codes I write for my master thesis in the optical laboratory of the HEIG-VD in Yverdon-les-bains.
