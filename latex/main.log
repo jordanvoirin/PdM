@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6400) (preloaded format=pdflatex 2017.10.12)  26 OCT 2017 14:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6400) (preloaded format=pdflatex 2017.10.12)  27 OCT 2017 09:51
 entering extended mode
 **./main.tex
 (main.tex
@@ -2074,7 +2074,7 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 289.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 289.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 289.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: F8EE79E1A9E009C289BC805D25C153D6;1735.
+(rerunfilecheck)             Checksum: C0C65753C9405474C2CDE98548AA1B32;1740.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
@@ -2097,7 +2097,7 @@ es (x86)/MiKTeX 2.9/fonts/type1/public/mathpazo/fplmri.pfb><C:/Program Files (x
 2.9/fonts/type1/urw/palatino/uplr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/font
 s/type1/urw/palatino/uplr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/
 urw/palatino/uplri8a.pfb>
-Output written on main.pdf (31 pages, 152798 bytes).
+Output written on main.pdf (31 pages, 152816 bytes).
 PDF statistics:
  264 PDF objects out of 1000 (max. 8388607)
  55 named destinations out of 1000 (max. 500000)
