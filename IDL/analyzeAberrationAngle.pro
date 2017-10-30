@@ -27,9 +27,9 @@ a6zon = []
 defocAjres = []
 defocAjzon = []
 for iFol = 0, Nfolders-1 do begin
-  a8res = [a5res,results[iFol].res.a_j[4]]
+  a8res = [a8res,results[iFol].res.a_j[4]]
   a6res = [a6res,results[iFol].res.a_j[2]]
-  a8zon = [a5zon,results[iFol].zon.a_j[4]]
+  a8zon = [a8zon,results[iFol].zon.a_j[4]]
   a6zon = [a6zon,results[iFol].zon.a_j[2]]
   defocAjres = [defocAjres,results[iFol].res.a_j[0]]
   defocAjzon = [defocAjzon,results[iFol].zon.a_j[0]]
@@ -38,8 +38,8 @@ endfor
 sortedInd = sort(Angles)
 
 aberrationsModel = (aberrationParallelPlateModel(1.49,1.4e-3,Angles[sortedInd]))*1e9
-thZernikeCoef6 = aberrationsModel[*,0]/sqrt(6)/2
-thZernikeCoef8 = aberrationsModel[*,1]/sqrt(8)/2
+thZernikeCoef6 = aberrationsModel[*,0]/sqrt(6)/2; factor sqrt(6) to normalize to zernike and /2 to pass from P2V to coef
+thZernikeCoef8 = aberrationsModel[*,1]/sqrt(8)/2;
 ;plot aberrations vs. angle------------------------------------------------------------------------
 
 rmseA6mod = RMSE(thZernikeCoef6,abs(a6res[sortedInd]*1000.d))
