@@ -38,6 +38,7 @@ endfor
 sortedInd = sort(Angles)
 
 aberrationsModel = (aberrationParallelPlateModel(1.49,1.4e-3,Angles[sortedInd]))*1e9
+zemaxA6Aberration = [0.00289723,0.00845782,0.01942100,0.03772601]*637.5
 thZernikeCoef6 = aberrationsModel[*,0]/sqrt(6)/2; factor sqrt(6) to normalize to zernike and /2 to pass from P2V to coef
 thZernikeCoef8 = aberrationsModel[*,1]/sqrt(8)/2;
 ;plot aberrations vs. angle------------------------------------------------------------------------
@@ -52,7 +53,8 @@ pA6Angleres = plot(Angles[sortedInd],abs(a6res[sortedInd]*1000.d),'b-2',xtitle='
   ytitle = 'a6 [nm]',name='modal RMSE = '+string(rmseA6mod))
 pA6Anglezon = plot(Angles[sortedInd],abs(a6zon[sortedInd]*1000.d),'r-2',name='zonal RMSE = '+string(rmseA6zon),/overplot)
 pAstAnglemod = plot(Angles[sortedInd],thZernikeCoef6,'k-2',name='model',/overplot); factor sqrt(6) to pass from seidel to zernike and /2 to pass from P2V to coef
-!null = LEGEND(target=[pA6Angleres,pA6Anglezon,pAstAnglemod],/DATA)
+pAstAnglezemax = plot(Angles[sortedInd],zemaxA6Aberration,'k--2',name='zemax',/overplot)
+!null = LEGEND(target=[pA6Angleres,pA6Anglezon,pAstAnglemod,pAstAnglezemax],/DATA)
 
 pA6Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\astigmatism_angle.pdf', BORDER=10, RESOLUTION=350
 pA6Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\astigmatism_angle.png', BORDER=10, RESOLUTION=350

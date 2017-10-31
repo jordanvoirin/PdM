@@ -41,5 +41,31 @@
     \field{type}{mathesis}
     \field{year}{2017}
   \endentry
+
+  \entry{pigtailedLaserDiode}{report}{}
+    \name{author}{1}{}{%
+      {{hash=T}{%
+         family={Thorlabs},
+         familyi={T\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{T1}
+    \strng{fullhash}{T1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2013}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \field{title}{Pigtailed Laser Diode, SMF}
+    \verb{url}
+    \verb https://www.thorlabs.com/drawings/fabda6a9d8d9b5b7-79C310DF-0190-CACC
+    \verb -15060261B06DD1E8/LPS-635-FC-SpecSheet.pdf
+    \endverb
+    \list{institution}{1}{%
+      {Thorlabs}%
+    }
+    \field{type}{techreport}
+    \field{year}{2013}
+  \endentry
 \endsortlist
 \endinput

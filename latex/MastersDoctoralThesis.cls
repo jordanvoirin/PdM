@@ -203,6 +203,10 @@
 \RequirePackage{caption} % Required for customising the captions
 \captionsetup{justification=centerlast,font=small,labelfont=sc,margin=50pt}
 
+\RequirePackage{wrapfig} % to be able to use wrapfigure
+
+\RequirePackage{subcaption} % to be able to put subfigures
+
 %----------------------------------------------------------------------------------------
 %	DEFINE CUSTOM THESIS INFORMATION COMMANDS
 %----------------------------------------------------------------------------------------
@@ -235,7 +239,7 @@
 
 \newcommand{\HRule}{\rule{.9\linewidth}{.6pt}} % New command to make the lines in the title page
 \newcommand{\decoRule}{\rule{.8\textwidth}{.4pt}} % New command for a rule to be used under figures
-
+\newcommand{\decoRulewrapFig}{\rule{.3\textwidth}{.4pt}} % New command for a rule to be used under wrapfigures
 \setcounter{tocdepth}{3} % The depth to which the document sections are printed to the table of contents
 \ProvideDocumentCommand{\addchaptertocentry}{ m }{%
 	\addcontentsline{toc}{chapter}{#1}%
