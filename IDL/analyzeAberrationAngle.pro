@@ -36,25 +36,26 @@ for iFol = 0, Nfolders-1 do begin
 endfor
 
 sortedInd = sort(Angles)
-
-aberrationsModel = (aberrationParallelPlateModel(1.49,1.4e-3,Angles[sortedInd]))*1e9
-zemaxA6Aberration = [0.00289723,0.00845782,0.01942100,0.03772601]*637.5
-thZernikeCoef6 = aberrationsModel[*,0]/sqrt(6)/2; factor sqrt(6) to normalize to zernike and /2 to pass from P2V to coef
-thZernikeCoef8 = aberrationsModel[*,1]/sqrt(8)/2;
+AnglesModel = [20,30,40,50,60,70]
+;aberrationsModel = (aberrationParallelPlateModel(1.49,1.4e-3,AnglesModel))*1e9
+zemaxA6Aberration = [0.00556993,0.01286776,0.02344080,0.03689211]*637.5
+zemaxA8Aberration = [0.00118594,0.00187701,0.00268449,0.00364058]*637.5
+;thZernikeCoef6 = aberrationsModel[*,0]/sqrt(6)/2; factor sqrt(6) to normalize to zernike and /2 to pass from P2V to coef
+;thZernikeCoef8 = aberrationsModel[*,1]/sqrt(8)/2;
 ;plot aberrations vs. angle------------------------------------------------------------------------
 
-rmseA6mod = RMSE(thZernikeCoef6,abs(a6res[sortedInd]*1000.d))
-rmseA6zon = RMSE(thZernikeCoef6,abs(a6zon[sortedInd]*1000.d))
+rmseA6mod = RMSE(zemaxA6Aberration,abs(a6res[sortedInd]*1000.d))
+rmseA6zon = RMSE(zemaxA6Aberration,abs(a6zon[sortedInd]*1000.d))
 
-rmseA8mod = RMSE(thZernikeCoef8,abs(a8res[sortedInd]*1000.d))
-rmseA8zon = RMSE(thZernikeCoef8,abs(a8zon[sortedInd]*1000.d))
+rmseA8mod = RMSE(zemaxA8Aberration,abs(a8res[sortedInd]*1000.d))
+rmseA8zon = RMSE(zemaxA8Aberration,abs(a8zon[sortedInd]*1000.d))
 
 pA6Angleres = plot(Angles[sortedInd],abs(a6res[sortedInd]*1000.d),'b-2',xtitle='Parallel Faces Angle [deg]',$
   ytitle = 'a6 [nm]',name='modal RMSE = '+string(rmseA6mod))
-pA6Anglezon = plot(Angles[sortedInd],abs(a6zon[sortedInd]*1000.d),'r-2',name='zonal RMSE = '+string(rmseA6zon),/overplot)
-pAstAnglemod = plot(Angles[sortedInd],thZernikeCoef6,'k-2',name='model',/overplot); factor sqrt(6) to pass from seidel to zernike and /2 to pass from P2V to coef
-pAstAnglezemax = plot(Angles[sortedInd],zemaxA6Aberration,'k--2',name='zemax',/overplot)
-!null = LEGEND(target=[pA6Angleres,pA6Anglezon,pAstAnglemod,pAstAnglezemax],/DATA)
+pA6Anglezon = plot(Angles[sortedInd],abs(a6zon[sortedInd]*1000.d),'r-2',name='zonal RMSE = ' + string(rmseA6zon),/overplot)
+;pAstAnglemod = plot(AnglesModel,thZernikeCoef6,'k-2',name='model',/overplot); factor sqrt(6) to pass from seidel to zernike and /2 to pass from P2V to coef
+pAstAnglezemax = plot(AnglesModel,zemaxA6Aberration,'k--2',name='zemax',/overplot)
+!null = LEGEND(target=[pA6Angleres,pA6Anglezon,pAstAnglezemax],/DATA)
 
 pA6Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\astigmatism_angle.pdf', BORDER=10, RESOLUTION=350
 pA6Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\astigmatism_angle.png', BORDER=10, RESOLUTION=350
@@ -62,8 +63,9 @@ pA6Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\ang
 pA8Angleres = plot(Angles[sortedInd],abs(a8res[sortedInd]*1000.d),'b-2',xtitle='Parallel Faces Angle [deg]',$
   ytitle = 'a8 [nm]',name='modal RMSE = '+string(rmseA8mod))
 pA8Anglezon = plot(Angles[sortedInd],abs(a8zon[sortedInd]*1000.d),'r-2',name='zonal RMSE = '+string(rmseA8zon),/overplot)
-pComAnglemod = plot(Angles[sortedInd],thZernikeCoef8,'k-2',name='model',/overplot); factor sqrt(6) to pass from seidel to zernike and /2 to pass from P2V to coef
-!null = LEGEND(target=[pA8Angleres, pA8Anglezon,pComAnglemod],/DATA)
+;pA8Anglemod = plot(Angles[sortedInd],thZernikeCoef8,'k-2',name='model',/overplot); factor sqrt(6) to pass from seidel to zernike and /2 to pass from P2V to coef
+pA8Anglezemax = plot(AnglesModel,zemaxA8Aberration,'k--2',name='zemax',/overplot)
+!null = LEGEND(target=[pA8Angleres, pA8Anglezon,pA8Anglezemax],/DATA)
 
 pA8Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\coma_angle.pdf', BORDER=10, RESOLUTION=350
 pA8Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\coma_angle.png', BORDER=10, RESOLUTION=350

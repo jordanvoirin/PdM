@@ -207,6 +207,8 @@
 
 \RequirePackage{subcaption} % to be able to put subfigures
 
+\RequirePackage[final]{pdfpages}
+
 %----------------------------------------------------------------------------------------
 %	DEFINE CUSTOM THESIS INFORMATION COMMANDS
 %----------------------------------------------------------------------------------------
@@ -528,7 +530,7 @@ bookmarksopen=true,
 bookmarksopenlevel=0,
 hypertexnames=false,
 colorlinks=true,% Set to false to disable coloring links
-citecolor=magenta,% The color of citations
+citecolor=blue,% The color of citations
 linkcolor=red,% The color of references to document elements (sections, figures, etc)
 urlcolor=mdtRed,% The color of hyperlinks (URLs)
 pdfstartview={FitV},
