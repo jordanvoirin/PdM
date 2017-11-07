@@ -61,9 +61,6 @@ endwhile
 free_lun, f
 
 zernike = {index:index,order:order,frequency:frequency,coefficient:coefficient}
-Dim = size(wavefront,/dimension)
-im = image(wavefront,rgb_table=34,image_dimensions = Dim,xrange=[0,Dim[0]],yrange=[0,Dim[1]])
-
 
 return, {zernike:zernike,wavefront:wavefront}
 
