@@ -1,21 +1,23 @@
 function readSHWFSdata, filePath
 
-openr, f, filePath
+openr, f, filePath, /GET_LUN
 
 iLine = 0
 line = ''
 
-zernike.coefficient = []
-zernike.index = []
-zernike.order = []
-zernike.frequency = []
+
+coefficient = []
+index = []
+order = []
+frequency = []
+wavefront = []
 
 while ~EOF(f) do begin
   readf, f, line
   iLine += 1
   
   ;get the zernike coefficient
-  if strmatch(line,'* ZERNIKE FIT *')
+  if strmatch(line,'* ZERNIKE FIT *') then begin
     subheaderNbrLines = 5
     for isHd =1,subheaderNbrLines do begin
       readf, f, line
@@ -26,19 +28,43 @@ while ~EOF(f) do begin
     iLine += 1
     sLine = strsplit(line,',',/EXTRACT)
     
-    while stregex(sLine[0],'\d') ne -1 then begin
-      zernike.index = [zernike.index,long(sLine[0])]
-      zernike.order = [zernike.order,long(sLine[1])]
-      zernike.frequency = [zernike.frequency,long(sLine[2])]
-      zernike.coefficient = [zernike.coefficient,long(sLine[3])]
+    while stregex(sLine[0],'[0-9]+') ne -1 and ~EOF(f) do begin
+      index = [[[index]],[[long(sLine[0])]]]
+      order = [[[order]],[[long(sLine[1])]]]
+      frequency = [[[frequency]],[[long(sLine[2])]]]
+      coefficient = [[[coefficient]],[[double(sLine[3])]]]
       readf, f, line
       iLine += 1
       sLine = strsplit(line,',',/EXTRACT)
-    endwhile 
+    endwhile
+  endif
+  
+  if strmatch(line,'\*\*\* WAVEFRONT \*\*\*')  then begin
+    subheaderNbrLines = 11
+    for isHd =1,subheaderNbrLines do begin
+      readf, f, line
+      iLine += 1
+    endfor
+    readf, f, line
+    iLine += 1
+    sLine = strsplit(line,',',/EXTRACT)
+    nel = n_elements(sLine)
+    while stregex(sLine[0],'[0-9]+') ne -1 and ~EOF(f) do begin
+      wavefront = [[wavefront],[double(sLine[1:nel-1])]]
+      readf, f, line
+      iLine += 1
+      sLine = strsplit(line,',',/EXTRACT)
+    endwhile
+    
   endif
 endwhile
 free_lun, f
 
-return, zernike
+zernike = {index:index,order:order,frequency:frequency,coefficient:coefficient}
+Dim = size(wavefront,/dimension)
+im = image(wavefront,rgb_table=34,image_dimensions = Dim,xrange=[0,Dim[0]],yrange=[0,Dim[1]])
+
+
+return, {zernike:zernike,wavefront:wavefront}
 
 end
