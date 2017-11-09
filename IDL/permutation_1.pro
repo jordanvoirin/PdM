@@ -1,6 +1,6 @@
 function permutation_1, arr, n
   
-  dim = size(arr,/N_dimension)
+  dim = size(arr,/Dimensions)
   
   if dim[0] eq n then begin
     return, arr
@@ -13,5 +13,6 @@ function permutation_1, arr, n
   
   arr = permutation_1(arr,n)
   
+  return, arr
 end
 

@@ -15,19 +15,19 @@ numberOfFinalImages = 1
 sizeImg = 256
 
 #Parameter of camera and saving
-folderPathCropped = '../../data/PD/astigmatism/angle_study/cropped/50/'
-darkFolderPathCropped = '../../data/dark/astigmatism/angle_study/cropped/50/'
-folderPathFull = '../../data/PD/astigmatism/angle_study/full/50/'
-darkFolderPathFull = '../../data/dark/astigmatism/angle_study/full/50/'
+folderPathCropped = '../../data/PD/phaseScreen/wth/cropped/'
+darkFolderPathCropped = '../../data/dark/phaseScreen/wth/cropped/'
+folderPathFull = '../../data/PD/phaseScreen/wth/full/'
+darkFolderPathFull = '../../data/dark/phaseScreen/wth/full/'
 nameCamera = 'Ximea'
-focusPos = 10.71
+focusPos = 11.63
 
 #Sound
 duration = 1000  # millisecond
 freq = 2000  # Hz
 
 #initial guess for the fit depending on the position of the beam in the CCD
-initial_guess = [250, 465, 1148, 3, 3]
+initial_guess = [250, 465, 706, 3, 3]
 
 #------------------------------------------------------------------------------
 #%% data acquisition ----------------------------------------------------------
@@ -74,7 +74,7 @@ while bool(acquire):
             print 'Please shut down the source.'
 
     winsound.Beep(freq, duration)
-    pos = float(raw_input('What is the position of the camera in mm focused (%5.3f mm) dephase 2Pi (Delta = 3.19mm) ? '%focusPos))
+    pos = float(raw_input('What is the position of the camera in mm focused (%5.3f mm) dephase 2Pi (pos+ = %5.3f mm, pos- = %5.3f) ? '%(focusPos,focusPos+3.19,focusPos-3.19)))
 
     if bool(dark):
         print 'Acquiring dark image...'

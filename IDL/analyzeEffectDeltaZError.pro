@@ -62,18 +62,86 @@ for i = 1, n_elements(sFilePaths)-1 do begin
   endelse
 
 endfor
-dimDeltaZ = size(deltaZ)
-deltaZs = fltarr(dimDeltaZ[1],power(2,dimDeltaZ[1]))
+
+;create all the permutations of -2,-1,1,2,0 ------------------------------------------------------------------------------
+dimDeltaZ = size(deltaZ,/Dimensions)
+n = dimDeltaZ[0]
+permutations = []
+arr = [0.d,2.d,1.d,-1.d,-2.d]
+data = fltarr(n,1)
+ix = 0
+deltaZs = permutationWrep(arr,permutations,data,n,ix)
+
+Npermut = (size(deltaZs,/Dimensions))[1]
+
+for ip = 0,Npermut-1 do begin
+  for iz = 0,dimDeltaZ[0]-1 do begin
+    deltaZs[iz,ip] = deltaZ[iz] + sigmaZ*deltaZs[iz,ip]
+  endfor
+endfor
 
 
 
-;Run diversity
+;Run diversity ---------------------------------------------------------------------------------------------
 
 lambda = 0.6375d ;microns
 threshold = 1e-3
 D1=3.2*1e-3
 D2=0.d
-jmax = jmax
+jmax = 231
 pxSize = 5.3e-6
 fdist = 80e-3
 pxSizeArcSec = pxSize/fdist*!RADEG*3600.d
+
+modalResults = []
+zonalResults = []
+
+for ip = 0,Npermut-1 do begin
+  modalResults = [[ModalResults],[diversity(psfs,deltaZs[*,ip],lambda,fdist,pxSizeArcSec,threshold,'modal',d1=D1,d2=D2,jmax=jmax)]]
+  zonalResults = [[zonalResults],[diversity(psfs,deltaZs[*,ip],lambda,fdist,pxSizeArcSec,threshold,'zonal',d1=D1,d2=D2,jmax=jmax)]]
+endfor
+
+;compute relevant statistical parameter ---------------------------------------------------------------------
+
+xticks = []
+ajModal = []
+ajZonal = []
+for ij = 0, n_elements(modalResults[0].j)-1 do begin
+  tmpAjModal = []
+  tmpAjZonal = []
+  for ip = 0, Npermut-1 do begin
+    tmpAjModal = [[tmpAjModal],[modalResults[ip].a_j[ij]*1000]]
+    tmpAjZonal = [[tmpAjZonal],[zonalResults[ip].a_j[ij]*1000]]
+  endfor
+  ajModal = [ajModal,tmpAjModal]
+  ajZonal = [ajZonal,tmpAjZonal]
+  xticks = [xticks,modalResults[0].j[ij]]
+endfor
+
+ajModalstds = stddev2(ajModal,2)
+ajZonalstds = stddev2(ajZonal,2)
+
+;plotting ---------------------------------------------------------------------------------------------------
+
+loadct,19, NCOLORS=Npermut
+
+marge = 0.12
+
+mplot = plot(modalResults[0].j,modalResults[0].a_j*1000,'b-0.5',xtitle='j',$
+  ytitle = 'a_j [nm]',name = 'modal',margin = marge)
+zplot = plot(zonalResults[0].j,zonalResults[0].a_j*1000,'r-0.5',xtitle='j',$
+  ytitle = 'a_j [nm]',name = 'zonal',margin = marge,/overplot)
+!null = LEGEND(target=[mplot, zplot])
+for ip=1,Npermut-1 do begin
+  mplot = plot(modalResults[ip].j,modalResults[ip].a_j*1000,/overplot)
+  zplot = plot(zonalResults[ip].j,zonalResults[ip].a_j*1000,/overplot)
+endfor
+
+;Boxplot
+boxDataAjM = CREATEBOXPLOTDATA(ajModal)
+mboxes = boxplot(boxDataAjM,XTITLE="j", YTITLE="a_j [nm]")
+
+
+
+
+end

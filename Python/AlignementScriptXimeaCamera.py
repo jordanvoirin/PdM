@@ -13,15 +13,15 @@ import os
 sns.set()
 #%% instanciation
 
-dataFolderPath = 'C:/Users/Jojo/Desktop/PdM-HEIG/Science/data/PD/astigmatism/alignement/50/'
-plotFolderPath = 'C:/Users/Jojo/Desktop/PdM-HEIG/Science/fig/PD/astigmatism/alignement/50/'
+dataFolderPath = 'C:/Users/Jojo/Desktop/PdM-HEIG/Science/data/PD/phaseScreen/alignement/'
+plotFolderPath = 'C:/Users/Jojo/Desktop/PdM-HEIG/Science/fig/PD/phaseScreen/alignement/'
 #create the matrix grid of the detector CCD
 x = np.linspace(0,1280,1280)
 y = np.linspace(0,1024,1024)
 x, y = np.meshgrid(x, y)
  
 #initial guess for the fit depending on the position of the beam in the CCD
-initial_guess = [250, 465, 1148, 3, 3]
+initial_guess = [250, 481, 706, 3, 3]
 
 #number of image to average
 nbrImgAveraging = 10
