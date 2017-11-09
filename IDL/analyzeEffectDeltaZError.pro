@@ -120,6 +120,8 @@ endfor
 
 ajModalstds = stddev2(ajModal,2)
 ajZonalstds = stddev2(ajZonal,2)
+Ajstds = [transpose(ajModalstds),transpose(ajZonalstds)]
+
 
 ;plotting ---------------------------------------------------------------------------------------------------
 
@@ -137,11 +139,27 @@ for ip=1,Npermut-1 do begin
   zplot = plot(zonalResults[ip].j,zonalResults[ip].a_j*1000,/overplot)
 endfor
 
-;Boxplot
+;A_j Boxplot
 boxDataAjM = CREATEBOXPLOTDATA(ajModal)
-mboxes = boxplot(boxDataAjM,XTITLE="j", YTITLE="a_j [nm]")
+boxDataAjZ = CREATEBOXPLOTDATA(ajZonal)
+mboxes = boxplot(boxDataAjM,XTITLE="j", YTITLE="a_j [nm]",xtickname=['5','25','50','75','100','125','150','175','200','225']$
+  ,xtickvalues=[1,21,46,71,96,121,146,171,196,221],XTICKINTERVAL=25,FILL_COLOR='white',color='blue',name='Modal', BACKGROUND_COLOR="light gray"$
+  ,XRANGE=[-5,228],yrange=[-20,10])
+zboxes = boxplot(boxDataAjZ,FILL_COLOR='white',color='red',name='Zonal',/overplot)
+mboxes.THICK = 2
+!null = LEGEND(target=[mboxes, zboxes])
 
 
+mboxes.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\errorDeltaZStudy\Boxplot_Aj_j.pdf', BORDER=10, RESOLUTION=350
+mboxes.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\errorDeltaZStudy\Boxplot_Aj_j.png', BORDER=10, RESOLUTION=350
 
+;Stds Boxplot
+boxDataStdAj = CREATEBOXPLOTDATA(Ajstds)
+stdAjboxes = boxplot(boxDataStdAj,ytitle = 'std(a_j) [nm]',XTICKNAME = ['Modal', 'Zonal'],XTICKVALUES = [0,1]$
+  ,FILL_COLOR='white', BACKGROUND_COLOR="light gray")
+stdAjboxes.THICK = 2
+
+stdAjboxes.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\errorDeltaZStudy\Boxplot_stdAj.pdf', BORDER=10, RESOLUTION=350
+stdAjboxes.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\errorDeltaZStudy\Boxplot_stdAj.png', BORDER=10, RESOLUTION=350
 
 end
