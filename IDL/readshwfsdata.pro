@@ -29,10 +29,10 @@ while ~EOF(f) do begin
     sLine = strsplit(line,',',/EXTRACT)
     
     while stregex(sLine[0],'[0-9]+') ne -1 and ~EOF(f) do begin
-      index = [[[index]],[[long(sLine[0])]]]
-      order = [[[order]],[[long(sLine[1])]]]
-      frequency = [[[frequency]],[[long(sLine[2])]]]
-      coefficient = [[[coefficient]],[[double(sLine[3])]]]
+      index = [[index],[long(sLine[0])]]
+      order = [[order],[long(sLine[1])]]
+      frequency = [[frequency],[long(sLine[2])]]
+      coefficient = [[coefficient],[double(sLine[3])]]
       readf, f, line
       iLine += 1
       sLine = strsplit(line,',',/EXTRACT)
