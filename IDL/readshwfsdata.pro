@@ -60,7 +60,7 @@ while ~EOF(f) do begin
 endwhile
 free_lun, f
 
-zernike = {index:index,order:order,frequency:frequency,coefficient:coefficient}
+zernike = [index,order,frequency,coefficient]
 
 return, {zernike:zernike,wavefront:wavefront}
 
