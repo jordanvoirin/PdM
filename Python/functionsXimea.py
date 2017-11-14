@@ -82,8 +82,8 @@ def getPSFCentroid(data,initial_guess):
 
 
 def cropAndCenterPSF(data,stdData,size,initial_guess):
-    Xextent = np.size(data,1)-1
-    Yextent = np.size(data,0)-1
+    Xextent = np.size(data,1)
+    Yextent = np.size(data,0)
 
     centroid = getPSFCentroid(data,initial_guess)
 
@@ -92,7 +92,7 @@ def cropAndCenterPSF(data,stdData,size,initial_guess):
     if minMarge>size/2:
         return cropAroundPSF(data,stdData,centroid,size,size)
     elif minMarge<size/2:
-        return cropAroundPSF(data,stdData, centroid,minMarge,minMarge)
+        return cropAroundPSF(data,stdData, centroid,2*minMarge,2*minMarge)
 
 
 def cropAroundPSF(data,stdData,centroid,sizeX,sizeY):

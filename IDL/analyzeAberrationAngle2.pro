@@ -1,24 +1,57 @@
-; Script to analyse the astigmatism data
+; Script to analyse the astigmatism data and comparison to the SHwfs
+;
 ;
 ;instanciate folderPath------------------------------------------------------------------------
-sfolderPath = 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\PD\astigmatism\angle_study\cropped\*'
+sPDwthfolderPath = 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\PD\astigmatism\angle_study_2\wth\cropped\*'
+sPDwoutfolderPath = 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\PD\astigmatism\angle_study_2\wout\cropped\'
 
-sFolderPaths = file_search(sfolderPath,/Test_Directory)
+sSHwthfolderPath = 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\SHWFS\astigmatism\wth\*'
+sSHwoutfolderPath = 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\SHWFS\astigmatism\wout\'
 
-Nfolders =  n_elements(sFolderPaths)
+sPDwthFolderPaths = file_search(sPDwthfolderPath,/Test_Directory)
+sSHwthFolderPaths = file_search(sSHwthfolderPath,/Test_Directory)
+
+jmax = 66
+
+;run phaseretrieval and readandaverage on wout files
+PDwoutResult = phaseretrieval(sPDwoutfolderPath,jmax,1,1)
+SHwoutResult = readAndAverageSHdata(sSHwoutfolderPath)
 
 ;run phaseRetrieval----------------------------------------------------------------------------
-Angles = []
-results = list()
-for iFol = 0, Nfolders-1 do begin
-  results.add, phaseRetrieval(sFolderPaths[iFol]+'\',20,1,1)
-
-  sepFolderPath = strsplit(sFolderPaths[iFol],'\',/EXTRACT)
+NPDfolders =  n_elements(sPDwthFolderPaths)
+AnglesPD = []
+resultsPD = list()
+for iFol = 0, NPDfolders-1 do begin
+  result = phaseRetrieval(sPDwthFolderPaths[iFol]+'\',jmax,1,1)
+  result.res.a_j  = result.res.a_j - PDwoutResult.res.a_j
+  result.res.wavefront  = result.res.wavefront - PDwoutResult.res.wavefront
+  result.zon.a_j  = result.zon.a_j - PDwoutResult.zon.a_j
+  result.zon.wavefront  = result.zon.wavefront - PDwoutResult.zon.wavefront
+  resultsPD.add,result
+  
+  sepFolderPath = strsplit(sPDwthFolderPaths[iFol],'\',/EXTRACT)
   sAngle = sepFolderPath[n_elements(sepFolderPath)-1]
-  Angles = [Angles,double(sAngle)]
+  AnglesPD = [AnglesPD,double(sAngle)]
 endfor
 
-;get the zernike coefficient----------------------------------------------------------------------
+;run SHwfs read and average----------------------------------------------------------------------
+NSHfolders =  n_elements(sSHwthFolderPaths)
+AnglesSH = []
+resultsSH = list()
+for iFol = 0, NSHfolders-1 do begin
+  result = readAndAverageSHdata(sSHwthFolderPaths[iFol]+'\')
+  result.zernike[3,*] = result.zernike[3,*] - SHwoutResult.zernike[3,*]
+  result.wavefront = result.wavefront - SHwoutResult.wavefront
+  result.zernike = toNoll(result.zernike)
+  resultsSH.add,result
+  
+  sepFolderPath = strsplit(sSHwthFolderPaths[iFol],'\',/EXTRACT)
+  sAngle = sepFolderPath[n_elements(sepFolderPath)-1]
+  AnglesSH = [AnglesSH,double(sAngle)]
+endfor
+
+
+;get the PD zernike coefficient----------------------------------------------------------------------
 
 a8res = []
 a6res = []
@@ -26,102 +59,140 @@ a8zon = []
 a6zon = []
 defocAjres = []
 defocAjzon = []
-for iFol = 0, Nfolders-1 do begin
-  a8res = [a8res,results[iFol].res.a_j[4]]
-  a6res = [a6res,results[iFol].res.a_j[2]]
-  a8zon = [a8zon,results[iFol].zon.a_j[4]]
-  a6zon = [a6zon,results[iFol].zon.a_j[2]]
-  defocAjres = [defocAjres,results[iFol].res.a_j[0]]
-  defocAjzon = [defocAjzon,results[iFol].zon.a_j[0]]
+for iFol = 0, NPDfolders-1 do begin
+  a8res = [a8res,resultsPD[iFol].res.a_j[4]]
+  a6res = [a6res,resultsPD[iFol].res.a_j[2]]
+  a8zon = [a8zon,resultsPD[iFol].zon.a_j[4]]
+  a6zon = [a6zon,resultsPD[iFol].zon.a_j[2]]
+  defocAjres = [defocAjres,resultsPD[iFol].res.a_j[0]]
+  defocAjzon = [defocAjzon,resultsPD[iFol].zon.a_j[0]]
 endfor
 
-sortedInd = sort(Angles)
-AnglesModel = [20,30,40,50,60,70]
+sortedPDInd = sort(AnglesPD)
+
+;get the SH zernike coefficient----------------------------------------------------------------------
+
+a8SH = []
+a6SH = []
+defocAjSH = []
+
+for iFol = 0, NSHfolders-1 do begin
+  a8SH = [a8SH,resultsSH[iFol].zernike[3,7]]
+  a6SH = [a6SH,resultsSH[iFol].zernike[3,5]]
+  defocAjSH = [defocAjSH,resultsSH[iFol].zernike[3,3]]
+endfor
+
+sortedSHInd = sort(AnglesSH)
+;Zemax Data ------------------------------------------------------------------------------------------
+AnglesModel = [20,30,40,50]
+
 ;aberrationsModel = (aberrationParallelPlateModel(1.49,1.4e-3,AnglesModel))*1e9
-zemaxA6Aberration = [0.00556993,0.01286776,0.02344080,0.03689211]*637.5
+
+zemaxA6Aberration = [-0.00556993,-0.01286776,-0.02344080,-0.03689211]*637.5
 zemaxA8Aberration = [0.00118594,0.00187701,0.00268449,0.00364058]*637.5
+
 ;thZernikeCoef6 = aberrationsModel[*,0]/sqrt(6)/2; factor sqrt(6) to normalize to zernike and /2 to pass from P2V to coef
 ;thZernikeCoef8 = aberrationsModel[*,1]/sqrt(8)/2;
+
+
 ;plot aberrations vs. angle------------------------------------------------------------------------
 
-rmseA6mod = RMSE(zemaxA6Aberration,abs(a6res[sortedInd]*1000.d))
-rmseA6zon = RMSE(zemaxA6Aberration,abs(a6zon[sortedInd]*1000.d))
+rmseA6mod = RMSE(zemaxA6Aberration,a6res[sortedPDInd]*1000.d)
+rmseA6zon = RMSE(zemaxA6Aberration,a6zon[sortedPDInd]*1000.d)
+rmseA6sh = RMSE(zemaxA6Aberration,a6SH[sortedSHInd]*1000.d)
 
-rmseA8mod = RMSE(zemaxA8Aberration,abs(a8res[sortedInd]*1000.d))
-rmseA8zon = RMSE(zemaxA8Aberration,abs(a8zon[sortedInd]*1000.d))
+rmseA8mod = RMSE(zemaxA8Aberration,a8res[sortedPDInd]*1000.d)
+rmseA8zon = RMSE(zemaxA8Aberration,a8zon[sortedPDInd]*1000.d)
+rmseA8sh = RMSE(zemaxA8Aberration,a8SH[sortedSHInd]*1000.d)
 
-pA6Angleres = plot(Angles[sortedInd],abs(a6res[sortedInd]*1000.d),'b-2',xtitle='Parallel Faces Angle [deg]',$
+pA6Angleres = plot(AnglesPD[sortedPDInd],a6res[sortedPDInd]*1000.d,'b-2',xtitle='Parallel Faces Angle [deg]',$
   ytitle = 'a6 [nm]',name='modal RMSE = '+string(rmseA6mod))
-pA6Anglezon = plot(Angles[sortedInd],abs(a6zon[sortedInd]*1000.d),'r-2',name='zonal RMSE = ' + string(rmseA6zon),/overplot)
+pA6Anglezon = plot(AnglesPD[sortedPDInd],a6zon[sortedPDInd]*1000.d,'r-2',name='zonal RMSE = ' + string(rmseA6zon),/overplot)
+pA6Anglesh = plot(AnglesSH[sortedSHInd],a6SH[sortedSHInd]*1000.d,'r-2',name='SH RMSE = ' + string(rmseA6sh),/overplot)
+
 ;pAstAnglemod = plot(AnglesModel,thZernikeCoef6,'k-2',name='model',/overplot); factor sqrt(6) to pass from seidel to zernike and /2 to pass from P2V to coef
 pAstAnglezemax = plot(AnglesModel,zemaxA6Aberration,'k--2',name='zemax',/overplot)
-!null = LEGEND(target=[pA6Angleres,pA6Anglezon,pAstAnglezemax],/DATA)
+!null = LEGEND(target=[pA6Angleres,pA6Anglezon,pA6Anglesh,pAstAnglezemax],/DATA)
 
-pA6Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\astigmatism_angle.pdf', BORDER=10, RESOLUTION=350
-pA6Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\astigmatism_angle.png', BORDER=10, RESOLUTION=350
+pA6Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\astigmatism_angle.pdf', BORDER=10, RESOLUTION=350
+pA6Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\astigmatism_angle.png', BORDER=10, RESOLUTION=350
 
-pA8Angleres = plot(Angles[sortedInd],abs(a8res[sortedInd]*1000.d),'b-2',xtitle='Parallel Faces Angle [deg]',$
+pA8Angleres = plot(AnglesPD[sortedPDInd],abs(a8res[sortedPDInd]*1000.d),'b-2',xtitle='Parallel Faces Angle [deg]',$
   ytitle = 'a8 [nm]',name='modal RMSE = '+string(rmseA8mod))
-pA8Anglezon = plot(Angles[sortedInd],abs(a8zon[sortedInd]*1000.d),'r-2',name='zonal RMSE = '+string(rmseA8zon),/overplot)
+pA8Anglezon = plot(AnglesPD[sortedPDInd],abs(a8zon[sortedPDInd]*1000.d),'r-2',name='zonal RMSE = '+string(rmseA8zon),/overplot)
+pA8Anglesh = plot(AnglesSH[sortedSHInd],abs(a8SH[sortedSHInd]*1000.d),'r-2',name='SH RMSE = '+string(rmseA8sh),/overplot)
 ;pA8Anglemod = plot(Angles[sortedInd],thZernikeCoef8,'k-2',name='model',/overplot); factor sqrt(6) to pass from seidel to zernike and /2 to pass from P2V to coef
 pA8Anglezemax = plot(AnglesModel,zemaxA8Aberration,'k--2',name='zemax',/overplot)
-!null = LEGEND(target=[pA8Angleres, pA8Anglezon,pA8Anglezemax],/DATA)
+!null = LEGEND(target=[pA8Angleres, pA8Anglezon,pA8Anglesh,pA8Anglezemax],/DATA)
 
-pA8Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\coma_angle.pdf', BORDER=10, RESOLUTION=350
-pA8Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\coma_angle.png', BORDER=10, RESOLUTION=350
+pA8Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\coma_angle.pdf', BORDER=10, RESOLUTION=350
+pA8Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\coma_angle.png', BORDER=10, RESOLUTION=350
 
 ; plot defocus coeff. vs. angle----------------------------------------------------------------------
 
-pdefocAngleres = plot(Angles[sortedInd],defocAjres[sortedInd]*1000.d,'b-2',xtitle='Parallel Faces Angle [deg]',ytitle = 'Defocus Coef [nm]',name='modal')
-pdefocAnglezon = plot(Angles[sortedInd],defocAjzon[sortedInd]*1000.d,'r-2',name='zonal',/overplot)
-!null = LEGEND(target=[pdefocAngleres, pdefocAnglezon],/DATA)
-pdefocAngleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\defoc_angle.pdf', BORDER=10, RESOLUTION=350
-pdefocAngleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\defoc_angle.png', BORDER=10, RESOLUTION=350
+pdefocAngleres = plot(AnglesPD[sortedPDInd],defocAjres[sortedPDInd]*1000.d,'b-2',xtitle='Parallel Faces Angle [deg]',ytitle = 'Defocus Coef [nm]',name='modal')
+pdefocAnglezon = plot(AnglesPD[sortedPDInd],defocAjzon[sortedPDInd]*1000.d,'r-2',name='zonal',/overplot)
+pdefocAnglesh = plot(AnglesSH[sortedSHInd],defocAjsh[sortedSHInd]*1000.d,'r-2',name='SH',/overplot)
+!null = LEGEND(target=[pdefocAngleres,pdefocAnglezon,pdefocAnglesh],/DATA)
+pdefocAngleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\defoc_angle.pdf', BORDER=10, RESOLUTION=350
+pdefocAngleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\defoc_angle.png', BORDER=10, RESOLUTION=350
 
 
 ;Compare Phase and zernike modal vs. zonal-----------------------------------------------------------
-nbrRows = Nfolders
-nbrCol = 3
+nbrRows = NPDfolders
+nbrCol = 4
 
-minValue = -thZernikeCoef6[Nfolders-1]/2
-maxValue = thZernikeCoef6[Nfolders-1]/2
+minValue = -thZernikeCoef6[NPDfolders-1]/2
+maxValue = thZernikeCoef6[NPDfolders-1]/2
 
 marge = 0.3
-modwavefront = results[0].res.wavefront[*,*]*1000
-zonwavefront = results[0].zon.wavefront[*,*]*1000
+modwavefront = resultsPD[0].res.wavefront[*,*]*1000
+zonwavefront = resultsPD[0].zon.wavefront[*,*]*1000
+shwavefront = resultsSH[0].wavefront[*,*]*1000
 resDim = size(modwavefront,/dimension)
 imres = image(modwavefront,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],yrange=[0,resDim[1]],min_value=minvalue,max_value = maxValue, $
-  title=string(long(Angles[0]))+ ' Modal', MARGIN=marge,layout=[nbrCol,nbrRows,1])
+  title=string(long(AnglesPD[0]))+ ' Modal', MARGIN=marge,layout=[nbrCol,nbrRows,1])
 zonDim = size(zonwavefront,/dimension)
 imzon = image(zonwavefront,rgb_table=34,image_dimensions=zonDim,xrange=[0,zonDim[0]],yrange=[0,zonDim[1]],min_value=minvalue,max_value = maxValue $
   ,title='Zonal', MARGIN=marge,/current,layout=[nbrCol,nbrRows,2])
-jmax = max(results[0].res.j)
-pres = plot(results[0].res.j,results[0].res.a_j,'b-2',xtitle='Zernike polynome j',ytitle = 'a_j',name='modal',xrange = [4,jmax], MARGIN=marge,/current,layout=[nbrCol,nbrRows,3])
-pzon = plot(results[0].zon.j,results[0].zon.a_j,'r-2',name='zonal',/overplot)
+shDim = size(shwavefront,/dimension)
+imsh = image(shwavefront,rgb_table=34,image_dimensions=shDim,xrange=[0,shDim[0]],yrange=[0,shDim[1]],min_value=minvalue,max_value = maxValue $
+    ,title='SH', MARGIN=marge,/current,layout=[nbrCol,nbrRows,3])
+jmax = max(resultsPD[0].res.j)
+pres = plot(resultsPD[0].res.j,resultsPD[0].res.a_j,'b-2',xtitle='Zernike polynome j',ytitle = 'a_j',name='modal',xrange = [4,jmax], MARGIN=marge,/current,layout=[nbrCol,nbrRows,4])
+pzon = plot(resultsPD[0].zon.j,resultsPD[0].zon.a_j,'r-2',name='zonal',/overplot)
+psh = plot(resultsSH[0].zernike[0,*],resultsSH[0].zernike[3,*],'k-2',name='sh',/overplot)
+
 ;!null = LEGEND(target=[pres, pzon])
 
-for iFol = 1, Nfolders-1 do begin
-  modwavefront = results[iFol].res.wavefront[*,*]*1000
-  zonwavefront = results[iFol].zon.wavefront[*,*]*1000
+for iFol = 1, NPDfolders-1 do begin
+  modwavefront = resultsPD[iFol].res.wavefront[*,*]*1000
+  zonwavefront = resultsPD[iFol].zon.wavefront[*,*]*1000
+  shwavefront = resultsSH[iFol].wavefront[*,*]*1000
   resDim = size(modwavefront,/dimension)
   imres = image(modwavefront,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],yrange=[0,resDim[1]]$
-    ,title=string(long(Angles[iFol]))+ ' Modal', MARGIN=marge,min_value=minvalue,max_value = maxValue $
-    ,/current,layout=[nbrCol,nbrRows,(iFol+1)*2+(iFol+1)-2])
+    ,title=string(long(AnglesPD[iFol]))+ ' Modal', MARGIN=marge,min_value=minvalue,max_value = maxValue $
+    ,/current,layout=[nbrCol,nbrRows,(iFol+1)*3+(iFol+1)-3])
   zonDim = size(zonwavefront,/dimension)
   imzon = image(zonwavefront,rgb_table=34,image_dimensions=zonDim,xrange=[0,zonDim[0]],yrange=[0,zonDim[1]],min_value=minvalue,max_value = maxValue, $
-    title='Zonal', MARGIN=marge,/current,layout=[nbrCol,nbrRows,(iFol+1)*2+(iFol+1)-1])
+    title='Zonal', MARGIN=marge,/current,layout=[nbrCol,nbrRows,(iFol+1)*3+(iFol+1)-2])
+  shDim = size(shwavefront,/dimension)
+  imsh = image(shwavefront,rgb_table=34,image_dimensions=shDim,xrange=[0,shDim[0]],yrange=[0,shDim[1]],min_value=minvalue,max_value = maxValue $
+    ,title='SH', MARGIN=marge,/current,layout=[nbrCol,nbrRows,(iFol+1)*3+(iFol+1)-1])
+
   If iFol eq 1 then begin
     c = COLORBAR(TARGET=imres, ORIENTATION=1,TITLE='[nm]',range=[minValue,maxValue])
   Endif
 
-  jmax = max(results[iFol].res.j)
-  pres = plot(results[iFol].res.j,results[iFol].res.a_j,'b-2',xtitle='Zernike polynome j',ytitle = 'a_j',name='modal',xrange = [4,jmax], MARGIN=marge,/current,layout=[nbrCol,nbrRows,(iFol+1)*2+(iFol+1)])
-  pzon = plot(results[iFol].zon.j,results[iFol].zon.a_j,'r-2',name='zonal',/overplot)
+  jmax = max(resultsPD[iFol].res.j)
+  pres = plot(resultsPD[iFol].res.j,resultsPD[iFol].res.a_j,'b-2',xtitle='Zernike polynome j',ytitle = 'a_j',name='modal',xrange = [4,jmax], MARGIN=marge,/current,layout=[nbrCol,nbrRows,(iFol+1)*3+(iFol+1)])
+  pzon = plot(resultsPD[iFol].zon.j,resultsPD[iFol].zon.a_j,'r-2',name='zonal',/overplot)
+  psh = plot(resultsSH[iFol].zernike[0,*],resultsSH[iFol].zernike[3,*],'k-2',name='sh',/overplot)
 
 endfor
 
-imres.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\phaseModZonZer.pdf', BORDER=10, RESOLUTION=350
-imres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study\phaseModZonZer.png', BORDER=10, RESOLUTION=350
+imres.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\phaseModZonZer.pdf', BORDER=10, RESOLUTION=350
+imres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\phaseModZonZer.png', BORDER=10, RESOLUTION=350
 
 
 end

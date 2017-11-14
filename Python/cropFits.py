@@ -10,10 +10,10 @@ import functionsXimea as fX
 
 imgSize = 256
 
-initial_guess = [250,450,1135,3,3]
+initial_guess = [250,454,1206,3,3]
 
-fullFolderPath = 'C:/Users/Jojo/Desktop/PdM-HEIG/Science/data/PD/astigmatism/angle_study/full/50/'
-croppedFolderPath = 'C:/Users/Jojo/Desktop/PdM-HEIG/Science/data/PD/astigmatism/angle_study/cropped/50/'
+fullFolderPath = 'C:/Users/Jojo/Desktop/PdM-HEIG/Science/data/PD/astigmatism/angle_study_2/wth/full/50/'
+croppedFolderPath = 'C:/Users/Jojo/Desktop/PdM-HEIG/Science/data/PD/astigmatism/angle_study_2/wth/cropped/50/'
 
 files = os.listdir(fullFolderPath)
 
