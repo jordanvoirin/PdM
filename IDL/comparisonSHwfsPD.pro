@@ -35,8 +35,13 @@ shPSresult.wavefront = (SHwthPSresult.wavefront-SHwoutPSresult.wavefront)*1000
 ;plotting --------------------------------------------------------------------------------
 marge = 0.13
 
-;Zernike
 
+
+;RMS wavfront
+
+RMS = total(pdPSresult.res.a_j[*]^2)^0.5
+
+;Zernike
 MRMSE = rmse(pdPSresult.res.a_j ,shPSresult.zernike[3,3:jmax-1])
 ZRMSE = rmse(pdPSresult.zon.a_j ,shPSresult.zernike[3,3:jmax-1])
 

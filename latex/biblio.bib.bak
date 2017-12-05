@@ -7,6 +7,32 @@
   year =   {2017}
 }
 
+@Article{Gonsalve_1982,
+  author =  {Robert A. Gonsalves},
+  title =   {Phase Retrieval And Diversity In Adaptive Optics},
+  journal = {Optical Engineering},
+  year =    {1982},
+  volume =  {21},
+  pages =   {21 - 21 - 4},
+  doi =     {10.1117/12.7972989},
+  url =     {http://dx.doi.org/10.1117/12.7972989}
+}
+
+@Article{Gonsalves_1976,
+  author =    {R. A. Gonsalves},
+  title =     {Phase retrieval from modulus data},
+  journal =   {J. Opt. Soc. Am.},
+  year =      {1976},
+  volume =    {66},
+  number =    {9},
+  pages =     {961--964},
+  month =     {Sep},
+  abstract =  {Phase retrieval implies extraction of the phase of a complex signal f from its modulus {\textbar}f{\textbar}. We give examples where an additional constraint is imposed: knowledge of the modulus of F, the Fourier transform of f. The retrieval is accomplished by computer processing of samples of {\textbar}f{\textbar} and {\textbar}F{\textbar}. The problems of noisy data and nonuniqueness are addressed.},
+  doi =       {10.1364/JOSA.66.000961},
+  publisher = {OSA},
+  url =       {http://www.osapublishing.org/abstract.cfm?URI=josa-66-9-961}
+}
+
 @Book{ODFIS_Riedl2001,
   title =     {Opical Design Fundamentals for Infrared Systems},
   publisher = {SPIE Press},
@@ -18,20 +44,22 @@
   review =    {P.86}
 }
 
-@Website{pigtailedLaserDiode,
-  author =       {Thorlabs},
-  title =        {Pigtailed Laser Diode, SMF},
-  url =          {https://www.thorlabs.com/drawings/fabda6a9d8d9b5b7-79C310DF-0190-CACC-15060261B06DD1E8/LPS-635-FC-SpecSheet.pdf},
-  organization = {Thorlabs},
-  year =         {2013}
-}
-
 @Website{SpatialFilters,
   author =       {Thorlabs},
   title =        {Principles of Spatial Filters},
   url =          {https://www.thorlabs.com/newgrouppage9.cfm?objectgroup_id=1400},
   organization = {Thorlabs},
   year =         {2017}
+}
+
+@Article{,
+  author =  {R. W. Gerchberg and W. O. Saxton},
+  title =   {A practical algorithm for the determination of phase from image and diffraction plane pictures},
+  journal = {Optik},
+  year =    {1972},
+  volume =  {35},
+  number =  {2},
+  pages =   {237–250}
 }
 
 @comment{jabref-entrytype: Website: req[author;title;url;organization;year] opt[month]}
