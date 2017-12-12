@@ -1,12 +1,22 @@
+#Class phaseDiversity object to retrieve the phase in the pupil from two psfs in/out of focus
+
 import libtim.zern as Z
 import numpy as np
+import fs
 
-def retrievePhase(InFoc,OutFoc,DeltaZ,dx):
+class phaseDiversity(object):
 
-    if np.shape(InFoc) == np.shape(OutFoc) and np.shape(InFoc)[0] == np.shape(InFoc)[1]:
-        size = (np.shape(Infoc))[0]
-    else:
-        print 'the InFoc and outFoc must be squared arrays of the same size'
-        return
+    def __init__(self,inFoc,outFoc,deltaZ,lbda,pxsize,F,pupilRadius,Nj):
+        self.inFoc = inFoc
+        self.outFoc = outFoc
+        self.N = np.shape(inFoc,0)
+        self.deltaZ = deltaZ
+        self.lbda = lbda
+        self.pxsize = pxsize
+        self.F = F
+        self.pupilRadius = pupilRadius
+        self.dxp = self.F*self.lbda/(self.N*self.pxsize)
+        self.Nj = Nj
 
-    
+    def instanciateMatrices():
+        fs.f1j
