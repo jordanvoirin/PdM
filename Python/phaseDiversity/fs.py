@@ -12,7 +12,7 @@ def f1j(j,pupilRadius,dxp):
     pupil = np.ones((2*rad,2*rad))*grid_mask
     FFTPupil = np.fft.fftshift(np.fft.fft2(pupil))
 
-    return 2 * FFTPupil .* np.imag(FFTZj)
+    return 2 * np.real(FFTPupil) .* np.imag(FFTZj)
 
 def f2j(j,pupilRadius,dxp):
     rad = int(np.ceil(pupilRadius/dxp))
@@ -29,7 +29,7 @@ def f2j(j,pupilRadius,dxp):
     pupil = np.ones((2*rad,2*rad))*grid_mask
     FFTPupil =  np.fft.fftshift(np.fft.fft2(pupil))
 
-    return FFTZjNorm - FFTPupil.*FFTZjsquare
+    return FFTZjNorm - np.real(FFTPupil).*np.real(FFTZjsquare)
 
 def f3j(j,pupilRadius,dxp,deltaPhi):
     rad = int(np.ceil(pupilRadius/dxp))
@@ -49,4 +49,4 @@ def f3j(j,pupilRadius,dxp,deltaPhi):
     FFTPupilSin =  np.fft.fftshift(np.fft.fft2(pupilSin))
     FFTPupilCos =  np.fft.fftshift(np.fft.fft2(pupilCos))
 
-    return 2*(np.conj(FFTPupilSin).*FFTcosZj+np.conj(FFTPupilCos).*FFTsinZj)
+    return 2*(np.real(np.conj(FFTPupilSin)).*np.real(FFTcosZj)+np.real(np.conj(FFTPupilCos)).*np.real(FFTsinZj))
