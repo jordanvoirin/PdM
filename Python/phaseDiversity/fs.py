@@ -3,7 +3,7 @@ import numpy as np
 from libtim import all
 
 def f1j(j,pupilRadius,dxp):
-    rad = np.ceil(pupilRadius/dxp)
+    rad = int(np.ceil(pupilRadius/dxp))
     zernike = zern.calc_zern_basis(1,rad,j)
     Zj = zernike['modes'][0]/(zern_normalisation(nmodes=j))[-1]
     FFTZj = np.fft.fftshift(np.fft.fft2(Zj))
@@ -15,7 +15,7 @@ def f1j(j,pupilRadius,dxp):
     return 2 * FFTPupil .* np.imag(FFTZj)
 
 def f2j(j,pupilRadius,dxp):
-    rad = np.ceil(pupilRadius/dxp)
+    rad = int(np.ceil(pupilRadius/dxp))
     #Get the jth zernike polynomials values on a circular pupil of radius rad
     zernike = zern.calc_zern_basis(1,rad,j)
     Zj = zernike['modes'][0]/(zern_normalisation(nmodes=j))[-1]
@@ -32,7 +32,7 @@ def f2j(j,pupilRadius,dxp):
     return FFTZjNorm - FFTPupil.*FFTZjsquare
 
 def f3j(j,pupilRadius,dxp,deltaPhi):
-    rad = np.ceil(pupilRadius/dxp)
+    rad = int(np.ceil(pupilRadius/dxp))
     #Get the jth zernike polynomials values on a circular pupil of radius rad
     zernike = zern.calc_zern_basis(1,rad,j)
     Zj = zernike['modes'][0]/(zern_normalisation(nmodes=j))[-1]
