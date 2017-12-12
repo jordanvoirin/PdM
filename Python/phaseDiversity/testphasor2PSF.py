@@ -1,11 +1,18 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from libtim import all
-
+import libtim.im as im
 %matplotlib inline
-%config 
+%config InlineBackend.figure_format = 'svg'
+
+pupilRadius = 1.6e-3
+lbda = 0.6375e-6
+F = 80e-3
+pxsize = 5.3e-6
+N = 400
+dxp = lbda*F/(N*pxsize)
 
 rad = int(np.ceil(pupilRadius/dxp))
+print rad
 grid_mask = (im.mk_rad_mask(2*rad)) <= 1
 pupil = np.ones((2*rad,2*rad))*grid_mask
 matpupil = np.zeros((4*rad,4*rad))
@@ -14,8 +21,6 @@ FFTPupil = np.fft.fftshift(np.fft.fft2(matpupil))
 
 NFFTPupil = np.abs(FFTPupil)**2/np.sum(pupil)
 
-plt.figure()
 plt.imshow(matpupil)
 
-plt.figure()
-plt.imshow(NFFTpupil,vmax=0.,vmin=2.)
+plt.imshow(NFFTPupil,vmax=2.,vmin=0.)
