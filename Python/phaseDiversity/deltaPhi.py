@@ -1,9 +1,7 @@
-import numpy as np
-from libtim import All
+import numpy as np from libtim import All
 
 
-def deltaPhi(j,pupilRadius,size,pixelSize,deltaZ,F,D,wavelength):
-    dxp = 1./pixelSize
+def deltaPhi(j,pupilRadius,dxp,deltaZ,F,D,wavelength):
     rad = np.ceil(pupilRadius/dxp)
     zernike = zern.calc_zern_basis(1,rad,j)
     Zj = zernike['modes'][0]/(zern_normalisation(nmodes=j))[-1]
