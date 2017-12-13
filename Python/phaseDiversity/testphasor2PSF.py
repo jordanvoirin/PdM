@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import libtim.im as im
 import phasor as ph
+import myExceptions
 %matplotlib inline
 %config InlineBackend.figure_format = 'svg'
 

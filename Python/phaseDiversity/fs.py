@@ -2,7 +2,7 @@
 import numpy as np
 from libtim import all
 
-def f1j(j,pupilRadius,dxp):
+def f1j(j,pupilRadius,dxp): #phij of matrix A to find a_j odd
     rad = int(np.ceil(pupilRadius/dxp))
     zernike = zern.calc_zern_basis(1,rad,j)
     Zj = zernike['modes'][0]/(zern_normalisation(nmodes=j))[-1]
@@ -14,7 +14,7 @@ def f1j(j,pupilRadius,dxp):
 
     return 2 * np.real(FFTPupil) .* np.imag(FFTZj)
 
-def f2j(j,pupilRadius,dxp):
+def f2j(j,pupilRadius,dxp): #phij of matrix A to find b_j=a_j^2 even
     rad = int(np.ceil(pupilRadius/dxp))
     #Get the jth zernike polynomials values on a circular pupil of radius rad
     zernike = zern.calc_zern_basis(1,rad,j)
@@ -31,7 +31,7 @@ def f2j(j,pupilRadius,dxp):
 
     return FFTZjNorm - np.real(FFTPupil).*np.real(FFTZjsquare)
 
-def f3j(j,pupilRadius,dxp,deltaPhi):
+def f3j(j,pupilRadius,dxp,deltaPhi): #phij of matrix A to find a_j even
     rad = int(np.ceil(pupilRadius/dxp))
     #Get the jth zernike polynomials values on a circular pupil of radius rad
     zernike = zern.calc_zern_basis(1,rad,j)
@@ -50,3 +50,12 @@ def f3j(j,pupilRadius,dxp,deltaPhi):
     FFTPupilCos =  np.fft.fftshift(np.fft.fft2(pupilCos))
 
     return 2*(np.real(np.conj(FFTPupilSin)).*np.real(FFTcosZj)+np.real(np.conj(FFTPupilCos)).*np.real(FFTsinZj))
+
+def getPSFOddPart(PSF):
+
+    
+
+
+def y1(inFoc)
+
+    oddPSF = getPSFOddPart
