@@ -5,15 +5,15 @@ import libtim.im as im
 
 class phasor(object):
 
-    def __init__(self,js=[1],ajs=[0],pupilRadius=1.6e-3,dxp=2.405660377358491e-05):
+    def __init__(self,js=[1],ajs=[0],N=800,rad=200):
         self.js = js
         self.ajs = ajs
-        self.pupilRadius = pupilRadius
-        self.dxp = dxp
-        self.rad = int(np.ceil(pupilRadius/dxp))
+        self.rad = rad
         self.grid_mask = (im.mk_rad_mask(2*self.rad)) <= 1
-        self.pupil = np.ones((2*self.rad,2*self.rad))*self.grid_mask
-        self.phase = self.constructPhase()
+        self.pupil = np.zeros((N,N))
+        self.pupil[(N-2*self.rad)/2:(N-2*self.rad)/2+2*self.rad,(N-2*self.rad)/2:(N-2*self.rad)/2+2*self.rad] = np.ones((2*self.rad,2*self.rad))*self.grid_mask
+        self.phase = np.zeros((N,N))
+        self.phase[(N-2*rad)/2:(N-2*rad)/2+2*rad,(N-2*rad)/2:(N-2*rad)/2+2*rad] = self.constructPhase()
         self.phasor = self.pupil*np.exp(-1j*self.phase)
 
     def constructPhase(self):

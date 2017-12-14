@@ -14,9 +14,8 @@ N = 400
 dxp = lbda*F/(N*pxsize)
 
 rad = int(np.ceil(pupilRadius/dxp))
-phasor = ph.phasor([6],[2*np.pi],pupilRadius,dxp)
-matphasor = np.zeros((4*rad,4*rad),dtype=np.complex_)
-matphasor[rad:3*rad,rad:3*rad] = phasor.phasor
+phasor = ph.phasor([6],[2*np.pi],N,rad)
+matphasor = phasor.phasor
 FFTPupil = np.fft.fftshift(np.fft.fft2(matphasor))
 NFFTPupil = np.abs(FFTPupil)**2/np.sum(phasor.pupil)**2
 NFFTPupilnormalized = NFFTPupil/np.max(NFFTPupil)

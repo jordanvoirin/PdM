@@ -28,7 +28,7 @@ class phaseDiversity(object):
         self.pupilRadius = pupilRadius
         self.dxp = self.F*self.lbda/(self.N*self.pxsize)
         self.rad = int(np.ceil(self.pupilRadius/self.dxp))
-        if 2*self.rad > self.N/2:
+        if 2*self.rad > self.N/2.:
             raise myExceptions.PupilSizeError('Npupil (2*rad) is bigger than N/2 which is not correct for the fft computation',[])
         self.NyquistCriterion()
         self.Nj = Nj
