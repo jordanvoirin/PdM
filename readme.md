@@ -36,4 +36,7 @@ I found a package for the zernike polynomials used as the basis for the aberrati
 ###Python Code :
 
 - phaseDiversity.py : Class phaseDiversity that we instantiate an object which will do the phase phaseRetrieval
-- fs.py : functions 
+- fs.py : functions to construct the matricial system which will be minimized
+- myExceptions.py : new exceptions I use to let know the users on what he could have done wrong
+- phasor.py : Class phasor that construct a phasor with the desired characteristic.
+- some test codes to check if everything runs smoothly
