@@ -33,7 +33,7 @@ The second part of my project is more theoretical on the subject of phase divers
 
 I found a package for the zernike polynomials used as the basis for the aberrations (libtim-py, https://github.com/tvwerkhoven/libtim-py)
 
-###Python Code :
+### Python Code :
 
 - phaseDiversity.py : Class phaseDiversity that we instantiate an object which will do the phase phaseRetrieval
 - fs.py : functions 
