@@ -4,10 +4,11 @@ import libtim.zern as Z
 import numpy as np
 import fs
 import myExceptions
+import phasor as ph
 
 class phaseDiversity(object):
 
-    def __init__(self,inFoc,outFoc,deltaZ,lbda,pxsize,F,pupilRadius,Nj):
+    def __init__(self,inFoc,outFoc,deltaZ,lbda,pxsize,F,pupilRadius,jmax):
 
         self.inFoc = inFoc
         self.outFoc = outFoc
@@ -16,11 +17,11 @@ class phaseDiversity(object):
         if shapeinFoc == shapeoutFoc:
             self.shape = shapeinFoc
         else:
-            raise PSFssizeError('the shape of the in/out PSFs is not the same',[shapeinFoc,shapeoutFoc])
+            raise myExceptions.PSFssizeError('the shape of the in/out PSFs is not the same',[shapeinFoc,shapeoutFoc])
         if shapeinFoc[0]==shapeinFoc[1] and np.mod(shapeinFoc[0],2)==0:
             self.N = shapeinFoc[0]
         else:
-            raise PSFssizeError('Either PSF is not square or mod(N,2) != 0',shapeinFoc)
+            raise myExceptions.PSFssizeError('Either PSF is not square or mod(N,2) != 0',shapeinFoc)
         self.deltaZ = deltaZ
         self.lbda = lbda
         self.pxsize = pxsize
@@ -31,9 +32,61 @@ class phaseDiversity(object):
         if 2*self.rad > self.N/2.:
             raise myExceptions.PupilSizeError('Npupil (2*rad) is bigger than N/2 which is not correct for the fft computation',[])
         self.NyquistCriterion()
-        self.Nj = Nj
+        self.jmax = jmax
+        self.oddjs = fs.getOddJs(1,self.jmax)
+        self.evenjs = fs.getEvenJs(1,self.jmax)
+
+        self.result = retrievePhase
 
     def NyquistCriterion(self):
         deltaXfnyq = 0.5*self.lbda/(2*self.pupilRadius)
         deltaXf = self.pxsize/self.F
-        if deltaXfnyq < deltaXf : raise NyquistError('the system properties do not respect the nyquist criterion',[])
+        if deltaXfnyq < deltaXf : raise myExceptions.NyquistError('the system properties do not respect the nyquist criterion',[])
+
+    def retrievePhase(self):
+        y1,A1 = initiateMatrix1()
+        ajsodd = np.linalg.lstsq(A1,y1)
+        deltaphi = fs.deltaPhi(self.N,self.rad,self.deltaZ,self.F,2*self.pupilRadius,self.wavelength)
+        y2,A2 = initiateMatrix2(ajsodd,deltaphi)
+        ajseven = np.linalg.lstsq(A2,y2)
+
+        js = [self.oddjs,self.evenjs]
+        ajs = [ajsodd,ajseven]
+        phase = (ph.phasor(js,ajs,self.N,self.rad)).phase
+        Ixjs = np.argsort(js)
+        result = {'js': js, 'ajs': ajs,'wavefront':phase}
+        return result
+
+    def initiateMatrix1(self):
+        deltaPSFinFoc = CMPTEdeltaPSF()
+        y1 = fs.y1(deltaPSFinFoc)
+        A1 = np.zeros((N**2,len(self.oddjs)))
+        for ij in self.oddjs:
+            phiJ = fs.f1j(ij,self.N,self.rad)
+            A1[:,ij] = phiJ
+        return y1,A1
+
+    def initiateMatrix2(self,ajsodd,deltaphi):
+        deltaPSFoutFoc = CMPTEdeltaPSF(self.deltaZ)
+        y2 = fs.y2(deltaPSFoutFoc,self.N,self.rad,ajsodd,deltaphi)
+        A2 = np.zeros((N**2,len(self.evenjs)))
+        for ij in self.evenjs:
+            phiJ = fs.f2j(ij,self.N,self.rad,self.oddjs,ajsodd,deltaphi)
+            A2[:,ij] = phiJ
+        return y2,A2
+
+    def CMPTEdeltaPSF(self,deltaZ=[]):
+        if not deltaZ:
+            phasor = ph.phasor([1],[0],self.N,self.rad)
+            FFTPupil = np.fft.fftshift(np.fft.fft2(phasor.phasor))
+            PSFwoutAberrations = np.abs(FFTPupil)**2/np.sum(phasor.pupil)**2
+            deltaPSFinFoc = self.inFoc - PSFwoutAberrations
+            return deltaPSFinFoc
+        else:
+            P2Vdephasing = np.pi*self.deltaZ/self.lbda*(2*self.pupilRadius/self.F)**2
+            a4 = P2Vdephasing/np.sqrt(3)
+            phasor = ph.phasor([4],[a4],self.N,self.rad)
+            FFTPupil = np.fft.fftshift(np.fft.fft2(phasor.phasor))
+            PSFwoutAberrations = np.abs(FFTPupil)**2/np.sum(phasor.pupil)**2
+            deltaPSFoutFoc = self.outFoc - PSFwoutAberrations
+            return deltaPSFoutFoc
