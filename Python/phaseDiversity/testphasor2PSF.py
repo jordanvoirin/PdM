@@ -1,8 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import libtim.im as im
 import phasor as ph
-import myExceptions
 %matplotlib inline
 %config InlineBackend.figure_format = 'svg'
 
@@ -14,21 +12,17 @@ N = 400
 dxp = lbda*F/(N*pxsize)
 
 rad = int(np.ceil(pupilRadius/dxp))
-phasor = ph.phasor([1],[0],N,rad)
+phasor = ph.phasor([4],[np.pi],N,rad)
 matphasor = phasor.phasor
 FFTPupil = np.fft.fftshift(np.fft.fft2(matphasor))
 NFFTPupil = np.abs(FFTPupil)**2/np.sum(phasor.pupil)**2
 NFFTPupilnormalized = NFFTPupil/np.max(NFFTPupil)
 
+plt.figure()
 plt.imshow(np.real(matphasor),vmax = np.max(np.real(matphasor)), vmin = np.min(np.real(matphasor)))
-
+plt.figure()
 plt.imshow(NFFTPupil,vmax=np.max(NFFTPupil),vmin=0.)
-
+plt.figure()
 plt.imshow(phasor.phase)
-
+plt.figure()
 plt.imshow(phasor.pupil)
-
-
-a = []
-
-a
