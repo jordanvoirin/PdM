@@ -2,6 +2,7 @@
 import numpy as np
 import libtim.zern as zern
 import libtim.im as im
+import fs
 
 class phasor(object):
 

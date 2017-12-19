@@ -53,10 +53,11 @@ class phaseDiversity(object):
 
         js = np.append(self.oddjs,self.evenjs)
         ajs = np.append(ajsodd,ajseven)
+        ajs = fs.cleanZeros(ajs,1e-11)
         #resultPhasor = ph.phasor(js,ajs,self.N,self.rad)
         #phase = resultPhasor.phase
         Ixjs = np.argsort(js)
-        result = {'js': js[Ixjs], 'ajs': ajs[Ixjs]} #,'wavefront':phase}
+        result = {'js': js[Ixjs], 'ajs': ajs[Ixjs]*self.lbda} #,'wavefront':phase}
         return result
 
     def initiateMatrix1(self):
@@ -80,7 +81,7 @@ class phaseDiversity(object):
     def CMPTEdeltaPSF(self,deltaZ=[]):
         if not deltaZ:
             phasor = ph.phasor([1],[0],self.N,self.rad)
-            FFTPupil = np.fft.fftshift(np.fft.fft2(phasor.phasor))
+            FFTPupil = np.fft.ifftshift(np.fft.fft2(np.fft.fftshift(phasor.phasor),norm='ortho'))
             PSFwoutAberrations = np.abs(FFTPupil)**2/np.sum(phasor.pupil)**2
             deltaPSFinFoc = self.inFoc - PSFwoutAberrations
             return deltaPSFinFoc
@@ -88,7 +89,7 @@ class phaseDiversity(object):
             P2Vdephasing = np.pi*self.deltaZ/self.lbda*(2*self.pupilRadius/self.F)**2/4.
             a4 = P2Vdephasing/np.sqrt(3)/2.
             phasor = ph.phasor([4],[a4],self.N,self.rad)
-            FFTPupil = np.fft.fftshift(np.fft.fft2(phasor.phasor))
+            FFTPupil = np.fft.ifftshift(np.fft.fft2(np.fft.fftshift(phasor.phasor),norm='ortho'))
             PSFwoutAberrations = np.abs(FFTPupil)**2/np.sum(phasor.pupil)**2
             deltaPSFoutFoc = self.outFoc - PSFwoutAberrations
             return deltaPSFoutFoc
