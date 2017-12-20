@@ -7,12 +7,12 @@ import numpy as np
 def f1j(j,N,rad,dx): # 1: phij's of matrix A to find a_j odd
     zernike = Z.calc_zern_basis(1,rad,j)
     Zj = np.zeros((N,N))
-    Zj[N/2-1-rad:N/2-1+rad,N/2-1-rad:N/2-1+rad] = zernike['modes'][0]/(Z.zern_normalisation(nmodes=j))[-1]
+    Zj[N/2-rad:N/2+rad,N/2-rad:N/2+rad] = zernike['modes'][0]/(Z.zern_normalisation(nmodes=j))[-1]
     FFTZj = scaledfft2(Zj,dx)
 
     grid_mask = (im.mk_rad_mask(2*rad)) <= 1
     pupil = np.zeros((N,N))
-    pupil[N/2-1-rad:N/2-1+rad,N/2-1-rad:N/2-1+rad] = np.ones((2*rad,2*rad))*grid_mask
+    pupil[N/2-rad:N/2+rad,N/2-rad:N/2+rad] = np.ones((2*rad,2*rad))*grid_mask
     FFTPupil = scaledfft2(pupil,dx)
 
     return np.ravel(2 * np.real(FFTPupil) * np.imag(FFTZj))
@@ -21,7 +21,7 @@ def f2j(j,N,rad,jsodd,ajsodd,deltaphi,dx): # 2: phij's of matrix A to find a_j e
     #Get the jth zernike polynomials values on a circular pupil of radius rad
     zernike = Z.calc_zern_basis(1,rad,j)
     Zj = np.zeros((N,N))
-    Zj[N/2-1-rad:N/2-1+rad,N/2-1-rad:N/2-1+rad] = zernike['modes'][0]/(Z.zern_normalisation(nmodes=j))[-1]
+    Zj[N/2-rad:N/2+rad,N/2-rad:N/2+rad] = zernike['modes'][0]/(Z.zern_normalisation(nmodes=j))[-1]
 
     #compute the different 2Dfft given in the equations of deltaPSF
     cosZj = np.cos(deltaphi)*Zj
@@ -106,7 +106,7 @@ def getEvenJs(jmin,jmax):
 def deltaPhi(N,rad,deltaZ,F,D,wavelength):
     zernike = Z.calc_zern_basis(1,rad,4)
     Zj = np.zeros((N,N))
-    Zj[N/2-1-rad:N/2-1+rad,N/2-1-rad:N/2-1+rad] = zernike['modes'][0]/(Z.zern_normalisation(nmodes=4))[-1]
+    Zj[N/2-rad:N/2+rad,N/2-rad:N/2+rad] = zernike['modes'][0]/(Z.zern_normalisation(nmodes=4))[-1]
 
     P2Vdephasing = np.pi*deltaZ/wavelength*(D/F)**2/4.
 

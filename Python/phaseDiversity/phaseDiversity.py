@@ -8,7 +8,8 @@ import PSF as psf
 class phaseDiversity(object):
 
     def __init__(self,inFoc,outFoc,deltaZ,lbda,pxsize,F,pupilRadius,jmax):
-
+        
+        #PSF
         self.inFoc = inFoc
         self.outFoc = outFoc
         shapeinFoc = np.shape(self.inFoc)
@@ -21,6 +22,8 @@ class phaseDiversity(object):
             self.N = shapeinFoc[0]
         else:
             raise myExceptions.PSFssizeError('Either PSF is not square or mod(N,2) != 0',shapeinFoc)
+            
+        # properties   
         self.deltaZ = deltaZ
         self.lbda = lbda
         self.pxsize = pxsize
@@ -34,7 +37,8 @@ class phaseDiversity(object):
         self.jmax = jmax
         self.oddjs = fs.getOddJs(1,self.jmax)
         self.evenjs = fs.getEvenJs(1,self.jmax)
-
+        
+        # result computation
         self.result = self.retrievePhase()
 
     def NyquistCriterion(self):
@@ -53,7 +57,7 @@ class phaseDiversity(object):
 
         js = np.append(self.oddjs,self.evenjs)
         ajs = np.append(ajsodd,ajseven)
-        ajs = fs.cleanZeros(ajs,1e-11)
+        #ajs = fs.cleanZeros(ajs,1e-11)
         #resultPhasor = ph.phasor(js,ajs,self.N,self.rad)
         #phase = resultPhasor.phase
         Ixjs = np.argsort(js)
@@ -81,9 +85,9 @@ class phaseDiversity(object):
     def CMPTEdeltaPSF(self,deltaZ=[]):
         if not deltaZ:
             PSF = psf.PSF([1],[0],self.N,self.rad,self.dxp)
-            return PSF.deltaPSF
+            return PSF.Sp**2*self.inFoc - PSF.Sp**2*PSF.PSF
         else:
             P2Vdephasing = np.pi*self.deltaZ/self.lbda*(2*self.pupilRadius/self.F)**2/4.
             a4 = P2Vdephasing/2.
             PSF = psf.PSF([4],[a4],self.N,self.rad,self.dxp)
-            return PSF.deltaPSF
+            return PSF.Sp**2*self.outFoc - PSF.Sp**2*PSF.PSF

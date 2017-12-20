@@ -13,9 +13,9 @@ class phasor(object):
         self.rad = rad
         self.grid_mask = (im.mk_rad_mask(2*self.rad)) <= 1
         self.pupil = np.zeros((self.N,self.N))
-        self.pupil[self.N/2-1-self.rad:self.N/2-1+self.rad,self.N/2-1-self.rad:self.N/2-1+self.rad] = np.ones((2*self.rad,2*self.rad))*self.grid_mask
+        self.pupil[self.N/2+1-self.rad:self.N/2+1+self.rad,self.N/2+1-self.rad:self.N/2+1+self.rad] = np.ones((2*self.rad,2*self.rad))*self.grid_mask
         self.phase = np.zeros((self.N,self.N))
-        self.phase[self.N/2-1-self.rad:self.N/2-1+self.rad,self.N/2-1-self.rad:self.N/2-1+self.rad] = self.constructPhase()
+        self.phase[self.N/2+1-self.rad:self.N/2+1+self.rad,self.N/2+1-self.rad:self.N/2+1+self.rad] = self.constructPhase()
         self.phasor = self.pupil*np.exp(-1j*self.phase)
 
     def constructPhase(self):
