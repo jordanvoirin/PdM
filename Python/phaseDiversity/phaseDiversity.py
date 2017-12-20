@@ -3,7 +3,7 @@
 import numpy as np
 import fs
 import myExceptions
-import phasor as ph
+import PSF as psf
 
 class phaseDiversity(object):
 
@@ -65,31 +65,25 @@ class phaseDiversity(object):
         y1 = fs.y1(deltaPSFinFoc)
         A1 = np.zeros((self.N**2,len(self.oddjs)))
         for ij in np.arange(len(self.oddjs)):
-            phiJ = fs.f1j(self.oddjs[ij],self.N,self.rad)
+            phiJ = fs.f1j(self.oddjs[ij],self.N,self.rad,self.dxp)
             A1[:,ij] = phiJ
         return y1,A1
 
     def initiateMatrix2(self,ajsodd,deltaphi):
         deltaPSFoutFoc = self.CMPTEdeltaPSF(self.deltaZ)
-        y2 = fs.y2(deltaPSFoutFoc,self.N,self.rad,self.oddjs,ajsodd,deltaphi)
+        y2 = fs.y2(deltaPSFoutFoc,self.N,self.rad,self.oddjs,ajsodd,deltaphi,self.dxp)
         A2 = np.zeros((self.N**2,len(self.evenjs)))
         for ij in np.arange(len(self.evenjs)):
-            phiJ = fs.f2j(self.evenjs[ij],self.N,self.rad,self.oddjs,ajsodd,deltaphi)
+            phiJ = fs.f2j(self.evenjs[ij],self.N,self.rad,self.oddjs,ajsodd,deltaphi,self.dxp)
             A2[:,ij] = phiJ
         return y2,A2
 
     def CMPTEdeltaPSF(self,deltaZ=[]):
         if not deltaZ:
-            phasor = ph.phasor([1],[0],self.N,self.rad)
-            FFTPupil = np.fft.ifftshift(np.fft.fft2(np.fft.fftshift(phasor.phasor),norm='ortho'))
-            PSFwoutAberrations = np.abs(FFTPupil)**2/np.sum(phasor.pupil)**2
-            deltaPSFinFoc = self.inFoc - PSFwoutAberrations
-            return deltaPSFinFoc
+            PSF = psf.PSF([1],[0],self.N,self.rad,self.dxp)
+            return PSF.deltaPSF
         else:
             P2Vdephasing = np.pi*self.deltaZ/self.lbda*(2*self.pupilRadius/self.F)**2/4.
-            a4 = P2Vdephasing/np.sqrt(3)/2.
-            phasor = ph.phasor([4],[a4],self.N,self.rad)
-            FFTPupil = np.fft.ifftshift(np.fft.fft2(np.fft.fftshift(phasor.phasor),norm='ortho'))
-            PSFwoutAberrations = np.abs(FFTPupil)**2/np.sum(phasor.pupil)**2
-            deltaPSFoutFoc = self.outFoc - PSFwoutAberrations
-            return deltaPSFoutFoc
+            a4 = P2Vdephasing/2.
+            PSF = psf.PSF([4],[a4],self.N,self.rad,self.dxp)
+            return PSF.deltaPSF

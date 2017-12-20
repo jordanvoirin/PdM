@@ -1,8 +1,6 @@
-import matplotlib
-matplotlib.use('Qt5Agg')
 import numpy as np
 import matplotlib.pyplot as plt
-import phasor as ph
+import PSF as psf
 #%matplotlib inline
 #%config InlineBackend.figure_format = 'svg'
 
@@ -14,17 +12,14 @@ N = 400
 dxp = lbda*F/(N*pxsize)
 
 rad = int(np.ceil(pupilRadius/dxp))
-phasor = ph.phasor([8],[2000e-9/lbda],N,rad)
-matphasor = phasor.phasor
-FFTPupil = np.fft.fftshift(np.fft.fft2(matphasor))
-NFFTPupil = np.abs(FFTPupil)**2/np.sum(phasor.pupil)**2
-NFFTPupilnormalized = NFFTPupil/np.max(NFFTPupil)
+PSF = psf.PSF([8],[2000e-9/lbda],N,rad,dxp)
+
 
 plt.figure()
-plt.imshow(np.real(matphasor),vmax = np.max(np.real(matphasor)), vmin = np.min(np.real(matphasor)))
+plt.imshow(np.real(PSF.phasor.phasor),vmax = np.max(np.real(PSF.phasor.phasor)), vmin = np.min(np.real(PSF.phasor.phasor)))
 plt.figure()
-plt.imshow(NFFTPupil,vmax=np.max(NFFTPupil),vmin=0.)
+plt.imshow(PSF.PSF,vmax=np.max(PSF.PSF),vmin=np.min(PSF.PSF))
 plt.figure()
-plt.imshow(phasor.phase)
+plt.imshow(PSF.phasor.phase)
 plt.figure()
-plt.imshow(phasor.pupil)
+plt.imshow(PSF.phasor.pupil)
