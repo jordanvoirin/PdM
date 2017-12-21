@@ -12,7 +12,7 @@ N = 400
 dxp = lbda*F/(N*pxsize)
 rad = int(np.ceil(pupilRadius/dxp))
 
-PSF = psf.PSF([8],[10e-9/lbda],N,rad,dxp)
+PSF = psf.PSF([10],[10e-9/lbda],N,dxp,pupilRadius)
 FFTpupil = np.fft.ifftshift(np.fft.fft2(np.fft.fftshift(PSF.phasor.pupil)))
 plt.figure()
 plt.imshow(np.real(PSF.phasor.phasor),vmax = np.max(np.real(PSF.phasor.phasor)), vmin = np.min(np.real(PSF.phasor.phasor)))

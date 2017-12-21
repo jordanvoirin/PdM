@@ -50,7 +50,7 @@ class phaseDiversity(object):
         y1,A1 = self.initiateMatrix1()
         results1 = np.linalg.lstsq(A1,y1)
         ajsodd = results1[0]
-        deltaphi = fs.deltaPhi(self.N,self.rad,self.deltaZ,self.F,2*self.pupilRadius,self.lbda)
+        deltaphi = fs.deltaPhi(self.N,self.deltaZ,self.F,2*self.pupilRadius,self.lbda,self.dxp)
         y2,A2 = self.initiateMatrix2(ajsodd,deltaphi)
         results2 = np.linalg.lstsq(A2,y2)
         ajseven = results2[0]
@@ -69,25 +69,25 @@ class phaseDiversity(object):
         y1 = fs.y1(deltaPSFinFoc)
         A1 = np.zeros((self.N**2,len(self.oddjs)))
         for ij in np.arange(len(self.oddjs)):
-            phiJ = fs.f1j(self.oddjs[ij],self.N,self.rad,self.dxp)
+            phiJ = fs.f1j(self.oddjs[ij],self.N,self.dxp,self.pupilRadius)
             A1[:,ij] = phiJ
         return y1,A1
 
     def initiateMatrix2(self,ajsodd,deltaphi):
         deltaPSFoutFoc = self.CMPTEdeltaPSF(self.deltaZ)
-        y2 = fs.y2(deltaPSFoutFoc,self.N,self.rad,self.oddjs,ajsodd,deltaphi,self.dxp)
+        y2 = fs.y2(deltaPSFoutFoc,self.N,self.oddjs,ajsodd,deltaphi,self.dxp,self.pupilRadius)
         A2 = np.zeros((self.N**2,len(self.evenjs)))
         for ij in np.arange(len(self.evenjs)):
-            phiJ = fs.f2j(self.evenjs[ij],self.N,self.rad,self.oddjs,ajsodd,deltaphi,self.dxp)
+            phiJ = fs.f2j(self.evenjs[ij],self.N,self.oddjs,ajsodd,deltaphi,self.dxp,self.pupilRadius)
             A2[:,ij] = phiJ
         return y2,A2
 
     def CMPTEdeltaPSF(self,deltaZ=[]):
         if not deltaZ:
-            PSF = psf.PSF([1],[0],self.N,self.rad,self.dxp)
+            PSF = psf.PSF([1],[0],self.N,self.dxp,self.pupilRadius)
             return PSF.Sp**2*self.inFoc - PSF.Sp**2*PSF.PSF
         else:
             P2Vdephasing = np.pi*self.deltaZ/self.lbda*(2*self.pupilRadius/self.F)**2/4.
             a4 = P2Vdephasing/2.
-            PSF = psf.PSF([4],[a4],self.N,self.rad,self.dxp)
+            PSF = psf.PSF([4],[a4],self.N,self.dxp,self.pupilRadius)
             return PSF.Sp**2*self.outFoc - PSF.Sp**2*PSF.PSF

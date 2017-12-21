@@ -1,51 +1,50 @@
 #functions to compute the matrix element of the system of equations Ax = b
-import libtim.zern as Z
-import libtim.im as im
+import zernike as Z
 import phasor as ph
 import numpy as np
 
-def f1j(j,N,rad,dx): # 1: phij's of matrix A to find a_j odd
-    zernike = Z.calc_zern_basis(1,rad,j)
-    Zj = np.zeros((N,N))
-    Zj[N/2-rad:N/2+rad,N/2-rad:N/2+rad] = zernike['modes'][0]/(Z.zern_normalisation(nmodes=j))[-1]
-    FFTZj = scaledfft2(Zj,dx)
+def f1j(j,N,dxp,pupilRadius): # 1: phij's of matrix A to find a_j odd
+    Zj = Z.calc_zern_j(j,N,dxp,pupilRadius)
+    FFTZj = scaledfft2(Zj,dxp)
 
-    grid_mask = (im.mk_rad_mask(2*rad)) <= 1
-    pupil = np.zeros((N,N))
-    pupil[N/2-rad:N/2+rad,N/2-rad:N/2+rad] = np.ones((2*rad,2*rad))*grid_mask
-    FFTPupil = scaledfft2(pupil,dx)
+    Lp = N*dxp
+    xp = np.arange(-Lp/2,Lp/2,dxp)
+    yp = xp
+
+    [Xp,Yp]=np.meshgrid(xp,yp) 
+    
+    pupil = np.float64(np.sqrt(Xp**2+Yp**2)<=pupilRadius)
+    FFTPupil = scaledfft2(pupil,dxp)
 
     return np.ravel(2 * np.real(FFTPupil) * np.imag(FFTZj))
 
-def f2j(j,N,rad,jsodd,ajsodd,deltaphi,dx): # 2: phij's of matrix A to find a_j even
+def f2j(j,N,jsodd,ajsodd,deltaphi,pupilRadius,dxp): # 2: phij's of matrix A to find a_j even
     #Get the jth zernike polynomials values on a circular pupil of radius rad
-    zernike = Z.calc_zern_basis(1,rad,j)
-    Zj = np.zeros((N,N))
-    Zj[N/2-rad:N/2+rad,N/2-rad:N/2+rad] = zernike['modes'][0]/(Z.zern_normalisation(nmodes=j))[-1]
+    Zj = Z.calc_zern_j(j,N,dxp,pupilRadius)
 
     #compute the different 2Dfft given in the equations of deltaPSF
     cosZj = np.cos(deltaphi)*Zj
     sinZj = np.sin(deltaphi)*Zj
-    FFTcosZj =  scaledfft2(cosZj,dx)
-    FFTsinZj =  scaledfft2(sinZj,dx)
+    FFTcosZj =  scaledfft2(cosZj,dxp)
+    FFTsinZj =  scaledfft2(sinZj,dxp)
 
     #odd phase
-    oddPhasor = ph.phasor(jsodd,ajsodd,N,rad)
+    oddPhasor = ph.phasor(jsodd,ajsodd,N,dxp,pupilRadius)
     oddPhase = oddPhasor.phase
     pupil = oddPhasor.pupil
     cosOddPhase = np.cos(deltaphi)*oddPhase
     sinOddPhase = np.sin(deltaphi)*oddPhase
-    FFTcosOddPhase =  scaledfft2(cosOddPhase,dx)
-    FFTsinOddPhase =  scaledfft2(sinOddPhase,dx)
+    FFTcosOddPhase =  scaledfft2(cosOddPhase,dxp)
+    FFTsinOddPhase =  scaledfft2(sinOddPhase,dxp)
 
     #2Dfft of pupil function times sin(deltaPhi) and cos(deltaPhi)
     pupilSin = pupil*np.sin(deltaphi)
     pupilCos = pupil*np.cos(deltaphi)
-    FFTPupilSin =  scaledfft2(pupilSin,dx)
-    FFTPupilCos =  scaledfft2(pupilCos,dx)
+    FFTPupilSin =  scaledfft2(pupilSin,dxp)
+    FFTPupilCos =  scaledfft2(pupilCos,dxp)
 
-    FFTsinZjOddPhase = scaledfft2(sinZj*oddPhase,dx)
-    FFTcosZjOddPhase = scaledfft2(cosZj*oddPhase,dx)
+    FFTsinZjOddPhase = scaledfft2(sinZj*oddPhase,dxp)
+    FFTcosZjOddPhase = scaledfft2(cosZj*oddPhase,dxp)
 
     return np.ravel(-2*np.imag(FFTcosZj*np.conj(FFTsinOddPhase)-FFTsinZj*np.conj(FFTcosOddPhase)
             + np.conj(FFTPupilCos)*FFTsinZjOddPhase-np.conj(FFTPupilSin)*FFTcosZjOddPhase))
@@ -55,20 +54,19 @@ def y1(deltaPSFinFoc): #1: yi's of y to find a_j odd
     oddDeltaPSF = getOddPart(deltaPSFinFoc)
     return np.ravel(oddDeltaPSF)
 
-def y2(deltaPSFoutFoc,N,rad,jsodd,ajsodd,deltaphi,dx): # 2: yi's of y to find 8b_j odd
+def y2(deltaPSFoutFoc,N,jsodd,ajsodd,deltaphi,dxp,pupilRadius): # 2: yi's of y to find 8b_j odd
     oddDeltaPSF = getOddPart(deltaPSFoutFoc)
-    oddPhasor = ph.phasor(jsodd,ajsodd,N,rad)
+    oddPhasor = ph.phasor(jsodd,ajsodd,N,dxp,pupilRadius)
     oddPhase = oddPhasor.phase
-    #pupil = oddPhasor.pupil
 
     pupilSin = np.sin(deltaphi)
     pupilCos = np.cos(deltaphi)
-    FFTPupilSin =  scaledfft2(pupilSin,dx)
-    FFTPupilCos =  scaledfft2(pupilCos,dx)
+    FFTPupilSin =  scaledfft2(pupilSin,dxp)
+    FFTPupilCos =  scaledfft2(pupilCos,dxp)
     cosOddPhase = np.cos(deltaphi)*oddPhase
     sinOddPhase = np.sin(deltaphi)*oddPhase
-    FFTcosOddPhase = scaledfft2(cosOddPhase,dx)
-    FFTsinOddPhase =  scaledfft2(sinOddPhase,dx)
+    FFTcosOddPhase = scaledfft2(cosOddPhase,dxp)
+    FFTsinOddPhase =  scaledfft2(sinOddPhase,dxp)
 
     return np.ravel(oddDeltaPSF - 2*np.imag(np.conj(FFTPupilCos)*FFTcosOddPhase
             +np.conj(FFTPupilSin)*FFTsinOddPhase))
@@ -103,10 +101,8 @@ def getEvenJs(jmin,jmax):
         else:
             continue
     return js
-def deltaPhi(N,rad,deltaZ,F,D,wavelength):
-    zernike = Z.calc_zern_basis(1,rad,4)
-    Zj = np.zeros((N,N))
-    Zj[N/2-rad:N/2+rad,N/2-rad:N/2+rad] = zernike['modes'][0]/(Z.zern_normalisation(nmodes=4))[-1]
+def deltaPhi(N,deltaZ,F,D,wavelength,dxp):
+    Zj = Z.calc_zern_j(4,N,dxp,D/2.)
 
     P2Vdephasing = np.pi*deltaZ/wavelength*(D/F)**2/4.
 
@@ -115,5 +111,5 @@ def cleanZeros(A,threshold):
     A[np.abs(A) < threshold] = 0.
     return A
 
-def scaledfft2(A,dx):
-    return np.fft.ifftshift(np.fft.fft2(np.fft.fftshift(A)))*dx**2
+def scaledfft2(A,dxp):
+    return np.fft.ifftshift(np.fft.fft2(np.fft.fftshift(A)))*dxp**2

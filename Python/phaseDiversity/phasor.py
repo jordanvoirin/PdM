@@ -1,27 +1,37 @@
 #class phasor
 import numpy as np
-import libtim.zern as zern
-import libtim.im as im
+import zernike as Z
+
 
 
 class phasor(object):
 
-    def __init__(self,js=[1],ajs=[0],N=800,rad=200):
+    def __init__(self,js=[1],ajs=[0],N=800,dxp=1,pupilRadius = 200):
         self.js = js
         self.ajs = ajs
         self.N = N
-        self.rad = rad
-        self.grid_mask = (im.mk_rad_mask(2*self.rad)) <= 1
-        self.pupil = np.zeros((self.N,self.N))
-        self.pupil[self.N/2+1-self.rad:self.N/2+1+self.rad,self.N/2+1-self.rad:self.N/2+1+self.rad] = np.ones((2*self.rad,2*self.rad))*self.grid_mask
-        self.phase = np.zeros((self.N,self.N))
-        self.phase[self.N/2+1-self.rad:self.N/2+1+self.rad,self.N/2+1-self.rad:self.N/2+1+self.rad] = self.constructPhase()
+        self.dxp = dxp
+        self.pupilRadius = pupilRadius
+        
+        self.pupil = self.constructPupil()
+        
+        self.phase = self.constructPhase()
         self.phasor = self.pupil*np.exp(-1j*self.phase)
 
     def constructPhase(self):
-        phase = np.zeros((2*self.rad,2*self.rad))
+        phase = np.zeros((self.N,self.N))
         for ij, j in enumerate(self.js):
-            zernike = zern.calc_zern_basis(1,self.rad,j)
-            Zj = zernike['modes'][0]/(zern.zern_normalisation(nmodes=j))[-1]
+            Zj = Z.calc_zern_j(j,self.N,self.dxp,self.pupilRadius)
             phase += self.ajs[ij]*Zj
         return phase
+        
+    def constructPupil(self):
+        Lp = self.N*self.dxp
+
+        xp = np.arange(-Lp/2,Lp/2,self.dxp)
+        yp = xp
+
+        [Xp,Yp]=np.meshgrid(xp,yp)
+        
+        pup = np.float64(np.sqrt(Xp**2+Yp**2)<=self.pupilRadius)
+        return pup

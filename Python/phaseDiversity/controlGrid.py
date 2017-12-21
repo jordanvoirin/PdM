@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import phasor as ph
-
+import zernike as Z
 lbda = 0.6375e-6
 pxsize = 5.3e-6
 F = 80e-3
@@ -44,3 +44,8 @@ plt.subplot(2,1,1)
 plt.imshow(np.real(fftpup)-np.real(fftpupil))
 plt.subplot(2,1,2)
 plt.imshow(np.imag(fftpup)-np.imag(fftpupil))
+
+Zj = Z.calc_zern_j(4,N,dxp,pupilRadius)
+
+plt.figure()
+plt.imshow(Zj)
