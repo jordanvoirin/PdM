@@ -1,12 +1,11 @@
 import fs
 import numpy as np
-import libtim.zern as Z
+import zernike as Z
 import matplotlib.pyplot as plt
 #%matplotlib inline
 #%config InlineBackend.figure_format = 'svg'
 
-zernike = Z.calc_zern_basis(1,200,8)
-Zj = zernike['modes'][0]/(Z.zern_normalisation(nmodes=8))[-1]
+Zj = Z.calc_zern_j(8,400,1)
 
 plt.figure()
 plt.subplot(3,2,1)

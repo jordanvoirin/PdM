@@ -54,7 +54,7 @@ def y1(deltaPSFinFoc): #1: yi's of y to find a_j odd
     oddDeltaPSF = getOddPart(deltaPSFinFoc)
     return np.ravel(oddDeltaPSF)
 
-def y2(deltaPSFoutFoc,N,jsodd,ajsodd,deltaphi,dxp,pupilRadius): # 2: yi's of y to find 8b_j odd
+def y2(deltaPSFoutFoc,N,jsodd,ajsodd,deltaphi,dxp,pupilRadius): # 2: yi's of y to find a_j even
     oddDeltaPSF = getOddPart(deltaPSFoutFoc)
     oddPhasor = ph.phasor(jsodd,ajsodd,N,dxp,pupilRadius)
     oddPhase = oddPhasor.phase
@@ -87,7 +87,7 @@ def getOddJs(jmin,jmax):
     js = []
     for j in np.arange(jmin,jmax+1):
         [n,m] = Z.noll_to_zern(j)
-        if (-1)**m == -1:
+        if np.mod(m,2) == 1:
             js.append(j)
         else:
             continue
@@ -96,7 +96,7 @@ def getEvenJs(jmin,jmax):
     js = []
     for j in np.arange(jmin,jmax+1):
         [n,m] = Z.noll_to_zern(j)
-        if (-1)**m == 1:
+        if np.mod(m,2) == 0:
             js.append(j)
         else:
             continue

@@ -57,11 +57,9 @@ class phaseDiversity(object):
 
         js = np.append(self.oddjs,self.evenjs)
         ajs = np.append(ajsodd,ajseven)
-        #ajs = fs.cleanZeros(ajs,1e-11)
-        #resultPhasor = ph.phasor(js,ajs,self.N,self.rad)
-        #phase = resultPhasor.phase
+
         Ixjs = np.argsort(js)
-        result = {'js': js[Ixjs], 'jsodd':self.oddjs,  'ajs': ajs[Ixjs]*self.lbda, 'ajsodd': ajsodd*self.lbda, 'ajseven': ajseven*self.lbda} #,'wavefront':phase}
+        result = {'js': js[Ixjs], 'ajs': ajs[Ixjs]*self.lbda} #,'wavefront':phase}
         return result
 
     def initiateMatrix1(self):

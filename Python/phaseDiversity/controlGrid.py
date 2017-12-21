@@ -9,7 +9,6 @@ pupilRadius = 1.6e-3
 N = 400
 dxp = F*lbda/(N*pxsize)
 
-
 Lp = N*dxp
 
 xp = np.arange(-Lp/2,Lp/2,dxp)
