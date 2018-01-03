@@ -24,7 +24,7 @@ def calc_zern_j(j, N, dxp, pupilRadius):
 
 def zernike(j,r,theta):
     n,m = noll_to_zern(j)
-    nc = 1.0
+    nc = (2*(n+1)/(1+(m==0)))**0.5
     #nc = (2*(n+1)/(1+(m==0)))**0.5
     if (m > 0): return nc*zernike_rad(m, n, r) * np.cos(m * theta)
     if (m < 0): return nc*zernike_rad(-m, n, r) * np.sin(-m * theta)
