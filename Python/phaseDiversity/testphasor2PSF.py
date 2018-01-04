@@ -15,15 +15,16 @@ dxp = lbda*F/(N*pxsize)
 rad = int(np.ceil(pupilRadius/dxp))
 
 PSF = psf.PSF([1],[0],N,dxp,pupilRadius)
-PSFwthAb = psf.PSF([4,10],[1,1],N,dxp,pupilRadius)
+PSFwthAb = psf.PSF([4],[1],N,dxp,pupilRadius)
 
 hdulist = pyfits.open('C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\devPD\psfnAb.fits')
 psfLJo = hdulist[0].data
 phaseLJo = hdulist[1].data
 
-hdulist = pyfits.open('C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\devPD\psf4_10__1_1.fits')
+hdulist = pyfits.open('C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\devPD\psf4__1.fits')
 psfLJo_wthAb = hdulist[0].data
 phaseLJo_wthAb = hdulist[1].data
+pupLJo_wthAb = hdulist[2].data
 
 #FFTpupil = np.fft.ifftshift(np.fft.fft2(np.fft.fftshift(PSF.phasor.pupil)))
 #plt.figure()
@@ -38,6 +39,9 @@ plt.colorbar()
 plt.subplot(1,3,3)
 plt.imshow((PSF.PSF-psfLJo),vmax=np.max((PSF.PSF-psfLJo)),vmin=np.min((PSF.PSF-psfLJo)))
 plt.colorbar()
+
+plt.figure()
+plt.hist((psfLJo/PSF.PSF))
 
 plt.figure()
 plt.subplot(1,3,1)
@@ -58,17 +62,19 @@ plt.colorbar()
 #plt.figure()
 #plt.imshow(np.imag(FFTpupil))
 
-#Compare phase
 
-#plt.figure()
-#plt.subplot(1,3,1)
-#plt.imshow(PSF.phasor.pupil,vmax=np.max(PSF.phasor.pupil),vmin=np.min(PSF.phasor.pupil))
-#plt.colorbar()
-#plt.subplot(1,3,2)
-#plt.imshow(phaseLJo,vmax=np.max(PSF.phasor.pupil),vmin=np.min(PSF.phasor.pupil))
-#plt.colorbar()
-#plt.subplot(1,3,3)
-#plt.imshow(PSF.phasor.pupil-phaseLJo,vmax=np.max(PSF.phasor.pupil-phaseLJo),vmin=np.min(PSF.phasor.pupil-phaseLJo))
+#compare pupil
+plt.figure()
+plt.subplot(1,3,1)
+plt.imshow(PSF.phasor.pupil,vmax=np.max(PSF.phasor.pupil),vmin=np.min(PSF.phasor.pupil))
+plt.colorbar()
+plt.subplot(1,3,2)
+plt.imshow(pupLJo_wthAb,vmax=np.max(PSF.phasor.pupil),vmin=np.min(PSF.phasor.pupil))
+plt.colorbar()
+plt.subplot(1,3,3)
+plt.imshow(PSF.phasor.pupil-pupLJo_wthAb,vmax=np.max(PSF.phasor.pupil-pupLJo_wthAb),vmin=np.min(PSF.phasor.pupil-pupLJo_wthAb))
+
+#Compare phase
 
 plt.figure()
 plt.subplot(1,3,1)
@@ -80,3 +86,7 @@ plt.colorbar()
 plt.subplot(1,3,3)
 plt.imshow(PSFwthAb.phasor.phase-phaseLJo_wthAb,vmax=np.max(PSFwthAb.phasor.phase-phaseLJo_wthAb),vmin=np.min(PSFwthAb.phasor.phase-phaseLJo_wthAb))
 plt.colorbar()
+
+
+print np.sum(PSF.phasor.phasor)
+print np.sum(pupLJo_wthAb)

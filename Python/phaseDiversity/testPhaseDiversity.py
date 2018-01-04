@@ -9,13 +9,13 @@ pxsize = 5.3e-6
 N = 400
 dxp = lbda*F/(N*pxsize)
 deltaZ = 3.19e-3
-jmax = 15
+jmax = 100
 
 a4dephasing = np.pi*deltaZ/lbda*(2*pupilRadius/F)**2/4./2.
 
-PSFinfoc = psf.PSF([7],[10e-9/lbda*2*np.pi],N,dxp,pupilRadius)
+PSFinfoc = psf.PSF([6],[0],N,dxp,pupilRadius)
 
-PSFoutfoc = psf.PSF([4,7],[a4dephasing,10e-9/lbda*2*np.pi],N,dxp,pupilRadius)
+PSFoutfoc = psf.PSF([4,6],[a4dephasing,0],N,dxp,pupilRadius)
 
 phaseDiv = PD.phaseDiversity(PSFinfoc.PSF,PSFoutfoc.PSF,deltaZ,lbda,pxsize,F,pupilRadius,jmax)
 

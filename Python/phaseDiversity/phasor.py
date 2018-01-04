@@ -2,8 +2,6 @@
 import numpy as np
 import zernike as Z
 
-
-
 class phasor(object):
 
     def __init__(self,js=[1],ajs=[0],N=800,dxp=1,pupilRadius = 200):

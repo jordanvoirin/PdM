@@ -72,6 +72,7 @@ class phaseDiversity(object):
         return y1,A1
 
     def initiateMatrix2(self,ajsodd,deltaphi):
+        
         deltaPSFoutFoc = self.CMPTEdeltaPSF(self.deltaZ)
         y2 = fs.y2(deltaPSFoutFoc,self.N,self.oddjs,ajsodd,deltaphi,self.dxp,self.pupilRadius)
         A2 = np.zeros((self.N**2,len(self.evenjs)))
