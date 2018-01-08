@@ -12,7 +12,6 @@ F = 80e-3
 pxsize = 5.3e-6
 N = 400
 dxp = lbda*F/(N*pxsize)
-rad = int(np.ceil(pupilRadius/dxp))
 
 PSF = psf.PSF([1],[0],N,dxp,pupilRadius)
 PSFwthAb = psf.PSF([4],[1],N,dxp,pupilRadius)
@@ -29,6 +28,7 @@ pupLJo_wthAb = hdulist[2].data
 #FFTpupil = np.fft.ifftshift(np.fft.fft2(np.fft.fftshift(PSF.phasor.pupil)))
 #plt.figure()
 #plt.imshow(np.real(PSF.phasor.phasor),vmax = np.max(np.real(PSF.phasor.phasor)), vmin = np.min(np.real(PSF.phasor.phasor)))
+
 plt.figure()
 plt.subplot(1,3,1)
 plt.imshow(PSF.PSF,vmax=np.max(PSF.PSF),vmin=np.min(PSF.PSF))
@@ -75,7 +75,6 @@ plt.subplot(1,3,3)
 plt.imshow(PSF.phasor.pupil-pupLJo_wthAb,vmax=np.max(PSF.phasor.pupil-pupLJo_wthAb),vmin=np.min(PSF.phasor.pupil-pupLJo_wthAb))
 
 #Compare phase
-
 plt.figure()
 plt.subplot(1,3,1)
 plt.imshow(PSFwthAb.phasor.phase,vmax=np.max(PSFwthAb.phasor.phase),vmin=np.min(PSFwthAb.phasor.phase))

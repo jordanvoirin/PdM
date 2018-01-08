@@ -75,7 +75,11 @@ def y2(deltaPSFoutFoc,N,jsodd,ajsodd,deltaphi,dxp,pupilRadius): # 2: yi's of y t
 
 def flipMatrix(M):
     #flip 2D matrix along x and y
+    dimM = (np.shape(M))[0]
     Mflipped = np.flipud(np.fliplr(M))
+    if np.mod(dimM,2)==0:
+        Mflipped = np.roll(Mflipped,1,axis=0)
+        Mflipped = np.roll(Mflipped,1,axis=1)
     return Mflipped
 def getOddPart(F):
     oddF = (F - flipMatrix(F))/2.
