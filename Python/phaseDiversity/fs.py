@@ -18,7 +18,7 @@ def f1j(j,N,dxp,pupilRadius): # 1: phij's of matrix A to find a_j odd
 
     return np.ravel(2 * np.real(FFTPupil) * np.imag(FFTZj))
 
-def f2j(j,N,jsodd,ajsodd,deltaphi,pupilRadius,dxp): # 2: phij's of matrix A to find a_j even
+def f2j(j,N,jsodd,ajsodd,deltaphi,dxp,pupilRadius): # 2: phij's of matrix A to find a_j even
     #Get the jth zernike polynomials values on a circular pupil of radius rad
     Zj = Z.calc_zern_j(j,N,dxp,pupilRadius)
 
@@ -72,7 +72,6 @@ def y2(deltaPSFoutFoc,N,jsodd,ajsodd,deltaphi,dxp,pupilRadius): # 2: yi's of y t
             +np.conj(FFTPupilSin)*FFTsinOddPhase))
 
 #Other functions----------------------------------------------------------------------
-
 def flipMatrix(M):
     #flip 2D matrix along x and y
     dimM = (np.shape(M))[0]
@@ -107,13 +106,11 @@ def getEvenJs(jmin,jmax):
     return js
 def deltaPhi(N,deltaZ,F,D,wavelength,dxp):
     Zj = Z.calc_zern_j(4,N,dxp,D/2.)
-
     P2Vdephasing = np.pi*deltaZ/wavelength*(D/F)**2/4.
-
-    return Zj*P2Vdephasing/2
+    a4defocus = P2Vdephasing/2/np.sqrt(6)
+    return a4defocus*Zj
 def cleanZeros(A,threshold):
     A[np.abs(A) < threshold] = 0.
     return A
-
-def scaledfft2(A,dxp):
-    return np.fft.ifftshift(np.fft.fft2(np.fft.fftshift(A)))*dxp**2
+def scaledfft2(f,dxp):
+    return np.fft.ifftshift(np.fft.fft2(np.fft.fftshift(f)))*dxp**2

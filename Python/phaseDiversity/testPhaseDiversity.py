@@ -1,6 +1,7 @@
 import phaseDiversity as PD
 import numpy as np
 import PSF as psf
+import matplotlib.pyplot as plt
 
 pupilRadius = 1.6e-3
 lbda = 0.6375e-6
@@ -11,20 +12,29 @@ dxp = lbda*F/(N*pxsize)
 deltaZ = 3.19e-3
 jmax = 15
 
-a4dephasing = np.pi*deltaZ/lbda*(2*pupilRadius/F)**2/4./2.
+jspresent = np.array([7])
+ajspresent = np.array([1e-9/lbda*2*np.pi])
 
-PSFinfoc = psf.PSF([6,7],[1e-9/lbda*2*np.pi,1e-9/lbda*2*np.pi],N,dxp,pupilRadius)
 
-PSFoutfoc = psf.PSF([4,6,7],[a4dephasing,1e-9/lbda*2*np.pi,1e-9/lbda*2*np.pi],N,dxp,pupilRadius)
+P2Vdephasing = np.pi*deltaZ/lbda*(2*pupilRadius/F)**2/4.
+a4dephasing = P2Vdephasing/2/np.sqrt(6)
+
+if 4 not in jspresent:
+    jswth4 = np.append(4,jspresent)
+    ajswtha4 = np.append(a4dephasing,ajspresent)
+else:
+    ajspresent[jspresent==4] += a4dephasing
+
+PSFinfoc = psf.PSF(jspresent,ajspresent,N,dxp,pupilRadius)
+
+PSFoutfoc = psf.PSF(jswth4,ajswtha4,N,dxp,pupilRadius)
 
 phaseDiv = PD.phaseDiversity(PSFinfoc.PSF,PSFoutfoc.PSF,deltaZ,lbda,pxsize,F,pupilRadius,jmax)
 
 print phaseDiv.result['ajs']
 
-PSFinfoc = psf.PSF([6],[0],N,dxp,pupilRadius)
+plt.figure()
+plt.plot(jspresent,ajspresent*1e9*lbda/2/np.pi,'bo')
+plt.hold()
+plt.plot(phaseDiv.result['js'],phaseDiv.result['ajs']*1e9,'ro')
 
-PSFoutfoc = psf.PSF([4],[a4dephasing],N,dxp,pupilRadius)
-
-phaseDiv = PD.phaseDiversity(PSFinfoc.PSF,PSFoutfoc.PSF,deltaZ,lbda,pxsize,F,pupilRadius,jmax)
-
-print phaseDiv.result['ajs']
