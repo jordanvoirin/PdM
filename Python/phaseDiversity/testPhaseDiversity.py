@@ -13,7 +13,7 @@ deltaZ = 3.19e-3
 jmax = 15
 
 jspresent = np.array([7])
-ajspresent = np.array([1e-9/lbda*2*np.pi])
+ajspresent = np.array([75e-9/lbda*2*np.pi])
 
 
 P2Vdephasing = np.pi*deltaZ/lbda*(2*pupilRadius/F)**2/4.
