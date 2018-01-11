@@ -13,11 +13,11 @@ deltaZ = 3.19e-3
 jmax = 15
 
 jspresent = np.array([7])
-ajspresent = np.array([75e-9/lbda*2*np.pi])
+ajspresent = np.array([10e-9/lbda*2*np.pi])
 
 
 P2Vdephasing = np.pi*deltaZ/lbda*(2*pupilRadius/F)**2/4.
-a4dephasing = P2Vdephasing/2/np.sqrt(6)
+a4dephasing = P2Vdephasing/2/np.sqrt(3)
 
 if 4 not in jspresent:
     jswth4 = np.append(4,jspresent)

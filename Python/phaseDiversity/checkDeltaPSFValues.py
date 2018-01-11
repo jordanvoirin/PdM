@@ -10,7 +10,7 @@ pxsize = 5.3e-6
 N = 400
 dxp = lbda*F/(N*pxsize)
 deltaZ = 3.19e-3
-a4dephasing = np.pi*deltaZ/lbda*(2*pupilRadius/F)**2/4./2./np.sqrt(6)
+a4dephasing = np.pi*deltaZ/lbda*(2*pupilRadius/F)**2/4./2./np.sqrt(3)
 
 PSF = psf.PSF([1],[0],N,dxp,pupilRadius)
 PSFwthAb = psf.PSF([7],[1e-9/lbda*2*np.pi],N,dxp,pupilRadius)

@@ -87,6 +87,6 @@ class phaseDiversity(object):
             return PSF.Sp**2*self.inFoc - PSF.Sp**2*PSF.PSF
         else:
             P2Vdephasing = np.pi*self.deltaZ/self.lbda*(2*self.pupilRadius/self.F)**2/4.
-            a4 = P2Vdephasing/2./np.sqrt(6)
+            a4 = P2Vdephasing/2./np.sqrt(3)
             PSF = psf.PSF([4],[a4],self.N,self.dxp,self.pupilRadius)
             return PSF.Sp**2*self.outFoc - PSF.Sp**2*PSF.PSF

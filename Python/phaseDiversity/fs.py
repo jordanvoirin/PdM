@@ -68,8 +68,8 @@ def y2(deltaPSFoutFoc,N,jsodd,ajsodd,deltaphi,dxp,pupilRadius): # 2: yi's of y t
     FFTcosOddPhase = scaledfft2(cosOddPhase,dxp)
     FFTsinOddPhase =  scaledfft2(sinOddPhase,dxp)
 
-    return np.ravel(oddDeltaPSF - 2*np.imag(np.conj(FFTPupilCos)*FFTcosOddPhase
-            +np.conj(FFTPupilSin)*FFTsinOddPhase))
+    return np.ravel(oddDeltaPSF - 2*np.real(np.conj(FFTPupilCos))*np.imag(FFTcosOddPhase)
+            -2*np.real(np.conj(FFTPupilSin))*np.imag(FFTsinOddPhase))
 
 #Other functions----------------------------------------------------------------------
 def flipMatrix(M):
@@ -107,7 +107,7 @@ def getEvenJs(jmin,jmax):
 def deltaPhi(N,deltaZ,F,D,wavelength,dxp):
     Zj = Z.calc_zern_j(4,N,dxp,D/2.)
     P2Vdephasing = np.pi*deltaZ/wavelength*(D/F)**2/4.
-    a4defocus = P2Vdephasing/2/np.sqrt(6)
+    a4defocus = P2Vdephasing/2/np.sqrt(3)
     return a4defocus*Zj
 def cleanZeros(A,threshold):
     A[np.abs(A) < threshold] = 0.
