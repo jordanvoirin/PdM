@@ -2,6 +2,8 @@ import phaseDiversity as PD
 import numpy as np
 import PSF as psf
 import matplotlib.pyplot as plt
+import seaborn as sns
+sns.set()
 
 pupilRadius = 1.6e-3
 lbda = 0.6375e-6
@@ -12,9 +14,14 @@ dxp = lbda*F/(N*pxsize)
 deltaZ = 3.19e-3
 jmax = 15
 
-jspresent = np.array([7])
-ajspresent = np.array([10e-9/lbda*2*np.pi])
+jspresent = np.array([7,8,9])
+ajspresent = np.array([20e-9/lbda*2*np.pi,20e-9/lbda*2*np.pi,20e-9/lbda*2*np.pi])
 
+js = np.linspace(1,jmax,num=jmax)
+ajs = js*0.
+
+for ij,j in enumerate(jspresent):
+    ajs[js==jspresent[ij]]=ajspresent[ij]
 
 P2Vdephasing = np.pi*deltaZ/lbda*(2*pupilRadius/F)**2/4.
 a4dephasing = P2Vdephasing/2/np.sqrt(3)
@@ -34,7 +41,12 @@ phaseDiv = PD.phaseDiversity(PSFinfoc.PSF,PSFoutfoc.PSF,deltaZ,lbda,pxsize,F,pup
 print phaseDiv.result['ajs']
 
 plt.figure()
-plt.plot(jspresent,ajspresent*1e9*lbda/2/np.pi,'bo')
-plt.hold()
-plt.plot(phaseDiv.result['js'],phaseDiv.result['ajs']*1e9,'ro')
+plt.hold(True)
+plt.plot(js,ajs*1e9*lbda/2/np.pi,'b-',label='true')
+plt.xlim([js[0],js[-1]])
+plt.hold(True)
+plt.plot(phaseDiv.result['js'],phaseDiv.result['ajs']*1e9,'r-',label='retrieved')
+plt.xlabel('j')
+plt.ylabel('aj [nm]')
+plt.legend(loc='best')
 

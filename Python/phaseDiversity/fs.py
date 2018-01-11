@@ -46,8 +46,8 @@ def f2j(j,N,jsodd,ajsodd,deltaphi,dxp,pupilRadius): # 2: phij's of matrix A to f
     FFTsinZjOddPhase = scaledfft2(sinZj*oddPhase,dxp)
     FFTcosZjOddPhase = scaledfft2(cosZj*oddPhase,dxp)
 
-    return np.ravel(-2*np.imag(FFTcosZj*np.conj(FFTsinOddPhase)-FFTsinZj*np.conj(FFTcosOddPhase)
-            + np.conj(FFTPupilCos)*FFTsinZjOddPhase-np.conj(FFTPupilSin)*FFTcosZjOddPhase))
+    return np.ravel(2*np.imag(np.conj(FFTcosZj) * FFTsinOddPhase + FFTsinZj * np.conj(FFTcosOddPhase)
+            - np.conj(FFTPupilCos) * FFTsinZjOddPhase + np.conj(FFTPupilSin) * FFTcosZjOddPhase))
 
 def y1(deltaPSFinFoc): #1: yi's of y to find a_j odd
     #compute the odd part of delta PSF
@@ -69,7 +69,7 @@ def y2(deltaPSFoutFoc,N,jsodd,ajsodd,deltaphi,dxp,pupilRadius): # 2: yi's of y t
     FFTsinOddPhase =  scaledfft2(sinOddPhase,dxp)
 
     return np.ravel(oddDeltaPSF - 2*np.real(np.conj(FFTPupilCos))*np.imag(FFTcosOddPhase)
-            -2*np.real(np.conj(FFTPupilSin))*np.imag(FFTsinOddPhase))
+            - 2*np.real(np.conj(FFTPupilSin))*np.imag(FFTsinOddPhase))
 
 #Other functions----------------------------------------------------------------------
 def flipMatrix(M):
