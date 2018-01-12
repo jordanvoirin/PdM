@@ -1,4 +1,4 @@
-#test y2 and f2j in the absence of even aberrations
+#test y2 and f2j in the absence of even aberrations so deltaPSFoutfoc should be equal to 2*im{PC*PCE+PS*PSE}
 
 import numpy as np
 import fs
@@ -76,7 +76,7 @@ plt.colorbar(fraction=0.046, pad=0.04)
 plt.xlim([180,220])
 plt.ylim([180,220])
 plt.subplot(1,3,2)
-plt.title('B')
+plt.title('2*im{PC*PCE+PS*PSE}')
 plt.imshow(B)
 plt.colorbar(fraction=0.046, pad=0.04)
 plt.xlim([180,220])
