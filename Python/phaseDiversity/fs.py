@@ -94,7 +94,7 @@ def getOddJs(jmin,jmax):
             js.append(j)
         else:
             continue
-    return js
+    return np.array(js)
 def getEvenJs(jmin,jmax):
     js = []
     for j in np.arange(jmin,jmax+1):
@@ -103,7 +103,7 @@ def getEvenJs(jmin,jmax):
             js.append(j)
         else:
             continue
-    return js
+    return np.array(js)
 def deltaPhi(N,deltaZ,F,D,wavelength,dxp):
     Zj = Z.calc_zern_j(4,N,dxp,D/2.)
     P2Vdephasing = np.pi*deltaZ/wavelength*(D/F)**2/4.
