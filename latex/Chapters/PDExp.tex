@@ -92,7 +92,7 @@ The image of the entrance pupil, obtained with the 4F system, is focused onto a 
 \subsection{Ximea Camera}
 The PSFs are acquired using a python library, \verb|pyXimea|\footnote{\url{https://github.com/pupil-labs/pyximea}}, available on GitHub. The acquisition is done following these steps : 
 \begin{enumerate}
-\item Find the focus point on the camera using the python script \verb|AlignementScriptXimeaCamera.py|, see Appendix \ref{app:AlignementScriptXimeaCamera}. This script saves consecutively PSFs at different camera's position and computes their FWHM. And it highlights the minimum FWHM and the camera's position, see Figure \ref{fig:28092017AlignementXimeaPSFs}.
+\item Find the focus point on the camera using the python script \verb|AlignementScriptXimeaCamera.py|, see Appendix \ref{app:AlignementScriptXimeaCamera}. This script saves consecutively PSFs at different camera's positions and computes their FWHM. It finally returns the minimum FWHM and the camera's position, see Figure \ref{fig:28092017AlignementXimeaPSFs}.
 \begin{center}
 \begin{figure}
 \includegraphics[width=\textwidth]{../../../fig/alignement/28092017AlignementXimeaPSFs.png}
