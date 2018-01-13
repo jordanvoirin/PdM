@@ -1,17 +1,9 @@
 \chapter{Phase Diversity Experiment} 
 
-\label{PDExp}
+\label{ch:PDExp}
 
 %----------------------------------------------------------------------------------------
 %	SECTION 1
-%----------------------------------------------------------------------------------------
-
-\section{Theoretical Background}
-
-
-
-%----------------------------------------------------------------------------------------
-%	SECTION 2
 %----------------------------------------------------------------------------------------
 
 \section{Experimental Setup}
@@ -23,7 +15,7 @@
 \label{fig:setupSchema}
 \end{wrapfigure}
 
-The design of the experiment was already done by \citet{Bouxin_PDM}.  The system is built according to her plans and specificationsS.
+The design of the experiment was already done by \citet{Bouxin_PDM}. The system is built according to her plans and specifications.
 
 The experiment is mounted on a pressurized legs optical table. The assembly contains six main components : a light source, an entrance pupil, an imaging system, a converging lens to focus the beam on the camera, a camera and a wavefront sensor.
 
@@ -58,7 +50,7 @@ The experiment is mounted on a pressurized legs optical table. The assembly cont
 \label{fig:WFdistantSource}
 \end{wrapfigure}
 
-The final application of the phase diversity will be to characterize the optical aberrations induced by the imperfect optical path to a scientific detector of a telescope. For this reason, the light source has to simulate a distant star aberration-free wavefront. A distant star wavefront is considered planar since the object distance, z, is far greater than the telescope size, r, see Fig. \ref{fig:WFdistantSource}. The source of our experiment must then be characterized by planar wavefront.
+The final application of the phase diversity will be to characterize the optical aberrations induced by the imperfect optical path to a scientific detector of a telescope. For this reason, the light source has to simulate a distant star aberration-free wavefront. A distant star wavefront is considered planar since the object distance, z, is far greater than the telescope size, r, see Fig. \ref{fig:WFdistantSource}. The source of our experiment must then be characterized by a planar wavefront.
 
 In order to obtain such a planar wavefront at the entrance pupil, the light source consist of a "pigtailed laser diode", a f=11mm converging lens, a pinhole and a f=200 mm converging lens, see Table \ref{tab:optComp}. The pigtailed laser diode emits a Gaussian beam centred at 637.5 nm slightly diverging. The converging lens concentrates the beam at the center of the 10$\mu$m pinhole to filter the noise. The second converging lens collimates the beam, obtaining a collimated beam with a planar wavefront, see Fig. \ref{fig:sourceRayTracing} and \ref{fig:pinholeEffect}.
 
@@ -87,13 +79,46 @@ The entrance pupil of our optical system is a circular aperture of 3.2 mm diamet
 
 The phase diversity technique requires PSFs images as input, which means that the beam as to be focused onto the detector surface. To analyse the aberration in the pupil plane, one needs to focus an image of the beam passing through the entrance pupil. The simplest assembly to achieve this goal is the 4F system, which consist of two converging lenses of focal 100 mm. The two lenses are separated by 200 mm, see Fig. \ref{fig:setupSchema}. This places the image of the entrance pupil 100 mm after the second converging lens.
 
-\subsection{Acquisitions}
+\subsection{Detectors}
 
-The image of the entrance pupil, obtained with the 4F system, is focused onto a CMOS Ximea camera by a f = 80 mm converging lens to acquire the PSFs for the phase diversity wavefront retrieval. The camera has surface composed by 1280x1024 pixels of 5.3 $\mu$m, see Appendix \ref{app:ximeaCam}. It is mounted on sliding support in order to be able to acquire in/out-of-focus images. A beam splitter is placed in the converging beam to separate it in two. The second beam is collimated and a Shack-Hartman WFS is placed on the entrance pupil image plane, to check the results of the phase diversity wavefront retrieval. The Shack-Hartman WFS has a 39 X 31 lenslet grid and a CCD with a resolution of 1280x1024 pixels of 4.65 $\mu$m, see Appendix \ref{app:SHwfs}. 
+The image of the entrance pupil, obtained with the 4F system, is focused onto a CMOS Ximea camera by a f = 80 mm converging lens to acquire the PSFs for the phase diversity wavefront retrieval. The camera has a surface composed by 1280x1024 pixels of 5.3 $\mu$m, see Appendix \ref{app:ximeaCam}. It is mounted on sliding support in order to be able to acquire in/out-of-focus images. A beam splitter is placed in the converging beam to separate it in two. The second beam is collimated and a Shack-Hartman WFS is placed on the entrance pupil image plane, to check the results of the phase diversity wavefront retrieval. The Shack-Hartman WFS has a 39 X 31 lenslets grid and a CCD with a resolution of 1280x1024 pixels of 4.65 $\mu$m, see Appendix \ref{app:SHwfs}. 
 
+%------------------------------------------------------------------------------
+%	SECTION 2
+%----------------------------------------------------------------------------
+
+\section{Data Acquisition}
+
+\subsection{Ximea Camera}
+The PSFs are acquired using a python library, \verb|pyXimea|\footnote{\url{https://github.com/pupil-labs/pyximea}}, available on GitHub. The acquisition is done following these steps : 
+\begin{enumerate}
+\item Find the focus point on the camera using the python script \verb|AlignementScriptXimeaCamera.py|, see Appendix \ref{app:AlignementScriptXimeaCamera}. This script saves consecutively PSFs at different camera's position and computes their FWHM. And it highlights the minimum FWHM and the camera's position, see Figure \ref{fig:28092017AlignementXimeaPSFs}.
+\begin{center}
+\begin{figure}
+\includegraphics[width=\textwidth]{../../../fig/alignement/28092017AlignementXimeaPSFs.png}
+\caption{PSFs example of an alignment procedure}
+\label{fig:28092017AlignementXimeaPSFs}
+\end{figure}
+\end{center}
+
+\item 
+
+
+\end{enumerate}
+
+
+\subsection{Shack-Hartman WFS}
 %------------------------------------------------------------------------------
 %	SECTION 3
 %----------------------------------------------------------------------------
+
+
+\section{ONERA algorithm characterization}
+
+%------------------------------------------------------------------------------
+%	SECTION 4
+%----------------------------------------------------------------------------
+
 
 \section{Results}
 
