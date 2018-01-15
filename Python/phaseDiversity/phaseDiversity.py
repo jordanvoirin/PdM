@@ -9,6 +9,8 @@ class phaseDiversity(object):
 
     def __init__(self,inFoc,outFoc,deltaZ,lbda,pxsize,F,pupilRadius,jmax):
         
+        print 'phaseDiversity ...'        
+        
         #PSF
         self.inFoc = inFoc
         self.outFoc = outFoc

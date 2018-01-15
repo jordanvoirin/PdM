@@ -17,7 +17,7 @@ jmax = 15
 P2Vdephasing = np.pi*deltaZ/lbda*(2*pupilRadius/F)**2/4.
 a4dephasing = P2Vdephasing/2/np.sqrt(3)
 
-rmsWFerrors = [1,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100]
+rmsWFerrors = np.array([1,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100])
 rmse = .0*rmsWFerrors
 rmsWFerrorsRetrieved = .0*rmsWFerrors
 
@@ -43,10 +43,13 @@ for i, rmsWFerror in enumerate(rmsWFerrors):
     jsretrieved = phaseDiv.result['js']
     ajsretrieved = phaseDiv.result['ajs']
     
-    rmse[i] = fs.RMSE(ajsretrieved,ajstrue)
-    rmsWFerrorsRetrieved = fs.RMSwavefrontError(jsretrieved,ajsretrieved)
+    rmse[i] = fs.RMSE(ajsretrieved*1e9*lbda/2/np.pi,ajstrue*1e9*lbda/2/np.pi)
+    rmsWFerrorsRetrieved[i] = fs.RMSwavefrontError(jsretrieved,ajsretrieved*1e9*lbda/2/np.pi)
     
     
 
 plt.figure()
-plt.plot(rmsWFerrors,rmsWFerrorsRetrieved,)
+plt.plot(rmsWFerrors,rmsWFerrorsRetrieved)
+
+plt.figure()
+plt.plot(rmsWFerrors,rmse)

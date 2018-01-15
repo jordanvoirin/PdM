@@ -38,7 +38,8 @@ def zernike_rad(m, n, r):
         wf += r**(n-2.0*k) * (-1.0)**k * fac(n-k) / ( fac(k) * fac( (n+m)/2.0 - k ) * fac( (n-m)/2.0 - k ) )
     return wf
 
-def noll_to_zern(j):
+def noll_to_zern(j):   
+    j = int(j)
     if (j == 0):
         raise ValueError("Noll indices start at 1, 0 is invalid.")
     n = 0
