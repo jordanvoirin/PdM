@@ -2,6 +2,7 @@ import phaseDiversity as PD
 import numpy as np
 import PSF as psf
 import matplotlib.pyplot as plt
+import fs
 import seaborn as sns
 sns.set()
 
@@ -14,7 +15,7 @@ dxp = lbda*F/(N*pxsize)
 deltaZ = 3.19e-3
 jmax = 15
 
-jspresent = np.array([7,8,9])
+jspresent = np.array([6,7,9])
 ajspresent = np.array([10e-9/lbda*2*np.pi,10e-9/lbda*2*np.pi,10e-9/lbda*2*np.pi])
 
 js = np.linspace(1,jmax,num=jmax)
@@ -45,10 +46,10 @@ print phaseDiv.result['ajs']
 
 plt.figure()
 plt.hold(True)
-plt.plot(js,ajs*1e9*lbda/2/np.pi,'b-',label='true')
+plt.plot(js,ajs*1e9*lbda/2/np.pi,'b-',label='true, $\sigma_{WF,rms}$ = %5.3f nm' %(fs.RMSwavefrontError(js,ajs*1e9*lbda/2/np.pi)))
 plt.xlim([js[0],js[-1]])
 plt.hold(True)
-plt.plot(phaseDiv.result['js'],phaseDiv.result['ajs']*1e9,'r-',label='retrieved')
+plt.plot(phaseDiv.result['js'],phaseDiv.result['ajs']*1e9*lbda/2/np.pi,'r-',label='retrieved, $\sigma_{WF,rms}$ = %5.3f nm, RMSE = %5.3f nm'%(fs.RMSwavefrontError(phaseDiv.result['js'],phaseDiv.result['ajs']*1e9),fs.RMSE(phaseDiv.result['ajs']*1e9,ajs*1e9*lbda/2/np.pi)))
 plt.xlabel('j')
 plt.ylabel('aj [nm]')
 plt.legend(loc='best')

@@ -44,6 +44,7 @@ PSFinfoc = psf.PSF(jspresent,ajspresent,N,dxp,pupilRadius)
 PSFoutfoc = psf.PSF(jswth4,ajswtha4,N,dxp,pupilRadius)
 PSFoutfocPerf = psf.PSF([4],[a4dephasing],N,dxp,pupilRadius)
 
+deltaPSFinFoc = PSFinfoc.Sp**2*PSFinfoc.PSF - PSFinfoc.Sp**2*PSFinfoc.perfectPSF
 deltaPSFoutFoc = PSFoutfoc.Sp**2*PSFoutfoc.PSF - PSFoutfocPerf.Sp**2*PSFoutfocPerf.PSF
 
 oddjs = fs.getOddJs(1,jmax)
@@ -57,8 +58,8 @@ oddDeltaPSF = fs.getOddPart(deltaPSFoutFoc)
 oddPhasor = ph.phasor(oddjs,ajsodd,N,dxp,pupilRadius)
 oddPhase = oddPhasor.phase
 
-pupilSin = np.sin(deltaphi)
-pupilCos = np.cos(deltaphi)
+pupilSin = oddPhasor.pupil*np.sin(deltaphi)
+pupilCos = oddPhasor.pupil*np.cos(deltaphi)
 FFTPupilSin =  fs.scaledfft2(pupilSin,dxp)
 FFTPupilCos =  fs.scaledfft2(pupilCos,dxp)
 cosOddPhase = np.cos(deltaphi)*oddPhase
@@ -84,6 +85,37 @@ plt.ylim([180,220])
 plt.subplot(1,3,3)
 plt.title('y2')
 plt.imshow(y2)
+plt.colorbar(fraction=0.046, pad=0.04)
+plt.xlim([180,220])
+plt.ylim([180,220])
+
+
+
+oddDeltaPSFinfoc = fs.getOddPart(deltaPSFinFoc)
+oddPhasor = ph.phasor(jspresent,ajspresent,N,dxp,pupilRadius)
+pupil = oddPhasor.pupil
+FFTpupil = fs.scaledfft2(pupil,dxp)
+pupOddPhase = pupil*oddPhasor.phase
+FFTpupOddPhase = fs.scaledfft2(pupOddPhase,dxp)
+
+B = 2*np.imag(np.conj(FFTpupil)*FFTpupOddPhase)
+
+plt.figure()
+plt.subplot(1,3,1)
+plt.title('oddDeltaPSFinfoc')
+plt.imshow(oddDeltaPSFinfoc)
+plt.colorbar(fraction=0.046, pad=0.04)
+plt.xlim([180,220])
+plt.ylim([180,220])
+plt.subplot(1,3,2)
+plt.title('2*im{P*PE}')
+plt.imshow(B)
+plt.colorbar(fraction=0.046, pad=0.04)
+plt.xlim([180,220])
+plt.ylim([180,220])
+plt.subplot(1,3,3)
+plt.title('oddDeltaPSFinfoc-2*im{P*PE}')
+plt.imshow(oddDeltaPSFinfoc-B)
 plt.colorbar(fraction=0.046, pad=0.04)
 plt.xlim([180,220])
 plt.ylim([180,220])

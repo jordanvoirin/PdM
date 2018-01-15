@@ -35,8 +35,8 @@ class phaseDiversity(object):
             raise myExceptions.PupilSizeError('Npupil (2*rad) is bigger than N/2 which is not correct for the fft computation',[])
         self.NyquistCriterion()
         self.jmax = jmax
-        self.oddjs = fs.getOddJs(1,self.jmax)
-        self.evenjs = fs.getEvenJs(1,self.jmax)
+        self.oddjs = fs.getOddJs(4,self.jmax)
+        self.evenjs = fs.getEvenJs(4,self.jmax)
         
         # result computation
         self.result = self.retrievePhase()
@@ -59,7 +59,7 @@ class phaseDiversity(object):
         ajs = np.append(ajsodd,ajseven)
 
         Ixjs = np.argsort(js)
-        result = {'js': js[Ixjs], 'ajs': ajs[Ixjs]*self.lbda/2/np.pi} #,'wavefront':phase}
+        result = {'js': js[Ixjs], 'ajs': ajs[Ixjs]} #,'wavefront':phase}
         return result
 
     def initiateMatrix1(self):

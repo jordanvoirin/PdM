@@ -32,8 +32,8 @@ def f2j(j,N,jsodd,ajsodd,deltaphi,dxp,pupilRadius): # 2: phij's of matrix A to f
     oddPhasor = ph.phasor(jsodd,ajsodd,N,dxp,pupilRadius)
     oddPhase = oddPhasor.phase
     pupil = oddPhasor.pupil
-    cosOddPhase = np.cos(deltaphi)*oddPhase
-    sinOddPhase = np.sin(deltaphi)*oddPhase
+    cosOddPhase = pupil*np.cos(deltaphi)*oddPhase
+    sinOddPhase = pupil*np.sin(deltaphi)*oddPhase
     FFTcosOddPhase =  scaledfft2(cosOddPhase,dxp)
     FFTsinOddPhase =  scaledfft2(sinOddPhase,dxp)
 
@@ -59,12 +59,12 @@ def y2(deltaPSFoutFoc,N,jsodd,ajsodd,deltaphi,dxp,pupilRadius): # 2: yi's of y t
     oddPhasor = ph.phasor(jsodd,ajsodd,N,dxp,pupilRadius)
     oddPhase = oddPhasor.phase
 
-    pupilSin = np.sin(deltaphi)
-    pupilCos = np.cos(deltaphi)
+    pupilSin = oddPhasor.pupil*np.sin(deltaphi)
+    pupilCos = oddPhasor.pupil*np.cos(deltaphi)
     FFTPupilSin =  scaledfft2(pupilSin,dxp)
     FFTPupilCos =  scaledfft2(pupilCos,dxp)
-    cosOddPhase = np.cos(deltaphi)*oddPhase
-    sinOddPhase = np.sin(deltaphi)*oddPhase
+    cosOddPhase = oddPhasor.pupil*np.cos(deltaphi)*oddPhase
+    sinOddPhase = oddPhasor.pupil*np.sin(deltaphi)*oddPhase
     FFTcosOddPhase = scaledfft2(cosOddPhase,dxp)
     FFTsinOddPhase =  scaledfft2(sinOddPhase,dxp)
 
@@ -114,3 +114,11 @@ def cleanZeros(A,threshold):
     return A
 def scaledfft2(f,dxp):
     return np.fft.ifftshift(np.fft.fft2(np.fft.fftshift(f)))*dxp**2
+def RMSE(estimator,target):
+    return np.sqrt(np.mean((estimator-target)**2))
+    
+def RMSwavefrontError(js,ajs):
+    if 1 in js:
+        return np.sqrt(np.sum(ajs**2)-ajs[js==1])
+    else:
+        return np.sqrt(np.sum(ajs**2))
