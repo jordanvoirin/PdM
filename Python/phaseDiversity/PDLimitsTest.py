@@ -13,12 +13,12 @@ pxsize = 5.3e-6
 N = 400
 dxp = lbda*F/(N*pxsize)
 deltaZ = 3.19e-3
-jmax = 15
+jmax = 30
 
 P2Vdephasing = np.pi*deltaZ/lbda*(2*pupilRadius/F)**2/4.
 a4dephasing = P2Vdephasing/2/np.sqrt(3)
 
-rmsWFerrors = np.array([1,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100])
+rmsWFerrors = np.array([1,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,115,130,150,175,200])
 rmse = .0*rmsWFerrors
 rmsWFerrorsRetrieved = .0*rmsWFerrors
 
@@ -55,11 +55,15 @@ plt.figure()
 plt.hold(True)
 plt.plot(rmsWFerrors,rmsWFerrorsRetrieved)
 plt.plot([rmsWFerrorMin,rmsWFerrorMax],[rmsWFerrorMin,rmsWFerrorMax],linewidth=2,c='grey')
-plt.xlabel('\sigma_{WF,rms} true [nm]')
-plt.ylabel('\sigma_{WF,rms} retrieved [nm]')
+plt.xlim([rmsWFerrorMin,rmsWFerrorMax])
+plt.ylim([rmsWFerrorMin,rmsWFerrorMax])
+plt.xlabel('$\sigma_{WF,rms}$ true [nm]')
+plt.ylabel('$\sigma_{WF,rms}$ retrieved [nm]')
+plt.grid()
 
 plt.figure()
 plt.plot(rmsWFerrors,rmse)
-plt.xlabel('\sigma_{WF,rms} true [nm]')
+plt.xlim([rmsWFerrorMin,rmsWFerrorMax])
+plt.xlabel('$\sigma_{WF,rms}$ true [nm]')
 plt.ylabel('RMSE [nm]')
-
+plt.grid()
