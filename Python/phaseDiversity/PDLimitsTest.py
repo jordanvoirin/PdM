@@ -3,6 +3,7 @@ import phaseDiversity as PD
 import numpy as np
 import PSF as psf
 import fs
+import copy
 import matplotlib.pyplot as plt
 
 pupilRadius = 1.6e-3
@@ -26,8 +27,8 @@ js = np.linspace(4,jmax,num=jmax-3)
 for i, rmsWFerror in enumerate(rmsWFerrors):
     ajstrue = fsApd.getRandomAjs(js,rmsWFerror)*1e-9/lbda*2*np.pi
     
-    jswth4 = js
-    ajswtha4 = ajstrue
+    jswth4 = copy.deepcopy(js)
+    ajswtha4 = copy.deepcopy(ajstrue)
     
     if 4 not in jswth4:
         jswth4 = np.append(4,js)
@@ -47,9 +48,18 @@ for i, rmsWFerror in enumerate(rmsWFerrors):
     rmsWFerrorsRetrieved[i] = fs.RMSwavefrontError(jsretrieved,ajsretrieved*1e9*lbda/2/np.pi)
     
     
+rmsWFerrorMax = np.max(np.append(rmsWFerrors,rmsWFerrorsRetrieved))
+rmsWFerrorMin = np.min(np.append(rmsWFerrors,rmsWFerrorsRetrieved))
 
 plt.figure()
+plt.hold(True)
 plt.plot(rmsWFerrors,rmsWFerrorsRetrieved)
+plt.plot([rmsWFerrorMin,rmsWFerrorMax],[rmsWFerrorMin,rmsWFerrorMax],linewidth=2,c='grey')
+plt.xlabel('\sigma_{WF,rms} true [nm]')
+plt.ylabel('\sigma_{WF,rms} retrieved [nm]')
 
 plt.figure()
 plt.plot(rmsWFerrors,rmse)
+plt.xlabel('\sigma_{WF,rms} true [nm]')
+plt.ylabel('RMSE [nm]')
+

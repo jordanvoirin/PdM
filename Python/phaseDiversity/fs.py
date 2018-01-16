@@ -119,6 +119,6 @@ def RMSE(estimator,target):
     
 def RMSwavefrontError(js,ajs):
     if 1 in js:
-        return np.sqrt(np.sum(ajs**2)-ajs[js==1])
+        return np.sqrt(np.sum(ajs**2)-ajs[js==1]**2)
     else:
         return np.sqrt(np.sum(ajs**2))
