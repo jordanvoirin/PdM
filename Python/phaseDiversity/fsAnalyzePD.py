@@ -2,6 +2,8 @@ import numpy as np
 #import fs
 
 def getRandomAjs(js,rmsWFerror):
+#    js: list of js to get an aj 
+#    rmsWFerror: rms wavefront error in nm
     Najs = js.__len__()
     ajssq = np.random.random(Najs)
     ajssq = ajssq /np.sum(ajssq)*rmsWFerror**2
