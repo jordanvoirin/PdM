@@ -1,4 +1,4 @@
-import phaseDiversity as PD
+import phaseDiversity3PSFs as PD
 import numpy as np
 import PSF as psf
 import matplotlib.pyplot as plt
@@ -24,18 +24,27 @@ a4dephasing = P2Vdephasing/2/np.sqrt(3)
 
 js = [5,6]#np.linspace(4,jmax,num=jmax-3)
 
+jscomplete = np.linspace(4,jmax,num=jmax-3)
+ajscomplete = jscomplete*.0
+
 ajstrue = fsApd.getRandomAjs(js,rmsWFerror)*1e-9/lbda*2*np.pi
+for ij,j in enumerate(js):
+    ajscomplete[j-4]=ajstrue[ij]
+
 #print ajstrue*1e9*lbda/2/np.pi
 #print fs.RMSwavefrontError(js,ajstrue*1e9*lbda/2/np.pi)
 
 jswth4 = copy.deepcopy(js)
-ajswtha4 = copy.deepcopy(ajstrue)
+ajswtha4pos = copy.deepcopy(ajstrue)
+ajswtha4neg = copy.deepcopy(ajstrue)
 
 if 4 not in jswth4:
     jswth4 = np.append(4,js)
-    ajswtha4 = np.append(a4dephasing,ajstrue)
+    ajswtha4pos = np.append(a4dephasing,ajstrue)
+    ajswtha4neg = np.append(-a4dephasing,ajstrue)
 else:
-    ajswtha4[jswth4==4] += a4dephasing
+    ajswtha4pos[jswth4==4] += a4dephasing
+    ajswtha4neg[jswth4==4] -= a4dephasing
 
 
 PSFinfoc = psf.PSF(js,ajstrue,N,dxp,pupilRadius)
@@ -44,30 +53,36 @@ noiseStd = np.max(PSFinfoc.PSF)*noiseStdLevel
 whiteNoise = fsApd.generateWhiteNoise((PSFinfoc.PSF).shape,noiseMean,noiseStd)
 PSFinfocWthNoise = PSFinfoc.PSF+whiteNoise
 
-PSFoutfoc = psf.PSF(jswth4,ajswtha4,N,dxp,pupilRadius)
+PSFoutfocpos = psf.PSF(jswth4,ajswtha4pos,N,dxp,pupilRadius)
 noiseMean = 0.
-noiseStd = np.max(PSFoutfoc.PSF)*noiseStdLevel
-whiteNoise = fsApd.generateWhiteNoise((PSFoutfoc.PSF).shape,noiseMean,noiseStd)
-PSFoutfocWthNoise = PSFoutfoc.PSF+whiteNoise
+noiseStd = np.max(PSFoutfocpos.PSF)*noiseStdLevel
+whiteNoise = fsApd.generateWhiteNoise((PSFoutfocpos.PSF).shape,noiseMean,noiseStd)
+PSFoutfocposWthNoise = PSFoutfocpos.PSF+whiteNoise
 
-phaseDivWoutNoise = PD.phaseDiversity(PSFinfoc.PSF,PSFoutfoc.PSF,deltaZ,lbda,pxsize,F,pupilRadius,jmax)
-phaseDivWthNoise = PD.phaseDiversity(PSFinfocWthNoise,PSFoutfocWthNoise,deltaZ,lbda,pxsize,F,pupilRadius,jmax)
+PSFoutfocneg = psf.PSF(jswth4,ajswtha4neg,N,dxp,pupilRadius)
+noiseMean = 0.
+noiseStd = np.max(PSFoutfocneg.PSF)*noiseStdLevel
+whiteNoise = fsApd.generateWhiteNoise((PSFoutfocneg.PSF).shape,noiseMean,noiseStd)
+PSFoutfocnegWthNoise = PSFoutfocneg.PSF+whiteNoise
+
+phaseDivWoutNoise = PD.phaseDiversity3PSFs(PSFinfoc.PSF,PSFoutfocpos.PSF,PSFoutfocneg.PSF,deltaZ,lbda,pxsize,F,pupilRadius,jmax)
+phaseDivWthNoise = PD.phaseDiversity3PSFs(PSFinfocWthNoise,PSFoutfocposWthNoise,PSFoutfocnegWthNoise,deltaZ,lbda,pxsize,F,pupilRadius,jmax)
 #print phaseDiv.result['ajs']*1e9*lbda/2/np.pi
 #print ajstrue*1e9*lbda/2/np.pi
 
 plt.figure()
 plt.hold(True)
-plt.plot(js,ajstrue*1e9*lbda/2/np.pi,'b-',label='true, $\sigma_{WF,rms}$ = %5.3f nm' %(fs.RMSwavefrontError(js,ajstrue*1e9*lbda/2/np.pi)))
-plt.xlim([js[0],js[-1]])
+plt.plot(jscomplete,ajscomplete*1e9*lbda/2/np.pi,'b-',label='true, $\sigma_{WF,rms}$ = %5.3f nm' %(fs.RMSwavefrontError(js,ajstrue*1e9*lbda/2/np.pi)))
+plt.xlim([jscomplete[0],jscomplete[-1]])
 plt.hold(True)
 plt.plot(phaseDivWoutNoise.result['js'],phaseDivWoutNoise.result['ajs']*1e9*lbda/2/np.pi
     ,'r-',label='retrieved wout noise, $\sigma_{WF,rms}$ = %5.3f nm, RMSE = %5.3f nm'
     %(fs.RMSwavefrontError(phaseDivWoutNoise.result['js'],phaseDivWoutNoise.result['ajs']*1e9*lbda/2/np.pi)
-    ,fs.RMSE(phaseDivWoutNoise.result['ajs']*1e9*lbda/2/np.pi,ajstrue*1e9*lbda/2/np.pi)))
+    ,fs.RMSE(phaseDivWoutNoise.result['ajs']*1e9*lbda/2/np.pi,ajscomplete*1e9*lbda/2/np.pi)))
 plt.plot(phaseDivWthNoise.result['js'],phaseDivWthNoise.result['ajs']*1e9*lbda/2/np.pi
     ,'g-',label='retrieved wth noise, $\sigma_{WF,rms}$ = %5.3f nm, RMSE = %5.3f nm'
     %(fs.RMSwavefrontError(phaseDivWthNoise.result['js'],phaseDivWthNoise.result['ajs']*1e9*lbda/2/np.pi)
-    ,fs.RMSE(phaseDivWthNoise.result['ajs']*1e9*lbda/2/np.pi,ajstrue*1e9*lbda/2/np.pi)))
+    ,fs.RMSE(phaseDivWthNoise.result['ajs']*1e9*lbda/2/np.pi,ajscomplete*1e9*lbda/2/np.pi)))
 plt.xlabel('j')
 plt.ylabel('aj [nm]')
 plt.legend(loc='best')

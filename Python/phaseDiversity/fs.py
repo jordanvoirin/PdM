@@ -48,6 +48,24 @@ def f2j(j,N,jsodd,ajsodd,deltaphi,dxp,pupilRadius): # 2: phij's of matrix A to f
 
     return np.ravel(2*np.imag(np.conj(FFTcosZj) * FFTsinOddPhase + FFTsinZj * np.conj(FFTcosOddPhase)
             - np.conj(FFTPupilCos) * FFTsinZjOddPhase + np.conj(FFTPupilSin) * FFTcosZjOddPhase))
+            
+def f2jeven(j,N,deltaphi,dxp,pupilRadius): # 2: phij's of matrix A to find a_j even
+    #Get the jth zernike polynomials values on a circular pupil of radius rad
+    Zj = Z.calc_zern_j(j,N,dxp,pupilRadius)
+    Phasor = ph.phasor([1],[0],N,dxp,pupilRadius)
+    pupil = Phasor.pupil
+    #compute the different 2Dfft given in the equations of deltaPSF
+    cosZj = pupil*np.cos(deltaphi)*Zj
+    sinZj = pupil*np.sin(deltaphi)*Zj
+    FFTcosZj =  scaledfft2(cosZj,dxp)
+    FFTsinZj =  scaledfft2(sinZj,dxp)
+    #2Dfft of pupil function times sin(deltaPhi) and cos(deltaPhi)
+    pupilSin = pupil*np.sin(deltaphi)
+    pupilCos = pupil*np.cos(deltaphi)
+    FFTPupilSin =  scaledfft2(pupilSin,dxp)
+    FFTPupilCos =  scaledfft2(pupilCos,dxp)
+
+    return np.ravel(-4*np.real(np.conj(FFTPupilCos)*FFTsinZj-np.conj(FFTPupilSin)*FFTcosZj))
 
 def y1(deltaPSFinFoc): #1: yi's of y to find a_j odd
     #compute the odd part of delta PSF
@@ -70,7 +88,10 @@ def y2(deltaPSFoutFoc,N,jsodd,ajsodd,deltaphi,dxp,pupilRadius): # 2: yi's of y t
 
     return np.ravel(oddDeltaPSF - 2*np.real(np.conj(FFTPupilCos))*np.imag(FFTcosOddPhase)
             - 2*np.real(np.conj(FFTPupilSin))*np.imag(FFTsinOddPhase))
-
+            
+def y2even(deltaPSFoutFocpos,deltaPSFoutfocneg): #3: yi's of y to find a_j even
+    return np.ravel(deltaPSFoutFocpos-deltaPSFoutfocneg)
+    
 #Other functions----------------------------------------------------------------------
 def flipMatrix(M):
     #flip 2D matrix along x and y
