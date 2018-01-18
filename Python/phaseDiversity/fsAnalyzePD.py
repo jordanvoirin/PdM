@@ -6,6 +6,7 @@ def getRandomAjs(js,rmsWFerror):
 #    rmsWFerror: rms wavefront error in nm
     Najs = js.__len__()
     ajssq = np.random.random(Najs)
+    ajssq = ajssq/np.min(ajssq) #to guaranty that the minimum aj is 1 nm
     ajssq = ajssq /np.sum(ajssq)*rmsWFerror**2
     ajs = np.zeros(Najs)
     for iaj, ajsq in enumerate(ajssq):

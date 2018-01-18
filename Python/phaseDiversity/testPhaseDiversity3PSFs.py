@@ -15,21 +15,22 @@ pxsize = 5.3e-6
 N = 400
 dxp = lbda*F/(N*pxsize)
 deltaZ = 3.19e-3
+jmin = 4
 jmax = 15
-rmsWFerror = 20.
+rmsWFerror = 1.
 noiseStdLevel = 0.001
 
 P2Vdephasing = np.pi*deltaZ/lbda*(2*pupilRadius/F)**2/4.
 a4dephasing = P2Vdephasing/2/np.sqrt(3)
 
-js = [5,6]#np.linspace(4,jmax,num=jmax-3)
+js = np.linspace(jmin,jmax,num=jmax-3)
 
-jscomplete = np.linspace(4,jmax,num=jmax-3)
+jscomplete = np.linspace(jmin,jmax,num=jmax-3)
 ajscomplete = jscomplete*.0
 
 ajstrue = fsApd.getRandomAjs(js,rmsWFerror)*1e-9/lbda*2*np.pi
 for ij,j in enumerate(js):
-    ajscomplete[j-4]=ajstrue[ij]
+    ajscomplete[j-jmin]=ajstrue[ij]
 
 #print ajstrue*1e9*lbda/2/np.pi
 #print fs.RMSwavefrontError(js,ajstrue*1e9*lbda/2/np.pi)
@@ -65,8 +66,8 @@ noiseStd = np.max(PSFoutfocneg.PSF)*noiseStdLevel
 whiteNoise = fsApd.generateWhiteNoise((PSFoutfocneg.PSF).shape,noiseMean,noiseStd)
 PSFoutfocnegWthNoise = PSFoutfocneg.PSF+whiteNoise
 
-phaseDivWoutNoise = PD.phaseDiversity3PSFs(PSFinfoc.PSF,PSFoutfocpos.PSF,PSFoutfocneg.PSF,deltaZ,lbda,pxsize,F,pupilRadius,jmax)
-phaseDivWthNoise = PD.phaseDiversity3PSFs(PSFinfocWthNoise,PSFoutfocposWthNoise,PSFoutfocnegWthNoise,deltaZ,lbda,pxsize,F,pupilRadius,jmax)
+phaseDivWoutNoise = PD.phaseDiversity3PSFs(PSFinfoc.PSF,PSFoutfocpos.PSF,PSFoutfocneg.PSF,deltaZ,lbda,pxsize,F,pupilRadius,jmin,jmax)
+phaseDivWthNoise = PD.phaseDiversity3PSFs(PSFinfocWthNoise,PSFoutfocposWthNoise,PSFoutfocnegWthNoise,deltaZ,lbda,pxsize,F,pupilRadius,jmin,jmax)
 #print phaseDiv.result['ajs']*1e9*lbda/2/np.pi
 #print ajstrue*1e9*lbda/2/np.pi
 

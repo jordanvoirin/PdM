@@ -7,7 +7,7 @@ import PSF as psf
 
 class phaseDiversity3PSFs(object):
 
-    def __init__(self,inFoc,outFocpos,outFocneg,deltaZ,lbda,pxsize,F,pupilRadius,jmax):
+    def __init__(self,inFoc,outFocpos,outFocneg,deltaZ,lbda,pxsize,F,pupilRadius,jmin,jmax):
         
         print 'phaseDiversity ...'        
         
@@ -38,9 +38,10 @@ class phaseDiversity3PSFs(object):
         if 2*self.rad > self.N/2.:
             raise myExceptions.PupilSizeError('Npupil (2*rad) is bigger than N/2 which is not correct for the fft computation',[])
         self.NyquistCriterion()
+        self.jmin = jmin
         self.jmax = jmax
-        self.oddjs = fs.getOddJs(4,self.jmax)
-        self.evenjs = fs.getEvenJs(4,self.jmax)
+        self.oddjs = fs.getOddJs(self.jmin,self.jmax)
+        self.evenjs = fs.getEvenJs(self.jmin,self.jmax)
         
         # result computation
         self.result = self.retrievePhase()
@@ -57,7 +58,7 @@ class phaseDiversity3PSFs(object):
         
         deltaphi = fs.deltaPhi(self.N,self.deltaZ,self.F,2*self.pupilRadius,self.lbda,self.dxp)
         
-        if all(np.abs(ajsodd*1e9*self.lbda/2/np.pi) < 5e-1): #if all ajsodd are smaller than 1e-3nm then the phase is purely even.
+        if all(np.abs(ajsodd*1e9*self.lbda/2/np.pi) < 5e-2): #if all ajsodd are smaller than 1e-3nm then the phase is purely even.
             print 'phase purely even'
             y2,A2 = self.initiateMatrix2evenPhase(deltaphi)
         else:
