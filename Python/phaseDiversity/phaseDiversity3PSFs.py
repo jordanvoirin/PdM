@@ -60,6 +60,7 @@ class phaseDiversity3PSFs(object):
         
         if all(np.abs(ajsodd*1e9*self.lbda/2/np.pi) < 5e-2): #if all ajsodd are smaller than 1e-3nm then the phase is purely even.
             print 'phase purely even'
+            
             y2,A2 = self.initiateMatrix2evenPhase(deltaphi)
         else:
             print 'mixed phase'
