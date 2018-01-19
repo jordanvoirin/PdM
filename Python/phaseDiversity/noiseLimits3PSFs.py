@@ -5,8 +5,6 @@ import matplotlib.pyplot as plt
 import fs
 import fsAnalyzePD as fsApd
 import copy
-#import seaborn as sns
-#sns.set()
 
 pupilRadius = 1.6e-3
 lbda = 0.6375e-6
@@ -36,9 +34,6 @@ for irmsWFe,rmsWFerror in enumerate(rmsWFerrors):
     ajstrue = fsApd.getRandomAjs(js,rmsWFerror)*1e-9/lbda*2*np.pi
     for ij,j in enumerate(js):
         ajscomplete[irmsWFe,j-jmin]=ajstrue[ij]
-    
-    #print ajstrue*1e9*lbda/2/np.pi
-    #print fs.RMSwavefrontError(js,ajstrue*1e9*lbda/2/np.pi)
     
     jswth4 = copy.deepcopy(js)
     ajswtha4pos = copy.deepcopy(ajstrue)
@@ -72,32 +67,12 @@ for irmsWFe,rmsWFerror in enumerate(rmsWFerrors):
         whiteNoise = fsApd.generateWhiteNoise((PSFoutfocneg.PSF).shape,noiseMean,noiseStd)
         PSFoutfocnegWthNoise = PSFoutfocneg.PSF+whiteNoise
         
-#        phaseDivWoutNoise = PD.phaseDiversity3PSFs(PSFinfoc.PSF,PSFoutfocpos.PSF,PSFoutfocneg.PSF,deltaZ,lbda,pxsize,F,pupilRadius,jmax)
         phaseDivWthNoise = PD.phaseDiversity3PSFs(PSFinfocWthNoise,PSFoutfocposWthNoise,PSFoutfocnegWthNoise,deltaZ,lbda,pxsize,F,pupilRadius,jmin,jmax)
         
         results[irmsWFe,iNretrieve,:] = phaseDivWthNoise.result['ajs']
 
-
-
-#plt.figure()
-#plt.hold(True)
-#plt.plot(jscomplete,ajscomplete*1e9*lbda/2/np.pi,'b-',label='true, $\sigma_{WF,rms}$ = %5.3f nm' %(fs.RMSwavefrontError(js,ajstrue*1e9*lbda/2/np.pi)))
-#plt.xlim([jscomplete[0],jscomplete[-1]])
-#plt.hold(True)
-#plt.plot(phaseDivWoutNoise.result['js'],phaseDivWoutNoise.result['ajs']*1e9*lbda/2/np.pi
-#    ,'r-',label='retrieved wout noise, $\sigma_{WF,rms}$ = %5.3f nm, RMSE = %5.3f nm'
-#    %(fs.RMSwavefrontError(phaseDivWoutNoise.result['js'],phaseDivWoutNoise.result['ajs']*1e9*lbda/2/np.pi)
-#    ,fs.RMSE(phaseDivWoutNoise.result['ajs']*1e9*lbda/2/np.pi,ajscomplete*1e9*lbda/2/np.pi)))
-#plt.plot(phaseDivWthNoise.result['js'],phaseDivWthNoise.result['ajs']*1e9*lbda/2/np.pi
-#    ,'g-',label='retrieved wth noise, $\sigma_{WF,rms}$ = %5.3f nm, RMSE = %5.3f nm'
-#    %(fs.RMSwavefrontError(phaseDivWthNoise.result['js'],phaseDivWthNoise.result['ajs']*1e9*lbda/2/np.pi)
-#    ,fs.RMSE(phaseDivWthNoise.result['ajs']*1e9*lbda/2/np.pi,ajscomplete*1e9*lbda/2/np.pi)))
-#plt.xlabel('j')
-#plt.ylabel('aj [nm]')
-#plt.legend(loc='best')
-#plt.grid()
-fnameajsjs = '../../../fig/PDDev/test/newPD_ajs_js_rmsWFe_%d'
-fnamebxpajsjs = '../../../fig/PDDev/test/newPD_bxp_ajs_js_rmsWFe_%d'
+fnameajsjs = '../../../fig/PDDev/test/ajs_js_rmsWFe_%d%s'
+fnamebxpajsjs = '../../../fig/PDDev/test/bxp_ajs_js_rmsWFe_%d%s'
 
 for irmsWFe,rmsWFerror in enumerate(rmsWFerrors):
     meanAjsRetrieved = np.mean(results[irmsWFe,:,:],0)*1e9*lbda/2/np.pi
@@ -116,8 +91,8 @@ for irmsWFe,rmsWFerror in enumerate(rmsWFerrors):
     plt.xlabel('js')
     plt.ylabel('ajs [nm]')
     plt.legend(loc='best')
-    plt.savefig(fnameajsjs % (rmsWFerror), dpi=300, format ='png')
-    plt.savefig(fnameajsjs % (rmsWFerror), dpi=300, format = 'pdf')
+    plt.savefig(fnameajsjs % (rmsWFerror,'.png'), dpi=300)
+    plt.savefig(fnameajsjs % (rmsWFerror,'.pdf'), dpi=300)
     
     #Plot boxplot to have a better view of the statistics
     plt.figure()    
@@ -130,5 +105,5 @@ for irmsWFe,rmsWFerror in enumerate(rmsWFerrors):
     plt.legend(loc='best')
     plt.xlim([jscomplete[0],jscomplete[-1]])
     plt.grid(True)
-    plt.savefig(fnamebxpajsjs % (rmsWFerror), dpi=300, format ='png')
-    plt.savefig(fnamebxpajsjs % (rmsWFerror), dpi=300, format = 'pdf')
+    plt.savefig(fnamebxpajsjs % (rmsWFerror,'.png'), dpi=300, format ='png')
+    plt.savefig(fnamebxpajsjs % (rmsWFerror,'.pdf'), dpi=300, format = 'pdf')
