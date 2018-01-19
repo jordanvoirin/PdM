@@ -62,13 +62,13 @@ for irmsWFe,rmsWFerror in enumerate(rmsWFerrors):
         
         PSFoutfocpos = psf.PSF(jswth4,ajswtha4pos,N,dxp,pupilRadius)
         noiseMean = 0.
-        noiseStd = np.max(PSFoutfocpos.PSF)*noiseStdLevel
+        noiseStd = np.max(PSFinfoc.PSF)*noiseStdLevel
         whiteNoise = fsApd.generateWhiteNoise((PSFoutfocpos.PSF).shape,noiseMean,noiseStd)
         PSFoutfocposWthNoise = PSFoutfocpos.PSF+whiteNoise
         
         PSFoutfocneg = psf.PSF(jswth4,ajswtha4neg,N,dxp,pupilRadius)
         noiseMean = 0.
-        noiseStd = np.max(PSFoutfocneg.PSF)*noiseStdLevel
+        noiseStd = np.max(PSFinfoc.PSF)*noiseStdLevel
         whiteNoise = fsApd.generateWhiteNoise((PSFoutfocneg.PSF).shape,noiseMean,noiseStd)
         PSFoutfocnegWthNoise = PSFoutfocneg.PSF+whiteNoise
         
@@ -116,8 +116,8 @@ for irmsWFe,rmsWFerror in enumerate(rmsWFerrors):
     plt.xlabel('js')
     plt.ylabel('ajs [nm]')
     plt.legend(loc='best')
-    plt.savefig(fnameajsjs % (rmsWFerror,'png'), dpi=300)
-    plt.savefig(fnameajsjs % (rmsWFerror,'pdf'), dpi=300)
+    plt.savefig(fnameajsjs % (rmsWFerror), dpi=300, format ='png')
+    plt.savefig(fnameajsjs % (rmsWFerror), dpi=300, format = 'pdf')
     
     #Plot boxplot to have a better view of the statistics
     plt.figure()    
