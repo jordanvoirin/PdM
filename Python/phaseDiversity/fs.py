@@ -11,7 +11,7 @@ def f1j(j,N,dxp,pupilRadius): # 1: phij's of matrix A to find a_j odd
     xp = np.arange(-Lp/2,Lp/2,dxp)
     yp = xp
 
-    [Xp,Yp]=np.meshgrid(xp,yp) 
+    [Xp,Yp]=np.meshgrid(xp,yp)
     
     pupil = np.float64(np.sqrt(Xp**2+Yp**2)<=pupilRadius)
     FFTPupil = scaledfft2(pupil,dxp)

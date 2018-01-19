@@ -96,8 +96,8 @@ for irmsWFe,rmsWFerror in enumerate(rmsWFerrors):
 #plt.ylabel('aj [nm]')
 #plt.legend(loc='best')
 #plt.grid()
-fnameajsjs = '../../../fig/PDDev/test/newPD_ajs_js_rmsWFe_%d%s'
-fnamebxpajsjs = '../../../fig/PDDev/test/newPD_bxp_ajs_js_rmsWFe_%d%s'
+fnameajsjs = '../../../fig/PDDev/test/newPD_ajs_js_rmsWFe_%d'
+fnamebxpajsjs = '../../../fig/PDDev/test/newPD_bxp_ajs_js_rmsWFe_%d'
 
 for irmsWFe,rmsWFerror in enumerate(rmsWFerrors):
     meanAjsRetrieved = np.mean(results[irmsWFe,:,:],0)*1e9*lbda/2/np.pi
@@ -130,5 +130,5 @@ for irmsWFe,rmsWFerror in enumerate(rmsWFerrors):
     plt.legend(loc='best')
     plt.xlim([jscomplete[0],jscomplete[-1]])
     plt.grid(True)
-    plt.savefig(fnamebxpajsjs % (rmsWFerror,'.png'), dpi=300)
-    plt.savefig(fnamebxpajsjs % (rmsWFerror,'.pdf'), dpi=300)
+    plt.savefig(fnamebxpajsjs % (rmsWFerror), dpi=300, format ='png')
+    plt.savefig(fnamebxpajsjs % (rmsWFerror), dpi=300, format = 'pdf')
