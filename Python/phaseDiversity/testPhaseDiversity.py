@@ -22,7 +22,7 @@ noiseStdLevel = 0.001
 P2Vdephasing = np.pi*deltaZ/lbda*(2*pupilRadius/F)**2/4.
 a4dephasing = P2Vdephasing/2/np.sqrt(3)
 
-js = [5,6]#np.linspace(4,jmax,num=jmax-3)
+js = np.linspace(4,jmax,num=jmax-3)
 
 ajstrue = fsApd.getRandomAjs(js,rmsWFerror)*1e-9/lbda*2*np.pi
 #print ajstrue*1e9*lbda/2/np.pi

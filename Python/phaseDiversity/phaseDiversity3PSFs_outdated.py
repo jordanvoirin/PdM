@@ -5,7 +5,7 @@ import fs
 import myExceptions
 import PSF as psf
 
-class phaseDiversity3PSFs(object):
+class phaseDiversity3PSFs_outdated(object):
 
     def __init__(self,inFoc,outFocpos,outFocneg,deltaZ,lbda,pxsize,F,pupilRadius,jmin,jmax):
         
@@ -58,7 +58,12 @@ class phaseDiversity3PSFs(object):
         
         deltaphi = fs.deltaPhi(self.N,self.deltaZ,self.F,2*self.pupilRadius,self.lbda,self.dxp)
         
-        y2,A2 = self.initiateMatrix2(deltaphi)
+        if all(np.abs(ajsodd*1e9*self.lbda/2/np.pi) < 5e-2): #if all ajsodd are smaller than 1e-3nm then the phase is purely even.
+            print 'phase purely even'
+            y2,A2 = self.initiateMatrix2_2defIm(deltaphi)
+        else:
+            print 'mixed phase'
+            y2,A2 = self.initiateMatrix2(ajsodd,deltaphi)
      
         results2 = np.linalg.lstsq(A2,y2)
         ajseven = results2[0]
@@ -78,8 +83,18 @@ class phaseDiversity3PSFs(object):
             phiJ = fs.f1j(self.oddjs[ij],self.N,self.dxp,self.pupilRadius)
             A1[:,ij] = phiJ
         return y1,A1
+
+    def initiateMatrix2(self,ajsodd,deltaphi):
+        
+        deltaPSFoutFoc,null = self.CMPTEdeltaPSF(self.deltaZ)
+        y2 = fs.y2(deltaPSFoutFoc,self.N,self.oddjs,ajsodd,deltaphi,self.dxp,self.pupilRadius)
+        A2 = np.zeros((self.N**2,len(self.evenjs)))
+        for ij in np.arange(len(self.evenjs)):
+            phiJ = fs.f2j(self.evenjs[ij],self.N,self.oddjs,ajsodd,deltaphi,self.dxp,self.pupilRadius)
+            A2[:,ij] = phiJ
+        return y2,A2
     
-    def initiateMatrix2(self,deltaphi):
+    def initiateMatrix2_2defIm(self,deltaphi):
         deltaPSFoutFocpos,deltaPSFoutFocneg = self.CMPTEdeltaPSF(self.deltaZ)
         y2 = fs.y2even(fs.getEvenPart(deltaPSFoutFocpos),fs.getEvenPart(deltaPSFoutFocneg))
         A2 = np.zeros((self.N**2,len(self.evenjs)))

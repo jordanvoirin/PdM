@@ -16,8 +16,8 @@ N = 400
 dxp = lbda*F/(N*pxsize)
 deltaZ = 3.19e-3
 jmin = 4
-jmax = 15
-rmsWFerror = 1.
+jmax = 30
+rmsWFerror = 20.
 noiseStdLevel = 0.001
 
 P2Vdephasing = np.pi*deltaZ/lbda*(2*pupilRadius/F)**2/4.
