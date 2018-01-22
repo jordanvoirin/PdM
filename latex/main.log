@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6400) (preloaded format=pdflatex 2017.10.12)  13 JAN 2018 16:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6400) (preloaded format=pdflatex 2017.10.12)  21 JAN 2018 19:44
 entering extended mode
 **./main.tex
 (main.tex
@@ -2040,14 +2040,14 @@ File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
 \c__siunitx_mathtt_int=\count434
 
 1: section
-<Logo/Logo_EPFL.png, id=111, 401.5pt x 192.72pt>
+<Logo/Logo_EPFL.png, id=119, 401.5pt x 192.72pt>
 File: Logo/Logo_EPFL.png Graphic file (type png)
 <use Logo/Logo_EPFL.png>
 Package pdftex.def Info: Logo/Logo_EPFL.png  used on input line 111. on input l
 ine 111.
 Package pdftex.def Info: Requested size: 100.37474pt x 48.17987pt on input line
  111.
-<Logo/HEIG-VD_Logo.png, id=113, 235.88126pt x 71.26625pt>
+<Logo/HEIG-VD_Logo.png, id=121, 235.88126pt x 71.26625pt>
 File: Logo/HEIG-VD_Logo.png Graphic file (type png)
 <use Logo/HEIG-VD_Logo.png>
 Package pdftex.def Info: Logo/HEIG-VD_Logo.png  used on input line 112. on inpu
@@ -2169,85 +2169,80 @@ LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <17.28> not available
 ]
 Chapter 2.
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 9.
-<Figures/setupSchema.JPG, id=287, 670.00313pt x 584.1825pt>
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 10.
+<Figures/setupSchema.JPG, id=298, 670.00313pt x 584.1825pt>
 File: Figures/setupSchema.JPG Graphic file (type jpg)
 <use Figures/setupSchema.JPG>
-Package pdftex.def Info: Figures/setupSchema.JPG  used on input line 12. on inp
-ut line 12.
+Package pdftex.def Info: Figures/setupSchema.JPG  used on input line 23. on inp
+ut line 23.
 Package pdftex.def Info: Requested size: 202.01454pt x 176.13857pt on input lin
-e 12.
+e 23.
 
-Underfull \hbox (badness 1072) in paragraph at lines 20--21
+Underfull \hbox (badness 1072) in paragraph at lines 31--32
 []\T1/ppl/m/n/10.95 The ex-pe-ri-ment is moun-ted on a
  []
 
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <12> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 43.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 54.
 
 Package wrapfig Warning: Collision between wrapping environments on input line 
-45.
+57.
 
-<Figures/WFdistantSource.PNG, id=298, 311.66437pt x 116.68594pt>
+<Figures/WFdistantSource.PNG, id=309, 311.66437pt x 116.68594pt>
 File: Figures/WFdistantSource.PNG Graphic file (type png)
 <use Figures/WFdistantSource.PNG>
-Package pdftex.def Info: Figures/WFdistantSource.PNG  used on input line 47. on
- input line 47.
+Package pdftex.def Info: Figures/WFdistantSource.PNG  used on input line 59. on
+ input line 59.
 Package pdftex.def Info: Requested size: 161.60916pt x 60.5061pt on input line 
-47.
+59.
 
-Package wrapfig Warning: Stationary wrapfigure forced to float on input line 53
+Package wrapfig Warning: Stationary wrapfigure forced to float on input line 65
 .
 
 1: section
 [3 <./Figures/setupSchema.JPG>]
-<Figures/source.png, id=308, 794.97pt x 318.43968pt>
+<Figures/source.png, id=320, 794.97pt x 318.43968pt>
 File: Figures/source.png Graphic file (type png)
 <use Figures/source.png>
-Package pdftex.def Info: Figures/source.png  used on input line 60. on input li
-ne 60.
+Package pdftex.def Info: Figures/source.png  used on input line 72. on input li
+ne 72.
 Package pdftex.def Info: Requested size: 202.01454pt x 80.92165pt on input line
- 60.
-<Figures/pinholeEffect.png, id=309, 450.68375pt x 343.2825pt>
+ 72.
+<Figures/pinholeEffect.png, id=321, 450.68375pt x 343.2825pt>
 File: Figures/pinholeEffect.png Graphic file (type png)
 <use Figures/pinholeEffect.png>
-Package pdftex.def Info: Figures/pinholeEffect.png  used on input line 66. on i
-nput line 66.
+Package pdftex.def Info: Figures/pinholeEffect.png  used on input line 78. on i
+nput line 78.
 Package pdftex.def Info: Requested size: 121.20995pt x 92.32085pt on input line
- 66.
-
-Overfull \hbox (5.7922pt too wide) in paragraph at lines 84--85
+ 78.
+ [4 <./Figures/source.png> <./Figures/pinholeEffect.png> <./Figures/WFdistantSo
+urce.PNG>]
+Overfull \hbox (5.7922pt too wide) in paragraph at lines 99--100
 \T1/ppl/m/n/10.95 phase di-ver-sity wa-vefront re-trie-val. The ca-mera has a s
 ur-face com-po-sed by 1280x1024
  []
 
-[4 <./Figures/source.png> <./Figures/pinholeEffect.png> <./Figures/WFdistantSou
-rce.PNG>]
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 93.
- ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1cmtt.fd"
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 111.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1cmtt.fd"
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-<Figures/../../../fig/alignement/28092017AlignementXimeaPSFs.png, id=326, 1398.
+<Figures/../../../fig/alignement/28092017AlignementXimeaPSFs.png, id=339, 1398.
 4245pt x 151.767pt>
 File: Figures/../../../fig/alignement/28092017AlignementXimeaPSFs.png Graphic f
 ile (type png)
 <use Figures/../../../fig/alignement/28092017AlignementXimeaPSFs.png>
 Package pdftex.def Info: Figures/../../../fig/alignement/28092017AlignementXime
-aPSFs.png  used on input line 98. on input line 98.
+aPSFs.png  used on input line 119. on input line 119.
 Package pdftex.def Info: Requested size: 404.02908pt x 43.84688pt on input line
- 98.
-)
-[5 <./Figures/../../../fig/alignement/28092017AlignementXimeaPSFs.png>]
+ 119.
+) [5 <./Figures/../../../fig/alignement/28092017AlignementXimeaPSFs.png>] [6]
 \openout2 = `Appendices/AppDataSheet.aux'.
 
 
-(Appendices/AppDataSheet.tex [6
-
-
-
-]
+(Appendices/AppDataSheet.tex
 Appendix A.
-<../../componentDatasheet/LPS-635-FC-SpecSheet.pdf, id=345, pagebox=cropbox, 61
+<../../componentDatasheet/LPS-635-FC-SpecSheet.pdf, id=354, pagebox=cropbox, 61
 4.295pt x 794.97pt>
 File: ../../componentDatasheet/LPS-635-FC-SpecSheet.pdf Graphic file (type pdf)
 
@@ -2257,12 +2252,16 @@ d on input line 8. on input line 8.
 Package pdftex.def Info: Requested size: 404.02908pt x 522.86229pt on input lin
 e 8.
 1: section
-[7]
+[7
+
+
+
+]
 Overfull \vbox (20.46199pt too high) has occurred while \output is active []
 
 
 [8 <../../componentDatasheet/LPS-635-FC-SpecSheet.pdf>]
-<../../componentDatasheet/A220TM-AutoCADPDF.pdf, id=404, pagebox=cropbox, 794.9
+<../../componentDatasheet/A220TM-AutoCADPDF.pdf, id=411, pagebox=cropbox, 794.9
 7pt x 614.295pt>
 File: ../../componentDatasheet/A220TM-AutoCADPDF.pdf Graphic file (type pdf)
 <use ../../componentDatasheet/A220TM-AutoCADPDF.pdf>
@@ -2283,7 +2282,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 22.
 
-<../../componentDatasheet/P10S-AutoCADPDF.pdf, id=406, pagebox=cropbox, 794.97p
+<../../componentDatasheet/P10S-AutoCADPDF.pdf, id=413, pagebox=cropbox, 794.97p
 t x 614.295pt>
 File: ../../componentDatasheet/P10S-AutoCADPDF.pdf Graphic file (type pdf)
 <use ../../componentDatasheet/P10S-AutoCADPDF.pdf>
@@ -2292,7 +2291,7 @@ input line 24. on input line 24.
 Package pdftex.def Info: Requested size: 404.02908pt x 312.20836pt on input lin
 e 24.
 [9 <../../componentDatasheet/A220TM-AutoCADPDF.pdf>]
-<../../componentDatasheet/AL100200-AutoCADPDF.pdf, id=438, pagebox=cropbox, 794
+<../../componentDatasheet/AL100200-AutoCADPDF.pdf, id=444, pagebox=cropbox, 794
 .97pt x 614.295pt>
 File: ../../componentDatasheet/AL100200-AutoCADPDF.pdf Graphic file (type pdf)
 <use ../../componentDatasheet/AL100200-AutoCADPDF.pdf>
@@ -2301,7 +2300,7 @@ Package pdftex.def Info: ../../componentDatasheet/AL100200-AutoCADPDF.pdf  used
 Package pdftex.def Info: Requested size: 404.02908pt x 312.20836pt on input lin
 e 29.
  [10 <../../componentDatasheet/P10S-AutoCADPDF.pdf>]
-<../../componentDatasheet/AC254-100-A-AutoCADPDF.pdf, id=469, pagebox=cropbox, 
+<../../componentDatasheet/AC254-100-A-AutoCADPDF.pdf, id=475, pagebox=cropbox, 
 794.97pt x 614.295pt>
 File: ../../componentDatasheet/AC254-100-A-AutoCADPDF.pdf Graphic file (type pd
 f)
@@ -2311,14 +2310,14 @@ sed on input line 34. on input line 34.
 Package pdftex.def Info: Requested size: 404.02908pt x 312.20836pt on input lin
 e 34.
  [11 <../../componentDatasheet/AL100200-AutoCADPDF.pdf>]
-<../../componentDatasheet/ximeaPic.png, id=500, 291.489pt x 234.8775pt>
+<../../componentDatasheet/ximeaPic.png, id=506, 291.489pt x 234.8775pt>
 File: ../../componentDatasheet/ximeaPic.png Graphic file (type png)
 <use ../../componentDatasheet/ximeaPic.png>
 Package pdftex.def Info: ../../componentDatasheet/ximeaPic.png  used on input l
 ine 40. on input line 40.
 Package pdftex.def Info: Requested size: 202.01454pt x 162.78242pt on input lin
 e 40.
-<../../componentDatasheet/ximeaSpec.png, id=501, 270.41025pt x 395.67825pt>
+<../../componentDatasheet/ximeaSpec.png, id=507, 270.41025pt x 395.67825pt>
 File: ../../componentDatasheet/ximeaSpec.png Graphic file (type png)
 <use ../../componentDatasheet/ximeaSpec.png>
 Package pdftex.def Info: ../../componentDatasheet/ximeaSpec.png  used on input 
@@ -2331,7 +2330,7 @@ Overfull \hbox (6.71394pt too wide) in paragraph at lines 43--44
 ducts / usb3-[]vision-[]cameras-[]xiq-[]line / mq013mg-[]e2$[][] 
  []
 
-<../../componentDatasheet/WFS150-5C.png, id=535, 313.77225pt x 481.19775pt>
+<../../componentDatasheet/WFS150-5C.png, id=541, 313.77225pt x 481.19775pt>
 File: ../../componentDatasheet/WFS150-5C.png Graphic file (type png)
 <use ../../componentDatasheet/WFS150-5C.png>
 Package pdftex.def Info: ../../componentDatasheet/WFS150-5C.png  used on input 
@@ -2395,27 +2394,21 @@ Overfull \hbox (492.45145pt too wide) in paragraph at lines 291--293
  []
 
 ) [20]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 298.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 299.
 
 1: section
 [21
 
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 298.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 299.
  (main.aux (Chapters/Introduction.aux) (Chapters/PDExp.aux)
 (Appendices/AppDataSheet.aux) (Appendices/Code.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 298.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 298.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 299.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 299.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 4460907FB9718A523AAE935DE45707C2;4630.
 
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: FFCD069E82417B665D90FE5067EA4FE2;4449
-(rerunfilecheck)             After:  D840DDBCD08D30AEF58EF4CE45CDD175;4571.
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -2424,61 +2417,28 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 37102 strings out of 493347
- 732901 string characters out of 3136920
+ 37117 strings out of 493347
+ 733240 string characters out of 3136920
  1004734 words of memory out of 3000000
- 39786 multiletter control sequences out of 15000+200000
+ 39810 multiletter control sequences out of 15000+200000
  600042 words of font info for 147 fonts, out of 3000000 for 9000
  1127 hyphenation exceptions out of 8191
  63i,21n,82p,10379b,3489s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{figure.caption.28} has been referenced but does n
-ot exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{appendix*.342} has been referenced but does not exi
-st, replaced by a fixed one
-
-pdfTeX warning (dest): name{section.209} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{section.43} has been referenced but does not exist,
- replaced by a fixed one
-
-pdfTeX warning (dest): name{appendix.42} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{section.36} has been referenced but does not exist,
- replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.35} has been referenced but does not exi
-st, replaced by a fixed one
-
-pdfTeX warning (dest): name{section.34} has been referenced but does not exist,
- replaced by a fixed one
-
-pdfTeX warning (dest): name{appendix.33} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.32} has been referenced but does not exi
-st, replaced by a fixed one
-
-pdfTeX warning (dest): name{section.30} has been referenced but does not exist,
- replaced by a fixed one
-
-{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/cm-super/cm-super-t1.enc}{C:
-/Users/Jojo/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/base/8r.enc}<C:/Program 
-Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Fil
-es (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files
- (x86)/MiKTeX 2.9/fonts/type1/public/mathpazo/fplmri.pfb><C:/Program Files (x86
-)/MiKTeX 2.9/fonts/type1/public/cm-super/sftt0900.pfb><C:/Program Files (x86)/M
-iKTeX 2.9/fonts/type1/public/cm-super/sftt1000.pfb><C:/Program Files (x86)/MiKT
-eX 2.9/fonts/type1/public/cm-super/sftt1095.pfb><C:/Program Files (x86)/MiKTeX 
-2.9/fonts/type1/urw/palatino/uplb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/font
-s/type1/urw/palatino/uplr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/
-urw/palatino/uplr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/pala
-tino/uplri8a.pfb>
-Output written on main.pdf (45 pages, 1688648 bytes).
+{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/cm-super/cm-super-t1.enc}{
+C:/Users/Jojo/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/base/8r.enc}<C:/Progra
+m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program F
+iles (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Fil
+es (x86)/MiKTeX 2.9/fonts/type1/public/mathpazo/fplmri.pfb><C:/Program Files (x
+86)/MiKTeX 2.9/fonts/type1/public/cm-super/sftt0900.pfb><C:/Program Files (x86)
+/MiKTeX 2.9/fonts/type1/public/cm-super/sftt1000.pfb><C:/Program Files (x86)/Mi
+KTeX 2.9/fonts/type1/public/cm-super/sftt1095.pfb><C:/Program Files (x86)/MiKTe
+X 2.9/fonts/type1/urw/palatino/uplb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fo
+nts/type1/urw/palatino/uplr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type
+1/urw/palatino/uplr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/pa
+latino/uplri8a.pfb>
+Output written on main.pdf (45 pages, 1692525 bytes).
 PDF statistics:
- 1001 PDF objects out of 1200 (max. 8388607)
- 401 named destinations out of 1000 (max. 500000)
- 292 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1002 PDF objects out of 1200 (max. 8388607)
+ 392 named destinations out of 1000 (max. 500000)
+ 308 words of extra memory for PDF output out of 10000 (max. 10000000)
 

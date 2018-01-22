@@ -74,18 +74,17 @@ phaseDivWthNoise = PD.phaseDiversity3PSFs(PSFinfocWthNoise,PSFoutfocposWthNoise,
 plt.figure()
 plt.hold(True)
 plt.plot(jscomplete,ajscomplete*1e9*lbda/2/np.pi,'b-',label='true, $\sigma_{WF,rms}$ = %5.3f nm' %(fs.RMSwavefrontError(js,ajstrue*1e9*lbda/2/np.pi)))
-plt.xlim([jscomplete[0],jscomplete[-1]])
-plt.hold(True)
-plt.plot(phaseDivWoutNoise.result['js'],phaseDivWoutNoise.result['ajs']*1e9*lbda/2/np.pi
-    ,'r-',label='retrieved wout noise, $\sigma_{WF,rms}$ = %5.3f nm, RMSE = %5.3f nm'
+plt.errorbar(phaseDivWoutNoise.result['js'],phaseDivWoutNoise.result['ajs']*1e9*lbda/2/np.pi,yerr=phaseDivWoutNoise.result['ajsSte']*1e9*lbda/2/np.pi
+    ,color = 'red',lineStyle='-',label='retrieved wout noise, $\sigma_{WF,rms}$ = %5.3f nm, RMSE = %5.3f nm'
     %(fs.RMSwavefrontError(phaseDivWoutNoise.result['js'],phaseDivWoutNoise.result['ajs']*1e9*lbda/2/np.pi)
     ,fs.RMSE(phaseDivWoutNoise.result['ajs']*1e9*lbda/2/np.pi,ajscomplete*1e9*lbda/2/np.pi)))
-plt.plot(phaseDivWthNoise.result['js'],phaseDivWthNoise.result['ajs']*1e9*lbda/2/np.pi
-    ,'g-',label='retrieved wth noise, $\sigma_{WF,rms}$ = %5.3f nm, RMSE = %5.3f nm'
+plt.errorbar(phaseDivWthNoise.result['js'],phaseDivWthNoise.result['ajs']*1e9*lbda/2/np.pi,yerr=phaseDivWthNoise.result['ajsSte']*1e9*lbda/2/np.pi
+    ,color = 'green',lineStyle='-',label='retrieved wth noise, $\sigma_{WF,rms}$ = %5.3f nm, RMSE = %5.3f nm'
     %(fs.RMSwavefrontError(phaseDivWthNoise.result['js'],phaseDivWthNoise.result['ajs']*1e9*lbda/2/np.pi)
     ,fs.RMSE(phaseDivWthNoise.result['ajs']*1e9*lbda/2/np.pi,ajscomplete*1e9*lbda/2/np.pi)))
 plt.xlabel('j')
 plt.ylabel('aj [nm]')
+plt.xlim([jscomplete[0],jscomplete[-1]])
 plt.legend(loc='best')
 plt.grid()
 

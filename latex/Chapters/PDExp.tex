@@ -1,12 +1,23 @@
-\chapter{Phase Diversity Experiment} 
 
+\chapter{Phase Diversity Experiment} 
 \label{ch:PDExp}
 
+In this chapter, we will describe the experiment put in place in the optical laboratory at the HEIG-VD to reconstruct wavefronts with unknown static aberrations introduced using phase screens. At first, we study the  behavior of the phase diversity algorithm put in place by \citet{mugnier_2006} at ONERA with respect to number of averaging images, in other words noise level, and number of Zernike coefficients retrieved. Then we test the algorithm using a known aberration introduced by a parallel plane plate in the beam comparing the result to Zemax simulation. And finally, we introduce the phase screen to have random aberrations in the pupil and try to compare the phase diversity results with the Shack Hartman wavefront sensor results.
+
+%------------------------------------------------------------------------------
+%----------------------------------------------------------------------------
+
+\section{ONERA algorithm}
+\label{sec:ONERAalgorithm}
+
+
+
 %----------------------------------------------------------------------------------------
-%	SECTION 1
 %----------------------------------------------------------------------------------------
 
 \section{Experimental Setup}
+\label{sec:ExpSetup}
+
 \begin{wrapfigure}{r}{0.5\textwidth}
 \centering
 \includegraphics[width=0.5\textwidth]{Figures/setupSchema.JPG}
@@ -41,12 +52,13 @@ The experiment is mounted on a pressurized legs optical table. The assembly cont
 \end{table}
 
 \subsection{Light source}
+\label{subsec:LigthSource}
 
 \begin{wrapfigure}{r}{0.4\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth]{Figures/WFdistantSource.PNG}
 \decoRulewrapFig
-\caption[Wavefront curvature]{Wavefront curvature for different source's distances, \textit{z}. \textit{r} represents the characteristic size of the arc of interest.}
+\caption[Wavefront curvature]{Wavefront curvature for different point source's distances, \textit{z}. \textit{r} represents the characteristic size of the arc of interest.}
 \label{fig:WFdistantSource}
 \end{wrapfigure}
 
@@ -72,14 +84,17 @@ In order to obtain such a planar wavefront at the entrance pupil, the light sour
 \end{figure}
 
 \subsection{Entrance pupil}
+\label{subsec:EntrancePupil}
 
 The entrance pupil of our optical system is a circular aperture of 3.2 mm diameter placed after the collimating lens of the light source. It is milled in a metal plate and centred in his support, to avoid positioning with a XY table. The diameter is chosen in available material to fit in the different detector's surfaces.
 
 \subsection{Pupil imaging system}
+\label{subsec:pupilImSystem}
 
 The phase diversity technique requires PSFs images as input, which means that the beam as to be focused onto the detector surface. To analyse the aberration in the pupil plane, one needs to focus an image of the beam passing through the entrance pupil. The simplest assembly to achieve this goal is the 4F system, which consist of two converging lenses of focal 100 mm. The two lenses are separated by 200 mm, see Fig. \ref{fig:setupSchema}. This places the image of the entrance pupil 100 mm after the second converging lens.
 
 \subsection{Detectors}
+\label{subsec:Detectors}
 
 The image of the entrance pupil, obtained with the 4F system, is focused onto a CMOS Ximea camera by a f = 80 mm converging lens to acquire the PSFs for the phase diversity wavefront retrieval. The camera has a surface composed by 1280x1024 pixels of 5.3 $\mu$m, see Appendix \ref{app:ximeaCam}. It is mounted on sliding support in order to be able to acquire in/out-of-focus images. A beam splitter is placed in the converging beam to separate it in two. The second beam is collimated and a Shack-Hartman WFS is placed on the entrance pupil image plane, to check the results of the phase diversity wavefront retrieval. The Shack-Hartman WFS has a 39 X 31 lenslets grid and a CCD with a resolution of 1280x1024 pixels of 4.65 $\mu$m, see Appendix \ref{app:SHwfs}. 
 
@@ -88,11 +103,17 @@ The image of the entrance pupil, obtained with the 4F system, is focused onto a 
 %----------------------------------------------------------------------------
 
 \section{Data Acquisition}
+\label{sec:DataAcquis}
 
 \subsection{Ximea Camera}
-The PSFs are acquired using a python library, \verb|pyXimea|\footnote{\url{https://github.com/pupil-labs/pyximea}}, available on GitHub. The acquisition is done following these steps : 
+\label{subsec:acquisXimCam}
+
+The ONERA algorithm takes one focused and one defocused PSFs, as said in section \ref{sec:ONERAalgorithm}. The PSFs are acquired using a python script which uses an open-source library to control the ximea camera, \verb|pyXimea|\footnote{\url{https://github.com/pupil-labs/pyximea}}, available on GitHub. The acquisition is done following these steps : 
+
 \begin{enumerate}
-\item Find the focus point on the camera using the python script \verb|AlignementScriptXimeaCamera.py|, see Appendix \ref{app:AlignementScriptXimeaCamera}. This script saves consecutively PSFs at different camera's positions and computes their FWHM. It finally returns the minimum FWHM and the camera's position, see Figure \ref{fig:28092017AlignementXimeaPSFs}.
+
+\item The first step in order to acquire PSFs is to determine the position of the camera's focus point using the python script \verb|AlignementScriptXimeaCamera.py|, see Appendix \ref{app:AlignementScriptXimeaCamera}. This script let's you acquire consecutively PSFs at different camera's positions and computes their FWHM. It finally returns the minimum FWHM and the camera's position, see Figure \ref{fig:28092017AlignementXimeaPSFs}.
+
 \begin{center}
 \begin{figure}
 \includegraphics[width=\textwidth]{../../../fig/alignement/28092017AlignementXimeaPSFs.png}
@@ -101,29 +122,22 @@ The PSFs are acquired using a python library, \verb|pyXimea|\footnote{\url{https
 \end{figure}
 \end{center}
 
-\item 
-
+\item Once you have the focus point position 
 
 \end{enumerate}
 
-
 \subsection{Shack-Hartman WFS}
-%------------------------------------------------------------------------------
-%	SECTION 3
-%----------------------------------------------------------------------------
-
-
-\section{ONERA algorithm characterization}
+\label{subsec:acquisSHwfs}
 
 %------------------------------------------------------------------------------
-%	SECTION 4
 %----------------------------------------------------------------------------
-
 
 \section{Results}
+\label{sec:Results}
 
 This section presents the results of the phase diversity experiment, with the introduction of different sources of aberration.
 
 \subsection{Parallel plane plate}
+\label{subsec:ParPlanePlate}
 
 The first source of aberration studied in this work is a tilted parallel plane plate which is used as a calibrated source of astigmatism.

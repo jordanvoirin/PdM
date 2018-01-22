@@ -42,6 +42,60 @@
     \field{year}{2017}
   \endentry
 
+  \entry{mugnier_2006}{incollection}{}
+    \name{author}{3}{}{%
+      {{hash=MLM}{%
+         family={Mugnier},
+         familyi={M\bibinitperiod},
+         given={Laurent\bibnamedelima M.},
+         giveni={L\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=BA}{%
+         family={Blanc},
+         familyi={B\bibinitperiod},
+         given={Amandine},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=IJ}{%
+         family={Idier},
+         familyi={I\bibinitperiod},
+         given={Jérôme},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \name{editor}{1}{}{%
+      {{hash=HP}{%
+         family={Hawkes},
+         familyi={H\bibinitperiod},
+         given={Peter},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Elsevier}%
+    }
+    \strng{namehash}{MLMBAIJ1}
+    \strng{fullhash}{MLMBAIJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2006}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \verb{doi}
+    \verb https://doi.org/10.1016/S1076-5670(05)41001-0
+    \endverb
+    \field{issn}{1076-5670}
+    \field{pages}{1 \bibrangedash  76}
+    \field{series}{Advances in Imaging and Electron Physics}
+    \field{title}{Phase Diversity: A Technique for Wave-Front Sensing and for
+  Diffraction-Limited Imaging}
+    \verb{url}
+    \verb http://www.sciencedirect.com/science/article/pii/S1076567005410010
+    \endverb
+    \field{volume}{141}
+    \field{year}{2006}
+  \endentry
+
   \entry{SpatialFilters}{misc}{}
     \name{author}{1}{}{%
       {{hash=T}{%

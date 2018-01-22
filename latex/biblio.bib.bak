@@ -7,6 +7,16 @@
   year =   {2017}
 }
 
+@Article{GerchberSaxton1972,
+  author =  {R. W. Gerchberg and W. O. Saxton},
+  title =   {A practical algorithm for the determination of phase from image and diffraction plane pictures},
+  journal = {Optik},
+  year =    {1972},
+  volume =  {35},
+  number =  {2},
+  pages =   {237–250}
+}
+
 @Article{Gonsalve_1982,
   author =  {Robert A. Gonsalves},
   title =   {Phase Retrieval And Diversity In Adaptive Optics},
@@ -33,6 +43,21 @@
   url =       {http://www.osapublishing.org/abstract.cfm?URI=josa-66-9-961}
 }
 
+@Article{Kohler:73,
+  author =    {D. Kohler and L. Mandel},
+  title =     {Source reconstruction from the modulus of the correlation function: a practical approach to the phase problem of optical coherence theory$\ast$},
+  journal =   {J. Opt. Soc. Am.},
+  year =      {1973},
+  volume =    {63},
+  number =    {2},
+  pages =     {126--134},
+  month =     {Feb},
+  abstract =  {The problem of reconstructing an unknown light source from measurements of the modulus of the correlation function of the optical field has been investigated experimentally. The practical feasibility of two different techniques is compared. The first method involves the introduction of a reference point source to the side of the unknown source. The second method depends upon the use of filters with exponential response functions in front of the source. Both methods permit the source to be reconstructed from measurements of the modulus alone. The latter technique involves more-sophisticated numerical procedures. Both methods have the advantage that the recovered phase is largely independent of the instrumental transfer function.},
+  doi =       {10.1364/JOSA.63.000126},
+  publisher = {OSA},
+  url =       {http://www.osapublishing.org/abstract.cfm?URI=josa-63-2-126}
+}
+
 @Book{ODFIS_Riedl2001,
   title =     {Opical Design Fundamentals for Infrared Systems},
   publisher = {SPIE Press},
@@ -50,16 +75,6 @@
   url =          {https://www.thorlabs.com/newgrouppage9.cfm?objectgroup_id=1400},
   organization = {Thorlabs},
   year =         {2017}
-}
-
-@Article{,
-  author =  {R. W. Gerchberg and W. O. Saxton},
-  title =   {A practical algorithm for the determination of phase from image and diffraction plane pictures},
-  journal = {Optik},
-  year =    {1972},
-  volume =  {35},
-  number =  {2},
-  pages =   {237–250}
 }
 
 @comment{jabref-entrytype: Website: req[author;title;url;organization;year] opt[month]}

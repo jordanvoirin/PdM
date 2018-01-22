@@ -55,19 +55,24 @@ class phaseDiversity3PSFs(object):
         y1,A1 = self.initiateMatrix1()
         results1 = np.linalg.lstsq(A1,y1)
         ajsodd = results1[0]
+        A1tA1inv= np.linalg.inv(np.matmul(np.transpose(A1),A1))
+        n_p = y1.size-1
+        ste1 = np.sqrt(results1[1]/n_p * np.diagonal(A1tA1inv))
         
         deltaphi = fs.deltaPhi(self.N,self.deltaZ,self.F,2*self.pupilRadius,self.lbda,self.dxp)
-        
         y2,A2 = self.initiateMatrix2(deltaphi)
-     
         results2 = np.linalg.lstsq(A2,y2)
         ajseven = results2[0]
+        A2tA2inv= np.linalg.inv(np.matmul(np.transpose(A2),A2))
+        n_p = y2.size-1
+        ste2 = np.sqrt(results2[1]/n_p * np.diagonal(A2tA2inv))
 
         js = np.append(self.oddjs,self.evenjs)
         ajs = np.append(ajsodd,ajseven)
+        ajsSte = np.append(ste1,ste2)
 
         Ixjs = np.argsort(js)
-        result = {'js': js[Ixjs], 'ajs': ajs[Ixjs]} #,'wavefront':phase}
+        result = {'js': js[Ixjs], 'ajs': ajs[Ixjs], 'ajsSte': ajsSte[Ixjs]} #,'wavefront':phase}
         return result
 
     def initiateMatrix1(self):

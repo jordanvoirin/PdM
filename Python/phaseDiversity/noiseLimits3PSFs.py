@@ -27,7 +27,8 @@ js = np.linspace(jmin,jmax,num=jmax-3)
 jscomplete = np.linspace(jmin,jmax,num=jmax-3)
 ajscomplete = np.zeros([rmsWFerrors.size,js.size])
 
-results = np.zeros([rmsWFerrors.size,Nretrieve,js.size])
+ajss = np.zeros([rmsWFerrors.size,Nretrieve,js.size])
+ajsSte = np.zeros([rmsWFerrors.size,Nretrieve,js.size])
 
 for irmsWFe,rmsWFerror in enumerate(rmsWFerrors):
     print 'rmsWFerror = %3.1f'%(rmsWFerror)
@@ -69,22 +70,23 @@ for irmsWFe,rmsWFerror in enumerate(rmsWFerrors):
         
         phaseDivWthNoise = PD.phaseDiversity3PSFs(PSFinfocWthNoise,PSFoutfocposWthNoise,PSFoutfocnegWthNoise,deltaZ,lbda,pxsize,F,pupilRadius,jmin,jmax)
         
-        results[irmsWFe,iNretrieve,:] = phaseDivWthNoise.result['ajs']
+        ajss[irmsWFe,iNretrieve,:] = phaseDivWthNoise.result['ajs']
+        ajsSte[irmsWFe,iNretrieve,:] = phaseDivWthNoise.result['ajsSte']
 
 fnameajsjs = '../../../fig/PDDev/test/ajs_js_rmsWFe_%d%s'
 fnamebxpajsjs = '../../../fig/PDDev/test/bxp_ajs_js_rmsWFe_%d%s'
 
 for irmsWFe,rmsWFerror in enumerate(rmsWFerrors):
-    meanAjsRetrieved = np.mean(results[irmsWFe,:,:],0)*1e9*lbda/2/np.pi
+    meanAjsRetrieved = np.mean(ajss[irmsWFe,:,:],0)*1e9*lbda/2/np.pi
     meanrmsWFerror = fs.RMSwavefrontError(jscomplete,meanAjsRetrieved)
     meanRMSE = fs.RMSE(meanAjsRetrieved,ajscomplete*1e9*lbda/2/np.pi)
     #Plot all the result
     plt.figure()
-    plt.title('$\sigma_{wf,rms}$ = %3.1fnm, noiseStdLevel = %4.3f [maxPSF]'%(rmsWFerror,noiseStdLevel))
+    plt.title('Nretrieval = %d, $\sigma_{wf,rms}$ = %3.1fnm, noiseStdLevel = %4.3f [maxPSF]'%(Nretrieve,rmsWFerror,noiseStdLevel))
     plt.hold(True)
     for iNretrieve in np.arange(Nretrieve-1):
-        plt.plot(jscomplete,results[irmsWFe,iNretrieve,:]*1e9*lbda/2/np.pi,linewidth = 0.5,color='red')
-    plt.plot(jscomplete,results[irmsWFe,Nretrieve-1,:]*1e9*lbda/2/np.pi,linewidth = 0.5,color='red',label='Retrieved, $\overline{\sigma_{wf,rms}}$ = %5.3fnm, $\overline{RMSE}$ = %5.3fnm'%(meanrmsWFerror,meanRMSE))
+        plt.errorbar(jscomplete,ajss[irmsWFe,iNretrieve,:]*1e9*lbda/2/np.pi,yerr=ajsSte[irmsWFe,iNretrieve,:]*1e9*lbda/2/np.pi,linewidth = 0.5,color='red')
+    plt.errorbar(jscomplete,ajss[irmsWFe,Nretrieve-1,:]*1e9*lbda/2/np.pi,yerr=ajsSte[irmsWFe,Nretrieve-1,:]*1e9*lbda/2/np.pi,linewidth = 0.5,color='red',label='Retrieved, $\overline{\sigma_{wf,rms}}$ = %5.3fnm, $\overline{RMSE}$ = %5.3fnm'%(meanrmsWFerror,meanRMSE))
     plt.plot(jscomplete,ajscomplete[irmsWFe,:]*1e9*lbda/2/np.pi,linewidth = 2, color='blue',label='True')
     plt.grid(True)
     plt.xlim([jscomplete[0],jscomplete[-1]])
@@ -93,12 +95,12 @@ for irmsWFe,rmsWFerror in enumerate(rmsWFerrors):
     plt.legend(loc='best')
     plt.savefig(fnameajsjs % (rmsWFerror,'.png'), dpi=300)
     plt.savefig(fnameajsjs % (rmsWFerror,'.pdf'), dpi=300)
-    
+
     #Plot boxplot to have a better view of the statistics
     plt.figure()    
-    plt.title('$\sigma_{wf,rms}$ = %3.1fnm, noiseStdLevel = %4.3f [maxPSF]'%(rmsWFerror,noiseStdLevel))
+    plt.title('Nretrieval = %d, $\sigma_{wf,rms}$ = %3.1fnm, noiseStdLevel = %4.3f [maxPSF]'%(Nretrieve,rmsWFerror,noiseStdLevel))
     plt.hold(True)
-    plt.boxplot(results[irmsWFe,:,:]*1e9*lbda/2/np.pi,positions=jscomplete)    
+    plt.boxplot(ajss[irmsWFe,:,:]*1e9*lbda/2/np.pi,positions=jscomplete)    
     plt.plot(jscomplete,ajscomplete[irmsWFe,:]*1e9*lbda/2/np.pi,'b-',linewidth=1.5,label='true, $\overline{\sigma_{wf,rms}}$ = %5.3fnm, $\overline{RMSE}$ = %5.3fnm'%(meanrmsWFerror,meanRMSE))
     plt.xlabel('js')
     plt.ylabel('ajs [nm]')
