@@ -7,7 +7,7 @@ sFolderPaths = file_search(sfolderPath,/Test_Directory)
 Nfolders =  n_elements(sFolderPaths)
 
 ;run phaseRetrieval----------------------------------------------------------------------------
-for iFol = 1, Nfolders-1 do begin
+for iFol = 0, Nfolders-1 do begin
   results = phaseRetrieval(sFolderPaths[iFol]+'\',30,1,1)
 
   sepFolderPath = strsplit(sFolderPaths[iFol],'\',/EXTRACT)
@@ -26,7 +26,7 @@ for iFol = 1, Nfolders-1 do begin
   str = 'js,ajsmodal,ajszonal'
   printf,U,str
   for ij = 0,n_elements(js)-1 do begin
-    str = string(js[ij])+','+string(ajsmodal)+','+string(ajszonal)
+    str = string(js[ij])+','+string(ajsmodal[ij])+','+string(ajszonal[ij])
     printf,U,str
   endfor
   close,U
