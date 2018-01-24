@@ -24,14 +24,16 @@ ajsTrueFile = os.listdir(ajsTrueFolderPath)
 ajsIDLFolderPath = 'C:\\Users\\Jojo\\Desktop\\PdM-HEIG\\Science\\data\\devPD\\PSFforIDLtreatment\\IDLajs'
 ajsIDLFile = os.listdir(ajsIDLFolderPath)
 
+jsTrue = np.zeros([len(ajsIDLFile),jmax-jmin+1])
 ajsTrue = np.zeros([len(ajsIDLFile),jmax-jmin+1])
 rmsWFeTrue = np.zeros(len(ajsIDLFile))
 
-ajsIDLmodal = ([len(ajsIDLFile),jmax-jmin+1])
+jsIDL = np.zeros([len(ajsIDLFile),jmax-jmin+1])
+ajsIDLmodal = np.zeros([len(ajsIDLFile),jmax-jmin+1])
 rmsWFeIDLmodalretrieved = np.zeros(len(ajsIDLFile))
 rmsemodal = np.zeros(len(ajsIDLFile))
 
-ajsIDLzonal = ([len(ajsIDLFile),jmax-jmin+1])
+ajsIDLzonal = np.zeros([len(ajsIDLFile),jmax-jmin+1])
 rmsWFeIDLzonalretrieved = np.zeros(len(ajsIDLFile))
 rmsezonal = np.zeros(len(ajsIDLFile))
 
@@ -42,18 +44,18 @@ for i in np.arange(len(ajsIDLFile)):
     rmsWFeIDLtrue[i] = (((ajsIDLFile[i]).replace('.','_')).split('_'))[-2]
     
     jsajsTrue = np.loadtxt(ajsTrueFolderPath+'\\'+ajsTrueFile[i])
-    jsTrue = jsajsTrue[0,:]
+    jsTrue[i,:] = jsajsTrue[0,:]
     ajsTrue[i,:] = jsajsTrue[1,:]*1e9*lbda/2/np.pi
     
     jsajsIDL = np.loadtxt(ajsIDLFolderPath+'\\'+ajsIDLFile[i],delimiter=',',skiprows=1)
-    jsIDL = jsajsIDL[:,0]
-    ajsIDLmodal = jsajsIDL[:,1]*1000
-    ajsIDLzonal = jsajsIDL[:,2]*1000
+    jsIDL[i,:] = jsajsIDL[:,0]
+    ajsIDLmodal[i,:] = jsajsIDL[:,1]*1000
+    ajsIDLzonal[i,:] = jsajsIDL[:,2]*1000
     
-    rmsWFeIDLmodalretrieved[i] = fs.RMSwavefrontError(jsIDL,ajsIDLmodal)
-    rmsemodal[i] = fs.RMSE(ajsIDLmodal,ajsTrue)
-    rmsWFeIDLzonalretrieved[i] = fs.RMSwavefrontError(jsIDL,ajsIDLzonal)
-    rmsezonal[i] = fs.RMSE(ajsIDLzonal,ajsTrue)
+    rmsWFeIDLmodalretrieved[i] = fs.RMSwavefrontError(jsIDL[i,:],ajsIDLmodal[i,:])
+    rmsemodal[i] = fs.RMSE(ajsIDLmodal[i,:],ajsTrue[i,:])
+    rmsWFeIDLzonalretrieved[i] = fs.RMSwavefrontError(jsIDL[i,:],ajsIDLzonal[i,:])
+    rmsezonal[i] = fs.RMSE(ajsIDLzonal[i,:],ajsTrue[i,:])
 
 
 rmsWFefolderPath = 'C:\\Users\\Jojo\\Desktop\\PdM-HEIG\\Science\\data\\devPD\\PSFforIDLtreatment\\PSFs'
@@ -63,6 +65,8 @@ NrmsWFe = len(rmsWFerrorFolderPaths)
 rmsePy = np.zeros(NrmsWFe)
 rmsWFerrorsPyRetrieved = np.zeros(NrmsWFe)
 rmsWFeTruePy = np.zeros(NrmsWFe)
+jsretrieved = np.zeros([NrmsWFe,jmax-jmin+1])
+ajsretrieved = np.zeros([NrmsWFe,jmax-jmin+1])
 
 for irms,rmsWFdir in enumerate(rmsWFerrorFolderPaths):
     PSFfolderPaths = rmsWFefolderPath+'\\' + rmsWFdir
@@ -81,21 +85,21 @@ for irms,rmsWFdir in enumerate(rmsWFerrorFolderPaths):
     
     phaseDiv = PD.phaseDiversity3PSFs(PSFs[IxdeltaZ[1],:,:],PSFs[IxdeltaZ[2],:,:],PSFs[IxdeltaZ[0],:,:],deltaZ,lbda,pxsize,F,pupilRadius,jmin,jmax)
     
-    jsretrieved = phaseDiv.result['js']
-    ajsretrieved = phaseDiv.result['ajs']
+    jsretrieved[irms,:] = phaseDiv.result['js']
+    ajsretrieved[irms,:] = phaseDiv.result['ajs']*1e9*lbda/2/np.pi
     
     a = np.where(rmsWFeTrue==rmsWFeTruePy[irms])
     
-    rmsePy[irms] = fs.RMSE(ajsretrieved*1e9*lbda/2/np.pi,ajsTrue[a,:])
-    rmsWFerrorsPyRetrieved[irms] = fs.RMSwavefrontError(jsretrieved,ajsretrieved*1e9*lbda/2/np.pi)
+    rmsePy[irms] = fs.RMSE(ajsretrieved[irms,:],ajsTrue[a,:])
+    rmsWFerrorsPyRetrieved[irms] = fs.RMSwavefrontError(jsretrieved[irms,:],ajsretrieved[irms,:])
 
 
 
 rmsWFerrorMax = np.max(np.append(rmsWFerrorsPyRetrieved,rmsWFeTrue))
 rmsWFerrorMin = np.min(np.append(rmsWFerrorsPyRetrieved,rmsWFeTrue))
 
-fnamerms = '../../../fig/PDDev/test/rmsWFerrorsretrieved_rmsWFeWthIDL %s'
-fnamermse = '../../../fig/PDDev/test/rmse_rmsWFeWthIDL%s'
+fnamerms = '../../../fig/PDDev/compDiversity/rmsWFerrorsretrieved_rmsWFeWthIDL %s'
+fnamermse = '../../../fig/PDDev/compDiversity/rmse_rmsWFeWthIDL%s'
 IxsortIDl = np.argsort(rmsWFeIDLtrue)
 IxsortPy = np.argsort(rmsWFeTruePy)
 fig = plt.figure()
@@ -126,3 +130,22 @@ plt.grid()
 plt.savefig(fnamermse % ('.png'), dpi=300)
 plt.savefig(fnamermse % ('.pdf'), dpi=300)
 #plt.close(fig)
+
+
+for irms,rmsWFe in enumerate(rmsWFeTrue):
+    filename = '../../../fig/PDDev/compDiversity/js_ajs_Python_IDL_rmsWfe_%d%s'
+    a = np.where(rmsWFeTruePy==rmsWFe)
+    plt.figure() 
+    plt.title('$\sigma_{WF,rms}$ = %4.1f' % (rmsWFe))
+    plt.hold(True)
+    plt.plot(jsTrue[irms,:],ajsTrue[irms,:],linewidth = 3,label='True')
+    plt.plot(jsretrieved[irms,:],ajsretrieved[irms,:],linewidth=2,label='Python retrieved')
+    plt.plot(jsIDL[irms,:],ajsIDLmodal[irms,:],linewidth=2,label='IDL modal retrieved')
+    plt.plot(jsIDL[irms,:],ajsIDLzonal[irms,:],linewidth=2,label='IDL zonal retrieved')
+    plt.xlabel('j')
+    plt.ylabel('aj [nm]')
+    plt.xlim([jsTrue[irms,0],jsTrue[irms,-1]])
+    plt.legend(loc='best')
+    plt.grid()
+    plt.savefig(filename % (rmsWFe,'.png'), dpi=300)
+    plt.savefig(filename % (rmsWFe,'.pdf'), dpi=300)
