@@ -1,5 +1,13 @@
 % Encoding: UTF-8
 
+@Book{BornAndWolf_1965,
+  title =     {Principles of Optics},
+  publisher = {Pergamon},
+  year =      {1965},
+  author =    {M. Born and E. Wolf},
+  note =      {Sec. 9.2}
+}
+
 @MastersThesis{Bouxin_PDM,
   author = {A. Bouxin},
   title =  {Phasor diversity to measure the static aberrations of an optical system},
@@ -56,6 +64,35 @@
   doi =       {10.1364/JOSA.63.000126},
   publisher = {OSA},
   url =       {http://www.osapublishing.org/abstract.cfm?URI=josa-63-2-126}
+}
+
+@InCollection{mugnier_2006,
+  author =    {Laurent M. Mugnier and Amandine Blanc and Jérôme Idier},
+  title =     {Phase Diversity: A Technique for Wave-Front Sensing and for Diffraction-Limited Imaging},
+  publisher = {Elsevier},
+  year =      {2006},
+  editor =    {Peter Hawkes},
+  volume =    {141},
+  series =    {Advances in Imaging and Electron Physics},
+  pages =     {1 - 76},
+  doi =       {https://doi.org/10.1016/S1076-5670(05)41001-0},
+  issn =      {1076-5670},
+  url =       {http://www.sciencedirect.com/science/article/pii/S1076567005410010}
+}
+
+@Article{Noll:76,
+  author =    {Robert J. Noll},
+  title =     {Zernike polynomials and atmospheric turbulence$\ast$},
+  journal =   {J. Opt. Soc. Am.},
+  year =      {1976},
+  volume =    {66},
+  number =    {3},
+  pages =     {207--211},
+  month =     {Mar},
+  abstract =  {This paper discusses some general properties of Zernike polynomials, such as their Fourier transforms, integral representations, and derivatives. A Zernike representation of the Kolmogoroff spectrum of turbulence is given that provides a complete analytical description of the number of independent corrections required in a wave-front compensation system.},
+  doi =       {10.1364/JOSA.66.000207},
+  publisher = {OSA},
+  url =       {http://www.osapublishing.org/abstract.cfm?URI=josa-66-3-207}
 }
 
 @Book{ODFIS_Riedl2001,

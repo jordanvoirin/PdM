@@ -211,6 +211,9 @@
 
 \RequirePackage{listings}
 
+\RequirePackage{amsmath}
+
+%\RequirePackage{subfig}
 %----------------------------------------------------------------------------------------
 %	DEFINE CUSTOM THESIS INFORMATION COMMANDS
 %----------------------------------------------------------------------------------------
