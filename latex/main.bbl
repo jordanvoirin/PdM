@@ -42,6 +42,44 @@
     \field{year}{2017}
   \endentry
 
+  \entry{goodman_1968}{book}{}
+    \name{author}{1}{}{%
+      {{hash=GJW}{%
+         family={Goodman},
+         familyi={G\bibinitperiod},
+         given={Joseph\bibnamedelima W.},
+         giveni={J\bibinitperiod\bibinitdelim W\bibinitperiod},
+      }}%
+    }
+    \name{editor}{2}{}{%
+      {{hash=CL}{%
+         family={Cox},
+         familyi={C\bibinitperiod},
+         given={L.},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=MJM}{%
+         family={Morris},
+         familyi={M\bibinitperiod},
+         given={John\bibnamedelima M.},
+         giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {McGraw-Hill Companies, Inc}%
+    }
+    \strng{namehash}{GJW1}
+    \strng{fullhash}{GJW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1968}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{edition}{2nd}
+    \field{title}{Introduction to Fourier Optics}
+    \field{year}{1968}
+  \endentry
+
   \entry{mugnier_2006}{incollection}{}
     \name{author}{3}{}{%
       {{hash=MLM}{%

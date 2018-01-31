@@ -213,6 +213,8 @@
 
 \RequirePackage{amsmath}
 
+\RequirePackage{enumitem}
+
 %\RequirePackage{subfig}
 %----------------------------------------------------------------------------------------
 %	DEFINE CUSTOM THESIS INFORMATION COMMANDS

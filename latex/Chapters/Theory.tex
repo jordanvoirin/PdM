@@ -2,6 +2,8 @@
 \chapter{Theoretical background} 
 \label{ch:THback}
 
+In this chapter, we will present the theory upon which this work is based. First, the light propagation formalism will be reminded through the scalar diffraction theory based on the \citet{goodman_1968}.
+
 \section{Scalar Diffraction Theory}
 \label{sec:ScaDifTh}
 
@@ -51,11 +53,11 @@ and $\lambda$ is the wavelength in the dielectric medium.
 Rayleigh and Sommerfeld developed a formalism using the Helmholtz equation and Green's Theorem to compute the induced diffraction by a plane screen. Let's suppose that we have a monochromatic source at $\widetilde{P_0}$ on the left of a plane screen with aperture $\Sigma$, the Rayleigh-Sommerfeld formula allows to compute the complex amplitude at $P_0$ on the right of the plane screen (see Figure \ref{subfig:Ray_Som_Diff}).
 
 \begin{equation}
-U(P_0) = \frac{1}{j\lambda} \int\int_{\Sigma} U(P_1)\frac{exp(jkr_{01})}{r_{01}}cos(\mathbf{n},\mathbf{r_{01}})\mathbf{ds}
+U(P_0) = \frac{1}{j\lambda} \iint\limits_{\Sigma} U'(P_1)\frac{exp(jkr_{01})}{r_{01}}cos(\mathbf{n},\mathbf{r_{01}})\mathbf{ds}
 \label{eqt:Ray_Som_Formula}
 \end{equation}
 
-$U(P_1)$ is the complex amplitude on the screen, $cos(\mathbf{n},\mathbf{r_{01}})$ is the cosine of the angle between the aperture plane normal toward the source and the vector $\mathbf{r_{01}} = \mathbf{P_0P_1}$ given by 
+$U'(P_1)$ is the complex amplitude on the screen, $cos(\mathbf{n},\mathbf{r_{01}})$ is the cosine of the angle between the aperture plane normal toward the source and the vector $\mathbf{r_{01}} = \mathbf{P_0P_1}$ given by 
 
 \begin{equation}
 r_{01} = \sqrt{z^2 + (x-\xi)^2 + (y-\eta)^2}.
@@ -65,10 +67,79 @@ r_{01} = \sqrt{z^2 + (x-\xi)^2 + (y-\eta)^2}.
 We can rewrite eqt. \eqref{eqt:Ray_Som_Formula} using $cos(\mathbf{n},\mathbf{r_{01}}) = cos(\theta) = \frac{z}{r_{01}}$ and the coordinate systems ($\xi,\eta$) and ($x,y$), see Figure \ref{subfig:Diff_Geom},
 
 \begin{equation}
-U(x,y) = \frac{z}{j\lambda} \int\int_{\Sigma} U(\xi,\eta)\frac{exp(jkr_{01})}{r_{01}^2} d\xi d\eta.
+U(x,y) = \frac{z}{j\lambda} \iint\limits_{-\infty}^{\infty} U(\xi,\eta)\frac{exp(jkr_{01})}{r_{01}^2} d\xi d\eta.
 \label{eqt:Ray_Som_formula_xy_en}
 \end{equation}
 
+We can integrate from $-\infty$ to $\infty$, using $U(\xi,\eta) = P(\xi,\eta)U'(\xi,\eta)$ where $P(\xi,\eta)$ is the pupil function. The latter equals to one in the pupil and zero outside. 
+
 \begin{description}
-\item[Fresnel Approximation] 
+\item[Fresnel Approximation] To reduce eqt. \eqref{eqt:Ray_Som_formula_xy_en}, also known as the Huygens-Fresnel principle, one can approximate the distance $r_{01}$ using the taylor expansion of the square root :
+
+\begin{equation}
+r_{01} = z \sqrt{1 + \frac{x-\xi}{z} + \frac{y-\eta}{z}} \approx z \left[1+\frac{1}{2}\left(\frac{x-\xi}{z}\right)^2+\frac{1}{2}\left(\frac{y-\eta}{z}\right)^2\right]
+\label{eqt:approx_r01}
+\end{equation}
+
+To obtain the Fresnel approximation, one has to replace $r_{01}$ by eqt. \eqref{eqt:approx_r01} in eqt. \eqref{eqt:Ray_Som_formula_xy_en}. At the denominator, only the first term $z$ is kept, since the introduced error is small, but in the exponential everything is kept. Then the final expression is given by,
+
+\begin{equation}
+U(x,y) = \frac{e^{jkz}}{j\lambda z} \iint\limits_{-\infty}^{\infty} U(\xi,\eta)exp \left\lbrace j \frac{k}{2z}\left[(x-\xi)^2+(y-\eta)^2\right]\right\rbrace d\xi d\eta.
+\label{eqt:fresnel_Approx_conv}
+\end{equation}
+
+In this form, the Fresnel approximation can be seen as a convolution between $U(\xi,\eta)$ and $h(x,y) = \frac{e^{jkz}}{j\lambda z}exp\left[\frac{jk}{2z}\left(x^2+y^2\right)\right]$.
+
+Another form is found by developing $\left[(x-\xi)^2+(y-\eta)^2\right]$,
+
+\begin{equation}
+U(x,y) = \frac{e^{jkz}}{j\lambda z} e^{j\frac{k}{2z}(x^2+y^2)} \iint\limits_{-\infty}^{\infty} \left\lbrace U(\xi,\eta) e^{j\frac{k}{2z}(\xi^2+\eta^2)}\right\rbrace e^{-j\frac{2\pi}{\lambda z}(x\xi+y\eta)} d\xi d\eta,
+\label{eqt:fresnel_Approx_FT}
+\end{equation}
+
+it is the Fourier transform of the complex field in the pupil multiplied by a quadratic phase exponential.
+
+\item[Fraunhofer Approximation] In addition to the Fresnel approximation, we can introduce another approximation using the condition,
+
+\begin{equation}
+z >> \frac{k(\xi^2+\eta^2)_{max}}{2}.
+\label{eqt:Fraun_Cond}
+\end{equation}
+
+If eqt. \eqref{eqt:Fraun_Cond} is satisfied the Fresnel approximation simplifies, since the quadratic phase factor in $(\xi,\eta)$ is approximately one on the entire pupil, as
+
+\begin{equation}
+U(x,y) = \frac{e^{jkz}}{j\lambda z} e^{j\frac{k}{2z}(x^2+y^2)} \iint\limits_{-\infty}^{\infty} U(\xi,\eta) e^{-j\frac{2\pi}{\lambda z}(x\xi+y\eta)} d\xi d\eta.
+\label{eqt:Fraunhofer_approx}  
+\end{equation}
+
+For instance, at a wavelength of 637.5 nm and a pupil diameter of 3.6 mm the Fraunhofer approximation constrain $z$ to be greater than 63 meters to be valid.
+
 \end{description}
+
+The Fraunhofer conditions are severe as shown above, but one can reduce the distance $z$ by observing at the focal plane of a converging lens. Indeed, using the paraxial approximation, i.e. small angles with respect with the optical axis, the lens transmission function is given by,
+
+\begin{align}
+t_l(\xi , \eta) &= exp \left[ j k n \Delta_0 \right] exp \left[ -jk \left( n-1 \right)\frac{ \xi^2 + \eta^2 }{2}\left( \frac{1}{R_1} - \frac{1}{R_2}\right) \right] \nonumber \\ 
+&= exp \left[ -j \frac{k}{2f} (\xi^2+\eta^2) \right] ,
+\label{eqt:lensTl}
+\end{align}
+
+where $n$ is the refractive index of the lens material, $R_1$ and $R_2$ are the radii of curvature of the front and back surface of the lens, respectively and f is the focal length of the lens defined as,
+
+\begin{equation}
+\frac{1}{f} \equiv (n-1)\left(\frac{1}{R_1}-\frac{1}{R_2}. \right)
+\label{eqt:focal_length}
+\end{equation}
+
+We can define $U_l(\xi,\eta) = U(\xi,\eta)t_l(\xi,\eta)$, which represents the complex amplitude passing through a lens. Finally, replacing $U(\xi,\eta)$ by $U_l(\xi,\eta)$ in Fresnel approximation and setting the observing distance to the focal length of the converging lens, we recover the Fraunhofer approximation,
+
+\begin{align}
+U(x,y) &= \frac{e^{jkz}}{j\lambda z} e^{j\frac{k}{2z}(x^2+y^2)}  \mathcal{F}\left\lbrace U(\xi,\eta) exp\left[j\frac{k}{2}(\xi^2+\eta^2)(\frac{1}{z}-\frac{1}{f})\right]\right\rbrace \nonumber \\
+&\stackrel{z=f}{=} \frac{e^{jkz}}{j\lambda z} e^{j\frac{k}{2z}(x^2+y^2)}  \mathcal{F}\left\lbrace U(\xi,\eta)\right\rbrace.
+\end{align}
+
+\section{Image with an instrument}
+\label{sec:ImwthInst}
+
+

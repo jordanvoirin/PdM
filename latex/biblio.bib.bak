@@ -51,7 +51,7 @@
   url =       {http://www.osapublishing.org/abstract.cfm?URI=josa-66-9-961}
 }
 
-@Article{Kohler:73,
+@Article{Kohler_1973,
   author =    {D. Kohler and L. Mandel},
   title =     {Source reconstruction from the modulus of the correlation function: a practical approach to the phase problem of optical coherence theory$\ast$},
   journal =   {J. Opt. Soc. Am.},
@@ -80,7 +80,7 @@
   url =       {http://www.sciencedirect.com/science/article/pii/S1076567005410010}
 }
 
-@Article{Noll:76,
+@Article{Noll_1976,
   author =    {Robert J. Noll},
   title =     {Zernike polynomials and atmospheric turbulence$\ast$},
   journal =   {J. Opt. Soc. Am.},

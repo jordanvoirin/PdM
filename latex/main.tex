@@ -94,6 +94,9 @@
   tabsize=3
 }
 
+%for description list to be aligned with the text
+\setlist[description]{leftmargin=0cm}
+
 \begin{document}
 
 \frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
@@ -187,10 +190,10 @@
 %	ABSTRACT PAGE
 %----------------------------------------------------------------------------------------
 
-\begin{abstract}
-\addchaptertocentry{\abstractname} % Add the abstract to the table of contents
-The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically so can expand into the blank space above the title too\ldots
-\end{abstract}
+%\begin{abstract}
+%\addchaptertocentry{\abstractname} % Add the abstract to the table of contents
+%The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically so can expand into the blank space above the title too\ldots
+%\end{abstract}
 
 %----------------------------------------------------------------------------------------
 %	ACKNOWLEDGEMENTS
@@ -215,48 +218,48 @@ The acknowledgments and the people to thank go here, don't forget to include you
 %	ABBREVIATIONS
 %----------------------------------------------------------------------------------------
 
-\begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
-\textbf{FWHM} & \textbf{F}ull \textbf{W}idth \textbf{H}alf \textbf{M}aximum\\
-\textbf{PD} & \textbf{P}hase \textbf{D}iversity\\
-\textbf{PSF} & \textbf{P}oint \textbf{S}read \textbf{F}unction\\
-\textbf{WFS} & \textbf{W}ave\textbf{F}ront \textbf{S}ensor\\
-
-\end{abbreviations}
+%\begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
+%\textbf{FWHM} & \textbf{F}ull \textbf{W}idth \textbf{H}alf \textbf{M}aximum\\
+%\textbf{PD} & \textbf{P}hase \textbf{D}iversity\\
+%\textbf{PSF} & \textbf{P}oint \textbf{S}read \textbf{F}unction\\
+%\textbf{WFS} & \textbf{W}ave\textbf{F}ront \textbf{S}ensor\\
+%
+%\end{abbreviations}
 
 %----------------------------------------------------------------------------------------
 %	PHYSICAL CONSTANTS/OTHER DEFINITIONS
 %----------------------------------------------------------------------------------------
 
-\begin{constants}{lr@{${}={}$}l} % The list of physical constants is a three column table
-
-% The \SI{}{} command is provided by the siunitx package, see its documentation for instructions on how to use it
-
-Speed of Light & $c_{0}$ & \SI{2.99792458e8}{\meter\per\second} (exact)\\
-%Constant Name & $Symbol$ & $Constant Value$ with units\\
-
-\end{constants}
+%\begin{constants}{lr@{${}={}$}l} % The list of physical constants is a three column table
+%
+%% The \SI{}{} command is provided by the siunitx package, see its documentation for instructions on how to use it
+%
+%Speed of Light & $c_{0}$ & \SI{2.99792458e8}{\meter\per\second} (exact)\\
+%%Constant Name & $Symbol$ & $Constant Value$ with units\\
+%
+%\end{constants}
 
 %----------------------------------------------------------------------------------------
 %	SYMBOLS
 %----------------------------------------------------------------------------------------
 
-\begin{symbols}{lll} % Include a list of Symbols (a three column table)
-
-$a$ & distance & \si{\meter} \\
-$P$ & power & \si{\watt} (\si{\joule\per\second}) \\
-%Symbol & Name & Unit \\
-
-\addlinespace % Gap to separate the Roman symbols from the Greek
-
-$\omega$ & angular frequency & \si{\radian} \\
-
-\end{symbols}
+%\begin{symbols}{lll} % Include a list of Symbols (a three column table)
+%
+%$a$ & distance & \si{\meter} \\
+%$P$ & power & \si{\watt} (\si{\joule\per\second}) \\
+%%Symbol & Name & Unit \\
+%
+%\addlinespace % Gap to separate the Roman symbols from the Greek
+%
+%$\omega$ & angular frequency & \si{\radian} \\
+%
+%\end{symbols}
 
 %----------------------------------------------------------------------------------------
 %	DEDICATION
 %----------------------------------------------------------------------------------------
 
-\dedicatory{For/Dedicated to/To my\ldots} 
+%\dedicatory{For/Dedicated to/To my\ldots} 
 
 %----------------------------------------------------------------------------------------
 %	THESIS CONTENT - CHAPTERS
