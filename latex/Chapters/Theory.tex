@@ -7,6 +7,9 @@ In this chapter, we will present the theory upon which this work is based. First
 \section{Scalar Diffraction Theory}
 \label{sec:ScaDifTh}
 
+\subsection{Scalar Field and Helmholtz equation}
+\label{subsec:ScalF_HelmEqt}
+
 A monochromatic wave, at position $P$ and time $t$, can be represented by a scalar field $u(P,t)$ written as :
 
 \begin{equation}
@@ -16,7 +19,14 @@ u(P,t) =  A(P) exp\left[-j2\pi\nu t + j\phi(P)\right],
 
 where $A(P)$ and $\phi(P)$ are the amplitude and phase, respectively, of the wave at position P and $\nu$ is the wave frequency.
 
-The spatial part of eqt. \eqref{eqt:WvscalarField}, also called  phasor  in the literature, $U(P) = A(P)e^{j\phi(P)}$, must verify the Helmotz equation : 
+The spatial part of eqt. \eqref{eqt:WvscalarField}, also called  phasor  in the literature, 
+
+\begin{equation}
+U(P) = A(P)e^{j\phi(P)},
+\label{eqt:phasor}
+\end{equation}
+
+must verify the Helmotz equation : 
 
 \begin{equation}
 (\nabla^2 + k^2)U = 0,
@@ -32,6 +42,10 @@ k = 2\pi n \frac{\nu}{c} = \frac{2\pi}{\lambda},
 
 and $\lambda$ is the wavelength in the dielectric medium.
 
+
+\subsection{Rayleigh-Sommerfeld integral}
+\label{subsec:Ray_Som_int}
+
 \begin{figure}
 \centering
     \begin{subfigure}{0.4\textwidth}
@@ -46,7 +60,7 @@ and $\lambda$ is the wavelength in the dielectric medium.
         \label{subfig:Diff_Geom}
     \end{subfigure}
     \decoRule
-    \caption{Diffraction Schemas}
+    \caption{Diffraction Schemas, \citep{goodman_1968}}
     \label{fig:Diff_Schemas}
 \end{figure}
 
@@ -73,8 +87,10 @@ U(x,y) = \frac{z}{j\lambda} \iint\limits_{-\infty}^{\infty} U(\xi,\eta)\frac{exp
 
 We can integrate from $-\infty$ to $\infty$, using $U(\xi,\eta) = P(\xi,\eta)U'(\xi,\eta)$ where $P(\xi,\eta)$ is the pupil function. The latter equals to one in the pupil and zero outside. 
 
-\begin{description}
-\item[Fresnel Approximation] To reduce eqt. \eqref{eqt:Ray_Som_formula_xy_en}, also known as the Huygens-Fresnel principle, one can approximate the distance $r_{01}$ using the taylor expansion of the square root :
+\subsection{Fresnel approximation}
+\label{subsec:FresnelApprox}
+
+To reduce eqt. \eqref{eqt:Ray_Som_formula_xy_en}, also known as the Huygens-Fresnel principle, one can approximate the distance $r_{01}$ using the taylor expansion of the square root :
 
 \begin{equation}
 r_{01} = z \sqrt{1 + \frac{x-\xi}{z} + \frac{y-\eta}{z}} \approx z \left[1+\frac{1}{2}\left(\frac{x-\xi}{z}\right)^2+\frac{1}{2}\left(\frac{y-\eta}{z}\right)^2\right]
@@ -99,7 +115,10 @@ U(x,y) = \frac{e^{jkz}}{j\lambda z} e^{j\frac{k}{2z}(x^2+y^2)} \iint\limits_{-\i
 
 it is the Fourier transform of the complex field in the pupil multiplied by a quadratic phase exponential.
 
-\item[Fraunhofer Approximation] In addition to the Fresnel approximation, we can introduce another approximation using the condition,
+\subsection{Fraunhofer approximation}
+\label{subsec:FraunhoferApprox}
+
+In addition to the Fresnel approximation, we can introduce another approximation using the condition,
 
 \begin{equation}
 z >> \frac{k(\xi^2+\eta^2)_{max}}{2}.
@@ -115,7 +134,8 @@ U(x,y) = \frac{e^{jkz}}{j\lambda z} e^{j\frac{k}{2z}(x^2+y^2)} \iint\limits_{-\i
 
 For instance, at a wavelength of 637.5 nm and a pupil diameter of 3.6 mm the Fraunhofer approximation constrain $z$ to be greater than 63 meters to be valid.
 
-\end{description}
+\subsection{Converging lens introduction}
+\label{subsec:ConvLensIntro}
 
 The Fraunhofer conditions are severe as shown above, but one can reduce the distance $z$ by observing at the focal plane of a converging lens. Indeed, using the paraxial approximation, i.e. small angles with respect with the optical axis, the lens transmission function is given by,
 
@@ -139,7 +159,30 @@ U(x,y) &= \frac{e^{jkz}}{j\lambda z} e^{j\frac{k}{2z}(x^2+y^2)}  \mathcal{F}\lef
 &\stackrel{z=f}{=} \frac{e^{jkz}}{j\lambda z} e^{j\frac{k}{2z}(x^2+y^2)}  \mathcal{F}\left\lbrace U(\xi,\eta)\right\rbrace.
 \end{align}
 
-\section{Image with an instrument}
+\section{Imaging system and its properties}
 \label{sec:ImwthInst}
+
+An imaging system, such as a telescope, is used to acquire images of an object as perfectly as possible. An optical system composing an instrument is made with lenses, mirrors and generally a detector (can be the human eye). A complex optical system can always be summarized by a pupil,$P(\xi,\eta)$, and a focal length, $f$. The diffraction of the wave can be determined by the Fraunhofer approximation as long as the paraxial approximation is valid, see subsection \ref{subsec:ConvLensIntro}. And the observed image of the object at the focal plane of the system is equal to the square modulus of the complex amplitude $U(x,y)$,
+
+\begin{equation}
+i(x,y) = |\left[\mathcal{F}\left\lbrace U(\xi,\eta) \right\rbrace\right](x,y)|^2.
+\label{eqt:i_modu_FT}
+\end{equation}
+
+
+\subsection{Point Spread Function (PSF) or Impulse Response (IR)}
+\label{subsec:PSF_IR} 
+
+The image that an optical system gives of a point source is called the PSF or IR of the system. A point source is characterized by an infinite distance to the instrument and therefore the wave is planar, which means that $U(\xi,\eta) = P(\xi,\eta)$. The PSF or IR is given by,
+
+\begin{equation}
+h_{optical}(x,y) = |\left[\mathcal{F}\left\lbrace P(\xi,\eta) \right\rbrace\right](x,y)|^2
+\label{eqt:impulseResponse}
+\end{equation}
+
+The domain where the impulse response is invariant under translation is called the isoplanatic domain.
+
+\subsection{Optical Transfer Function (OTF)}
+\label{subsec:OTF}
 
 
