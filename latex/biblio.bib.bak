@@ -51,6 +51,15 @@
   url =       {http://www.osapublishing.org/abstract.cfm?URI=josa-66-9-961}
 }
 
+@Book{Goodman_1968,
+  title =     {Introduction to Fourier Optics},
+  publisher = {McGraw-Hill Companies, Inc},
+  year =      {1988},
+  author =    {Joseph W. Goodman},
+  editor =    {L. Cox and John M. Morris},
+  edition =   {2nd}
+}
+
 @Article{Kohler_1973,
   author =    {D. Kohler and L. Mandel},
   title =     {Source reconstruction from the modulus of the correlation function: a practical approach to the phase problem of optical coherence theory$\ast$},
@@ -112,6 +121,13 @@
   url =          {https://www.thorlabs.com/newgrouppage9.cfm?objectgroup_id=1400},
   organization = {Thorlabs},
   year =         {2017}
+}
+
+@Book{,
+  title =     {Statistical Optics},
+  publisher = {JOHN WILEY \& SONS, INC},
+  year =      {1985},
+  author =    {John}
 }
 
 @comment{jabref-entrytype: Website: req[author;title;url;organization;year] opt[month]}

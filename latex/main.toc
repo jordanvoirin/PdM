@@ -11,34 +11,35 @@
 \contentsline {subsection}{\numberline {1.1.3}Fresnel approximation}{4}{subsection.19}
 \contentsline {subsection}{\numberline {1.1.4}Fraunhofer approximation}{5}{subsection.23}
 \contentsline {subsection}{\numberline {1.1.5}Converging lens introduction}{5}{subsection.26}
-\contentsline {section}{\numberline {1.2}Imaging system and its properties}{6}{section.30}
-\contentsline {subsection}{\numberline {1.2.1}Impulse Response (IR) and Optical Transfer Function (OTF)}{6}{subsection.33}
-\contentsline {section}{\numberline {1.3}From object to image}{8}{section.38}
-\contentsline {section}{\numberline {1.4}Aberrations}{8}{section.39}
-\contentsline {subsection}{\numberline {1.4.1}Sources of aberrations}{8}{subsection.40}
-\contentsline {subsection}{\numberline {1.4.2}Zernike polynomials}{8}{subsection.41}
-\contentsline {chapter}{\numberline {2}Phase Diversity Experiment}{9}{chapter.42}
-\contentsline {section}{\numberline {2.1}ONERA algorithm}{9}{section.43}
-\contentsline {section}{\numberline {2.2}Experimental Setup}{9}{section.44}
-\contentsline {subsection}{\numberline {2.2.1}Light source}{9}{subsection.47}
-\contentsline {subsection}{\numberline {2.2.2}Entrance pupil}{10}{subsection.50}
-\contentsline {subsection}{\numberline {2.2.3}Pupil imaging system}{10}{subsection.51}
-\contentsline {subsection}{\numberline {2.2.4}Detectors}{11}{subsection.52}
-\contentsline {section}{\numberline {2.3}Data Acquisition}{11}{section.53}
-\contentsline {subsection}{\numberline {2.3.1}Ximea Camera}{11}{subsection.54}
-\contentsline {subsection}{\numberline {2.3.2}Shack-Hartman WFS}{11}{subsection.59}
-\contentsline {section}{\numberline {2.4}Results}{11}{section.60}
-\contentsline {subsection}{\numberline {2.4.1}Parallel plane plate}{12}{subsection.61}
-\contentsline {chapter}{\numberline {A}Optical Component Datasheets}{13}{appendix.62}
-\contentsline {section}{\numberline {A.1}Pigtailed laser diode}{14}{section.63}
-\contentsline {subsection}{\numberline {A.1.1}Power supply modification}{15}{subsection.64}
-\contentsline {section}{\numberline {A.2}Converging lens A220TM-A, f = 11 mm}{15}{section.65}
-\contentsline {section}{\numberline {A.3}Pinhole 10 $\mu $m}{16}{section.66}
-\contentsline {section}{\numberline {A.4}Converging lens AL100200, f = 200 mm}{17}{section.67}
-\contentsline {section}{\numberline {A.5}Converging lens AC254-100-A, f = 100 mm}{18}{section.68}
-\contentsline {section}{\numberline {A.6}Ximea Camera, MQ013MG-E2}{19}{section.69}
-\contentsline {section}{\numberline {A.7}Shack-Hartmann wavefront sensor, WFS150-5C}{20}{section.70}
-\contentsline {chapter}{\numberline {B}Python Code}{21}{appendix.71}
-\contentsline {section}{\numberline {B.1}AlignementScriptXimeaCamera.py}{21}{section.72}
-\contentsline {section}{\numberline {B.2}AcquisAndSaveXimea.py}{24}{section.238}
-\contentsline {chapter}{Bibliography}{27}{appendix*.371}
+\contentsline {section}{\numberline {1.2}Imaging system}{6}{section.30}
+\contentsline {subsection}{\numberline {1.2.1}Impulse Response (IR)}{6}{subsection.32}
+\contentsline {subsection}{\numberline {1.2.2}Optical Transfer Function (OTF)}{6}{subsection.35}
+\contentsline {subsection}{\numberline {1.2.3}From Object to Image}{8}{subsection.38}
+\contentsline {section}{\numberline {1.3}Aberrations}{8}{section.43}
+\contentsline {subsection}{\numberline {1.3.1}Sources of aberrations}{8}{subsection.44}
+\contentsline {subsection}{\numberline {1.3.2}Zernike polynomials}{8}{subsection.45}
+\contentsline {chapter}{\numberline {2}Phase Diversity Experiment}{9}{chapter.46}
+\contentsline {section}{\numberline {2.1}ONERA algorithm}{9}{section.47}
+\contentsline {section}{\numberline {2.2}Experimental Setup}{9}{section.48}
+\contentsline {subsection}{\numberline {2.2.1}Light source}{9}{subsection.51}
+\contentsline {subsection}{\numberline {2.2.2}Entrance pupil}{10}{subsection.54}
+\contentsline {subsection}{\numberline {2.2.3}Pupil imaging system}{10}{subsection.55}
+\contentsline {subsection}{\numberline {2.2.4}Detectors}{11}{subsection.56}
+\contentsline {section}{\numberline {2.3}Data Acquisition}{11}{section.57}
+\contentsline {subsection}{\numberline {2.3.1}Ximea Camera}{11}{subsection.58}
+\contentsline {subsection}{\numberline {2.3.2}Shack-Hartman WFS}{11}{subsection.63}
+\contentsline {section}{\numberline {2.4}Results}{11}{section.64}
+\contentsline {subsection}{\numberline {2.4.1}Parallel plane plate}{12}{subsection.65}
+\contentsline {chapter}{\numberline {A}Optical Component Datasheets}{13}{appendix.66}
+\contentsline {section}{\numberline {A.1}Pigtailed laser diode}{14}{section.67}
+\contentsline {subsection}{\numberline {A.1.1}Power supply modification}{15}{subsection.68}
+\contentsline {section}{\numberline {A.2}Converging lens A220TM-A, f = 11 mm}{15}{section.69}
+\contentsline {section}{\numberline {A.3}Pinhole 10 $\mu $m}{16}{section.70}
+\contentsline {section}{\numberline {A.4}Converging lens AL100200, f = 200 mm}{17}{section.71}
+\contentsline {section}{\numberline {A.5}Converging lens AC254-100-A, f = 100 mm}{18}{section.72}
+\contentsline {section}{\numberline {A.6}Ximea Camera, MQ013MG-E2}{19}{section.73}
+\contentsline {section}{\numberline {A.7}Shack-Hartmann wavefront sensor, WFS150-5C}{20}{section.74}
+\contentsline {chapter}{\numberline {B}Python Code}{21}{appendix.75}
+\contentsline {section}{\numberline {B.1}AlignementScriptXimeaCamera.py}{21}{section.76}
+\contentsline {section}{\numberline {B.2}AcquisAndSaveXimea.py}{24}{section.242}
+\contentsline {chapter}{Bibliography}{27}{appendix*.375}

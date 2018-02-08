@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6400) (preloaded format=pdflatex 2017.10.12)  2 FEB 2018 13:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6400) (preloaded format=pdflatex 2017.10.12)  8 FEB 2018 14:05
 entering extended mode
 **./main.tex
 (main.tex
@@ -2099,14 +2099,14 @@ File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
 \c__siunitx_mathtt_int=\count447
 
 1: section
-<Logo/Logo_EPFL.png, id=167, 401.5pt x 192.72pt>
+<Logo/Logo_EPFL.png, id=171, 401.5pt x 192.72pt>
 File: Logo/Logo_EPFL.png Graphic file (type png)
 <use Logo/Logo_EPFL.png>
 Package pdftex.def Info: Logo/Logo_EPFL.png  used on input line 114. on input l
 ine 114.
 Package pdftex.def Info: Requested size: 100.37474pt x 48.17987pt on input line
  114.
-<Logo/HEIG-VD_Logo.png, id=169, 235.88126pt x 71.26625pt>
+<Logo/HEIG-VD_Logo.png, id=173, 235.88126pt x 71.26625pt>
 File: Logo/HEIG-VD_Logo.png Graphic file (type png)
 <use Logo/HEIG-VD_Logo.png>
 Package pdftex.def Info: Logo/HEIG-VD_Logo.png  used on input line 115. on inpu
@@ -2204,7 +2204,7 @@ LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/ppl/b/n' tried instead on input line 7.
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <12> not available
 (Font)              Font shape `T1/ppl/b/n' tried instead on input line 10.
-<Figures/Ray_Som_Diff.png, id=318, 309.5565pt x 263.7855pt>
+<Figures/Ray_Som_Diff.png, id=323, 309.5565pt x 263.7855pt>
 File: Figures/Ray_Som_Diff.png Graphic file (type png)
 <use Figures/Ray_Som_Diff.png>
 Package pdftex.def Info: Figures/Ray_Som_Diff.png  used on input line 52. on in
@@ -2216,7 +2216,7 @@ Underfull \hbox (badness 1052) in paragraph at lines 53--53
  []\T1/ppl/m/sc/10 (a) |\T1/ppl/m/n/10 Rayleigh-Sommerfeld for-mu-la- 
  []
 
-<Figures/Diff_Geom.png, id=321, 384.83775pt x 233.673pt>
+<Figures/Diff_Geom.png, id=326, 384.83775pt x 233.673pt>
 File: Figures/Diff_Geom.png Graphic file (type png)
 <use Figures/Diff_Geom.png>
 Package pdftex.def Info: Figures/Diff_Geom.png  used on input line 58. on input
@@ -2231,34 +2231,34 @@ Underfull \hbox (badness 1048) in paragraph at lines 59--59
 
 1: section
 [3] [4 <./Figures/Ray_Som_Diff.png> <./Figures/Diff_Geom.png>] [5]
-<Figures/ImagingInstrumentGenSchema.png, id=363, 460.119pt x 224.63925pt>
+<Figures/ImagingInstrumentGenSchema.png, id=368, 460.119pt x 224.63925pt>
 File: Figures/ImagingInstrumentGenSchema.png Graphic file (type png)
 <use Figures/ImagingInstrumentGenSchema.png>
 Package pdftex.def Info: Figures/ImagingInstrumentGenSchema.png  used on input 
 line 167. on input line 167.
 Package pdftex.def Info: Requested size: 323.22449pt x 157.81197pt on input lin
 e 167.
-<Figures/PSF.pdf, id=367, pagebox=cropbox, 578.16pt x 430.0065pt>
+<Figures/PSF.pdf, id=372, pagebox=cropbox, 578.16pt x 430.0065pt>
 File: Figures/PSF.pdf Graphic file (type pdf)
 <use Figures/PSF.pdf>
 Package pdftex.def Info: Figures/PSF.pdf  used on input line 187. on input line
  187.
 Package pdftex.def Info: Requested size: 161.60916pt x 120.19102pt on input lin
 e 187.
-<Figures/PSFzoom.pdf, id=368, pagebox=cropbox, 578.16pt x 430.0065pt>
+<Figures/PSFzoom.pdf, id=373, pagebox=cropbox, 578.16pt x 430.0065pt>
 File: Figures/PSFzoom.pdf Graphic file (type pdf)
 <use Figures/PSFzoom.pdf>
 Package pdftex.def Info: Figures/PSFzoom.pdf  used on input line 193. on input 
 line 193.
 Package pdftex.def Info: Requested size: 161.60916pt x 120.19102pt on input lin
 e 193.
-<Figures/OTF.pdf, id=370, pagebox=cropbox, 578.16pt x 430.0065pt>
+<Figures/OTF.pdf, id=374, pagebox=cropbox, 578.16pt x 430.0065pt>
 File: Figures/OTF.pdf Graphic file (type pdf)
 <use Figures/OTF.pdf>
-Package pdftex.def Info: Figures/OTF.pdf  used on input line 213. on input line
- 213.
+Package pdftex.def Info: Figures/OTF.pdf  used on input line 214. on input line
+ 214.
 Package pdftex.def Info: Requested size: 202.01454pt x 150.24863pt on input lin
-e 213.
+e 214.
  [6 <./Figures/ImagingInstrumentGenSchema.png>] [7 <./Figures/PSF.pdf> <./Figur
 es/PSFzoom.pdf
 
@@ -2268,12 +2268,18 @@ pdfs with page group included in a single page
 
 pdfTeX warning: pdflatex (file ./Figures/OTF.pdf): PDF inclusion: multiple pdfs
  with page group included in a single page
->]) [8]
+>]
+Overfull \hbox (1.22441pt too wide) in paragraph at lines 233--234
+\T1/ppl/m/n/10.95 A de-tec-tor only sen-ses the energy dis-tri-bu-tion pro-du-c
+ed by an elec-tro-mag-ne-tic wave.
+ []
+
+) [8]
 \openout2 = `Chapters/PDExp.aux'.
 
  (Chapters/PDExp.tex
 Chapter 2.
-<Figures/setupSchema.JPG, id=397, 670.00313pt x 584.1825pt>
+<Figures/setupSchema.JPG, id=408, 670.00313pt x 584.1825pt>
 File: Figures/setupSchema.JPG Graphic file (type jpg)
 <use Figures/setupSchema.JPG>
 Package pdftex.def Info: Figures/setupSchema.JPG  used on input line 23. on inp
@@ -2289,7 +2295,7 @@ Underfull \hbox (badness 1072) in paragraph at lines 31--32
 Package wrapfig Warning: Collision between wrapping environments on input line 
 57.
 
-<Figures/WFdistantSource.PNG, id=408, 311.66437pt x 116.68594pt>
+<Figures/WFdistantSource.PNG, id=419, 311.66437pt x 116.68594pt>
 File: Figures/WFdistantSource.PNG Graphic file (type png)
 <use Figures/WFdistantSource.PNG>
 Package pdftex.def Info: Figures/WFdistantSource.PNG  used on input line 59. on
@@ -2306,14 +2312,14 @@ Package wrapfig Warning: Stationary wrapfigure forced to float on input line 65
 
 
  <./Figures/setupSchema.JPG>]
-<Figures/source.png, id=419, 794.97pt x 318.43968pt>
+<Figures/source.png, id=430, 794.97pt x 318.43968pt>
 File: Figures/source.png Graphic file (type png)
 <use Figures/source.png>
 Package pdftex.def Info: Figures/source.png  used on input line 72. on input li
 ne 72.
 Package pdftex.def Info: Requested size: 202.01454pt x 80.92165pt on input line
  72.
-<Figures/pinholeEffect.png, id=420, 450.68375pt x 343.2825pt>
+<Figures/pinholeEffect.png, id=431, 450.68375pt x 343.2825pt>
 File: Figures/pinholeEffect.png Graphic file (type png)
 <use Figures/pinholeEffect.png>
 Package pdftex.def Info: Figures/pinholeEffect.png  used on input line 78. on i
@@ -2332,7 +2338,7 @@ LaTeX Font Info:    Try loading font information for T1+cmtt on input line 111.
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1cmtt.fd"
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-<Figures/../../../fig/alignement/28092017AlignementXimeaPSFs.png, id=438, 1398.
+<Figures/../../../fig/alignement/28092017AlignementXimeaPSFs.png, id=449, 1398.
 4245pt x 151.767pt>
 File: Figures/../../../fig/alignement/28092017AlignementXimeaPSFs.png Graphic f
 ile (type png)
@@ -2347,7 +2353,7 @@ Package pdftex.def Info: Requested size: 404.02908pt x 43.84688pt on input line
 
 (Appendices/AppDataSheet.tex
 Appendix A.
-<../../componentDatasheet/LPS-635-FC-SpecSheet.pdf, id=454, pagebox=cropbox, 61
+<../../componentDatasheet/LPS-635-FC-SpecSheet.pdf, id=465, pagebox=cropbox, 61
 4.295pt x 794.97pt>
 File: ../../componentDatasheet/LPS-635-FC-SpecSheet.pdf Graphic file (type pdf)
 
@@ -2366,7 +2372,7 @@ Overfull \vbox (20.46199pt too high) has occurred while \output is active []
 
 
 [14 <../../componentDatasheet/LPS-635-FC-SpecSheet.pdf>]
-<../../componentDatasheet/A220TM-AutoCADPDF.pdf, id=510, pagebox=cropbox, 794.9
+<../../componentDatasheet/A220TM-AutoCADPDF.pdf, id=521, pagebox=cropbox, 794.9
 7pt x 614.295pt>
 File: ../../componentDatasheet/A220TM-AutoCADPDF.pdf Graphic file (type pdf)
 <use ../../componentDatasheet/A220TM-AutoCADPDF.pdf>
@@ -2387,7 +2393,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 22.
 
-<../../componentDatasheet/P10S-AutoCADPDF.pdf, id=512, pagebox=cropbox, 794.97p
+<../../componentDatasheet/P10S-AutoCADPDF.pdf, id=523, pagebox=cropbox, 794.97p
 t x 614.295pt>
 File: ../../componentDatasheet/P10S-AutoCADPDF.pdf Graphic file (type pdf)
 <use ../../componentDatasheet/P10S-AutoCADPDF.pdf>
@@ -2396,7 +2402,7 @@ input line 24. on input line 24.
 Package pdftex.def Info: Requested size: 404.02908pt x 312.20836pt on input lin
 e 24.
 [15 <../../componentDatasheet/A220TM-AutoCADPDF.pdf>]
-<../../componentDatasheet/AL100200-AutoCADPDF.pdf, id=543, pagebox=cropbox, 794
+<../../componentDatasheet/AL100200-AutoCADPDF.pdf, id=554, pagebox=cropbox, 794
 .97pt x 614.295pt>
 File: ../../componentDatasheet/AL100200-AutoCADPDF.pdf Graphic file (type pdf)
 <use ../../componentDatasheet/AL100200-AutoCADPDF.pdf>
@@ -2405,7 +2411,7 @@ Package pdftex.def Info: ../../componentDatasheet/AL100200-AutoCADPDF.pdf  used
 Package pdftex.def Info: Requested size: 404.02908pt x 312.20836pt on input lin
 e 29.
  [16 <../../componentDatasheet/P10S-AutoCADPDF.pdf>]
-<../../componentDatasheet/AC254-100-A-AutoCADPDF.pdf, id=574, pagebox=cropbox, 
+<../../componentDatasheet/AC254-100-A-AutoCADPDF.pdf, id=585, pagebox=cropbox, 
 794.97pt x 614.295pt>
 File: ../../componentDatasheet/AC254-100-A-AutoCADPDF.pdf Graphic file (type pd
 f)
@@ -2415,14 +2421,14 @@ sed on input line 34. on input line 34.
 Package pdftex.def Info: Requested size: 404.02908pt x 312.20836pt on input lin
 e 34.
  [17 <../../componentDatasheet/AL100200-AutoCADPDF.pdf>]
-<../../componentDatasheet/ximeaPic.png, id=606, 291.489pt x 234.8775pt>
+<../../componentDatasheet/ximeaPic.png, id=617, 291.489pt x 234.8775pt>
 File: ../../componentDatasheet/ximeaPic.png Graphic file (type png)
 <use ../../componentDatasheet/ximeaPic.png>
 Package pdftex.def Info: ../../componentDatasheet/ximeaPic.png  used on input l
 ine 40. on input line 40.
 Package pdftex.def Info: Requested size: 202.01454pt x 162.78242pt on input lin
 e 40.
-<../../componentDatasheet/ximeaSpec.png, id=607, 270.41025pt x 395.67825pt>
+<../../componentDatasheet/ximeaSpec.png, id=618, 270.41025pt x 395.67825pt>
 File: ../../componentDatasheet/ximeaSpec.png Graphic file (type png)
 <use ../../componentDatasheet/ximeaSpec.png>
 Package pdftex.def Info: ../../componentDatasheet/ximeaSpec.png  used on input 
@@ -2435,7 +2441,7 @@ Overfull \hbox (6.71394pt too wide) in paragraph at lines 43--44
 ducts / usb3-[]vision-[]cameras-[]xiq-[]line / mq013mg-[]e2$[][] 
  []
 
-<../../componentDatasheet/WFS150-5C.png, id=641, 313.77225pt x 481.19775pt>
+<../../componentDatasheet/WFS150-5C.png, id=652, 313.77225pt x 481.19775pt>
 File: ../../componentDatasheet/WFS150-5C.png Graphic file (type png)
 <use ../../componentDatasheet/WFS150-5C.png>
 Package pdftex.def Info: ../../componentDatasheet/WFS150-5C.png  used on input 
@@ -2512,7 +2518,7 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 303.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 303.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 303.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 08F1D1EA7FE8ACBABD3E980C383D3165;7098.
+(rerunfilecheck)             Checksum: A029A1716E3C950194CB5892EA1C976A;7026.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -2522,10 +2528,10 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 38111 strings out of 493347
- 747180 string characters out of 3136920
- 1021846 words of memory out of 3000000
- 40734 multiletter control sequences out of 15000+200000
+ 38122 strings out of 493347
+ 747354 string characters out of 3136920
+ 1021887 words of memory out of 3000000
+ 40741 multiletter control sequences out of 15000+200000
  608893 words of font info for 176 fonts, out of 3000000 for 9000
  1127 hyphenation exceptions out of 8191
  63i,20n,82p,10379b,3522s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -2544,9 +2550,9 @@ s/type1/urw/palatino/uplb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/
 urw/palatino/uplr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/pala
 tino/uplr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/palatino/upl
 ri8a.pfb>
-Output written on main.pdf (41 pages, 2314687 bytes).
+Output written on main.pdf (41 pages, 2317713 bytes).
 PDF statistics:
- 1115 PDF objects out of 1200 (max. 8388607)
- 416 named destinations out of 1000 (max. 500000)
- 434 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1126 PDF objects out of 1200 (max. 8388607)
+ 420 named destinations out of 1000 (max. 500000)
+ 442 words of extra memory for PDF output out of 10000 (max. 10000000)
 

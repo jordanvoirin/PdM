@@ -2,7 +2,7 @@
 \chapter{Theoretical background} 
 \label{ch:THback}
 
-In this chapter, we will present the theory upon which this work is based. First, the light propagation formalism will be reminded through the scalar diffraction theory based on the \citet{goodman_1968}.
+In this chapter, we will present the theory upon which this work is based. First, the light propagation formalism will be reminded through the scalar diffraction theory based on the \citet{goodman_1968}. Then we will describe in general an imaging system and its properties. And finally we will discuss the wavefront aberration theory.
 
 \section{Scalar Diffraction Theory}
 \label{sec:ScaDifTh}
@@ -159,8 +159,8 @@ U(x,y) &= \frac{e^{jkz}}{j\lambda z} e^{j\frac{k}{2z}(x^2+y^2)}  \mathcal{F}\lef
 &\overset{z=f}{=} \frac{e^{jkz}}{j\lambda z} e^{j\frac{k}{2z}(x^2+y^2)}  \mathcal{F}\left\lbrace U(\xi,\eta)\right\rbrace.
 \end{align}
 
-\section{Imaging system and its properties}
-\label{sec:ImwthInst}
+\section{Imaging system}
+\label{sec:ImSystem}
 
 \begin{figure}
 \begin{center}
@@ -171,15 +171,15 @@ U(x,y) &= \frac{e^{jkz}}{j\lambda z} e^{j\frac{k}{2z}(x^2+y^2)}  \mathcal{F}\lef
 \end{center}
 \end{figure}
 
-An imaging system, such as a telescope, is used to acquire images of an object as perfectly as possible. An optical system composing an instrument is made with lenses, mirrors and generally a detector (can be the human eye). A complex optical system can always be described by a pupil, $P(\xi,\eta)$, and a focal length, $f$. The diffraction of the wave can be determined by the Fraunhofer approximation as long as the paraxial approximation is valid, see subsection \ref{subsec:ConvLensIntro}. And the observed image of the object at the focal plane of the system is equal to the square modulus of the complex amplitude $U(x,y)$,
+An imaging system, such as a telescope, is used to acquire images of an object as perfectly as possible. An optical system,  forming an instrument, is composed by lenses, mirrors, etc... and a detector (can be the human eye). A complex optical system can be reduced to a pupil, $P(\xi,\eta)$, and a focal length, $f$. The diffraction of the wave can be determined by the Fraunhofer approximation as long as the paraxial approximation is valid, see subsection \ref{subsec:ConvLensIntro}. And the observed image of an incoherent object at the focal plane of the system is proportional to the square modulus of the complex amplitude $U(x,y)$,
 
-\begin{equation}
-i(x,y) \alpha |\left[\mathcal{F}\left\lbrace U(\xi,\eta) \right\rbrace\right](x,y)|^2.
-\label{eqt:i_modu_FT}
-\end{equation}
+%\begin{equation}
+%i(x,y) \alpha |\left[\mathcal{F}\left\lbrace U(\xi,\eta) \right\rbrace\right](x,y)|^2.
+%\label{eqt:i_modu_FT}
+%\end{equation}
 
-\subsection{Impulse Response (IR) and Optical Transfer Function (OTF)}
-\label{subsec:PSF_IR}
+\subsection{Impulse Response (IR)}
+\label{subsec:IR}
 
 \begin{figure}
 \centering
@@ -199,14 +199,15 @@ i(x,y) \alpha |\left[\mathcal{F}\left\lbrace U(\xi,\eta) \right\rbrace\right](x,
     \label{fig:PSF}
 \end{figure} 
 
-The image that an optical system gives of a point source is called the point spread function, PSF, or impusle response, IR, of the system, see Figure \ref{fig:PSF}. A point source is characterized by an infinite distance to the instrument and therefore the wave is planar, which means that $U(\xi,\eta) = P(\xi,\eta)$. The PSF or IR is given by,
+The impulse response or point spread function (PSF), $h(x,y;u,v)$, of an optical system is  the field amplitude induced at coordinates $(x,y)$ by a unit-amplitude point source at object coordinates $(u,v)$. Using the linearity of the wave propagation, we can write the imaged amplitude as the superposition integral,
 
 \begin{equation}
-h_{optical}(x,y) = |\left[\mathcal{F}\left\lbrace P(\xi,\eta) \right\rbrace\right](x,y)|^2
-\label{eqt:impulseResponse}
+U(x,y) = \iint_{-\infty}^{\infty} h(x,y;u,v)U(u,v)dudv
+\label{eqt:superpositionIntegral}
 \end{equation}
 
-The domain where the impulse response is invariant under translation is called the isoplanatic domain.
+\subsection{Optical Transfer Function (OTF)}
+\label{subsec:OTF}
 
 \begin{figure}
 \begin{center}
@@ -226,8 +227,42 @@ The optical transfer function, OTF, is defined as the Fourier transform of the i
 
 where $\xi$ and $\eta$ are the conjugate variables of $x$ and $y$ with respect to the Fourier transform.
 
-\section{From object to image}
-\label{sec:FromOtoI}
+\subsection{From Object to Image}
+\label{subsec:FromOtoI}
+
+A detector only senses the energy distribution produced by an electromagnetic wave. Therefore, an image is given by the square modulus of the complex amplitude at the focal plane,
+
+\begin{equation}
+i(x,y) = |U(x,y)|^2 = |\iint_{-\infty}^{\infty} h(x,y;u,v)U(u,v)dudv|^2.
+\label{eqt:IsqAmplitude}
+\end{equation}
+
+This integral simplifies differently depending on the type of object we are observing. For a coherent object, \citet[Chapter 6.2]{goodman_1968} showed that the imaging is linear in complex amplitude, thus eqt. \eqref{eqt:IsqAmplitude} becomes,
+
+\begin{equation}
+i(x,y) = |\iint_{-\infty}^{\infty} h(x-\overset{\sim}{u},y-\overset{\sim}{v})U(\overset{\sim}{u},\overset{\sim}{v})d\overset{\sim}{u}d\overset{\sim}{v}|^2,
+\label{eqt:convolution_hUo}
+\end{equation}
+
+where $(\overset{\sim}{u} = Mu,\overset{\sim}{v}= Mv)$ are the normalized object coordinates and $M$ is the magnification of the imaging system. The image is given by the squared modulus of the convolution of the impulse response and the object complex amplitude.
+
+For an incoherent object,  \citet[Chapter 6.2]{goodman_1968} showed that the imaging is linear in intensity,
+
+\begin{equation}
+i(x,y) = \iint_{-\infty}^{\infty}|h(x-\overset{\sim}{u},y-\overset{\sim}{v})|^2o(\overset{\sim}{u},\overset{\sim}{v})d\overset{\sim}{u}d\overset{\sim}{v},
+\label{eqt:imageObjectrel}
+\end{equation}
+
+where $o(\overset{\sim}{u},\overset{\sim}{v}) = |U(\overset{\sim}{u},\overset{\sim}{v})|^2$. We can recognize the convolution of an object with an intensity impulse response.
+
+The image that an optical system gives of a point source is called the point spread function, PSF, or impulse response, IR, of the system, see Figure \ref{fig:PSF}. A point source is characterized by an infinite distance to the instrument and therefore the wave is planar, which means that $U(\xi,\eta) = P(\xi,\eta)$. The PSF or IR is given by,
+
+\begin{equation}
+h_{optical}(x,y) = |\left[\mathcal{F}\left\lbrace P(\xi,\eta) \right\rbrace\right](x,y)|^2
+\label{eqt:impulseResponse}
+\end{equation}
+
+The domain where the impulse response is invariant under translation is called the \textbf{isoplanatic domain}.
 
 
 
