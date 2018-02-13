@@ -137,6 +137,8 @@ def scaledfft2(f,dxp):
     return np.fft.ifftshift(np.fft.fft2(np.fft.fftshift(f)))*dxp**2
 def RMSE(estimator,target):
     return np.sqrt(np.mean((estimator-target)**2))
+def BIAS(estimator,target):
+    return np.mean((estimator-target))
     
 def RMSwavefrontError(js,ajs):
     if 1 in js:
