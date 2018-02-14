@@ -17,7 +17,8 @@ dxp = lbda*F/(N*pxsize)
 deltaZ = 3.19e-3
 jmin = 4
 jmax = 30
-rmsWFerrors = np.array([5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,115,130,150,175,200,250])
+#rmsWFerrors = np.array([5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,115,130,150,175,200,250])
+rmsWFerrors = np.linspace(159,175,17)
 noiseStdLevel = 0.001
 
 P2Vdephasing = np.pi*deltaZ/lbda*(2*pupilRadius/F)**2/4.
@@ -76,9 +77,11 @@ for rmsWFerror in rmsWFerrors:
         ajsresultWoutNoise = ajsresultWoutNoise + phaseDivWoutNoise.result['ajs']
         ajstrue = ajstrue-phaseDivWoutNoise.result['ajs']
         
-        if fs.RMSwavefrontError(js,ajstrueWthNoise)*1e9*lbda/2/np.pi > rmsWFerrorprevious:
+        if fs.RMSwavefrontError(js,ajstrue)*1e9*lbda/2/np.pi > rmsWFerrorprevious:
             print 'do not converge'
             break
+        
+        rmsWFerrorprevious = fs.RMSwavefrontError(js,ajstrue)*1e9*lbda/2/np.pi   
     #    plt.figure()
     #    plt.plot(js,ajscomplete*1e9*lbda/2/np.pi,'b-',label='true, $\sigma_{WF,rms}$ = %5.3f nm' %(fs.RMSwavefrontError(js,ajscomplete*1e9*lbda/2/np.pi)))
     #    plt.plot(js,ajsresultWoutNoise*1e9*lbda/2/np.pi,color = 'red',lineStyle='-',label='retrieved wout noise, $\sigma_{WF,rms}$ = %5.3f nm, RMSE = %5.3f nm'
@@ -89,10 +92,11 @@ for rmsWFerror in rmsWFerrors:
     #    plt.xlim([js[0],js[-1]])
     #    plt.legend(loc='best')
     #    plt.grid()
+    fnamerms = '../../../fig/PDDev/recursivePD/ajs_jsWoutNoise_eWFrms_%d%s'
     
-    plt.figure()
-    plt.plot(js,ajscomplete*1e9*lbda/2/np.pi,'b-',label='true, $\sigma_{WF,rms}$ = %5.3f nm' %(fs.RMSwavefrontError(js,ajscomplete*1e9*lbda/2/np.pi)))
-    plt.plot(js,ajsresultWoutNoise*1e9*lbda/2/np.pi,color = 'red',lineStyle='-',label='retrieved wout noise, $\sigma_{WF,rms}$ = %5.3f nm, RMSE = %5.3f nm'
+    fig=plt.figure()
+    plt.plot(js,ajscomplete*1e9*lbda/2/np.pi,'b-',label='T., $\sigma_{WF,rms}$ = %4.1f nm' %(fs.RMSwavefrontError(js,ajscomplete*1e9*lbda/2/np.pi)))
+    plt.plot(js,ajsresultWoutNoise*1e9*lbda/2/np.pi,color = 'red',lineStyle='-',label='R. Wout N., $\sigma_{WF,rms}$ = %5.3f nm, RMSE = %5.3f nm'
         %(fs.RMSwavefrontError(js,ajsresultWoutNoise*1e9*lbda/2/np.pi)
         ,fs.RMSE(ajsresultWoutNoise*1e9*lbda/2/np.pi,ajscomplete*1e9*lbda/2/np.pi)))
     plt.xlabel('j')
@@ -100,6 +104,9 @@ for rmsWFerror in rmsWFerrors:
     plt.xlim([js[0],js[-1]])
     plt.legend(loc='best')
     plt.grid()
+    plt.savefig(fnamerms % (rmsWFerror,'.png'), dpi=300)
+    plt.savefig(fnamerms % (rmsWFerror,'.pdf'), dpi=300)
+    plt.close(fig)
     
     rmsWFerrorprevious = fs.RMSwavefrontError(js,ajstrueWthNoise)*1e9*lbda/2/np.pi
     
@@ -144,6 +151,7 @@ for rmsWFerror in rmsWFerrors:
             print 'do not converge'
             break
         
+        rmsWFerrorprevious = fs.RMSwavefrontError(js,ajstrueWthNoise)*1e9*lbda/2/np.pi
     #    plt.figure()
     #    plt.plot(js,ajscomplete*1e9*lbda/2/np.pi,'b-',label='true, $\sigma_{WF,rms}$ = %5.3f nm' %(fs.RMSwavefrontError(js,ajscomplete*1e9*lbda/2/np.pi)))
     #    plt.plot(js,ajsresultWthNoise*1e9*lbda/2/np.pi,color = 'red',lineStyle='-',label='retrieved wth noise, $\sigma_{WF,rms}$ = %5.3f nm, RMSE = %5.3f nm'
@@ -154,10 +162,10 @@ for rmsWFerror in rmsWFerrors:
     #    plt.xlim([js[0],js[-1]])
     #    plt.legend(loc='best')
     #    plt.grid()
-    
-    plt.figure()
-    plt.plot(js,ajscomplete*1e9*lbda/2/np.pi,'b-',label='true, $\sigma_{WF,rms}$ = %5.3f nm' %(fs.RMSwavefrontError(js,ajscomplete*1e9*lbda/2/np.pi)))
-    plt.plot(js,ajsresultWthNoise*1e9*lbda/2/np.pi,color = 'red',lineStyle='-',label='retrieved wth noise, $\sigma_{WF,rms}$ = %5.3f nm, RMSE = %5.3f nm'
+    fnamerms = '../../../fig/PDDev/recursivePD/ajs_jsWthNoise_eWFrms_%d%s'
+    fig = plt.figure()
+    plt.plot(js,ajscomplete*1e9*lbda/2/np.pi,'b-',label='T., $\sigma_{WF,rms}$ = %5.2f nm' %(fs.RMSwavefrontError(js,ajscomplete*1e9*lbda/2/np.pi)))
+    plt.plot(js,ajsresultWthNoise*1e9*lbda/2/np.pi,color = 'red',lineStyle='-',label='R Wth N., $\sigma_{WF,rms}$ = %5.2f nm, RMSE = %5.2f nm'
         %(fs.RMSwavefrontError(js,ajsresultWthNoise*1e9*lbda/2/np.pi)
         ,fs.RMSE(ajsresultWthNoise*1e9*lbda/2/np.pi,ajscomplete*1e9*lbda/2/np.pi)))
     plt.xlabel('j')
@@ -165,5 +173,8 @@ for rmsWFerror in rmsWFerrors:
     plt.xlim([js[0],js[-1]])
     plt.legend(loc='best')
     plt.grid()
+    plt.savefig(fnamerms % (rmsWFerror,'.png'), dpi=300)
+    plt.savefig(fnamerms % (rmsWFerror,'.pdf'), dpi=300)
+    plt.close(fig)
 
 #phaseDivWthNoise = PD.phaseDiversity3PSFs(PSFinfocWthNoise,PSFoutfocposWthNoise,PSFoutfocnegWthNoise,deltaZ,lbda,pxsize,F,pupilRadius,jmin,jmax)
