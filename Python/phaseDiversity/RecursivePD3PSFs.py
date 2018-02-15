@@ -17,8 +17,13 @@ dxp = lbda*F/(N*pxsize)
 deltaZ = 3.19e-3
 jmin = 4
 jmax = 30
-#rmsWFerrors = np.array([5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,115,130,150,175,200,250])
-rmsWFerrors = np.linspace(159,175,17)
+rmsWFerrors = np.array([5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,115,130,200,250])
+rmsWFerrors = np.append(rmsWFerrors,np.linspace(150,175,26))
+
+rmsWFerrors = np.sort(rmsWFerrors)
+
+rmsWFerrorsWoutNret = rmsWFerrors*0.
+rmsWFerrorsWthNret = rmsWFerrors*0.
 noiseStdLevel = 0.001
 
 P2Vdephasing = np.pi*deltaZ/lbda*(2*pupilRadius/F)**2/4.
@@ -28,7 +33,7 @@ js = np.linspace(jmin,jmax,num=jmax-3)
 
 ajscomplete = js*.0
 
-for rmsWFerror in rmsWFerrors:
+for irms,rmsWFerror in enumerate(rmsWFerrors):
     
     ajstrue = fsApd.getRandomAjs(js,rmsWFerror)*1e-9/lbda*2*np.pi
     ajstrueWthNoise = copy.deepcopy(ajstrue)
@@ -108,6 +113,9 @@ for rmsWFerror in rmsWFerrors:
     plt.savefig(fnamerms % (rmsWFerror,'.pdf'), dpi=300)
     plt.close(fig)
     
+    rmsWFerrorsWoutNret[irms] = fs.RMSwavefrontError(js,ajsresultWoutNoise*1e9*lbda/2/np.pi)    
+    
+    
     rmsWFerrorprevious = fs.RMSwavefrontError(js,ajstrueWthNoise)*1e9*lbda/2/np.pi
     
     while(fs.RMSwavefrontError(js,ajstrueWthNoise)*1e9*lbda/2/np.pi > 2.):
@@ -176,5 +184,43 @@ for rmsWFerror in rmsWFerrors:
     plt.savefig(fnamerms % (rmsWFerror,'.png'), dpi=300)
     plt.savefig(fnamerms % (rmsWFerror,'.pdf'), dpi=300)
     plt.close(fig)
+    
+    rmsWFerrorsWthNret[irms] = fs.RMSwavefrontError(js,ajsresultWthNoise*1e9*lbda/2/np.pi)    
 
-#phaseDivWthNoise = PD.phaseDiversity3PSFs(PSFinfocWthNoise,PSFoutfocposWthNoise,PSFoutfocnegWthNoise,deltaZ,lbda,pxsize,F,pupilRadius,jmin,jmax)
+fnamerms = '../../../fig/PDDev/recursivePD/rmsWFErrorsWoutN%s'
+
+rmsWFerrorMax = np.max(np.append(rmsWFerrors,rmsWFerrorsWoutNret))
+rmsWFerrorMin = np.min(np.append(rmsWFerrors,rmsWFerrorsWoutNret))
+
+Ixsorted = np.argsort(rmsWFerrors)
+
+fig = plt.figure()
+plt.hold(True)
+plt.plot(rmsWFerrors[Ixsorted],rmsWFerrorsWoutNret[Ixsorted])
+plt.plot([rmsWFerrorMin,rmsWFerrorMax],[rmsWFerrorMin,rmsWFerrorMax],linewidth=2,c='grey')
+plt.xlim([rmsWFerrorMin,rmsWFerrorMax])
+plt.ylim([rmsWFerrorMin,rmsWFerrorMax])
+plt.xlabel('$\sigma_{WF,rms}$ T. [nm]')
+plt.ylabel('$\sigma_{WF,rms}$ R. [nm]')
+plt.grid()
+plt.savefig(fnamerms % ('.png'), dpi=300)
+plt.savefig(fnamerms % ('.pdf'), dpi=300)
+plt.close(fig)
+
+fnamerms = '../../../fig/PDDev/recursivePD/rmsWFErrorsWthN%s'
+
+rmsWFerrorMax = np.max(np.append(rmsWFerrors,rmsWFerrorsWthNret))
+rmsWFerrorMin = np.min(np.append(rmsWFerrors,rmsWFerrorsWthNret))
+
+fig = plt.figure()
+plt.hold(True)
+plt.plot(rmsWFerrors[Ixsorted],rmsWFerrorsWthNret[Ixsorted])
+plt.plot([rmsWFerrorMin,rmsWFerrorMax],[rmsWFerrorMin,rmsWFerrorMax],linewidth=2,c='grey')
+plt.xlim([rmsWFerrorMin,rmsWFerrorMax])
+plt.ylim([rmsWFerrorMin,rmsWFerrorMax])
+plt.xlabel('$\sigma_{WF,rms}$ T. [nm]')
+plt.ylabel('$\sigma_{WF,rms}$ R. [nm]')
+plt.grid()
+plt.savefig(fnamerms % ('.png'), dpi=300)
+plt.savefig(fnamerms % ('.pdf'), dpi=300)
+plt.close(fig)
