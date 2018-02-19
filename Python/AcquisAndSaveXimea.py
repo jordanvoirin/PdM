@@ -15,19 +15,19 @@ numberOfFinalImages = 1
 sizeImg = 256
 
 #Parameter of camera and saving
-folderPathCropped = '../../data/PD/astigmatism/angle_study_3/wth/cropped/20/'
-darkFolderPathCropped = '../../data/dark/astigmatism/angle_study_3/wth/cropped/20/'
-folderPathFull = '../../data/PD/astigmatism/angle_study_3/wth/full/20/'
-darkFolderPathFull = '../../data/dark/astigmatism/angle_study_3/wth/full/20/'
+folderPathCropped = 'C:/Users/Jojo/Desktop/LucPD/cropped/'
+darkFolderPathCropped = 'C:/Users/Jojo/Desktop/LucPD/dark/cropped/'
+folderPathFull = 'C:/Users/Jojo/Desktop/LucPD/full/'
+darkFolderPathFull = 'C:/Users/Jojo/Desktop/LucPD/dark/full/'
 nameCamera = 'Ximea'
-focusPos = 11.63
+focusPos = 11.55
 
 #Sound
 duration = 1000  # millisecond
 freq = 2000  # Hz
 
 #initial guess for the fit depending on the position of the beam in the CCD
-initial_guess = [250, 468, 954, 3, 3]
+initial_guess = [250, 679, 710, 3, 3]
 
 #------------------------------------------------------------------------------
 #%% data acquisition ----------------------------------------------------------
