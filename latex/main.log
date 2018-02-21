@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6400) (preloaded format=pdflatex 2017.10.12)  19 FEB 2018 13:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6400) (preloaded format=pdflatex 2017.10.12)  21 FEB 2018 11:27
 entering extended mode
 **./main.tex
 (main.tex
@@ -2274,12 +2274,16 @@ Overfull \hbox (1.22441pt too wide) in paragraph at lines 233--234
 ed by an elec-tro-mag-ne-tic wave.
  []
 
-) [8]
+) [8] [9]
 \openout2 = `Chapters/PDExp.aux'.
 
- (Chapters/PDExp.tex
+ (Chapters/PDExp.tex [10
+
+
+
+]
 Chapter 2.
-<Figures/setupSchema.JPG, id=408, 670.00313pt x 584.1825pt>
+<Figures/setupSchema.JPG, id=418, 670.00313pt x 584.1825pt>
 File: Figures/setupSchema.JPG Graphic file (type jpg)
 <use Figures/setupSchema.JPG>
 Package pdftex.def Info: Figures/setupSchema.JPG  used on input line 23. on inp
@@ -2295,7 +2299,7 @@ Underfull \hbox (badness 1072) in paragraph at lines 31--32
 Package wrapfig Warning: Collision between wrapping environments on input line 
 57.
 
-<Figures/WFdistantSource.PNG, id=419, 311.66437pt x 116.68594pt>
+<Figures/WFdistantSource.PNG, id=429, 311.66437pt x 116.68594pt>
 File: Figures/WFdistantSource.PNG Graphic file (type png)
 <use Figures/WFdistantSource.PNG>
 Package pdftex.def Info: Figures/WFdistantSource.PNG  used on input line 59. on
@@ -2307,26 +2311,22 @@ Package wrapfig Warning: Stationary wrapfigure forced to float on input line 65
 .
 
 1: section
-[9
-
-
-
- <./Figures/setupSchema.JPG>]
-<Figures/source.png, id=430, 794.97pt x 318.43968pt>
+[11 <./Figures/setupSchema.JPG>]
+<Figures/source.png, id=441, 794.97pt x 318.43968pt>
 File: Figures/source.png Graphic file (type png)
 <use Figures/source.png>
 Package pdftex.def Info: Figures/source.png  used on input line 72. on input li
 ne 72.
 Package pdftex.def Info: Requested size: 202.01454pt x 80.92165pt on input line
  72.
-<Figures/pinholeEffect.png, id=431, 450.68375pt x 343.2825pt>
+<Figures/pinholeEffect.png, id=442, 450.68375pt x 343.2825pt>
 File: Figures/pinholeEffect.png Graphic file (type png)
 <use Figures/pinholeEffect.png>
 Package pdftex.def Info: Figures/pinholeEffect.png  used on input line 78. on i
 nput line 78.
 Package pdftex.def Info: Requested size: 121.20995pt x 92.32085pt on input line
  78.
- [10 <./Figures/source.png> <./Figures/pinholeEffect.png> <./Figures/WFdistantS
+ [12 <./Figures/source.png> <./Figures/pinholeEffect.png> <./Figures/WFdistantS
 ource.PNG>]
 Overfull \hbox (5.7922pt too wide) in paragraph at lines 99--100
 \T1/ppl/m/n/10.95 phase di-ver-sity wa-vefront re-trie-val. The ca-mera has a s
@@ -2338,7 +2338,7 @@ LaTeX Font Info:    Try loading font information for T1+cmtt on input line 111.
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1cmtt.fd"
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-<Figures/../../../fig/alignement/28092017AlignementXimeaPSFs.png, id=449, 1398.
+<Figures/../../../fig/alignement/28092017AlignementXimeaPSFs.png, id=460, 1398.
 4245pt x 151.767pt>
 File: Figures/../../../fig/alignement/28092017AlignementXimeaPSFs.png Graphic f
 ile (type png)
@@ -2347,13 +2347,13 @@ Package pdftex.def Info: Figures/../../../fig/alignement/28092017AlignementXime
 aPSFs.png  used on input line 119. on input line 119.
 Package pdftex.def Info: Requested size: 404.02908pt x 43.84688pt on input line
  119.
-) [11 <./Figures/../../../fig/alignement/28092017AlignementXimeaPSFs.png>] [12]
+) [13 <./Figures/../../../fig/alignement/28092017AlignementXimeaPSFs.png>] [14]
 \openout2 = `Appendices/AppDataSheet.aux'.
 
 
 (Appendices/AppDataSheet.tex
 Appendix A.
-<../../componentDatasheet/LPS-635-FC-SpecSheet.pdf, id=465, pagebox=cropbox, 61
+<../../componentDatasheet/LPS-635-FC-SpecSheet.pdf, id=475, pagebox=cropbox, 61
 4.295pt x 794.97pt>
 File: ../../componentDatasheet/LPS-635-FC-SpecSheet.pdf Graphic file (type pdf)
 
@@ -2363,7 +2363,7 @@ d on input line 8. on input line 8.
 Package pdftex.def Info: Requested size: 404.02908pt x 522.86229pt on input lin
 e 8.
 1: section
-[13
+[15
 
 
 
@@ -2371,8 +2371,8 @@ e 8.
 Overfull \vbox (20.46199pt too high) has occurred while \output is active []
 
 
-[14 <../../componentDatasheet/LPS-635-FC-SpecSheet.pdf>]
-<../../componentDatasheet/A220TM-AutoCADPDF.pdf, id=521, pagebox=cropbox, 794.9
+[16 <../../componentDatasheet/LPS-635-FC-SpecSheet.pdf>]
+<../../componentDatasheet/A220TM-AutoCADPDF.pdf, id=531, pagebox=cropbox, 794.9
 7pt x 614.295pt>
 File: ../../componentDatasheet/A220TM-AutoCADPDF.pdf Graphic file (type pdf)
 <use ../../componentDatasheet/A220TM-AutoCADPDF.pdf>
@@ -2393,7 +2393,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 22.
 
-<../../componentDatasheet/P10S-AutoCADPDF.pdf, id=523, pagebox=cropbox, 794.97p
+<../../componentDatasheet/P10S-AutoCADPDF.pdf, id=533, pagebox=cropbox, 794.97p
 t x 614.295pt>
 File: ../../componentDatasheet/P10S-AutoCADPDF.pdf Graphic file (type pdf)
 <use ../../componentDatasheet/P10S-AutoCADPDF.pdf>
@@ -2401,8 +2401,8 @@ Package pdftex.def Info: ../../componentDatasheet/P10S-AutoCADPDF.pdf  used on
 input line 24. on input line 24.
 Package pdftex.def Info: Requested size: 404.02908pt x 312.20836pt on input lin
 e 24.
-[15 <../../componentDatasheet/A220TM-AutoCADPDF.pdf>]
-<../../componentDatasheet/AL100200-AutoCADPDF.pdf, id=554, pagebox=cropbox, 794
+[17 <../../componentDatasheet/A220TM-AutoCADPDF.pdf>]
+<../../componentDatasheet/AL100200-AutoCADPDF.pdf, id=565, pagebox=cropbox, 794
 .97pt x 614.295pt>
 File: ../../componentDatasheet/AL100200-AutoCADPDF.pdf Graphic file (type pdf)
 <use ../../componentDatasheet/AL100200-AutoCADPDF.pdf>
@@ -2410,8 +2410,8 @@ Package pdftex.def Info: ../../componentDatasheet/AL100200-AutoCADPDF.pdf  used
  on input line 29. on input line 29.
 Package pdftex.def Info: Requested size: 404.02908pt x 312.20836pt on input lin
 e 29.
- [16 <../../componentDatasheet/P10S-AutoCADPDF.pdf>]
-<../../componentDatasheet/AC254-100-A-AutoCADPDF.pdf, id=585, pagebox=cropbox, 
+ [18 <../../componentDatasheet/P10S-AutoCADPDF.pdf>]
+<../../componentDatasheet/AC254-100-A-AutoCADPDF.pdf, id=596, pagebox=cropbox, 
 794.97pt x 614.295pt>
 File: ../../componentDatasheet/AC254-100-A-AutoCADPDF.pdf Graphic file (type pd
 f)
@@ -2420,46 +2420,46 @@ Package pdftex.def Info: ../../componentDatasheet/AC254-100-A-AutoCADPDF.pdf  u
 sed on input line 34. on input line 34.
 Package pdftex.def Info: Requested size: 404.02908pt x 312.20836pt on input lin
 e 34.
- [17 <../../componentDatasheet/AL100200-AutoCADPDF.pdf>]
-<../../componentDatasheet/ximeaPic.png, id=617, 291.489pt x 234.8775pt>
+ [19 <../../componentDatasheet/AL100200-AutoCADPDF.pdf>]
+<../../componentDatasheet/ximeaPic.png, id=627, 291.489pt x 234.8775pt>
 File: ../../componentDatasheet/ximeaPic.png Graphic file (type png)
 <use ../../componentDatasheet/ximeaPic.png>
 Package pdftex.def Info: ../../componentDatasheet/ximeaPic.png  used on input l
 ine 40. on input line 40.
 Package pdftex.def Info: Requested size: 202.01454pt x 162.78242pt on input lin
 e 40.
-<../../componentDatasheet/ximeaSpec.png, id=618, 270.41025pt x 395.67825pt>
+<../../componentDatasheet/ximeaSpec.png, id=628, 270.41025pt x 395.67825pt>
 File: ../../componentDatasheet/ximeaSpec.png Graphic file (type png)
 <use ../../componentDatasheet/ximeaSpec.png>
 Package pdftex.def Info: ../../componentDatasheet/ximeaSpec.png  used on input 
 line 41. on input line 41.
 Package pdftex.def Info: Requested size: 202.01454pt x 295.59874pt on input lin
 e 41.
- [18 <../../componentDatasheet/AC254-100-A-AutoCADPDF.pdf>]
+ [20 <../../componentDatasheet/AC254-100-A-AutoCADPDF.pdf>]
 Overfull \hbox (6.71394pt too wide) in paragraph at lines 43--44
 \T1/ppl/m/n/10.95 Source : [][]$\T1/cmtt/m/n/10.95 www . ximea . com / en / pro
 ducts / usb3-[]vision-[]cameras-[]xiq-[]line / mq013mg-[]e2$[][] 
  []
 
-<../../componentDatasheet/WFS150-5C.png, id=652, 313.77225pt x 481.19775pt>
+<../../componentDatasheet/WFS150-5C.png, id=662, 313.77225pt x 481.19775pt>
 File: ../../componentDatasheet/WFS150-5C.png Graphic file (type png)
 <use ../../componentDatasheet/WFS150-5C.png>
 Package pdftex.def Info: ../../componentDatasheet/WFS150-5C.png  used on input 
 line 47. on input line 47.
 Package pdftex.def Info: Requested size: 404.02908pt x 619.65366pt on input lin
 e 47.
-) [19 <../../componentDatasheet/ximeaPic.png> <../../componentDatasheet/ximeaSp
-ec.png>] [20 <../../componentDatasheet/WFS150-5C.png>]
+) [21 <../../componentDatasheet/ximeaPic.png> <../../componentDatasheet/ximeaSp
+ec.png>] [22 <../../componentDatasheet/WFS150-5C.png>]
 \openout2 = `Appendices/Code.aux'.
 
  (Appendices/Code.tex
 Appendix B.
 1: section
-[21
+[23
 
 
 
-] [22] [23]
+] [24] [25]
 Overfull \hbox (31.61453pt too wide) in paragraph at lines 174--175
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
@@ -2470,12 +2470,12 @@ Overfull \hbox (10.61966pt too wide) in paragraph at lines 212--213
 [][][][][][][][][][][]  
  []
 
-[24]
+[26]
 Overfull \hbox (3.27127pt too wide) in paragraph at lines 237--238
 [][][][][][][][][][][][][][][][][][][]  
  []
 
-[25]
+[27]
 Overfull \hbox (515.54599pt too wide) in paragraph at lines 266--267
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][]  
@@ -2504,11 +2504,11 @@ Overfull \hbox (492.45145pt too wide) in paragraph at lines 291--293
 ][][][][][][][][][][][]  
  []
 
-) [26]
+) [28]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 303.
 
 1: section
-[27
+[29
 
 
 ]
@@ -2518,7 +2518,7 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 303.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 303.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 303.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: A029A1716E3C950194CB5892EA1C976A;7026.
+(rerunfilecheck)             Checksum: 765013690777535E49AC8A4B5EA49F66;7026.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -2528,10 +2528,10 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 38122 strings out of 493347
- 747354 string characters out of 3136920
- 1021887 words of memory out of 3000000
- 40741 multiletter control sequences out of 15000+200000
+ 38126 strings out of 493347
+ 747401 string characters out of 3136920
+ 1021943 words of memory out of 3000000
+ 40742 multiletter control sequences out of 15000+200000
  608893 words of font info for 176 fonts, out of 3000000 for 9000
  1127 hyphenation exceptions out of 8191
  63i,20n,82p,10379b,3522s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -2550,9 +2550,9 @@ s/type1/urw/palatino/uplb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/
 urw/palatino/uplr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/pala
 tino/uplr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/palatino/upl
 ri8a.pfb>
-Output written on main.pdf (41 pages, 2317766 bytes).
+Output written on main.pdf (43 pages, 2319886 bytes).
 PDF statistics:
- 1126 PDF objects out of 1200 (max. 8388607)
- 420 named destinations out of 1000 (max. 500000)
+ 1138 PDF objects out of 1200 (max. 8388607)
+ 423 named destinations out of 1000 (max. 500000)
  442 words of extra memory for PDF output out of 10000 (max. 10000000)
 

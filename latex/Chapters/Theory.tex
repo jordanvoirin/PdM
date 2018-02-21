@@ -253,9 +253,9 @@ i(x,y) = \iint_{-\infty}^{\infty}|h(x-\overset{\sim}{u},y-\overset{\sim}{v})|^2o
 \label{eqt:imageObjectrel}
 \end{equation}
 
-where $o(x,y) = |U(x,y)|^2$. We can recognize the convolution of an object with an intensity impulse response, $h_{optical}(x,y) = |h(x,y)|^2$. 
+where $o(x,y) = |U(x,y)|^2$. We can recognize the convolution of an object with an intensity impulse response, $h_{optical}(x,y) = |h(x,y)|^2$.
 
-The image that an optical system gives of a point source is called the point spread function, PSF, or impulse response, IR, of the system, see Figure \ref{fig:PSF}. A point source is characterized by an infinite distance to the instrument and therefore the wave is planar, which means that $U(\xi,\eta) = P(\xi,\eta)$. The PSF or IR is given by,
+In this study, we will study stars radiation which are object with an incoherent emission. The stars are point source objects given there distances. The image that an optical system gives of a point source is called the point spread function, PSF, or impulse response, IR, of the system, see Figure \ref{fig:PSF}. A point source is characterized by an infinite distance to the instrument and therefore the wave is planar, which means that the phasor is reduced to $U(\xi,\eta) = P(\xi,\eta)$. The PSF or IR is given by,
 
 \begin{equation}
 h_{optical}(x,y) = |\left[\mathcal{F}\left\lbrace P(\xi,\eta) \right\rbrace\right](x,y)|^2
@@ -264,13 +264,24 @@ h_{optical}(x,y) = |\left[\mathcal{F}\left\lbrace P(\xi,\eta) \right\rbrace\righ
 
 The domain where the impulse response is invariant under translation is called the \textbf{isoplanatic domain}.
 
+In presence of aberrations, which will be discussed in the section \ref{sec:Aberrations}, the wavefront is deformed with respect to the perfect planar or spheric form. The phasor at the exit pupil characterizing a point source is modified as following,
 
+\begin{equation}
+U(\xi,\eta) = P(\xi,\eta) e^{j\phi_{Ab}(\xi,\eta)},
+\label{eqt:aberratedPhasor}
+\end{equation}
+
+where $\phi_{Ab}(\xi,\eta)$ is the dephasing caused by the aberration present between the object plane and the image plane.
 
 \section{Aberrations}
 \label{sec:Aberrations}
 
+
+
 \subsection{Sources of aberrations}
 \label{subsec:SourcesAb}
+
+
 
 \subsection{Zernike polynomials}
 \label{subsec:ZernikePol}
