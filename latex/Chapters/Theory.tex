@@ -237,7 +237,7 @@ i(x,y) = |U(x,y)|^2 = |\iint_{-\infty}^{\infty} h(x,y;u,v)U(u,v)dudv|^2.
 \label{eqt:IsqAmplitude}
 \end{equation}
 
-This integral simplifies differently depending on the type of object we are observing. For a coherent object, \citet[Chapter 6.2]{goodman_1968} showed that the imaging is linear in complex amplitude, thus eqt. \eqref{eqt:IsqAmplitude} becomes,
+This integral simplifies differently depending on the type of object we are observing. For a \textbf{coherent object}, \citet[Chapter 6.2]{goodman_1968} showed that the imaging is linear in complex amplitude, thus eqt. \eqref{eqt:IsqAmplitude} becomes,
 
 \begin{equation}
 i(x,y) = |\iint_{-\infty}^{\infty} h(x-\overset{\sim}{u},y-\overset{\sim}{v})U(\overset{\sim}{u},\overset{\sim}{v})d\overset{\sim}{u}d\overset{\sim}{v}|^2,
@@ -246,7 +246,7 @@ i(x,y) = |\iint_{-\infty}^{\infty} h(x-\overset{\sim}{u},y-\overset{\sim}{v})U(\
 
 where $(\overset{\sim}{u} = Mu,\overset{\sim}{v}= Mv)$ are the normalized object coordinates and $M$ is the magnification of the imaging system. The image is given by the squared modulus of the convolution of the impulse response and the object complex amplitude.
 
-For an incoherent object,  \citet[Chapter 6.2]{goodman_1968} showed that the imaging is linear in intensity,
+For an \textbf{incoherent object},  \citet[Chapter 6.2]{goodman_1968} showed that the imaging is linear in intensity,
 
 \begin{equation}
 i(x,y) = \iint_{-\infty}^{\infty}|h(x-\overset{\sim}{u},y-\overset{\sim}{v})|^2o(\overset{\sim}{u},\overset{\sim}{v})d\overset{\sim}{u}d\overset{\sim}{v} = (h_{optical}\otimes o)(x,y),
@@ -264,24 +264,32 @@ h_{optical}(x,y) = |\left[\mathcal{F}\left\lbrace P(\xi,\eta) \right\rbrace\righ
 
 The domain where the impulse response is invariant under translation is called the \textbf{isoplanatic domain}.
 
-In presence of aberrations, which will be discussed in the section \ref{sec:Aberrations}, the wavefront is deformed with respect to the perfect planar or spheric form. The phasor at the exit pupil characterizing a point source is modified as following,
+In presence of aberrations, which will be discussed in the section \ref{sec:Aberrations}, the wavefront is deformed with respect to the perfect planar or spheric form. The pupil function at the exit of the imaging system is modified as following,
 
 \begin{equation}
-U(\xi,\eta) = P(\xi,\eta) e^{j\phi_{Ab}(\xi,\eta)},
+\mathcal{P}(\xi,\eta) = P(\xi,\eta) e^{j\phi_{Ab}(\xi,\eta)},
 \label{eqt:aberratedPhasor}
 \end{equation}
 
-where $\phi_{Ab}(\xi,\eta)$ is the dephasing caused by the aberration present between the object plane and the image plane.
+where $\phi_{Ab}(\xi,\eta)$ is the dephasing caused by the aberration present between the object and the image planes. Replacing the new pupil function in eqt. \eqref{eqt:impulseResponse}, we obtain the PSF of an imaging system having aberrations on the optical path.
 
 \section{Aberrations}
 \label{sec:Aberrations}
 
+\begin{wrapfigure}{r}{0.5\textwidth}
+\centering
+\includegraphics[width=0.5\textwidth]{Figures/AbWFvsGausSphWF}
+\decoRulewrapFig
+\caption[Gaussian reference sphere vs. aberrated Wavefront]{Gaussian reference sphere vs. aberrated Wavefront, \citep[Chapter 6.4]{goodman_1968}. The dephasing is equal to the wave number multiplied by the aberration function, $\phi_{Ab}(\xi,\eta) = k W(\xi,\eta)$.}
+\label{fig:AbWFvsGausSphWF}
+\end{wrapfigure}
 
+The aberrations present on the optical path between the object and the image planes decrease the quality of the resulting image. Indeed, they induce fluctuations of the amplitude and phase of the wave in the pupil plane. Since the amplitude fluctuations are negligible with respect to the phase fluctuations, the latter are the ones studied. In figure \ref{fig:AbWFvsGausSphWF}, one can see the effect of the aberrations on an hypothetical spherical wavefront at the exit pupil of an imaging system. 
 
 \subsection{Sources of aberrations}
 \label{subsec:SourcesAb}
 
-
+In the specific domain of astronomy, there are multiple sources of aberrations. 
 
 \subsection{Zernike polynomials}
 \label{subsec:ZernikePol}
