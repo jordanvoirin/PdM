@@ -4,17 +4,6 @@
 
 Here, we will describe the experiment put in place in the optical laboratory at the HEIG-VD to reconstruct wavefronts with unknown static aberrations introduced using phase screens. At first, we study the  behavior of the phase diversity algorithm put in place by \citet{mugnier_2006} at ONERA with respect to number of averaging images, in other words noise level, and number of Zernike coefficients retrieved. Then we test the algorithm using a known aberration introduced by a parallel plane plate in the beam comparing the result to Zemax simulation. And finally, we introduce the phase screen to have random aberrations in the pupil and try to compare the phase diversity results with the Shack Hartman wavefront sensor results.
 
-%------------------------------------------------------------------------------
-%----------------------------------------------------------------------------
-
-\section{ONERA algorithm}
-\label{sec:ONERAalgorithm}
-
-
-
-%----------------------------------------------------------------------------------------
-%----------------------------------------------------------------------------------------
-
 \section{Experimental Setup}
 \label{sec:ExpSetup}
 
@@ -98,10 +87,6 @@ The phase diversity technique requires PSFs images as input, which means that th
 
 The image of the entrance pupil, obtained with the 4F system, is focused onto a CMOS Ximea camera by a f = 80 mm converging lens to acquire the PSFs for the phase diversity wavefront retrieval. The camera has a surface composed by 1280x1024 pixels of 5.3 $\mu$m, see Appendix \ref{app:ximeaCam}. It is mounted on sliding support in order to be able to acquire in/out-of-focus images. A beam splitter is placed in the converging beam to separate it in two. The second beam is collimated and a Shack-Hartman WFS is placed on the entrance pupil image plane, to check the results of the phase diversity wavefront retrieval. The Shack-Hartman WFS has a 39 X 31 lenslets grid and a CCD with a resolution of 1280x1024 pixels of 4.65 $\mu$m, see Appendix \ref{app:SHwfs}. 
 
-%------------------------------------------------------------------------------
-%	SECTION 2
-%----------------------------------------------------------------------------
-
 \section{Data Acquisition}
 \label{sec:DataAcquis}
 
@@ -130,8 +115,6 @@ The ONERA algorithm takes at least one focused and one defocused PSFs, as descri
 \subsection{Shack-Hartman WFS}
 \label{subsec:acquisSHwfs}
 
-%------------------------------------------------------------------------------
-%----------------------------------------------------------------------------
 
 \section{Results}
 \label{sec:Results}

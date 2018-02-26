@@ -18,20 +18,23 @@ dxp = lbda*F/(N*pxsize)
 noiseStdLevel = 0.01
 
 PSF = psf.PSF([1],[0],N,dxp,pupilRadius)
-PSFwthAb = psf.PSF([5,6,13],[1,1,1],N,dxp,pupilRadius)
+PSFwthAb = psf.PSF([4,6,11],[10,10,10]*1e-9/lbda*2*np.pi,N,dxp,pupilRadius)
 noiseMean = 0.
 noiseStd = np.max(PSFwthAb.PSF)*noiseStdLevel
 whiteNoise = fsApd.generateWhiteNoise((PSFwthAb.PSF).shape,noiseMean,noiseStd)
 PSFwthAbWthNoise = PSFwthAb.PSF+whiteNoise
 
-hdulist = pyfits.open('C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\devPD\psfnAb.fits')
-psfLJo = hdulist[0].data
-phaseLJo = hdulist[1].data
 
-hdulist = pyfits.open('C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\devPD\psf4__1.fits')
-psfLJo_wthAb = hdulist[0].data
-phaseLJo_wthAb = hdulist[1].data
-pupLJo_wthAb = hdulist[2].data
+
+
+#hdulist = pyfits.open('C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\devPD\psfnAb.fits')
+#psfLJo = hdulist[0].data
+#phaseLJo = hdulist[1].data
+#
+#hdulist = pyfits.open('C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\devPD\psf4__1.fits')
+#psfLJo_wthAb = hdulist[0].data
+#phaseLJo_wthAb = hdulist[1].data
+#pupLJo_wthAb = hdulist[2].data
 
 #FFTpupil = np.fft.ifftshift(np.fft.fft2(np.fft.fftshift(PSF.phasor.pupil)))
 #plt.figure()
@@ -94,26 +97,26 @@ pupLJo_wthAb = hdulist[2].data
 #plt.imshow(PSFwthAb.phasor.phase-phaseLJo_wthAb,vmax=np.max(PSFwthAb.phasor.phase-phaseLJo_wthAb),vmin=np.min(PSFwthAb.phasor.phase-phaseLJo_wthAb))
 #plt.colorbar(fraction=0.046, pad=0.04)
 
-plt.figure()
-plt.subplot(2,3,1)
-plt.title('Even Part Even aberrations PSF wout noise')
-plt.imshow(fs.getEvenPart(PSFwthAb.PSF))
-plt.colorbar(fraction=0.046, pad=0.04)
-plt.subplot(2,3,2)
-plt.title('Odd Part Even aberrations PSF wout noise')
-plt.imshow(fs.getOddPart(PSFwthAb.PSF))
-plt.colorbar(fraction=0.046, pad=0.04)
-plt.subplot(2,3,3)
-plt.title('Odd Part Even aberrations PSF wth noise')
-plt.imshow(fs.getOddPart(PSFwthAbWthNoise))
-plt.colorbar(fraction=0.046, pad=0.04)
-plt.subplot(2,3,4)
-plt.title('Even Part Even aberrations PSF wout noise hist')
-plt.hist(fs.getEvenPart(PSFwthAb.PSF))
-plt.subplot(2,3,5)
-plt.title('Odd Part Even aberrations PSF wout noise hist')
-plt.hist(fs.getOddPart(PSFwthAb.PSF))
-plt.subplot(2,3,6)
-plt.title('Odd Part Even aberrations PSF wth noise hist')
-plt.hist(fs.getOddPart(PSFwthAbWthNoise))
+#plt.figure()
+#plt.subplot(2,3,1)
+#plt.title('Even Part Even aberrations PSF wout noise')
+#plt.imshow(fs.getEvenPart(PSFwthAb.PSF))
+#plt.colorbar(fraction=0.046, pad=0.04)
+#plt.subplot(2,3,2)
+#plt.title('Odd Part Even aberrations PSF wout noise')
+#plt.imshow(fs.getOddPart(PSFwthAb.PSF))
+#plt.colorbar(fraction=0.046, pad=0.04)
+#plt.subplot(2,3,3)
+#plt.title('Odd Part Even aberrations PSF wth noise')
+#plt.imshow(fs.getOddPart(PSFwthAbWthNoise))
+#plt.colorbar(fraction=0.046, pad=0.04)
+#plt.subplot(2,3,4)
+#plt.title('Even Part Even aberrations PSF wout noise hist')
+#plt.hist(fs.getEvenPart(PSFwthAb.PSF))
+#plt.subplot(2,3,5)
+#plt.title('Odd Part Even aberrations PSF wout noise hist')
+#plt.hist(fs.getOddPart(PSFwthAb.PSF))
+#plt.subplot(2,3,6)
+#plt.title('Odd Part Even aberrations PSF wth noise hist')
+#plt.hist(fs.getOddPart(PSFwthAbWthNoise))
 

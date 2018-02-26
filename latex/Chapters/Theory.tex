@@ -284,12 +284,113 @@ where $\phi_{Ab}(\xi,\eta)$ is the dephasing caused by the aberration present be
 \label{fig:AbWFvsGausSphWF}
 \end{wrapfigure}
 
-The aberrations present on the optical path between the object and the image planes decrease the quality of the resulting image. Indeed, they induce fluctuations of the amplitude and phase of the wave in the pupil plane. Since the amplitude fluctuations are negligible with respect to the phase fluctuations, the latter are the ones studied. In figure \ref{fig:AbWFvsGausSphWF}, one can see the effect of the aberrations on an hypothetical spherical wavefront at the exit pupil of an imaging system. 
+The aberrations present on the optical path between the object and the image planes decrease the quality of the resulting image. Indeed, they induce fluctuations of the amplitude and phase of the wave in the pupil plane. Since the amplitude fluctuations are negligible with respect to the phase fluctuations, we focus only on the latter. In figure \ref{fig:AbWFvsGausSphWF}, one can see the effect of the aberrations on an hypothetical spherical wavefront at the exit pupil of an imaging system. And in Figure \ref{fig:ComparisonPSFs}, one can see the effect of aberrations on the PSF of an imaging system. The PSF is blurred due to the defocus and we can well recognize the astigmatism introduced as the shape of the PSF tends towards the ellipse. 
 
-\subsection{Sources of aberrations}
+\begin{figure}
+ \centering
+     \begin{subfigure}{0.4\textwidth}
+         \includegraphics[width=\textwidth]{Figures/PSFzoom}
+         \caption{perfect PSF (zoomed x10)}
+         \label{subfig:perfPSF}
+     \end{subfigure}
+     \quad
+     \begin{subfigure}{0.4\textwidth}
+         \includegraphics[width=\textwidth]{Figures/PSFzoomWthAb}
+         \caption{PSF with aberrations ($a_j = 50 \mathrm{nm}$ for $a_{4}$, $a_{6}$and $a_{11}$,see subsec \ref{subsec:ZernikePol} for the definition of $a_j$, zoomed x10)}
+         \label{subfig:PSFWthAb}
+     \end{subfigure}
+     \decoRule
+     \caption{Comparison of perfect PSF and PSF with aberrations of an imaging system composed by a 3.6 mm pupil and a focal length of 80 mm at a wavelength of 637.5 nm. The size, N, of the PSF is 400 and the pixel size is 5.3 $\mu m$.}
+     \label{fig:ComparisonPSFs}
+ \end{figure} 
+
+\subsection{Sources of aberration}
 \label{subsec:SourcesAb}
 
-In the specific domain of astronomy, there are multiple sources of aberrations. 
+The phase fluctuations introduced by aberrations are due to different kind of perturbation on the optical path. In ground based astronomy, the main source of aberrations is the \textbf{atmosphere}. Indeed, the atmosphere's temperatures fluctuations coupled with turbulent airflows are at the origin of the variations of the refractive index. Those variations induce then different optical path, in other words they generate perturbations on an electromagnetic wave passing through the atmosphere. The theory of the Atmospheric Turbulence is beyond the scope of this work, but we redirect the interested reader to \citet{obukhov1949,Tatarski1961,kolmogorov1968}.
+
+The other source of aberrations are the \textbf{defects of the instrument} themselves. The defaults can limit the resolution and decrease the quality of an diffraction-limited imaging system. The defects can have multiple origins as described by \citet{Blanc2002}. The first one is a \textbf{default during the fabrication process}, such as mirror polishing. This kind of defect is fixed and of high spatial frequency. Perturbation of the electromagnetic wave can also be due to \textbf{misalignment of the optical components of the instrument}. For instance, during the first stages of operation stages of the Hubble telescope, the mirrors were not aligned and the resulting images were blurry. These defects are of low spatial frequency and vary slowly with time. Finally, there are defects due to \textbf{mechanical stresses of the instrument}. The mirrors have to be held in place by different mechanical components. And under the influence of the gravity, a mirror deformation can arise resulting in an aberration introduction. This kind of defect also evolves slowly through time but has a large spatial frequency domain.
+
+In this work, we focus on a method to correct the effect of the instrument defects. This method is particularly suited since it does not require a different path than the path to the scientific instrument, which means that we can correct the aberrations on the entire optical path.
 
 \subsection{Zernike polynomials}
 \label{subsec:ZernikePol}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth,angle=0]{Figures/Zernike_polynomials}
+\decoRule
+\caption[Representation of the 21$^{st}$ Zernike polynomials]{Representation of the 21$^{st}$ Zernike polynomials \citep{ZernikeWiki}}
+\label{fig:Zernike_polynomials}
+\end{center}
+\end{figure}
+
+
+In order to study the aberrations present in an imaging system, \citet{zernike1934} introduced an orthonormal basis on which we can decompose the phase on a circular pupil, such has a telescope pupil. Those polynomials are the factor of a trigonometric function and a polynomial function \citep{Noll_1976}.
+
+\begin{equation}
+Z_j(\mathbf{r}) = R_n^m(r)\Theta^m_n(\theta),
+\label{eqt:ZernikePol}
+\end{equation}
+
+where $r=\frac{r'}{R_{pup}}$ is the normalized radius on the unit circle and $\theta$ is the azimuthal angle on the unit circle. $j$ correspond to the Zernike index in the Noll order, for a specific $j$ correspond only one couple $(n,m)$. The values of n and m are always integral and satisfy $|m| \leq n$, $n - |m| = \mathrm{even}$.
+
+The trigonometric function is given by,
+
+\begin{equation}
+\Theta_n^m(\theta) = 
+\begin{cases} 
+\sqrt{n+1} &if m=0, \\
+\sqrt{2(n+1)}cos(m\theta) &\mathrm{if} \ m \neq 0 \ \mathrm{and} \ i \ \mathrm{even}, \\
+\sqrt{2(n+1)}sin(m\theta) &\mathrm{if} \ m \neq 0 \ \mathrm{and} \ i \ \mathrm{odd},
+\end{cases}
+\label{eqt:trigoFunc}
+\end{equation}
+
+and the radial function is given by,
+
+\begin{equation}
+R_n^m(r) = \sum\limits_{s=0}^{(n-m)/2}\frac{(-1)^s(n-s)!}{s![(n+m)/2-s]![(n-m)/2-s]!}r^{n-2s}.
+\label{eqt:radialFunction}
+\end{equation}
+
+The decomposition of the phase onto the Zernike polynomials is given by,
+
+\begin{equation}
+\phi (\mathbf{r}) = \sum\limits_{i=1}^{+\infty}a_iZ_i(\mathbf{r}),
+\label{eqt:decompPhase}
+\end{equation}
+
+where the $a_i$'s are the Zernike coefficient. And we characterize a wavefront by its root mean squared error without the piston component ($a_1$), which is given by,
+
+\begin{equation}
+\sigma_{\phi} = \sqrt{\frac{1}{S}\int\limits_S \phi^2(\mathbf{r})d\mathbf{r}} = \sqrt{\sum\limits_{i=2}^{+\infty}a_i^2},
+\label{eqt:WFrmsError}
+\end{equation}
+
+where $S$ is the surface of the pupil.
+
+\section{Phase retrieval}
+
+Phase retrieval is a complicated process since the detectors are only sensitive to the intensity of a wave and not the wave itself, which renders impossible to have a direct relation between phase and image, thus we only have an indirect measurement of the wavefront. It is important to be able to estimate the aberrations of a system in order to correct them in real-time (Adaptive Optics systems) or in post-processing.  There are a couple of ways to characterize the form of a wavefront in order to determine the amplitude of the aberrations present in an imaging system. Some uses the optical geometric approximation, which says that locally the light rays are perpendicular to the wavefront. These achromatic methods measure the gradient of the wave surface, such as Shack-Hartmann \citep{ShackPlatt_1971}, Curvature sensing \citep{Roddier1988} and Pyramid sensing \citep{ragazzoni1996}. An other kind of methods are called interferometric or focal plane methods, they use the interference patterns of the pupil to determine the form of the wavefront. The Phase Diversity is part of those kind of methods, it was discovered by \citet{GerchberSaxton1972,Gonsalve_1982}. The most popular method nowadays are the Shack-Hartmann, the curvature and the phase diversity. The latter will be explain in chapter \ref{ch:PDThe} and we will explain the principle of a Shack-Hartmann sensor since we will use it later on.
+
+
+\subsection[Shack-Hartmann]{Shack-Hartmann \citep{ShackPlatt_1971}}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth,angle=0]{Figures/SHWFSPrinciple}
+\decoRule
+\caption[Shack-Hartmann principle]{Shack-Hartmann principle \citep{SHWFS}}
+\label{fig:SHWFSPrinciple}
+\end{center}
+\end{figure}
+
+The Shack-Hartmann wavefront sensor measures the gradient of an aberrant phase. Figure \ref{fig:SHWFSPrinciple} shows the principle. A micro-lenses array samples the wavefront passing through the pupil in a conjugated plane of the entrance pupil. Each micro-lens produces a dot on a CCD placed at the focii of the micro-lenses. The deformations of the wavefront induce a displacement of the dot with respect to a reference position obtained with a perfectly planar or spherical wavefront. By measuring this displacement $\Delta x$, it gives directly the local slope of the wavefront,
+
+\begin{equation}
+\frac{2\pi}{\lambda}\frac{\Delta x}{f} = \frac{1}{S} \int\limits_S \frac{\delta\phi (x,y)}{\delta x}dxdy,
+\label{eqt:SHWFSlope}
+\end{equation}
+
+where S is the surface of a micro-lens and f is the focal length of the micro-lenses.

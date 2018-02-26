@@ -17,6 +17,31 @@
 \endgroup
 
 \sortlist[entry]{nyt/global/}
+  \entry{Blanc2002}{thesis}{}
+    \name{author}{1}{}{%
+      {{hash=BA}{%
+         family={Blanc},
+         familyi={B\bibinitperiod},
+         given={Amandine},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BA1}
+    \strng{fullhash}{BA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2002}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{Identification de réponse impulsionnelle et restauration
+  d'images: apports de la diversité de phase}
+    \list{institution}{1}{%
+      {Université Paris XI UFR Scientifique d'Orsay}%
+    }
+    \field{type}{phdthesis}
+    \field{year}{2002}
+  \endentry
+
   \entry{Bouxin_PDM}{thesis}{}
     \name{author}{1}{}{%
       {{hash=BA}{%
@@ -26,8 +51,8 @@
          giveni={A\bibinitperiod},
       }}%
     }
-    \strng{namehash}{BA1}
-    \strng{fullhash}{BA1}
+    \strng{namehash}{BA2}
+    \strng{fullhash}{BA2}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
     \field{labelyear}{2017}
@@ -40,6 +65,98 @@
     }
     \field{type}{mathesis}
     \field{year}{2017}
+  \endentry
+
+  \entry{zernike1934}{article}{}
+    \name{author}{1}{}{%
+      {{hash=vFZ}{%
+         prefix={von},
+         prefixi={v\bibinitperiod},
+         family={F.\bibnamedelima Zernike},
+         familyi={F\bibinitperiod\bibinitdelim Z\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{FZv1}
+    \strng{fullhash}{FZv1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1934}
+    \field{sortinit}{F}
+    \field{sortinithash}{F}
+    \verb{doi}
+    \verb https://doi.org/10.1016/S0031-8914(34)80259-5
+    \endverb
+    \field{issn}{0031-8914}
+    \field{number}{7}
+    \field{pages}{689 \bibrangedash  704}
+    \field{title}{Beugungstheorie des schneidenver-fahrens und seiner
+  verbesserten form, der phasenkontrastmethode}
+    \verb{url}
+    \verb http://www.sciencedirect.com/science/article/pii/S0031891434802595
+    \endverb
+    \field{volume}{1}
+    \field{journaltitle}{Physica}
+    \field{year}{1934}
+  \endentry
+
+  \entry{GerchberSaxton1972}{article}{}
+    \name{author}{2}{}{%
+      {{hash=GRW}{%
+         family={Gerchberg},
+         familyi={G\bibinitperiod},
+         given={R.\bibnamedelima W.},
+         giveni={R\bibinitperiod\bibinitdelim W\bibinitperiod},
+      }}%
+      {{hash=SWO}{%
+         family={Saxton},
+         familyi={S\bibinitperiod},
+         given={W.\bibnamedelima O.},
+         giveni={W\bibinitperiod\bibinitdelim O\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GRWSWO1}
+    \strng{fullhash}{GRWSWO1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1972}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{number}{2}
+    \field{pages}{237–250}
+    \field{title}{A practical algorithm for the determination of phase from
+  image and diffraction plane pictures}
+    \field{volume}{35}
+    \field{journaltitle}{Optik}
+    \field{year}{1972}
+  \endentry
+
+  \entry{Gonsalve_1982}{article}{}
+    \name{author}{1}{}{%
+      {{hash=GRA}{%
+         family={Gonsalves},
+         familyi={G\bibinitperiod},
+         given={Robert\bibnamedelima A.},
+         giveni={R\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GRA1}
+    \strng{fullhash}{GRA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1982}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \verb{doi}
+    \verb 10.1117/12.7972989
+    \endverb
+    \field{pages}{21 \bibrangedash  21 \bibrangedash  4}
+    \field{title}{Phase Retrieval And Diversity In Adaptive Optics}
+    \verb{url}
+    \verb http://dx.doi.org/10.1117/12.7972989
+    \endverb
+    \field{volume}{21}
+    \field{journaltitle}{Optical Engineering}
+    \field{year}{1982}
   \endentry
 
   \entry{goodman_1968}{book}{}
@@ -72,11 +189,43 @@
     \strng{fullhash}{GJW1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{1968}
+    \field{labelyear}{1988}
     \field{sortinit}{G}
     \field{sortinithash}{G}
     \field{edition}{2nd}
     \field{title}{Introduction to Fourier Optics}
+    \field{year}{1988}
+  \endentry
+
+  \entry{kolmogorov1968}{article}{}
+    \name{author}{1}{}{%
+      {{hash=KAN}{%
+         family={Kolmogorov},
+         familyi={K\bibinitperiod},
+         given={A\bibnamedelima N},
+         giveni={A\bibinitperiod\bibinitdelim N\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KAN1}
+    \strng{fullhash}{KAN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1968}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{abstract}{%
+    Reprinted from Dokl. Akad. Nauk SSSR 30, 299 (1941), Submitted originally
+  December 28, 1940.%
+    }
+    \field{number}{6}
+    \field{pages}{734}
+    \field{title}{Local Strucure of Turbulence in an Incompressible Viscous
+  Fluid at Very High Reynolds numbers}
+    \verb{url}
+    \verb http://stacks.iop.org/0038-5670/10/i=6/a=R02
+    \endverb
+    \field{volume}{10}
+    \field{journaltitle}{Soviet Physics Uspekhi}
     \field{year}{1968}
   \endentry
 
@@ -134,6 +283,149 @@
     \field{year}{2006}
   \endentry
 
+  \entry{Noll_1976}{article}{}
+    \name{author}{1}{}{%
+      {{hash=NRJ}{%
+         family={Noll},
+         familyi={N\bibinitperiod},
+         given={Robert\bibnamedelima J.},
+         giveni={R\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {OSA}%
+    }
+    \strng{namehash}{NRJ1}
+    \strng{fullhash}{NRJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1976}
+    \field{sortinit}{N}
+    \field{sortinithash}{N}
+    \field{abstract}{%
+    This paper discusses some general properties of Zernike polynomials, such
+  as their Fourier transforms, integral representations, and derivatives. A
+  Zernike representation of the Kolmogoroff spectrum of turbulence is given
+  that provides a complete analytical description of the number of independent
+  corrections required in a wave-front compensation system.%
+    }
+    \verb{doi}
+    \verb 10.1364/JOSA.66.000207
+    \endverb
+    \field{number}{3}
+    \field{pages}{207\bibrangedash 211}
+    \field{title}{Zernike Polynomials and Atmospheric Turbulence}
+    \verb{url}
+    \verb http://www.osapublishing.org/abstract.cfm?URI=josa-66-3-207
+    \endverb
+    \field{volume}{66}
+    \field{journaltitle}{J. Opt. Soc. Am.}
+    \field{year}{1976}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{obukhov1949}{article}{}
+    \name{author}{1}{}{%
+      {{hash=OAM}{%
+         family={Obukhov},
+         familyi={O\bibinitperiod},
+         given={A.\bibnamedelima M.},
+         giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{OAM1}
+    \strng{fullhash}{OAM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1949}
+    \field{sortinit}{O}
+    \field{sortinithash}{O}
+    \field{number}{1}
+    \field{pages}{58\bibrangedash 69}
+    \field{title}{Structure of the temperature field in turbulent flow}
+    \field{volume}{13}
+    \field{journaltitle}{Ser. Geograf. Geofiz.}
+    \field{year}{1949}
+  \endentry
+
+  \entry{ragazzoni1996}{article}{}
+    \name{author}{1}{}{%
+      {{hash=RR}{%
+         family={Ragazzoni},
+         familyi={R\bibinitperiod},
+         given={Roberto},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{RR1}
+    \strng{fullhash}{RR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1996}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{number}{2}
+    \field{pages}{289\bibrangedash 293}
+    \field{title}{Pupil plane wavefront sensing with an oscillating prism}
+    \field{volume}{43}
+    \field{journaltitle}{Journal of modern Optics}
+    \field{year}{1996}
+  \endentry
+
+  \entry{Roddier1988}{article}{}
+    \name{author}{1}{}{%
+      {{hash=RF}{%
+         family={Roddier},
+         familyi={R\bibinitperiod},
+         given={François},
+         giveni={F\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{RF1}
+    \strng{fullhash}{RF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1988}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{pages}{1223\bibrangedash 1225}
+    \field{title}{Curvature sensing and compensation: a new concept in adaptive
+  optics}
+    \field{volume}{27}
+    \field{journaltitle}{Appl. Opt.}
+    \field{year}{1988}
+  \endentry
+
+  \entry{ShackPlatt_1971}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=SRV}{%
+         family={Shack},
+         familyi={S\bibinitperiod},
+         given={R.\bibnamedelima V.},
+         giveni={R\bibinitperiod\bibinitdelim V\bibinitperiod},
+      }}%
+      {{hash=PBC}{%
+         family={Platt},
+         familyi={P\bibinitperiod},
+         given={B.\bibnamedelima C.},
+         giveni={B\bibinitperiod\bibinitdelim C\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SRVPBC1}
+    \strng{fullhash}{SRVPBC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1971}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{booktitle}{Spring Meeting of the Optical Society of America}
+    \field{pages}{656–660}
+    \field{title}{Production and use of a lenticular Hartmann screen}
+    \field{volume}{61}
+    \field{journaltitle}{Journal of the Optical Society of America}
+    \field{year}{1971}
+  \endentry
+
   \entry{SpatialFilters}{misc}{}
     \name{author}{1}{}{%
       {{hash=T}{%
@@ -156,6 +448,84 @@
     \verb https://www.thorlabs.com/newgrouppage9.cfm?objectgroup_id=1400
     \endverb
     \field{year}{2017}
+  \endentry
+
+  \entry{SHWFS}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=T}{%
+         family={Thorlabs},
+         familyi={T\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {Thorlabs}%
+    }
+    \strng{namehash}{T1}
+    \strng{fullhash}{T1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2018}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \field{title}{Shack-Hartmann Wavefront Sensor}
+    \verb{url}
+    \verb https://www.thorlabs.com/newgrouppage9.cfm?objectgroup_id=2946
+    \endverb
+    \field{year}{2018}
+  \endentry
+
+  \entry{Tatarski1961}{book}{}
+    \name{author}{1}{}{%
+      {{hash=VTRAS}{%
+         family={V.I.\bibnamedelima Tatarski},
+         familyi={V\bibinitperiod\bibinitdelim T\bibinitperiod},
+         given={Richard A.\bibnamedelima Silverman},
+         giveni={R\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim
+  S\bibinitperiod},
+      }}%
+    }
+    \name{editor}{1}{}{%
+      {{hash=MH}{%
+         family={McGraw-Hill},
+         familyi={M\bibinitperiod-H\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {McGraw-Hill}%
+    }
+    \strng{namehash}{VTRAS1}
+    \strng{fullhash}{VTRAS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1961}
+    \field{sortinit}{V}
+    \field{sortinithash}{V}
+    \field{title}{Wave Propagation in a Turbulent Medium}
+    \field{year}{1961}
+  \endentry
+
+  \entry{ZernikeWiki}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=W}{%
+         family={Wikipedia},
+         familyi={W\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {Wikipedia}%
+    }
+    \strng{namehash}{W1}
+    \strng{fullhash}{W1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2018}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{title}{Zernike polynomials}
+    \verb{url}
+    \verb https://en.wikipedia.org/wiki/Zernike_polynomials
+    \endverb
+    \field{year}{2018}
   \endentry
 \endsortlist
 \endinput

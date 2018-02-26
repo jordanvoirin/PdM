@@ -21,12 +21,12 @@ yp = xp
 [Xp,Yp]=np.meshgrid(xp,yp) 
 
 
-PSF = psf.PSF([1],[0],N,dxp,pupilRadius)
+PSF = psf.PSF([4,6,11],np.array([50,50,50])*1e-9/lbda*2*np.pi,N,dxp,pupilRadius)
 
 otf = OTF(PSF.PSF,dxp)
 
 plt.figure()
-plt.imshow(PSF.PSF)
+plt.imshow(PSF.PSF,vmax=2,vmin=0)
 plt.tick_params(
     axis='both',       # changes apply to the x-axis
     which='both',      # both major and minor ticks are affected

@@ -6,11 +6,15 @@
 \contentsline {figure}{\numberline {1.2}{\ignorespaces Schema of a imaging instrument, \citep [Chapter 6.1]{goodman_1968}\relax }}{6}{figure.caption.31}
 \contentsline {figure}{\numberline {1.3}{\ignorespaces PSF of a perfect imaging system composed by a 3.6 mm pupil and a focal length of 80 mm at a wavelength of 637.5 nm. The size, N, of the PSF is 400 and the pixel size is 5.3 $\mu m$.\relax }}{7}{figure.caption.33}
 \contentsline {figure}{\numberline {1.4}{\ignorespaces OTF of a perfect imaging system composed by a 3.6 mm pupil and a focal length of 80 mm at a wavelength of 637.5 nm.\relax }}{7}{figure.caption.36}
+\contentsline {figure}{\numberline {1.6}{\ignorespaces Comparison of perfect PSF and PSF with aberrations of an imaging system composed by a 3.6 mm pupil and a focal length of 80 mm at a wavelength of 637.5 nm. The size, N, of the PSF is 400 and the pixel size is 5.3 $\mu m$.\relax }}{9}{figure.caption.46}
 \contentsline {figure}{\numberline {1.5}{\ignorespaces Gaussian reference sphere vs. aberrated Wavefront}}{9}{figure.caption.45}
+\contentsline {figure}{\numberline {1.7}{\ignorespaces Representation of the 21$^{st}$ Zernike polynomials}}{11}{figure.caption.49}
+\contentsline {figure}{\numberline {1.8}{\ignorespaces Shack-Hartmann principle}}{12}{figure.caption.57}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Experimental Setup Schema}}{11}{figure.caption.51}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Source schema and pinhole effect on the beam.\relax }}{12}{figure.caption.55}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Wavefront curvature}}{12}{figure.caption.54}
-\contentsline {figure}{\numberline {2.4}{\ignorespaces PSFs example of an alignment procedure\relax }}{13}{figure.caption.63}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Experimental Setup Schema}}{17}{figure.caption.62}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Source schema and pinhole effect on the beam.\relax }}{18}{figure.caption.66}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Wavefront curvature}}{18}{figure.caption.65}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces PSFs example of an alignment procedure\relax }}{19}{figure.caption.74}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
