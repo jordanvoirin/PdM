@@ -22,6 +22,18 @@
   year =   {2017}
 }
 
+@Article{fontanella1985,
+  author =   {J C Fontanella},
+  title =    {Wavefront sensing deconvolution and adaptive optics},
+  journal =  {Journal of Optics},
+  year =     {1985},
+  volume =   {16},
+  number =   {6},
+  pages =    {257},
+  abstract = {For large telescopes, the fundamental limit set by the diffraction to the angular resolution can be reached if the aberrations are perfectly corrected. Two solutions are practicable: image restoration by numerical processing or real time correction by adaptive optics. These two processes require the determination of the wavefront or of the optical transfer function. New large detectors arrays can be used in wavefront sensing which then allow the measurement of the wavefront at a large number of point. The general lay-out of such an instrument is given and its accuracy evaluated. The wavefront sensing contribution to numerical image processing is studied mainly for the case of degradation by atmospheric turbulence. The improvement of numerical processing by a partial active correction is discussed.},
+  url =      {http://stacks.iop.org/0150-536X/16/i=6/a=002}
+}
+
 @Article{GerchberSaxton1972,
   author =  {R. W. Gerchberg and W. O. Saxton},
   title =   {A practical algorithm for the determination of phase from image and diffraction plane pictures},
@@ -72,6 +84,15 @@
   publisher = {JOHN WILEY \& SONS, INC},
   year =      {1985},
   author =    {Joseph W. Goodman}
+}
+
+@Article{hartmann1900,
+  author =  {Hartmann},
+  title =   {Bemerkungen über den Bau und die Justirung von Spektrographen},
+  journal = {Z. Instrumentenkd},
+  year =    {1900},
+  volume =  {20},
+  pages =   {47}
 }
 
 @Article{Kohler_1973,
@@ -170,13 +191,14 @@
   pages =   {1223-1225}
 }
 
-@Article{ShackPlatt_1971,
-  author =  {R. V. Shack and B. C. Platt},
-  title =   {Production and use of a lenticular Hartmann screen},
-  journal = {Journal of the Optical Society of America},
-  year =    {1971},
-  volume =  {61},
-  pages =   {656–660}
+@Conference{ShackPlatt_1971,
+  author =    {R. V. Shack and B. C. Platt},
+  title =     {Production and use of a lenticular Hartmann screen},
+  booktitle = {Spring Meeting of the Optical Society of America},
+  year =      {1971},
+  volume =    {61},
+  pages =     {656–660},
+  journal =   {Journal of the Optical Society of America}
 }
 
 @Website{SHWFS,

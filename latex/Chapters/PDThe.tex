@@ -1,3 +1,19 @@
 \chapter{Phase Diversity}
 \label{ch:PDThe}
 
+The phase diversity was first implemented by R. A. Gonsalves in 1976 \citep{Gonsalves_1976,Gonsalves_1982} to retrieve the phase of a wavefront coming from a point source. It uses two images, one at the focal plane and another one with a diversity introduced, such as defocus, in order to recover the phase of the wavefront. This chapter introduce the principle on which the phase diversity is based and then describes its implementation with two different algorithms. The first one is an algorithm developed at the ONERA by \citet{mugnier_2006}. The second algorithm presented is the one we developed in the frame of this study, which is based on an analytical approach.
+
+\section{Principle}
+
+Unlike Shack-Hartmann wavefront reconstruction, which is a pupil plane technique, the phase diversity uses data acquired at the focal plane. Using the non-linear relation between the phase of the wavefront and the image, 
+
+\begin{equation}
+i(x,y) = (h_{optical}\otimes o)(x,y), \ with \ h_{optical}(x,y) = |\left[\mathcal{F}\left\lbrace A(\xi,\eta)e^{j\phi(\xi,\eta)} \right\rbrace\right](x,y)|^2,
+\label{eqt:img-hopt}
+\end{equation}
+
+one can determine the phase, i.e. the aberrations present in the imaging system, by solving an inverse problem. The major difficulty of this technique is that, as one can see in eqt. \eqref{eqt:img-hopt}, there is not a unique solution to the problem at hand. This indetermination comes from the fact that the available detector can only sense the intensity of the wave, and not the wave itself, which is related to the modulus squared of the complex amplitude as exposed in section \ref{sec:ImSystem}.
+
+\section{ONERA algorithm}
+
+\section{Analytical algorithm}

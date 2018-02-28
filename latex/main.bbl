@@ -99,6 +99,46 @@
     \field{year}{1934}
   \endentry
 
+  \entry{fontanella1985}{article}{}
+    \name{author}{1}{}{%
+      {{hash=FJC}{%
+         family={Fontanella},
+         familyi={F\bibinitperiod},
+         given={J\bibnamedelima C},
+         giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{FJC1}
+    \strng{fullhash}{FJC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1985}
+    \field{sortinit}{F}
+    \field{sortinithash}{F}
+    \field{abstract}{%
+    For large telescopes, the fundamental limit set by the diffraction to the
+  angular resolution can be reached if the aberrations are perfectly corrected.
+  Two solutions are practicable: image restoration by numerical processing or
+  real time correction by adaptive optics. These two processes require the
+  determination of the wavefront or of the optical transfer function. New large
+  detectors arrays can be used in wavefront sensing which then allow the
+  measurement of the wavefront at a large number of point. The general lay-out
+  of such an instrument is given and its accuracy evaluated. The wavefront
+  sensing contribution to numerical image processing is studied mainly for the
+  case of degradation by atmospheric turbulence. The improvement of numerical
+  processing by a partial active correction is discussed.%
+    }
+    \field{number}{6}
+    \field{pages}{257}
+    \field{title}{Wavefront sensing deconvolution and adaptive optics}
+    \verb{url}
+    \verb http://stacks.iop.org/0150-536X/16/i=6/a=002
+    \endverb
+    \field{volume}{16}
+    \field{journaltitle}{Journal of Optics}
+    \field{year}{1985}
+  \endentry
+
   \entry{GerchberSaxton1972}{article}{}
     \name{author}{2}{}{%
       {{hash=GRW}{%
@@ -130,7 +170,49 @@
     \field{year}{1972}
   \endentry
 
-  \entry{Gonsalve_1982}{article}{}
+  \entry{Gonsalves_1976}{article}{}
+    \name{author}{1}{}{%
+      {{hash=GRA}{%
+         family={Gonsalves},
+         familyi={G\bibinitperiod},
+         given={R.\bibnamedelima A.},
+         giveni={R\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {OSA}%
+    }
+    \strng{namehash}{GRA1}
+    \strng{fullhash}{GRA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1976}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{abstract}{%
+    Phase retrieval implies extraction of the phase of a complex signal f from
+  its modulus {\textbar}f{\textbar}. We give examples where an additional
+  constraint is imposed: knowledge of the modulus of F, the Fourier transform
+  of f. The retrieval is accomplished by computer processing of samples of
+  {\textbar}f{\textbar} and {\textbar}F{\textbar}. The problems of noisy data
+  and nonuniqueness are addressed.%
+    }
+    \verb{doi}
+    \verb 10.1364/JOSA.66.000961
+    \endverb
+    \field{number}{9}
+    \field{pages}{961\bibrangedash 964}
+    \field{title}{Phase retrieval from modulus data}
+    \verb{url}
+    \verb http://www.osapublishing.org/abstract.cfm?URI=josa-66-9-961
+    \endverb
+    \field{volume}{66}
+    \field{journaltitle}{J. Opt. Soc. Am.}
+    \field{year}{1976}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{Gonsalves_1982}{article}{}
     \name{author}{1}{}{%
       {{hash=GRA}{%
          family={Gonsalves},
@@ -139,8 +221,8 @@
          giveni={R\bibinitperiod\bibinitdelim A\bibinitperiod},
       }}%
     }
-    \strng{namehash}{GRA1}
-    \strng{fullhash}{GRA1}
+    \strng{namehash}{GRA2}
+    \strng{fullhash}{GRA2}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
     \field{labelyear}{1982}
@@ -195,6 +277,28 @@
     \field{edition}{2nd}
     \field{title}{Introduction to Fourier Optics}
     \field{year}{1988}
+  \endentry
+
+  \entry{hartmann1900}{article}{}
+    \name{author}{1}{}{%
+      {{hash=H}{%
+         family={Hartmann},
+         familyi={H\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{H1}
+    \strng{fullhash}{H1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1900}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{pages}{47}
+    \field{title}{Bemerkungen über den Bau und die Justirung von
+  Spektrographen}
+    \field{volume}{20}
+    \field{journaltitle}{Z. Instrumentenkd}
+    \field{year}{1900}
   \endentry
 
   \entry{kolmogorov1968}{article}{}

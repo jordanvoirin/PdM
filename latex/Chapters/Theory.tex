@@ -199,7 +199,7 @@ An imaging system, such as a telescope, is used to acquire images of an object a
     \label{fig:PSF}
 \end{figure} 
 
-The impulse response or point spread function (PSF), $h(x,y;u,v)$, of an optical system is  the field amplitude induced at coordinates $(x,y)$ by a unit-amplitude point source at object coordinates $(u,v)$. Using the linearity of the wave propagation, we can write the imaged amplitude as the superposition integral,
+The impulse response or point spread function (PSF), $h(x,y;u,v)$, of an optical system is  the field amplitude induced at coordinates $(x,y)$ by a unit-amplitude point source at object coordinates $(u,v)$. Using the linearity of the wave propagation, we can write the imaged amplitude as a superposition integral,
 
 \begin{equation}
 U(x,y) = \iint_{-\infty}^{\infty} h(x,y;u,v)U(u,v)dudv
@@ -264,7 +264,7 @@ h_{optical}(x,y) = |\left[\mathcal{F}\left\lbrace P(\xi,\eta) \right\rbrace\righ
 
 The domain where the impulse response is invariant under translation is called the \textbf{isoplanatic domain}.
 
-In presence of aberrations, which will be discussed in the section \ref{sec:Aberrations}, the wavefront is deformed with respect to the perfect planar or spheric form. The pupil function at the exit of the imaging system is modified as following,
+In presence of aberrations, which will be discussed in section \ref{sec:Aberrations}, the wavefront is deformed with respect to the perfect planar or spheric form. The pupil function at the exit of the imaging system is modified as following,
 
 \begin{equation}
 \mathcal{P}(\xi,\eta) = P(\xi,\eta) e^{j\phi_{Ab}(\xi,\eta)},
@@ -372,10 +372,12 @@ where $S$ is the surface of the pupil.
 
 \section{Phase retrieval}
 
-Phase retrieval is a complicated process since the detectors are only sensitive to the intensity of a wave and not the wave itself, which renders impossible to have a direct relation between phase and image, thus we only have an indirect measurement of the wavefront. It is important to be able to estimate the aberrations of a system in order to correct them in real-time (Adaptive Optics systems) or in post-processing.  There are a couple of ways to characterize the form of a wavefront in order to determine the amplitude of the aberrations present in an imaging system. Some uses the optical geometric approximation, which says that locally the light rays are perpendicular to the wavefront. These achromatic methods measure the gradient of the wave surface, such as Shack-Hartmann \citep{ShackPlatt_1971}, Curvature sensing \citep{Roddier1988} and Pyramid sensing \citep{ragazzoni1996}. An other kind of methods are called interferometric or focal plane methods, they use the interference patterns of the pupil to determine the form of the wavefront. The Phase Diversity is part of those kind of methods, it was discovered by \citet{GerchberSaxton1972,Gonsalve_1982}. The most popular method nowadays are the Shack-Hartmann, the curvature and the phase diversity. The latter will be explain in chapter \ref{ch:PDThe} and we will explain the principle of a Shack-Hartmann sensor since we will use it later on.
+The phase retrieval is a complicated process since the detectors are only sensitive to the intensity of a wave and not the wave itself, which renders impossible to have a direct relation between phase and image, thus we only have an indirect measurement of the wavefront. It is important to be able to estimate the aberrations of a system in order to correct them in real-time (Adaptive Optics systems) or in post-processing.
+
+There are a couple of ways to characterize the form of a wavefront in order to determine the amplitude of the aberrations present in an imaging system. Some uses the optical geometric approximation, which says that locally the light rays are perpendicular to the wavefront. These achromatic methods measure the gradient of the wave surface, such as Shack-Hartmann \citep{hartmann1900,ShackPlatt_1971,fontanella1985}, Curvature sensing \citep{Roddier1988} and Pyramid sensing \citep{ragazzoni1996}. An other kind of methods are called interferometric or focal plane methods, they use the interference patterns of the pupil to determine the form of the wavefront. The Phase Diversity is part of those kind of methods, it was discovered by \citet{GerchberSaxton1972,Gonsalve_1982}. The most popular method nowadays are the Shack-Hartmann, the curvature and the phase diversity. The latter will be explain in chapter \ref{ch:PDThe} and we will explain the principle of a Shack-Hartmann sensor since we will use it later on.
 
 
-\subsection[Shack-Hartmann]{Shack-Hartmann \citep{ShackPlatt_1971}}
+\subsection[Shack-Hartmann]{Shack-Hartmann \citep{hartmann1900,ShackPlatt_1971}}
 
 \begin{figure}
 \begin{center}
@@ -386,11 +388,12 @@ Phase retrieval is a complicated process since the detectors are only sensitive 
 \end{center}
 \end{figure}
 
-The Shack-Hartmann wavefront sensor measures the gradient of an aberrant phase. Figure \ref{fig:SHWFSPrinciple} shows the principle. A micro-lenses array samples the wavefront passing through the pupil in a conjugated plane of the entrance pupil. Each micro-lens produces a dot on a CCD placed at the focii of the micro-lenses. The deformations of the wavefront induce a displacement of the dot with respect to a reference position obtained with a perfectly planar or spherical wavefront. By measuring this displacement $\Delta x$, it gives directly the local slope of the wavefront,
+The Shack-Hartmann wavefront sensor measures the gradient of an aberrant phase. Figure \ref{fig:SHWFSPrinciple} shows the principle. A micro-lenses array samples the wavefront passing through the pupil in a conjugated plane of the entrance pupil. Each micro-lens produces a dot on a CCD placed at the focii of the micro-lenses. The deformations of the wavefront induce a displacement of the dot with respect to a reference position obtained with a perfectly planar or spherical wavefront. By measuring this displacement $\Delta x$, it gives directly the local slope of the wavefront \citep{fontanella1985},
 
 \begin{equation}
 \frac{2\pi}{\lambda}\frac{\Delta x}{f} = \frac{1}{S} \int\limits_S \frac{\delta\phi (x,y)}{\delta x}dxdy,
 \label{eqt:SHWFSlope}
 \end{equation}
 
-where S is the surface of a micro-lens and f is the focal length of the micro-lenses.
+where S is the surface of a micro-lens and f is the focal length of the micro-lenses. The wavefront is reconstructed by integrating over all the local slope measurements. 
+
