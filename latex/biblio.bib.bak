@@ -44,17 +44,6 @@
   pages =   {237–250}
 }
 
-@Article{Gonsalve_1982,
-  author =  {Robert A. Gonsalves},
-  title =   {Phase Retrieval And Diversity In Adaptive Optics},
-  journal = {Optical Engineering},
-  year =    {1982},
-  volume =  {21},
-  pages =   {21 - 21 - 4},
-  doi =     {10.1117/12.7972989},
-  url =     {http://dx.doi.org/10.1117/12.7972989}
-}
-
 @Article{Gonsalves_1976,
   author =    {R. A. Gonsalves},
   title =     {Phase retrieval from modulus data},
@@ -68,6 +57,17 @@
   doi =       {10.1364/JOSA.66.000961},
   publisher = {OSA},
   url =       {http://www.osapublishing.org/abstract.cfm?URI=josa-66-9-961}
+}
+
+@Article{Gonsalves_1982,
+  author =  {Robert A. Gonsalves},
+  title =   {Phase Retrieval And Diversity In Adaptive Optics},
+  journal = {Optical Engineering},
+  year =    {1982},
+  volume =  {21},
+  pages =   {21 - 21 - 4},
+  doi =     {10.1117/12.7972989},
+  url =     {http://dx.doi.org/10.1117/12.7972989}
 }
 
 @Book{Goodman_1968,
@@ -170,6 +170,21 @@
   volume =    {TT48},
   edition =   {2},
   review =    {P.86}
+}
+
+@Article{Paxman:92,
+  author =    {Richard G. Paxman and Timothy J. Schulz and James R. Fienup},
+  title =     {Joint estimation of object and aberrations by using phase diversity},
+  journal =   {J. Opt. Soc. Am. A},
+  year =      {1992},
+  volume =    {9},
+  number =    {7},
+  pages =     {1072--1085},
+  month =     {Jul},
+  abstract =  {The joint estimation of an object and the aberrations of an incoherent imaging system from multiple images incorporating phase diversity is investigated. Maximum-likelihood estimation is considered under additive Gaussian and Poisson noise models. Expressions for an aberration-only objective function that accommodates an arbitrary number of diversity images and its gradient are derived for the case of a Gaussian noise model. Expressions for the log-likelihood function and its gradient are presented for the case of Poisson noise. An expectation-maximization algorithm that enforces a nonnegativity constraint in a natural fashion is constructed for use in the Poisson noise case.},
+  doi =       {10.1364/JOSAA.9.001072},
+  publisher = {OSA},
+  url =       {http://josaa.osa.org/abstract.cfm?URI=josaa-9-7-1072}
 }
 
 @Article{ragazzoni1996,

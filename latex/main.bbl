@@ -452,6 +452,65 @@
     \field{year}{1949}
   \endentry
 
+  \entry{Paxman1992}{article}{}
+    \name{author}{3}{}{%
+      {{hash=PRG}{%
+         family={Paxman},
+         familyi={P\bibinitperiod},
+         given={Richard\bibnamedelima G.},
+         giveni={R\bibinitperiod\bibinitdelim G\bibinitperiod},
+      }}%
+      {{hash=STJ}{%
+         family={Schulz},
+         familyi={S\bibinitperiod},
+         given={Timothy\bibnamedelima J.},
+         giveni={T\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=FJR}{%
+         family={Fienup},
+         familyi={F\bibinitperiod},
+         given={James\bibnamedelima R.},
+         giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {OSA}%
+    }
+    \strng{namehash}{PRGSTJFJR1}
+    \strng{fullhash}{PRGSTJFJR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1992}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{abstract}{%
+    The joint estimation of an object and the aberrations of an incoherent
+  imaging system from multiple images incorporating phase diversity is
+  investigated. Maximum-likelihood estimation is considered under additive
+  Gaussian and Poisson noise models. Expressions for an aberration-only
+  objective function that accommodates an arbitrary number of diversity images
+  and its gradient are derived for the case of a Gaussian noise model.
+  Expressions for the log-likelihood function and its gradient are presented
+  for the case of Poisson noise. An expectation-maximization algorithm that
+  enforces a nonnegativity constraint in a natural fashion is constructed for
+  use in the Poisson noise case.%
+    }
+    \verb{doi}
+    \verb 10.1364/JOSAA.9.001072
+    \endverb
+    \field{number}{7}
+    \field{pages}{1072\bibrangedash 1085}
+    \field{title}{Joint estimation of object and aberrations by using phase
+  diversity}
+    \verb{url}
+    \verb http://josaa.osa.org/abstract.cfm?URI=josaa-9-7-1072
+    \endverb
+    \field{volume}{9}
+    \field{journaltitle}{J. Opt. Soc. Am. A}
+    \field{year}{1992}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
   \entry{ragazzoni1996}{article}{}
     \name{author}{1}{}{%
       {{hash=RR}{%

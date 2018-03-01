@@ -21,12 +21,15 @@ yp = xp
 [Xp,Yp]=np.meshgrid(xp,yp) 
 
 
-PSF = psf.PSF([4,6,11],np.array([50,50,50])*1e-9/lbda*2*np.pi,N,dxp,pupilRadius)
+PSF = psf.PSF([6,11],np.array([50,50])*1e-9/lbda*2*np.pi,N,dxp,pupilRadius)
+PSFdef = psf.PSF([4,6,11],np.array([637.5,50,50])*1e-9/lbda*2*np.pi,N,dxp,pupilRadius)
 
 otf = OTF(PSF.PSF,dxp)
 
 plt.figure()
-plt.imshow(PSF.PSF,vmax=2,vmin=0)
+plt.imshow(PSF.phasor.phase)
+plt.xlim([132,268])
+plt.ylim([132,268])
 plt.tick_params(
     axis='both',       # changes apply to the x-axis
     which='both',      # both major and minor ticks are affected
@@ -40,6 +43,47 @@ plt.show()
 
 plt.figure()
 plt.imshow(PSF.PSF)
+plt.tick_params(
+    axis='both',       # changes apply to the x-axis
+    which='both',      # both major and minor ticks are affected
+    bottom='off',      # ticks along the bottom edge are off
+    top='off',         # ticks along the top edge are off
+    labelbottom='off',
+    labeltop='off',
+    labelright='off',
+    labelleft='off')
+plt.show()
+
+plt.figure()
+plt.imshow(PSF.PSF)
+plt.xlim([180,220])
+plt.ylim([180,220])
+plt.tick_params(
+    axis='both',       # changes apply to the x-axis
+    which='both',      # both major and minor ticks are affected
+    bottom='off',      # ticks along the bottom edge are off
+    top='off',         # ticks along the top edge are off
+    labelbottom='off',
+    labeltop='off',
+    labelright='off',
+    labelleft='off')
+plt.show()
+
+plt.figure()
+plt.imshow(PSFdef.PSF)
+plt.tick_params(
+    axis='both',       # changes apply to the x-axis
+    which='both',      # both major and minor ticks are affected
+    bottom='off',      # ticks along the bottom edge are off
+    top='off',         # ticks along the top edge are off
+    labelbottom='off',
+    labeltop='off',
+    labelright='off',
+    labelleft='off')
+plt.show()
+
+plt.figure()
+plt.imshow(PSFdef.PSF)
 plt.xlim([180,220])
 plt.ylim([180,220])
 plt.tick_params(

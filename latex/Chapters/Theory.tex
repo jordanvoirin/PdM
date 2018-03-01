@@ -179,25 +179,7 @@ An imaging system, such as a telescope, is used to acquire images of an object a
 %\end{equation}
 
 \subsection{Impulse Response (IR)}
-\label{subsec:IR}
-
-\begin{figure}
-\centering
-    \begin{subfigure}{0.4\textwidth}
-        \includegraphics[width=\textwidth]{Figures/PSF}
-        \caption{PSF}
-        \label{subfig:PSF}
-    \end{subfigure}
-    \quad
-    \begin{subfigure}{0.4\textwidth}
-        \includegraphics[width=\textwidth]{Figures/PSFzoom}
-        \caption{PSF zoom x10}
-        \label{subfig:PSFzoom}
-    \end{subfigure}
-    \decoRule
-    \caption{PSF of a perfect imaging system composed by a 3.6 mm pupil and a focal length of 80 mm at a wavelength of 637.5 nm. The size, N, of the PSF is 400 and the pixel size is 5.3 $\mu m$.}
-    \label{fig:PSF}
-\end{figure} 
+\label{subsec:IR} 
 
 The impulse response or point spread function (PSF), $h(x,y;u,v)$, of an optical system is  the field amplitude induced at coordinates $(x,y)$ by a unit-amplitude point source at object coordinates $(u,v)$. Using the linearity of the wave propagation, we can write the imaged amplitude as a superposition integral,
 
@@ -218,7 +200,7 @@ U(x,y) = \iint_{-\infty}^{\infty} h(x,y;u,v)U(u,v)dudv
 \end{center}
 \end{figure}
 
-The optical transfer function, OTF, is defined as the Fourier transform of the impulse response, see Figure \ref{fig:OTF}. Using the Fourier transform properties it can also be given by the autocorrelation of the pupil function,
+The optical transfer function, OTF, is defined as the Fourier transform of the impulse response, an example is shown in Figure \ref{fig:OTF}. As we will use it later, for incoherent illumination and using the Fourier transform properties it can also be given by the autocorrelation of the pupil function as we will see in section \ref{subsec:FromOtoI} that the impulse response is given by the Fourier transform of the squared pupil function,
 
 \begin{equation}
 \overset{\sim}{h}_{optical}(\xi,\eta) = \mathcal{F}\left\lbrace h_{optical}(x,y)\right\rbrace = (P \otimes P)(\xi,\eta),
@@ -255,6 +237,24 @@ i(x,y) = \iint_{-\infty}^{\infty}|h(x-\overset{\sim}{u},y-\overset{\sim}{v})|^2o
 
 where $o(x,y) = |U(x,y)|^2$. We can recognize the convolution of an object with an intensity impulse response, $h_{optical}(x,y) = |h(x,y)|^2$.
 
+\begin{figure}
+\centering
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{Figures/PSF}
+        \caption{PSF}
+        \label{subfig:PSF}
+    \end{subfigure}
+    \quad
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{Figures/PSFzoom}
+        \caption{PSF zoom x10}
+        \label{subfig:PSFzoom}
+    \end{subfigure}
+    \decoRule
+    \caption{PSF of a perfect imaging system composed by a 3.6 mm pupil and a focal length of 80 mm at a wavelength of 637.5 nm. The size, N, of the PSF is 400 and the pixel size is 5.3 $\mu m$.}
+    \label{fig:PSF}
+\end{figure}
+
 In this study, we will study stars radiation which are object with an incoherent emission. The stars are point source objects given there distances. The image that an optical system gives of a point source is called the point spread function, PSF, or impulse response, IR, of the system, see Figure \ref{fig:PSF}. A point source is characterized by an infinite distance to the instrument and therefore the wave is planar, which means that the phasor is reduced to $U(\xi,\eta) = P(\xi,\eta)$. The PSF or IR is given by,
 
 \begin{equation}
@@ -288,13 +288,13 @@ The aberrations present on the optical path between the object and the image pla
 
 \begin{figure}
  \centering
-     \begin{subfigure}{0.4\textwidth}
+     \begin{subfigure}{0.45\textwidth}
          \includegraphics[width=\textwidth]{Figures/PSFzoom}
          \caption{perfect PSF (zoomed x10)}
          \label{subfig:perfPSF}
      \end{subfigure}
      \quad
-     \begin{subfigure}{0.4\textwidth}
+     \begin{subfigure}{0.45\textwidth}
          \includegraphics[width=\textwidth]{Figures/PSFzoomWthAb}
          \caption{PSF with aberrations ($a_j = 50 \mathrm{nm}$ for $a_{4}$, $a_{6}$and $a_{11}$,see subsec \ref{subsec:ZernikePol} for the definition of $a_j$, zoomed x10)}
          \label{subfig:PSFWthAb}
@@ -374,7 +374,7 @@ where $S$ is the surface of the pupil.
 
 The phase retrieval is a complicated process since the detectors are only sensitive to the intensity of a wave and not the wave itself, which renders impossible to have a direct relation between phase and image, thus we only have an indirect measurement of the wavefront. It is important to be able to estimate the aberrations of a system in order to correct them in real-time (Adaptive Optics systems) or in post-processing.
 
-There are a couple of ways to characterize the form of a wavefront in order to determine the amplitude of the aberrations present in an imaging system. Some uses the optical geometric approximation, which says that locally the light rays are perpendicular to the wavefront. These achromatic methods measure the gradient of the wave surface, such as Shack-Hartmann \citep{hartmann1900,ShackPlatt_1971,fontanella1985}, Curvature sensing \citep{Roddier1988} and Pyramid sensing \citep{ragazzoni1996}. An other kind of methods are called interferometric or focal plane methods, they use the interference patterns of the pupil to determine the form of the wavefront. The Phase Diversity is part of those kind of methods, it was discovered by \citet{GerchberSaxton1972,Gonsalve_1982}. The most popular method nowadays are the Shack-Hartmann, the curvature and the phase diversity. The latter will be explain in chapter \ref{ch:PDThe} and we will explain the principle of a Shack-Hartmann sensor since we will use it later on.
+There are a couple of ways to characterize the form of a wavefront in order to determine the amplitude of the aberrations present in an imaging system. Some uses the optical geometric approximation, which says that locally the light rays are perpendicular to the wavefront. These achromatic methods measure the gradient of the wave surface, such as Shack-Hartmann \citep{hartmann1900,ShackPlatt_1971,fontanella1985}, Curvature sensing \citep{Roddier1988} and Pyramid sensing \citep{ragazzoni1996}. An other kind of methods are called interferometric or focal plane methods, they use the interference patterns of the pupil to determine the form of the wavefront. The Phase Diversity is part of those kind of methods, it was discovered by \citet{Gonsalves_1982}. The most popular method nowadays are the Shack-Hartmann, the curvature and the phase diversity. The latter will be explain in chapter \ref{ch:PDThe} and we will explain the principle of a Shack-Hartmann sensor since we will use it later on.
 
 
 \subsection[Shack-Hartmann]{Shack-Hartmann \citep{hartmann1900,ShackPlatt_1971}}
@@ -395,5 +395,5 @@ The Shack-Hartmann wavefront sensor measures the gradient of an aberrant phase. 
 \label{eqt:SHWFSlope}
 \end{equation}
 
-where S is the surface of a micro-lens and f is the focal length of the micro-lenses. The wavefront is reconstructed by integrating over all the local slope measurements. 
+where S is the surface of a micro-lens and f is the focal length of the micro-lenses. The wavefront is reconstructed by integrating over all the local slope measurements. The advantage of this technique is that it do not require a lot of computation since it is a direct measurement. It is used in many fields, especially in adaptive optics system to correct for the atmospheric turbulence.
 
