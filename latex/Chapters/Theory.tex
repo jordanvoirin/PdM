@@ -13,7 +13,7 @@ In this chapter, we will present the theory upon which this work is based. First
 A monochromatic wave, at position $P$ and time $t$, can be represented by a scalar field $u(P,t)$ written as :
 
 \begin{equation}
-u(P,t) =  A(P) exp\left[-j2\pi\nu t + j\phi(P)\right],
+u(P,t) =  A(P) exp\left[-j2\pi\nu t - j\phi(P)\right],
 \label{eqt:WvscalarField}
 \end{equation}
 
@@ -22,7 +22,7 @@ where $A(P)$ and $\phi(P)$ are the amplitude and phase, respectively, of the wav
 The spatial part of eqt. \eqref{eqt:WvscalarField}, also called  phasor  in the literature, 
 
 \begin{equation}
-U(P) = A(P)e^{j\phi(P)},
+U(P) = A(P)e^{-j\phi(P)},
 \label{eqt:phasor}
 \end{equation}
 
@@ -203,7 +203,7 @@ U(x,y) = \iint_{-\infty}^{\infty} h(x,y;u,v)U(u,v)dudv
 The optical transfer function, OTF, is defined as the Fourier transform of the impulse response, an example is shown in Figure \ref{fig:OTF}. As we will use it later, for incoherent illumination and using the Fourier transform properties it can also be given by the autocorrelation of the pupil function as we will see in section \ref{subsec:FromOtoI} that the impulse response is given by the Fourier transform of the squared pupil function,
 
 \begin{equation}
-\overset{\sim}{h}_{optical}(\xi,\eta) = \mathcal{F}\left\lbrace h_{optical}(x,y)\right\rbrace = (P \otimes P)(\xi,\eta),
+\widetilde{h}_{optical}(\xi,\eta) = \mathcal{F}\left\lbrace h_{optical}(x,y)\right\rbrace = (P \otimes P)(\xi,\eta),
 \label{eqt:OTF}
 \end{equation}
 
@@ -222,16 +222,16 @@ i(x,y) = |U(x,y)|^2 = |\iint_{-\infty}^{\infty} h(x,y;u,v)U(u,v)dudv|^2.
 This integral simplifies differently depending on the type of object we are observing. For a \textbf{coherent object}, \citet[Chapter 6.2]{goodman_1968} showed that the imaging is linear in complex amplitude, thus eqt. \eqref{eqt:IsqAmplitude} becomes,
 
 \begin{equation}
-i(x,y) = |\iint_{-\infty}^{\infty} h(x-\overset{\sim}{u},y-\overset{\sim}{v})U(\overset{\sim}{u},\overset{\sim}{v})d\overset{\sim}{u}d\overset{\sim}{v}|^2,
+i(x,y) = |\iint_{-\infty}^{\infty} h(x-\widetilde{u},y-\widetilde{v})U(\widetilde{u},\widetilde{v})d\widetilde{u}d\widetilde{v}|^2,
 \label{eqt:convolution_hUo}
 \end{equation}
 
-where $(\overset{\sim}{u} = Mu,\overset{\sim}{v}= Mv)$ are the normalized object coordinates and $M$ is the magnification of the imaging system. The image is given by the squared modulus of the convolution of the impulse response and the object complex amplitude.
+where $(\widetilde{u} = Mu,\widetilde{v}= Mv)$ are the normalized object coordinates and $M$ is the magnification of the imaging system. The image is given by the squared modulus of the convolution of the impulse response and the object complex amplitude.
 
 For an \textbf{incoherent object},  \citet[Chapter 6.2]{goodman_1968} showed that the imaging is linear in intensity,
 
 \begin{equation}
-i(x,y) = \iint_{-\infty}^{\infty}|h(x-\overset{\sim}{u},y-\overset{\sim}{v})|^2o(\overset{\sim}{u},\overset{\sim}{v})d\overset{\sim}{u}d\overset{\sim}{v} = (h_{optical}\otimes o)(x,y),
+i(x,y) = \iint_{-\infty}^{\infty}|h(x-\widetilde{u},y-\widetilde{v})|^2o(\widetilde{u},\widetilde{v})d\widetilde{u}d\widetilde{v} = (h_{optical}\otimes o)(x,y),
 \label{eqt:imageObjectrel}
 \end{equation}
 
@@ -267,7 +267,7 @@ The domain where the impulse response is invariant under translation is called t
 In presence of aberrations, which will be discussed in section \ref{sec:Aberrations}, the wavefront is deformed with respect to the perfect planar or spheric form. The pupil function at the exit of the imaging system is modified as following,
 
 \begin{equation}
-\mathcal{P}(\xi,\eta) = P(\xi,\eta) e^{j\phi_{Ab}(\xi,\eta)},
+\mathcal{P}(\xi,\eta) = P(\xi,\eta) e^{-j\phi_{Ab}(\xi,\eta)},
 \label{eqt:aberratedPhasor}
 \end{equation}
 
@@ -276,6 +276,7 @@ where $\phi_{Ab}(\xi,\eta)$ is the dephasing caused by the aberration present be
 \section{Aberrations}
 \label{sec:Aberrations}
 
+\begin{minipage}{\linewidth}
 \begin{wrapfigure}{r}{0.5\textwidth}
 \centering
 \includegraphics[width=0.5\textwidth]{Figures/AbWFvsGausSphWF}
@@ -284,7 +285,15 @@ where $\phi_{Ab}(\xi,\eta)$ is the dephasing caused by the aberration present be
 \label{fig:AbWFvsGausSphWF}
 \end{wrapfigure}
 
-The aberrations present on the optical path between the object and the image planes decrease the quality of the resulting image. Indeed, they induce fluctuations of the amplitude and phase of the wave in the pupil plane. Since the amplitude fluctuations are negligible with respect to the phase fluctuations, we focus only on the latter. In figure \ref{fig:AbWFvsGausSphWF}, one can see the effect of the aberrations on an hypothetical spherical wavefront at the exit pupil of an imaging system. And in Figure \ref{fig:ComparisonPSFs}, one can see the effect of aberrations on the PSF of an imaging system. The PSF is blurred due to the defocus and we can well recognize the astigmatism introduced as the shape of the PSF tends towards the ellipse. 
+The aberrations present on the optical path between the object and the image planes decrease the quality of the resulting image. Indeed, they induce fluctuations of the amplitude and phase of the wave in the pupil plane. Since the amplitude fluctuations are negligible with respect to the phase fluctuations, we focus only on the latter. In figure \ref{fig:AbWFvsGausSphWF}, one can see the effect of the aberrations on an hypothetical spherical wavefront at the exit pupil of an imaging system. And in Figure \ref{fig:ComparisonPSFs}, one can see the effect of aberrations on the PSF of an imaging system. The PSF is blurred due to the defocus and we can well recognize the astigmatism introduced as the shape of the PSF tends towards the ellipse. The Strehl ratio is often the used quantity to quantify the importance of the aberrations, it is given by the following expression,
+
+\begin{equation}
+SR = \frac{\int \widetilde{h}_{optical}(\xi,\eta)\mathrm{d}\xi \mathrm{d}\eta}{\int \widetilde{h}_{perfect}(\xi,\eta) \mathrm{d}\xi \mathrm{d}\eta},
+\label{eqt:StrehlRatio}
+\end{equation}
+
+where $\widetilde{h}_{perfect}(\xi,\eta)$ it the OTF of the perfect system with the same pupil as the optical system with the OTF $\overset{\sim}{h}_{optical}(\xi,\eta)$.
+\end{minipage}
 
 \begin{figure}
  \centering
@@ -296,7 +305,7 @@ The aberrations present on the optical path between the object and the image pla
      \quad
      \begin{subfigure}{0.45\textwidth}
          \includegraphics[width=\textwidth]{Figures/PSFzoomWthAb}
-         \caption{PSF with aberrations ($a_j = 50 \mathrm{nm}$ for $a_{4}$, $a_{6}$and $a_{11}$,see subsec \ref{subsec:ZernikePol} for the definition of $a_j$, zoomed x10)}
+         \caption{PSF with aberrations ($a_j = 50 \mathrm{nm}$ for $a_{4}$, $a_{6}$and $a_{11}$, see subsec \ref{subsec:ZernikePol} for the definition of $a_j$, zoomed x10)}
          \label{subfig:PSFWthAb}
      \end{subfigure}
      \decoRule
@@ -395,5 +404,5 @@ The Shack-Hartmann wavefront sensor measures the gradient of an aberrant phase. 
 \label{eqt:SHWFSlope}
 \end{equation}
 
-where S is the surface of a micro-lens and f is the focal length of the micro-lenses. The wavefront is reconstructed by integrating over all the local slope measurements. The advantage of this technique is that it do not require a lot of computation since it is a direct measurement. It is used in many fields, especially in adaptive optics system to correct for the atmospheric turbulence.
+where S is the surface of a micro-lens and f is the focal length of the micro-lenses. The wavefront is reconstructed by integrating over all the local slope measurements. The advantage of this technique is that it do not require a lot of computation since it is a direct measurement. But it requires an important optical system to acquire the data. It is used in many fields, especially in adaptive optics system to correct for the atmospheric turbulence.
 

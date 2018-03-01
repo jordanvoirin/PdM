@@ -2,47 +2,27 @@
 \chapter{Phase Diversity Experiment} 
 \label{ch:PDExp}
 
-Here, we will describe the experiment put in place in the optical laboratory at the HEIG-VD to reconstruct wavefronts with unknown static aberrations introduced using phase screens. At first, we study the  behavior of the phase diversity algorithm put in place by \citet{mugnier_2006} at ONERA with respect to number of averaging images, in other words noise level, and number of Zernike coefficients retrieved. Then we test the algorithm using a known aberration introduced by a parallel plane plate in the beam comparing the result to Zemax simulation. And finally, we introduce the phase screen to have random aberrations in the pupil and try to compare the phase diversity results with the Shack Hartman wavefront sensor results.
+Here, we will describe the experiment put in place in the optical laboratory at the HEIG-VD to reconstruct wavefronts with unknown static aberrations introduced using phase screens. At first, we study the  behaviour of the phase diversity algorithm put in place by \citet{mugnier_2006} at ONERA with respect to number of averaging images, in other words noise level, and number of Zernike coefficients retrieved. Then we test the algorithm using a known aberration introduced by a parallel plane plate in the beam comparing the result to Zemax simulation. And finally, we introduce the phase screen to have random aberrations in the pupil and try to compare the phase diversity results with the Shack Hartman wavefront sensor results.
 
 \section{Experimental Setup}
 \label{sec:ExpSetup}
-
-\begin{wrapfigure}{r}{0.5\textwidth}
-\centering
-\includegraphics[width=0.5\textwidth]{Figures/setupSchema.JPG}
-\decoRulewrapFig
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.8\textwidth,angle=0]{Figures/setupSchema.JPG}
+\decoRule
 \caption[Experimental Setup Schema]{Experimental setup schema with the relevant distances, \citep{Bouxin_PDM}.}
 \label{fig:setupSchema}
-\end{wrapfigure}
+\end{center}
+\end{figure}
 
-The design of the experiment was already done by \citet{Bouxin_PDM}. The system is built according to her plans and specifications.
+The design of the experiment was already done by \citet{Bouxin_PDM}. The system is built according to her plans and specifications. Figure \ref{fig:setupSchema} shows the schema of the experimental setup.
 
 The experiment is mounted on a pressurized legs optical table. The assembly contains six main components : a light source, an entrance pupil, an imaging system, a converging lens to focus the beam on the camera, a camera and a wavefront sensor.
-
-
-\begin{table}
-\caption[Optical Components]{Optical Components}
-\label{tab:optComp}
-\centering
-\begin{tabular}{|l|l|l|c|}
-\hline
-\textbf{\#}& \textbf{Components} & \textbf{Model} & \textbf{Reference} \\\hline
-1 & Pigtailed laser diode & Thorlabs, LPS-635-FC & \ref{app:pigtailedLaserDiode} \\\hline
-2 & Converging lens, f = 11 mm & Thorlabs, A220TM-A & \ref{app:CL11} \\\hline
-3 & Pinhole, 10 $\mu$m & Thorlabs, P10S & \ref{app:pinhole10microns} \\\hline
-4 & Converging lens, f = 200 mm & Thorlabs, AL100200 & \ref{app:CL200} \\\hline
-5 & 3.2 mm Hole milled in metal sheet & ... & ... \\\hline
-6 & Converging lens, f = 100 mm & Thorlabs, AC254-100-A & \ref{app:CL100} \\\hline
-7 & Converging lens, f = 80 mm & & \\\hline
-8 & Camera CMOS & Ximea, MQ013MG-E2 & \ref{app:ximeaCam} \\\hline
-9 & Converging lens, f = 100 mm & & \\\hline
-10 & Shack-Hartman WFS & Thorlabs, WFS150-5C & \ref{app:SHwfs} \\\hline
-\end{tabular}
-\end{table}
 
 \subsection{Light source}
 \label{subsec:LigthSource}
 
+\begin{minipage}{\linewidth}
 \begin{wrapfigure}{r}{0.4\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth]{Figures/WFdistantSource.PNG}
@@ -54,6 +34,8 @@ The experiment is mounted on a pressurized legs optical table. The assembly cont
 The final application of the phase diversity will be to characterize the optical aberrations induced by the imperfect optical path to a scientific detector of a telescope. For this reason, the light source has to simulate a distant star aberration-free wavefront. A distant star wavefront is considered planar since the object distance, z, is far greater than the telescope size, r, see Fig. \ref{fig:WFdistantSource}. The source of our experiment must then be characterized by a planar wavefront.
 
 In order to obtain such a planar wavefront at the entrance pupil, the light source consist of a "pigtailed laser diode", a f=11mm converging lens, a pinhole and a f=200 mm converging lens, see Table \ref{tab:optComp}. The pigtailed laser diode emits a Gaussian beam centred at 637.5 nm slightly diverging. The converging lens concentrates the beam at the center of the 10$\mu$m pinhole to filter the noise. The second converging lens collimates the beam, obtaining a collimated beam with a planar wavefront, see Fig. \ref{fig:sourceRayTracing} and \ref{fig:pinholeEffect}.
+
+\end{minipage}
 
 \begin{figure}
 \centering
@@ -86,6 +68,26 @@ The phase diversity technique requires PSFs images as input, which means that th
 \label{subsec:Detectors}
 
 The image of the entrance pupil, obtained with the 4F system, is focused onto a CMOS Ximea camera by a f = 80 mm converging lens to acquire the PSFs for the phase diversity wavefront retrieval. The camera has a surface composed by 1280x1024 pixels of 5.3 $\mu$m, see Appendix \ref{app:ximeaCam}. It is mounted on sliding support in order to be able to acquire in/out-of-focus images. A beam splitter is placed in the converging beam to separate it in two. The second beam is collimated and a Shack-Hartman WFS is placed on the entrance pupil image plane, to check the results of the phase diversity wavefront retrieval. The Shack-Hartman WFS has a 39 X 31 lenslets grid and a CCD with a resolution of 1280x1024 pixels of 4.65 $\mu$m, see Appendix \ref{app:SHwfs}. 
+
+\begin{table}
+\caption{Optical Components}
+\label{tab:optComp}
+\centering
+\begin{tabular}{|l|l|l|c|}
+\hline
+\textbf{\#}& \textbf{Components} & \textbf{Model} & \textbf{Reference} \\\hline
+1 & Pigtailed laser diode & Thorlabs, LPS-635-FC & \ref{app:pigtailedLaserDiode} \\\hline
+2 & Converging lens, f = 11 mm & Thorlabs, A220TM-A & \ref{app:CL11} \\\hline
+3 & Pinhole, 10 $\mu$m & Thorlabs, P10S & \ref{app:pinhole10microns} \\\hline
+4 & Converging lens, f = 200 mm & Thorlabs, AL100200 & \ref{app:CL200} \\\hline
+5 & 3.2 mm Hole milled in metal sheet & ... & ... \\\hline
+6 & Converging lens, f = 100 mm & Thorlabs, AC254-100-A & \ref{app:CL100} \\\hline
+7 & Converging lens, f = 80 mm & & \\\hline
+8 & Camera CMOS & Ximea, MQ013MG-E2 & \ref{app:ximeaCam} \\\hline
+9 & Converging lens, f = 100 mm & & \\\hline
+10 & Shack-Hartman WFS & Thorlabs, WFS150-5C & \ref{app:SHwfs} \\\hline
+\end{tabular}
+\end{table}
 
 \section{Data Acquisition}
 \label{sec:DataAcquis}
