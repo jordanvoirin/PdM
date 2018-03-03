@@ -95,33 +95,70 @@ The image of the entrance pupil, obtained with the 4F system, is focused onto a 
 \subsection{Ximea Camera}
 \label{subsec:acquisXimCam}
 
-The ONERA algorithm takes at least one focused and one defocused PSFs, as described in section \ref{sec:ONERAalgorithm}. The PSFs are acquired using a python script which uses an open-source library to control the ximea camera, \verb|pyXimea|\footnote{\url{https://github.com/pupil-labs/pyximea}}, available on GitHub. The acquisition is done following these steps : 
+The ONERA algorithm takes at least one focused and one defocused PSFs, as described in section \ref{subsec:OneraAlgoImp}. The PSFs are acquired using a python script which uses an open-source library to control the ximea camera, \verb|pyXimea|\footnote{\url{https://github.com/pupil-labs/pyximea}}, available on GitHub. The acquisition is done following these steps : 
 
 \begin{enumerate}
 
-\item The first step in order to acquire PSFs is to determine the position of the camera's focus point using the python script \verb|AlignementScriptXimeaCamera.py|, see Appendix \ref{app:AlignementScriptXimeaCamera}. This script let's you acquire consecutively PSFs at different camera's positions and computes their FWHM. It finally returns the minimum FWHM and the camera's position, see Figure \ref{fig:28092017AlignementXimeaPSFs}.
+\item The first step in order to acquire PSFs is to determine the position of the camera's focus point using the python script \verb|AlignementScriptXimeaCamera.py|, see Appendix \ref{subapp:AlignementScriptXimeaCamera}. This script let's you acquire consecutively PSFs at different camera's positions and computes their FWHM. It finally returns the minimum FWHM and the camera's position, see Figure \ref{subfig:28092017AlignementXimeaPSFs} and \ref{subfig:28092017AlignementXimeaPos}.
 
-\begin{center}
 \begin{figure}
-\includegraphics[width=\textwidth]{../../../fig/alignement/28092017AlignementXimeaPSFs.png}
-\decoRule
-\caption{PSFs example of an alignment procedure}
-\label{fig:28092017AlignementXimeaPSFs}
+\centering
+    \begin{subfigure}{\textwidth}
+        \includegraphics[width=\textwidth]{../../../fig/alignement/28092017AlignementXimeaPSFs.png}
+        \caption{PSFs taken during the alignment procedure, each image is taken at an other camera position.}
+        \label{subfig:28092017AlignementXimeaPSFs}
+    \end{subfigure}
+    \\
+    \begin{subfigure}{\textwidth}
+        \includegraphics[width=\textwidth]{../../../fig/alignement/28092017AlignementXimeaPos.png}
+        \caption{FWHM of the PSFs as a function of the camera's position. The minimum is at $11.55$ mm}
+        \label{subfig:28092017AlignementXimeaPos}
+    \end{subfigure}
+    \decoRule
+    \caption{Example of the results of an alignment procedure}
 \end{figure}
-\end{center}
 
-\item Once you have the focus point position 
+\item Once the focus point position of the camera is determined, the acquisition of the data is possible. The acquisition script is called \verb!AcquisAndSaveXimea.py!, see Appendix \ref{subapp:AcquisAndSaveXimea}.
+
+\item The user needs to set the main parameters before acquiring. They are the number of images on which to average, the size of the final PSFs, the position of the focus point on the sliding system and the initial guess to fit the 2D Gaussian on the PSF to find its center. The initial guess can be made using the Ximea camera software, called \verb!xiCamTool!, with which one gets a live feedback of the camera.
+
+\item Then the running program ask the user what he needs to do after having made a sound. The first thing the user needs to do is to place the camera at the focus point and turn on the LED in order to set the optimal exposure time in order to avoid saturation.
+
+\item Finally the acquiring sequence begins, the program ask the user to shut down and turn on the source as the user acquire the different images to get the dark images and the PSF images. The user needs to manually displace the camera to get the defocused PSFs. The program computes the positions to get a $2\pi$ P2V defocus dephasing.
 
 \end{enumerate}
 
-\subsection{Shack-Hartman WFS}
+Many functions, used in the two scripts described above, are coded in the script \verb!functionsXimea.py!, see Appendix \ref{subapp:functionsXimea}.
+
+\subsection{Shack-Hartmann WFS}
 \label{subsec:acquisSHwfs}
 
+The Shack-Hartmann wavefront sensor acquisition is done with the company software. The acquired data are the Zernike coefficients and the reconstructed wavefront computed following the principle described in section \ref{subsec:SHprinciple}. Their is a few parameters that the user can set : the exposure time (there is also an auto set), the number of averaging images (1 up to 300) and the points reference of the detector. 
+
+The data are saved manually in a \textit{.csv} file. I coded an IDL script to read and average the Shack-Hartmann data, in order to be able to analyse them and compare the result with the phase diversity, see Appendix \ref{subapp:readAndAverageSHdata} and \ref{subapp:readSHWFSdata}. 
 
 \section{Results}
 \label{sec:Results}
 
-This section presents the results of the phase diversity experiment, with the introduction of different sources of aberration.
+This section presents the results of the phase diversity experiment, with the introduction of different sources of aberration. We will first present the results of the ONERA algorithm test, then we will compare the phase diversity retrieval with a calibrated aberration and finally we will introduce random static aberration with the phase screen and compare the results to the Shack-Hartmann wavefront sensor results.
+
+\subsection{ONERA Phase Diversity test}
+\label{subsec:ONERAPDtest}
+
+The motivation of this test was to better understand the behaviour of the ONERA phase diversity algorithm with respect to the different parameters that could influence its results, such as the noise present in the PSFs, the number of Zernike coefficients returned for the modal mode and the error on the defocused distance of the PSFs.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth,angle=0]{../../../fig/PD/noise_study/NoiseCurveXimea}
+\decoRule
+\caption{Noise level as a function of the number of averaging images acquired with $\sim$ 300 $\mu$s exposition time. The noise level is computed as the mean of the standard deviation of every pixel divided by the maximum of the focused PSF.}
+\label{fig:NoiseCurve}
+\end{center}
+\end{figure}
+
+The Ximea detector has a noise curve visible in Figure \ref{fig:NoiseCurve}. The noise curve is computed with the noise level of the focused PSFs. It follows an exponential law with the number of averaging images. The noise level varies from $\sim 1\mathrm{e}-3$ to $\sim 8\mathr{e}-5$, for 10 and 5000 images respectively. Having the noise curve of the detector, we can study how it influences the phase diversity results.
+
+
 
 \subsection{Parallel plane plate}
 \label{subsec:ParPlanePlate}

@@ -36,6 +36,9 @@ In this work, the final application of the phase diversity algorithm will be to 
 
 In this section, we will present briefly the phase diversity algorithm developed at ONERA since we test and use it to retrieve the phase and the aberrations in the experiment conducted in laboratory.
 
+\subsection{Algorithm description}
+\label{subsec:OneraAlgoDesc}
+
 As explained in section \ref{sec:principle}, the phase diversity determines the phase of the wavefront, as well as the unknown object when needed, using two images of the same object with a phase diversity between each image. This gives the following equation system \citep[p.11]{mugnier_2006},
 
 \begin{align}
@@ -67,9 +70,16 @@ where $N^2$ is the number of pixels in the image, $\mathbf{o}_m$ and $R_o$ are t
 
 In order to simplify and fasten the computation, they rewrite the criterion replacing $\mathbf{o}$ by its estimator $\hat{\mathbf{o}}(\mathbf{a},\boldsymbol{\theta})$ obtained by cancelling the derivative of $L_{JMAP}$ with respect to $\mathbf{o}$, and they move to the Fourier domain, see eqt. (24) of \citet[p.21]{mugnier_2006}.
 
+\subsection{Implementation}
+\label{subsec:OneraAlgoImp}
+
+
 
 \section{Analytical algorithm}
 \label{sec:AnAlgo}
+
+\subsection{Algorithm description}
+\label{subsec:ANalgoDesc}
 
 This algorithm uses an analytical method to retrieve the phase of the wavefront \textbf{induced by a known point source object}. We assume the object known, because we want to correct for the static aberrations present in the optical system to the scientific detector and thus we use a point source to illuminate the optical system, either a star or a laser.
 
@@ -147,9 +157,68 @@ The expression of $\Delta PSF_{\delta\phi}$, which is the $\Delta PSF$ at the de
 
 \begin{align}
 \Delta PSF_{\delta\phi, even} &= |\widetilde{C\psi}|^2 + |\widetilde{C\gamma}|^2 +|\widetilde{S\psi}|^2 + |\widetilde{S\gamma}|^2 -2\widetilde{PC}^*\widetilde{S\psi}+2\widetilde{PS}^*\widetilde{C\psi} \nonumber\\
-&-\widetilde{PC}^*\widetilde{C\psi^2}-\widetilde{PC}^*\widetilde{C\gamma^2}-\widetilde{PS}^*\widetilde{S\psi^2}-\widetilde{PS}^*\widetilde{S\gamma^2} \label{eqt:deltaPSFevenDef}\\
+&-\widetilde{PC}^*\widetilde{C\psi^2}-\widetilde{PC}^*\widetilde{C\gamma^2}-\widetilde{PS}^*\widetilde{S\psi^2}-\widetilde{PS}^*\widetilde{S\gamma^2} \label{eqt:DeltaPSFevenDef}\\
 \Delta PSF_{\delta\phi, odd} &= 2\widetilde{C\psi}^*\Im\lbrace\widetilde{S\gamma}\rbrace+2\Im\lbrace\widetilde{C\gamma}^*\rbrace\widetilde{S\psi}+2\widetilde{PC}^*\Im\lbrace\widetilde{C\gamma}\rbrace+2\widetilde{PS}^*\Im\lbrace\widetilde{S\gamma}\rbrace \nonumber\\
-&+2j\widetilde{PC}^*\widetilde{S\psi\gamma}-2j\widetilde{PS}^*\widetilde{C\psi\gamma}.\label{eqt:deltaPSFoddDef}
+&+2j\widetilde{PC}^*\widetilde{S\psi\gamma}-2j\widetilde{PS}^*\widetilde{C\psi\gamma}.\label{eqt:DeltaPSFoddDef}
 \end{align}
 
-Eqt. \eqref{eqt:DEltaPSFodd}, eqt. \eqref{eqt:deltaPSFevenDef} and eqt. \eqref{eqt:deltaPSFoddDef} allow to retrieve the complete phase of the optical system under the assumption of weak aberrations.
+Eqt. \eqref{eqt:DEltaPSFodd}, eqt. \eqref{eqt:DeltaPSFevenDef} and eqt. \eqref{eqt:DeltaPSFoddDef} allow to retrieve the complete phase of the optical system under the assumption of weak aberrations. The retrieval numerical method uses the decomposition of the even and odd part of the phase on the Zernike polynomials,
+
+\begin{align}
+\psi &= \sum\limits_{js\ even} a_j Z_j \label{eqt:evenPhaseDecomp}\\
+\gamma &= \sum\limits_{js\ odd} a_j Z_j. \label{eqt:oddPhaseDecomp}
+\end{align}
+
+This allows to have a linear system of equations with respect to the Zernike coefficient $a_j$ using eqts. \eqref{eqt:DEltaPSFodd} and \eqref{eqt:DeltaPSFoddDef}, but a problem arises as we tried to retrieve the phase of a purely even phase. The equations gave us an odd phase part equals to zero but also an even phase part equal to zero. This comes from the fact that in eqt. \eqref{eqt:DeltaPSFoddDef}, each term is multiplied by the odd phase component. And we could not use eqts. \eqref{eqt:DeltaPSFeven} or \eqref{eqt:DeltaPSFevenDef}, due to the squared modulus of the even and odd phase component, which rendered our system of of equation non-linear.
+
+One way to get around this issue is to add another diversity, which is equal in amplitude to the first one but its inverse. So we have two diversity given by,
+
+\begin{equation}
+\delta\phi_+ = \delta\phi \mathrm{\ and \ } \delta\phi_- = -\delta\phi
+\label{eqt:diversities}
+\end{equation}
+
+Using the new diversity, eqt. \eqref{eqt:DEltaPSFodd} allows to determine the odd part of the phase as before, but now for the even part of the phase we compute the difference between $\Delta PSF_{\delta\phi_+,even}$ and $\Delta PSF_{\delta\phi_-,even}$. This gives us the following system of equation,
+
+\begin{align}
+\Delta PSF_{odd} &= 2\Im\lbrace \widetilde{P^*}\widetilde{P \gamma}\rbrace \\
+\Delta PSF_{\delta\phi_+, even}-\Delta PSF_{\delta\phi_-, even} &= -4\widetilde{PC}^*\widetilde{S\psi} +4\widetilde{PS}^*\widetilde{C\psi},
+\end{align}
+
+which we can use to determine the complete phase of the wavefront. We can rewrite it using the decomposition of $\psi$ and $\gamma$ on the Zernike basis,
+
+\begin{align}
+\Delta PSF_{odd} &= \sum\limits_{js\ odd} a_j 2\Im\lbrace \widetilde{P^*}\widetilde{P Z_j}\rbrace \label{eqt:DeltaPSFoddonZernike}\\
+\Delta PSF_{\delta\phi_+, even}-\Delta PSF_{\delta\phi_-, even} &= \sum\limits_{js\ even} a_j \lbrace-4\widetilde{PC}^*\widetilde{SZ_j} +4\widetilde{PS}^*\widetilde{CZ_j}\rbrace.\label{eqt:DeltaPSF+-DeltaPSF-evenonZernike}
+\end{align}
+
+To solve these two equations and find the $a_j$'s, we use a linear regression method. We can rewrite the equations under a vectorial form to clarify the equations by flattening the images,
+
+\begin{align}
+\overrightarrow{\Delta PSF}_{odd} &= \underline{Z}_f\vec{a}_{odd}  \label{eqt:DeltaPSFoddonZernikeMAtrix}\\
+\overrightarrow{\Delta PSF}_{\delta\phi_+, even}-\overrightarrow{\Delta PSF}_{\delta\phi_-, even} &= \underline{Z}_d \vec{a}_{even}.\label{eqt:DeltaPSF+-DeltaPSF-evenonZernikeMatrix}
+\end{align}
+
+where $\underline{Z}_f$ is the $N^2 \mathrm{x} k_{odd}$ matrix regrouping all the terms of $2\Im\lbrace \widetilde{P^*}\widetilde{P Z_j}\rbrace$, $k_{odd}$ is the number of odd Zernike polynomials between $j_{min}$ and $j_{max}$, and $\underline{Z}_d$ is the $N^2 \mathrm{x} k_{even}$ matrix regrouping all the terms of $\lbrace-4\widetilde{PC}^*\widetilde{SZ_j} +4\widetilde{PS}^*\widetilde{CZ_j}\rbrace$, $k_{even}$ is the number of even Zernike polynomials between $j_{min}$ and $j_{max}$.
+
+\subsection{Implementation}
+
+The resolution of the equations as said above is done with a linear regression. The code is structured as following :
+
+\begin{description}
+\item[The Class phaseDiversity3PSFs] is the main class of the program, see Appendix \ref{subapp:phaseDiversity3PSFs}. It takes as inputs : the 3 PSFs needed to retrieve the phase as exposed above (inFoc, outFocpos and outFocneg), the displacement of the detector with respect to its focused position ($\Delta z$),
+
+\begin{equation}
+\Delta z = \frac{4\Delta\phi}{\pi}\lambda \left(\frac{D}{F}\right)^2,
+\label{eqt:Deltaz}
+\end{equation}
+
+where $\Delta\phi$ is the Peak To Valley (P2V) dephasing that we want to introduce in the defocused image in the following it will be equal to $2\pi$, $D$ is the pupil diameter and $F$ the focal length of the optical system. It takes also as inputs the wavelength of the incoming light, the pixel size of the detector, the focal length of the optical system, the radius of the pupil and the boundary on $jmin<j<jmax$ the Zernike index. 
+
+The instantiation of all the elements of eqts. \eqref{eqt:DeltaPSFoddonZernikeMAtrix} and \eqref{eqt:DeltaPSF+-DeltaPSF-evenonZernikeMatrix} is done by calling the class method \verb!initiateMatrix1()! and \verb!initiateMatrix2()!. These two methods compute the left and right members of the equations by calling methods present in the script \verb!fs.py!.
+
+\item[The script fs] is  gathering functions needed to retrieve the phase of the wavefront, see Appendix \ref{subapp:fs}. $\Delta PSF_{odd}$ and $\Delta PSF_{\delta\phi_+, even}-\Delta PSF_{\delta\phi_-, even}$ are computed by the two methods \verb!y1(params)! and \verb!y2even(params)!. The matrix elements of $\underline{Z}_f$ are computed by the method \verb!f1j(params)! and the elements of $\underline{Z}_d$ are computed by \verb!f2jeven(params)!. Those two functions needs the Zernike polynomial basis which is coded in \verb!zernike.py!, see Appendix \ref{subapp:zernike}.
+\end{description}
+
+The linear regression is done after having initiated all the elements of the equations. We use the \verb!numpy.linalg! class, especially its \verb!lstq! function\footnote{Documentation found at \url{https://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.lstsq.html\#numpy.linalg.lstsq}}. This functions takes a vector $\vec{b}$ corresponding to the flattened $Delta PSF_{odd}$ or $\Delta PSF_{\delta\phi_+, even}-\Delta PSF_{\delta\phi_-, even}$ and a matrix  $\underline{a}$ corresponding $\underline{Z}_f$ or $\underline{Z}_d$. Then it determines the vector $\vec{x}$ corresponding to the vector $\vec{a}$ that minimizes the euclidean 2-Norm $\lVert b-ax \rVert$ by computing the Moore-Penrose pseudo inverse of $\underline{a}$.
+

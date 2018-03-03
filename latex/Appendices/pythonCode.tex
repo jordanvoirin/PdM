@@ -1,0 +1,835 @@
+
+
+\chapter{Python Code}
+\label{AppPythonCode}
+
+\section{Phase Diversity analytical algorithm code}
+\label{app:phaseDiversityanAlgoCode}
+
+\subsection{phaseDiversity3PSFs.py}
+\label{subapp:phaseDiversity3PSFs}
+
+\begin{lstlisting}
+#Class phaseDiversity object to retrieve the phase in the pupil from two psfs in/out of focus
+
+import numpy as np
+import fs
+import myExceptions
+import PSF as psf
+
+class phaseDiversity3PSFs(object):
+
+    def __init__(self,inFoc,outFocpos,outFocneg,deltaZ,lbda,pxsize,F,pupilRadius,jmin,jmax):
+#        
+#        input:
+#        inFoc,outFocpos,outFocneg are the 3 squared PSFs data, (focused, defocused positiv and defocused negative)
+#        deltaZ is the displacement of the detector to acquire the two defocused PSFs
+#        lbda is the wavelength of the incoming light
+#        pxsize is the pixel size of the detector
+#        F is the focal length of the imaging system
+#        pupilRadius is the radius of the exit pupil
+#        jmin and jmax gives the boundary on the js to retrieve
+        
+        print 'phaseDiversity ...'        
+        
+        #PSF
+        self.inFoc = inFoc
+        self.outFocpos = outFocpos
+        self.outFocneg = outFocneg
+        shapeinFoc = np.shape(self.inFoc)
+        shapeoutFocpos = np.shape(self.outFocpos)
+        shapeoutFocneg = np.shape(self.outFocneg)
+        if shapeinFoc == shapeoutFocpos and shapeinFoc == shapeoutFocneg:
+            self.shape = shapeinFoc
+        else:
+            raise myExceptions.PSFssizeError('the shape of the in/out PSFs is not the same',[shapeinFoc,shapeoutFocpos])
+        if shapeinFoc[0]==shapeinFoc[1] and np.mod(shapeinFoc[0],2)==0:
+            self.N = shapeinFoc[0]
+        else:
+            raise myExceptions.PSFssizeError('Either PSF is not square or mod(N,2) != 0',shapeinFoc)
+            
+        # properties   
+        self.deltaZ = deltaZ
+        self.lbda = lbda
+        self.pxsize = pxsize
+        self.F = F
+        self.pupilRadius = pupilRadius
+        self.dxp = self.F*self.lbda/(self.N*self.pxsize)
+        self.rad = int(np.ceil(self.pupilRadius/self.dxp))
+        if 2*self.rad > self.N/2.:
+            raise myExceptions.PupilSizeError('Npupil (2*rad) is bigger than N/2 which is not correct for the fft computation',[])
+        self.NyquistCriterion()
+        self.jmin = jmin
+        self.jmax = jmax
+        self.oddjs = fs.getOddJs(self.jmin,self.jmax)
+        self.evenjs = fs.getEvenJs(self.jmin,self.jmax)
+        
+        # result computation
+        self.result = self.retrievePhase()
+
+    def NyquistCriterion(self):
+        deltaXfnyq = 0.5*self.lbda/(2*self.pupilRadius)
+        deltaXf = self.pxsize/self.F
+        if deltaXfnyq < deltaXf : raise myExceptions.NyquistError('the system properties do not respect the nyquist criterion',[])
+
+    def retrievePhase(self):
+        y1,A1 = self.initiateMatrix1()
+        results1 = np.linalg.lstsq(A1,y1)
+        ajsodd = results1[0]
+        A1tA1inv= np.linalg.inv(np.matmul(np.transpose(A1),A1))
+        n_p = y1.size-1
+        ste1 = np.sqrt(results1[1]/n_p * np.diagonal(A1tA1inv))
+        
+        deltaphi = fs.deltaPhi(self.N,self.deltaZ,self.F,2*self.pupilRadius,self.lbda,self.dxp)
+        y2,A2 = self.initiateMatrix2(deltaphi)
+        results2 = np.linalg.lstsq(A2,y2)
+        ajseven = results2[0]
+        A2tA2inv= np.linalg.inv(np.matmul(np.transpose(A2),A2))
+        n_p = y2.size-1
+        ste2 = np.sqrt(results2[1]/n_p * np.diagonal(A2tA2inv))
+
+        js = np.append(self.oddjs,self.evenjs)
+        ajs = np.append(ajsodd,ajseven)
+        ajsSte = np.append(ste1,ste2)
+
+        Ixjs = np.argsort(js)
+        result = {'js': js[Ixjs], 'ajs': ajs[Ixjs], 'ajsSte': ajsSte[Ixjs]} #,'wavefront':phase}
+        return result
+
+    def initiateMatrix1(self):
+        deltaPSFinFoc = self.CMPTEdeltaPSF()
+        y1 = fs.y1(deltaPSFinFoc)
+        A1 = np.zeros((self.N**2,len(self.oddjs)))
+        for ij in np.arange(len(self.oddjs)):
+            phiJ = fs.f1j(self.oddjs[ij],self.N,self.dxp,self.pupilRadius)
+            A1[:,ij] = phiJ
+        return y1,A1
+    
+    def initiateMatrix2(self,deltaphi):
+        deltaPSFoutFocpos,deltaPSFoutFocneg = self.CMPTEdeltaPSF(self.deltaZ)
+        y2 = fs.y2even(fs.getEvenPart(deltaPSFoutFocpos),fs.getEvenPart(deltaPSFoutFocneg))
+        A2 = np.zeros((self.N**2,len(self.evenjs)))
+        for ij in np.arange(len(self.evenjs)):
+            phiJ = fs.f2jeven(self.evenjs[ij],self.N,deltaphi,self.dxp,self.pupilRadius)
+            A2[:,ij] = phiJ
+        return y2,A2
+
+    def CMPTEdeltaPSF(self,deltaZ=[]):
+        if not deltaZ:
+            PSF = psf.PSF([1],[0],self.N,self.dxp,self.pupilRadius)
+            return PSF.Sp**2*self.inFoc - PSF.Sp**2*PSF.PSF
+        else:
+            P2Vdephasing = np.pi*self.deltaZ/self.lbda*(2*self.pupilRadius/self.F)**2/4.
+            a4 = P2Vdephasing/2./np.sqrt(3)
+            PSF = psf.PSF([4],[a4],self.N,self.dxp,self.pupilRadius)
+            return [PSF.Sp**2*self.outFocpos - PSF.Sp**2*PSF.PSF,PSF.Sp**2*self.outFocneg - PSF.Sp**2*PSF.PSF]
+\end{lstlisting}
+
+\subsection{fs.py}
+\label{subapp:fs}
+\begin{lstlisting}
+#functions to compute the matrix element of the system of equations Ax = b
+import zernike as Z
+import phasor as ph
+import numpy as np
+
+def f1j(j,N,dxp,pupilRadius): # 1: phij's of matrix A to find a_j odd
+    Zj = Z.calc_zern_j(j,N,dxp,pupilRadius)
+    FFTZj = scaledfft2(Zj,dxp)
+
+    Lp = N*dxp
+    xp = np.arange(-Lp/2,Lp/2,dxp)
+    yp = xp
+
+    [Xp,Yp]=np.meshgrid(xp,yp)
+    
+    pupil = np.float64(np.sqrt(Xp**2+Yp**2)<=pupilRadius)
+    FFTPupil = scaledfft2(pupil,dxp)
+
+    return np.ravel(2 * np.real(FFTPupil) * np.imag(FFTZj))
+
+def f2j(j,N,jsodd,ajsodd,deltaphi,dxp,pupilRadius): # 2: phij's of matrix A to find a_j even
+    #Get the jth zernike polynomials values on a circular pupil of radius rad
+    Zj = Z.calc_zern_j(j,N,dxp,pupilRadius)
+
+    #compute the different 2Dfft given in the equations of deltaPSF
+    cosZj = np.cos(deltaphi)*Zj
+    sinZj = np.sin(deltaphi)*Zj
+    FFTcosZj =  scaledfft2(cosZj,dxp)
+    FFTsinZj =  scaledfft2(sinZj,dxp)
+
+    #odd phase
+    oddPhasor = ph.phasor(jsodd,ajsodd,N,dxp,pupilRadius)
+    oddPhase = oddPhasor.phase
+    pupil = oddPhasor.pupil
+    cosOddPhase = pupil*np.cos(deltaphi)*oddPhase
+    sinOddPhase = pupil*np.sin(deltaphi)*oddPhase
+    FFTcosOddPhase =  scaledfft2(cosOddPhase,dxp)
+    FFTsinOddPhase =  scaledfft2(sinOddPhase,dxp)
+
+    #2Dfft of pupil function times sin(deltaPhi) and cos(deltaPhi)
+    pupilSin = pupil*np.sin(deltaphi)
+    pupilCos = pupil*np.cos(deltaphi)
+    FFTPupilSin =  scaledfft2(pupilSin,dxp)
+    FFTPupilCos =  scaledfft2(pupilCos,dxp)
+
+    FFTsinZjOddPhase = scaledfft2(sinZj*oddPhase,dxp)
+    FFTcosZjOddPhase = scaledfft2(cosZj*oddPhase,dxp)
+
+    return np.ravel(2*np.imag(np.conj(FFTcosZj) * FFTsinOddPhase + FFTsinZj * np.conj(FFTcosOddPhase)
+            - np.conj(FFTPupilCos) * FFTsinZjOddPhase + np.conj(FFTPupilSin) * FFTcosZjOddPhase))
+            
+def f2jeven(j,N,deltaphi,dxp,pupilRadius): # 2: phij's of matrix A to find a_j even
+    #Get the jth zernike polynomials values on a circular pupil of radius rad
+    Zj = Z.calc_zern_j(j,N,dxp,pupilRadius)
+    Phasor = ph.phasor([1],[0],N,dxp,pupilRadius)
+    pupil = Phasor.pupil
+    #compute the different 2Dfft given in the equations of deltaPSF
+    cosZj = pupil*np.cos(deltaphi)*Zj
+    sinZj = pupil*np.sin(deltaphi)*Zj
+    FFTcosZj =  scaledfft2(cosZj,dxp)
+    FFTsinZj =  scaledfft2(sinZj,dxp)
+    #2Dfft of pupil function times sin(deltaPhi) and cos(deltaPhi)
+    pupilSin = pupil*np.sin(deltaphi)
+    pupilCos = pupil*np.cos(deltaphi)
+    FFTPupilSin =  scaledfft2(pupilSin,dxp)
+    FFTPupilCos =  scaledfft2(pupilCos,dxp)
+
+    return np.ravel(-4*np.real(np.conj(FFTPupilCos)*FFTsinZj-np.conj(FFTPupilSin)*FFTcosZj))
+
+def y1(deltaPSFinFoc): #1: yi's of y to find a_j odd
+    #compute the odd part of delta PSF
+    oddDeltaPSF = getOddPart(deltaPSFinFoc)
+    return np.ravel(oddDeltaPSF)
+
+def y2(deltaPSFoutFoc,N,jsodd,ajsodd,deltaphi,dxp,pupilRadius): # 2: yi's of y to find a_j even
+    oddDeltaPSF = getOddPart(deltaPSFoutFoc)
+    oddPhasor = ph.phasor(jsodd,ajsodd,N,dxp,pupilRadius)
+    oddPhase = oddPhasor.phase
+
+    pupilSin = oddPhasor.pupil*np.sin(deltaphi)
+    pupilCos = oddPhasor.pupil*np.cos(deltaphi)
+    FFTPupilSin =  scaledfft2(pupilSin,dxp)
+    FFTPupilCos =  scaledfft2(pupilCos,dxp)
+    cosOddPhase = oddPhasor.pupil*np.cos(deltaphi)*oddPhase
+    sinOddPhase = oddPhasor.pupil*np.sin(deltaphi)*oddPhase
+    FFTcosOddPhase = scaledfft2(cosOddPhase,dxp)
+    FFTsinOddPhase =  scaledfft2(sinOddPhase,dxp)
+
+    return np.ravel(oddDeltaPSF - 2*np.real(np.conj(FFTPupilCos))*np.imag(FFTcosOddPhase)
+            - 2*np.real(np.conj(FFTPupilSin))*np.imag(FFTsinOddPhase))
+            
+def y2even(deltaPSFoutFocpos,deltaPSFoutfocneg): #3: yi's of y to find a_j even
+    return np.ravel(deltaPSFoutFocpos-deltaPSFoutfocneg)
+    
+#Other functions----------------------------------------------------------------------
+def flipMatrix(M):
+    #flip 2D matrix along x and y
+    dimM = (np.shape(M))[0]
+    Mflipped = np.flipud(np.fliplr(M))
+    if np.mod(dimM,2)==0:
+        Mflipped = np.roll(Mflipped,1,axis=0)
+        Mflipped = np.roll(Mflipped,1,axis=1)
+    return Mflipped
+def getOddPart(F):
+    oddF = (F - flipMatrix(F))/2.
+    return oddF
+def getEvenPart(F):
+    evenF = (F + flipMatrix(F))/2.
+    return evenF
+def getOddJs(jmin,jmax):
+    js = []
+    for j in np.arange(jmin,jmax+1):
+        [n,m] = Z.noll_to_zern(j)
+        if np.mod(m,2) == 1:
+            js.append(j)
+        else:
+            continue
+    return np.array(js)
+def getEvenJs(jmin,jmax):
+    js = []
+    for j in np.arange(jmin,jmax+1):
+        [n,m] = Z.noll_to_zern(j)
+        if np.mod(m,2) == 0:
+            js.append(j)
+        else:
+            continue
+    return np.array(js)
+def deltaPhi(N,deltaZ,F,D,wavelength,dxp):
+    Zj = Z.calc_zern_j(4,N,dxp,D/2.)
+    P2Vdephasing = np.pi*deltaZ/wavelength*(D/F)**2/4.
+    a4defocus = P2Vdephasing/2/np.sqrt(3)
+    return a4defocus*Zj
+def cleanZeros(A,threshold):
+    A[np.abs(A) < threshold] = 0.
+    return A
+def scaledfft2(f,dxp):
+    return np.fft.ifftshift(np.fft.fft2(np.fft.fftshift(f)))*dxp**2
+def RMSE(estimator,target):
+    return np.sqrt(np.mean((estimator-target)**2))
+def BIAS(estimator,target):
+    return np.mean((estimator-target))
+    
+def RMSwavefrontError(js,ajs):
+    if 1 in js:
+        return np.sqrt(np.sum(ajs**2)-ajs[js==1]**2)
+    else:
+        return np.sqrt(np.sum(ajs**2))
+
+\end{lstlisting}
+
+\subsection{myExceptions.py}
+\label{subapp:myExceptions}
+
+\begin{lstlisting}
+class PSFssizeError(ValueError):
+   '''Raise when the size of the PSFs are not correct'''
+   def __init__(self, message, foo, *args):
+       self.message = message
+       self.foo = foo
+       super(PSFssizeError, self).__init__(message, foo, *args)
+
+class NyquistError(ValueError):
+   '''Raise when the PSFs properties do not respect the nyquist criterion'''
+   def __init__(self, message, foo, *args):
+       self.message = message
+       self.foo = foo
+       super(NyquistError, self).__init__(message, foo, *args)
+
+class PupilSizeError(ValueError):
+    '''Raise when Npupil is bigger than the size of the PSF N'''
+    def __init__(self, message, foo, *args):
+        self.message = message
+        self.foo = foo
+        super(PupilSizeError, self).__init__(message, foo, *args)
+
+\end{lstlisting}
+
+\subsection{zernike.py}
+\label{subapp:zernike}
+
+\begin{lstlisting}
+import numpy as np
+
+def calc_zern_j(j, N, dxp, pupilRadius):
+
+    Lp = N*dxp
+
+    if (j <= 0):
+    		return {'modes':[], 'modesmat':[], 'covmat':0, 'covmat_in':0, 'mask':[[0]]}
+    if (N <= 0):
+    		raise ValueError("N should be > 0")
+    if (dxp <= 0 or dxp >= N):
+    		raise ValueError("dxp should be > 0 or < N")
+
+    xp = np.arange(-Lp/2,Lp/2,dxp)
+    yp = xp
+    [Xp,Yp]=np.meshgrid(xp,yp) 
+    r = np.sqrt(Xp**2+Yp**2)
+    r = r*(r<=pupilRadius)/pupilRadius
+    pup = np.float64(np.sqrt(Xp**2+Yp**2)<=pupilRadius)
+    theta = np.arctan2(Yp,Xp)
+
+    Zj = zernike(j,r,theta)*pup
+    return Zj
+
+def zernike(j,r,theta):
+    n,m = noll_to_zern(j)
+    nc = (2*(n+1)/(1+(m==0)))**0.5
+    #nc = (2*(n+1)/(1+(m==0)))**0.5
+    if (m > 0): return nc*zernike_rad(m, n, r) * np.cos(m * theta)
+    if (m < 0): return nc*zernike_rad(-m, n, r) * np.sin(-m * theta)
+    return nc*zernike_rad(0, n, r)
+
+def zernike_rad(m, n, r):
+    if (np.mod(n-m, 2) == 1):
+        return r*0.0
+    wf = r*0.0
+    for k in range((n-m)/2+1):
+        wf += r**(n-2.0*k) * (-1.0)**k * fac(n-k) / ( fac(k) * fac( (n+m)/2.0 - k ) * fac( (n-m)/2.0 - k ) )
+    return wf
+
+def noll_to_zern(j):   
+    j = int(j)
+    if (j == 0):
+        raise ValueError("Noll indices start at 1, 0 is invalid.")
+    n = 0
+    j1 = j-1
+    while (j1 > n):
+        n += 1
+        j1 -= n
+    m = (-1)**j * ((n % 2) + 2 * int((j1+((n+1)%2)) / 2.0 ))
+    return (n, m)
+def fac(n):
+    if n == 0:
+        return 1
+    else:
+        return n * fac(n-1)
+
+\end{lstlisting}
+
+\subsection{phasor.py}
+\label{subapp:phasor}
+
+\begin{lstlisting}
+#class phasor
+import numpy as np
+import zernike as Z
+
+class phasor(object):
+
+    def __init__(self,js=[1],ajs=[0],N=800,dxp=1,pupilRadius = 200):
+        self.js = js
+        self.ajs = ajs
+        self.N = N
+        self.dxp = dxp
+        self.pupilRadius = pupilRadius
+        
+        self.pupil = self.constructPupil()
+        
+        self.phase = self.constructPhase()
+        self.phasor = self.pupil*np.exp(-1j*self.phase)
+
+    def constructPhase(self):
+        phase = np.zeros((self.N,self.N))
+        for ij, j in enumerate(self.js):
+            Zj = Z.calc_zern_j(j,self.N,self.dxp,self.pupilRadius)
+            phase += self.ajs[ij]*Zj
+        return phase
+        
+    def constructPupil(self):
+        Lp = self.N*self.dxp
+
+        xp = np.arange(-Lp/2,Lp/2,self.dxp)
+        yp = xp
+
+        [Xp,Yp]=np.meshgrid(xp,yp)
+        
+        pup = np.float64(np.sqrt(Xp**2+Yp**2)<=self.pupilRadius)
+        return pup
+
+\end{lstlisting}
+
+\section{Acquisition Code: Ximea Camera}
+\label{app:AcquisitionCodeXimea}
+
+\subsection{AlignementScriptXimeaCamera.py}
+\label{subapp:AlignementScriptXimeaCamera}
+
+\begin{lstlisting}
+##Script to compute the FWHM of the beam on the camera averaging
+ #over "nbrImgAveraging" images and see which position minimizes it.
+
+from ximea import xiapi
+import numpy as np
+from matplotlib import pyplot  as plt
+import scipy.optimize as opt
+import datetime
+import functionsXimea as fX
+import seaborn as sns
+import os
+sns.set()
+#%% instanciation
+
+dataFolderPath = '...'
+plotFolderPath = '...'
+#create the matrix grid of the detector CCD
+x = np.linspace(0,1280,1280)
+y = np.linspace(0,1024,1024)
+x, y = np.meshgrid(x, y)
+ 
+#initial guess for the fit depending on the position of the beam in the CCD
+initial_guess = [250, 481, 706, 3, 3] # [max PSF,y,x,sigmay,sigmax]
+
+#number of image to average
+nbrImgAveraging = 10
+
+#%%data acquisition and treatment
+
+#create instance for first connected camera
+cam = xiapi.Camera()
+#start communication
+print('Opening camera...')
+cam.open_device()
+#settings
+cam.set_imgdataformat('XI_MONO8') #XIMEA format 8 bits per pixel
+cam.set_gain(0)
+#create instance of Image to store image data and metadata
+img = xiapi.Image()
+#start data acquisition
+print('Starting data acquisition...')
+if cam.get_acquisition_status() == 'XI_OFF':
+         cam.start_acquisition()
+
+cam.set_exposure(fX.determineUnsaturatedExposureTime(cam,img,[60,10000],1))
+
+#instanciation for the while loop
+answer ='y'
+i=0
+relativePos = []
+data = []
+data_fitted = []
+FWHMx = []
+FWHMy = []
+x0 = []
+y0 = []
+sigmaX0 = []
+sigmaY0 = []
+
+while answer == 'y':
+
+    try:
+        relativePos.append(float(raw_input('What is the position on the screw [mm] ? ')))
+    except ValueError:
+        print('Not a float number')
+        
+    [tmpdata,stdData] = fX.acquireImg(cam,img,nbrImgAveraging)
+    data.append(tmpdata)
+    #Fit the img data on the 2D Gaussian to compute the FWHM
+    print('Fitting 2D Gaussian...')
+    popt, pcov = opt.curve_fit(fX.TwoDGaussian, (x,y), data[i].ravel(), p0 = initial_guess)
+    print('Fitting done')
+
+    FWHMx.append(2*np.sqrt(2*np.log(2))*popt[3])
+    FWHMy.append(2*np.sqrt(2*np.log(2))*popt[4])
+    x0.append(popt[2])
+    sigmaX0.append(popt[4])
+    y0.append(popt[1])
+    sigmaY0.append(popt[3])
+
+    print 'Fig %d : (x,y) = (%3.2f,%3.2f), FWHM x = %3.2f, FWHM y  = %3.2f' %(i,x0[i],y0[i],FWHMx[i],FWHMy[i])
+
+    data_fitted.append(fX.TwoDGaussian((x, y), popt[0],popt[1],popt[2],popt[3],popt[4]).reshape(1024, 1280))
+
+    #plot the beamspot
+    fig, ax = plt.subplots(1, 1)
+    ax.imshow(data[i], cmap=plt.cm.jet,origin='bottom',
+        extent=(x.min(), x.max(), y.min(), y.max()))
+    ax.contour(x, y, data_fitted[i], 5, colors='w',linewidths=0.8)
+    plt.xlim( (popt[2]-4*popt[4], popt[2]+4*popt[4]) )
+    plt.ylim( (popt[1]-4*popt[3], popt[1]+4*popt[3]) )
+    plt.show()
+
+    #ask if the person wants to acquire a new image to improve the alignement
+    pressedkey = raw_input('Do you want to acquire an other image [y (yes) or n (no)]: ')
+    if (pressedkey =='n'):
+        answer = pressedkey
+    #increase i
+    i+=1
+
+#stop data acquisition
+print('Stopping acquisition...')
+cam.stop_acquisition()
+
+#stop communication
+cam.close_device()
+
+#convert list to np.array
+relativePos = np.array(relativePos)
+data = np.array(data)
+FWHMx = np.array(FWHMx)
+FWHMy = np.array(FWHMy)
+x0 = np.array(x0)
+y0 = np.array(y0)
+sigmaX0 = np.array(sigmaX0)
+sigmaY0 = np.array(sigmaY0)
+
+#plot the FWHM vs. relPos
+fig, ax = plt.subplots(1,1)
+ind = np.argsort(relativePos)
+ax.plot(relativePos[ind],(np.sqrt(FWHMx**2+FWHMy**2))[ind])
+ax.set_xlabel('Position [mm]')
+ax.set_ylabel('FWHM [px]')
+ax.grid()
+date = datetime.datetime.today()
+if not os.path.isdir(plotFolderPath):
+    os.makedirs(plotFolderPath)
+plt.savefig(plotFolderPath+date.strftime('%Y%m%d%H%M%S')+'FWHM_pos.pdf')
+plt.savefig(plotFolderPath+date.strftime('%Y%m%d%H%M%S')+'FWHM_pos.png')
+
+
+indOfMinFWHM = np.argmin(np.sqrt(FWHMx**2+FWHMy**2))
+
+fig, axarr = plt.subplots(1,np.size(data,0))
+#plot all the images besides each other
+for iImg in ind:
+    axarr[iImg].imshow(data[iImg], cmap=plt.cm.jet,origin='bottom',
+        extent=(x.min(), x.max(), y.min(), y.max()))
+#    axarr[iImg].contour(x, y, data_fitted[iImg], 5, colors='w',linewidths=0.8)
+    axarr[iImg].set_xlim( (x0[iImg]-12, x0[iImg]+12) )
+    axarr[iImg].set_ylim( (y0[iImg]-12, y0[iImg]+12) )
+    axarr[iImg].set_yticklabels('',visible=False)
+    axarr[iImg].set_xticklabels('',visible=False)
+    axarr[iImg].set_title('%5.3f mm'%relativePos[iImg],fontsize=8)
+    if iImg == indOfMinFWHM:
+        axarr[iImg].set_frame_on(True)
+        for pos in ['top', 'bottom', 'right', 'left']:
+            axarr[iImg].spines[pos].set_edgecolor('r')
+            axarr[iImg].spines[pos].set_linewidth(2)
+    else:
+        axarr[iImg].set_frame_on(False)
+plt.show()
+date = datetime.datetime.today()
+
+plt.savefig(plotFolderPath+date.strftime('%Y%m%d%H%M%S')+'ImgPSF.pdf')
+plt.savefig(plotFolderPath+date.strftime('%Y%m%d%H%M%S')+'ImgPSF.png')
+
+
+#save data
+if not os.path.isdir(dataFolderPath):
+    os.makedirs(dataFolderPath)
+date = datetime.datetime.today()
+np.save(dataFolderPath+date.strftime('%Y%m%d%H%M%S')+'data.npy',data)
+np.save(dataFolderPath+date.strftime('%Y%m%d%H%M%S')+'relativePos.npy',relativePos)
+\end{lstlisting}
+
+\subsection{AcquisAndSaveXimea.py}
+\label{subapp:AcquisAndSaveXimea}
+
+\begin{lstlisting}
+#%% Script to acquire images average over nbrImgAveraging images and save them into fits file
+
+from ximea import xiapi
+import datetime
+import functionsXimea as fX
+import winsound
+import numpy as np
+
+#%%instanciation --------------------------------------------------------------
+#number of image to average
+nbrImgAveraging = 5000
+numberOfFinalImages = 1
+
+#Cropping information
+sizeImg = 256
+
+#Parameter of camera and saving
+folderPathCropped = 'data//cropped/20/'
+darkFolderPathCropped = '.data/dark//cropped/20/'
+folderPathFull = 'data/full/'
+darkFolderPathFull = '/data/dark//full/'
+nameCamera = 'Ximea'
+focusPos = 11.63
+
+#Sound
+duration = 1000  # millisecond
+freq = 2000  # Hz
+
+#initial guess for the fit depending on the position of the beam in the CCD
+initial_guess = [250, 468, 954, 3, 3] # [max PSF,y,x,sigmay,sigmax]
+
+#------------------------------------------------------------------------------
+#%% data acquisition ----------------------------------------------------------
+
+#Opening the connection to the camera
+cam = xiapi.Camera()
+cam.open_device()
+cam.set_imgdataformat('XI_MONO8') #XIMEA format 8 bits per pixel
+cam.set_gain(0)
+
+img = xiapi.Image()
+if cam.get_acquisition_status() == 'XI_OFF':
+    cam.start_acquisition()
+#%% exposition
+cond = 1
+while bool(cond):
+    source = ''
+    winsound.Beep(freq, duration)
+    source = int(raw_input('Is the source turned on and at focus point (usually %5.3f mm) (yes = 1) ? '%focusPos))
+    if source == 1:
+        cond = 0
+    else:
+        print 'Please turn on the source and place the camera on the focus point (%5.3f mm)'%focusPos
+
+if bool(source):
+    #Set exposure time
+    cam.set_exposure(fX.determineUnsaturatedExposureTime(cam,img,[1,10000],1))
+    #get centroid
+    centroid = fX.acquirePSFCentroid(cam,img,initial_guess)
+    print 'centroid at (%d, %d)' %(centroid[0],centroid[1])
+
+#%%Acquire images at different camera position
+
+acquire = 1
+while bool(acquire):
+    cond = 1
+    while bool(cond):
+        dark = ''
+        winsound.Beep(freq, duration)
+        dark = int(raw_input('Is the source turned off (yes = 1) ? '))
+        if dark == 1:
+            cond = 0
+        else:
+            print 'Please shut down the source.'
+
+    winsound.Beep(freq, duration)
+    pos = float(raw_input('What is the position of the camera in mm focused (%5.3f mm) dephase 2Pi (pos+ = %5.3f mm, pos- = %5.3f) ? '%(focusPos,focusPos+3.19,focusPos-3.19)))
+
+    if bool(dark):
+        print 'Acquiring dark image...'
+        # Acquire dark images
+        [darkData,stdDarkData] = fX.acquireImg(cam,img,nbrImgAveraging)
+        print 'Cropping'
+        [darkdataCropped,stddarkDataCropped] = fX.cropAroundPSF(darkData,stdDarkData,centroid,sizeImg,sizeImg)
+        print 'saving'        
+        fX.saveImg2Fits(datetime.datetime.today(),darkFolderPathCropped,nameCamera,darkdataCropped,stddarkDataCropped,str(int(np.around(100*(focusPos-pos),0))),nbrImgAveraging)
+        fX.saveImg2Fits(datetime.datetime.today(),darkFolderPathFull,nameCamera,darkData,stdDarkData,str(int(np.around(100*(focusPos-pos),0))),nbrImgAveraging)
+
+    #Acquire images -------------------------
+    cond = 1
+    while bool(cond):
+        source = ''
+        winsound.Beep(freq, duration)
+        source = int(raw_input('Is the source turned on (yes = 1) ? '))
+        if source == 1:
+            cond = 0
+        else:
+            print 'Please place turn on the camera'
+
+    if bool(source):
+        print 'Acquiring images...'
+        # Acquire focused images
+        for iImg in range(numberOfFinalImages):
+            imgNumber = iImg+1
+            print 'Acquiring Image %d'%imgNumber
+            [data,stdData] = fX.acquireImg(cam,img,nbrImgAveraging)
+            print 'Cropping'
+            [dataCropped,stdDataCropped] = fX.cropAndCenterPSF(data-darkData,stdData+stdDarkData,sizeImg,initial_guess)
+            print 'Saving'
+            fX.saveImg2Fits(datetime.datetime.today(),folderPathCropped,nameCamera,dataCropped,stdDataCropped,str(int(np.around(100*(focusPos-pos),0))),nbrImgAveraging)
+            fX.saveImg2Fits(datetime.datetime.today(),folderPathFull,nameCamera,data-darkData,stdData+stdDarkData,str(int(np.around(100*(focusPos-pos),0))),nbrImgAveraging)
+
+    cond = 1
+    while bool(cond):
+        acquire = ''
+        winsound.Beep(freq, duration)
+        acquire = int(raw_input('Do you want to acquire at an other camera position (yes = 1, no = 0) ? '))
+        if acquire == 1:
+            cond = 0
+        elif acquire == 0:
+            cond = 0
+        else:
+             print 'please answer with 0 or 1 for no or yes, respectively'
+
+
+##Stop the acquisition
+cam.stop_acquisition()
+cam.close_device()
+
+print 'Acquisition finished'
+
+\end{lstlisting}
+
+\subsection{functionsXimea.py}
+\label{subapp:functionsXimea}
+
+\begin{lstlisting}
+import numpy as np
+import pyfits
+import os
+import scipy.optimize as opt
+#%% Functions -----------------------------------------------------------------
+
+
+#Create and save .fits from numpy array
+def saveImg2Fits(date,folderPath,Detector,data,stdData,pos,nbrAveragingImg):
+
+    #date : datetime at which the data where taken
+    #folderPath : where to save the data$
+    #Detector : name of detector (ex:Ximea)
+    #data : np.array containing the image
+    #stdData: np.array containing the error on each pixel
+    #pos : the position of the camera on the sliding holder in mm
+
+    imgHdu = pyfits.PrimaryHDU(data)
+    stdHdu = pyfits.ImageHDU(stdData,name = 'imgStdData')
+    hdulist = pyfits.HDUList([imgHdu,stdHdu])
+
+    if not os.path.isdir(folderPath):
+        os.makedirs(folderPath)
+
+    hdulist.writeto(folderPath + date.strftime('%Y%m%d%H%M%S')+'_'+Detector+'_'+pos+'.fits')
+
+def acquireImg(cam,img,nbrImgAveraging):
+    imgData = np.zeros([1024,1280])
+    stdData = np.zeros([1024,1280])
+    for iImg in range(nbrImgAveraging) :
+        #print iImg
+        cam.get_image(img)
+        imgTmpData = img.get_image_data_numpy()
+        imgData[:,:] += imgTmpData
+        stdData += imgTmpData*imgTmpData
+
+    stdData = np.sqrt((stdData-imgData*imgData/nbrImgAveraging)/(nbrImgAveraging-1))/(np.sqrt(nbrImgAveraging))
+    imgData = imgData/nbrImgAveraging
+
+    return [imgData,stdData]
+
+
+def determineUnsaturatedExposureTime(cam,img,exposureLimit,precision):
+     exposureTimes = exposureLimit
+     if cam.get_acquisition_status() == 'XI_OFF':
+         cam.start_acquisition()
+
+     while np.absolute(np.diff(exposureTimes))>precision:
+         expTime2check = int(np.round(np.nanmean(exposureTimes)))
+         print 'Try expTime : %d [us]\n' %expTime2check
+         cam.set_exposure(expTime2check)
+         data = acquireImg(cam,img,10)[0]
+
+         if np.sum(data>250)>1:
+             exposureTimes[1] = int(np.ceil(np.nanmean(exposureTimes)))
+         else:
+             exposureTimes[0] = int(np.floor(np.nanmean(exposureTimes)))
+         print 'exposure time between %d and %d \n' %(exposureTimes[0],exposureTimes[1])
+
+     return int(np.floor(np.nanmean(exposureTimes)))
+
+def TwoDGaussian((x, y), A, yo, xo, sigma_y, sigma_x):
+    g = A*np.exp( - ((x-xo)**2/(2*sigma_x**2) + ((y-yo)**2)/(2*sigma_y**2)))
+    return g.ravel()
+
+def acquirePSFCentroid(cam,img,initial_guess):
+    #create the matrix grid of the detector CCD
+
+    data = acquireImg(cam,img,200)[0]
+    centroid = getPSFCentroid(data,initial_guess)
+    return centroid
+
+def getPSFCentroid(data,initial_guess):
+    
+    x = np.linspace(0,1280,1280)
+    y = np.linspace(0,1024,1024)
+    x, y = np.meshgrid(x, y)
+    print 'fitting'
+    popt,pcov = opt.curve_fit(TwoDGaussian, (x,y), data.ravel(), p0 = initial_guess)
+    print 'fitting done'
+    return [popt[2],popt[1]]
+
+
+def cropAndCenterPSF(data,stdData,size,initial_guess):
+    Xextent = np.size(data,1)
+    Yextent = np.size(data,0)
+
+    centroid = getPSFCentroid(data,initial_guess)
+
+    minMarge = np.min([centroid[0],centroid[1],Xextent-centroid[0],Yextent-centroid[1]])
+
+    if minMarge>size/2:
+        return cropAroundPSF(data,stdData,centroid,size,size)
+    elif minMarge<size/2:
+        return cropAroundPSF(data,stdData, centroid,2*minMarge,2*minMarge)
+
+
+def cropAroundPSF(data,stdData,centroid,sizeX,sizeY):
+
+    pxX = [int(np.floor(centroid[0])-np.ceil(sizeX/2)),int(np.floor(centroid[0])+np.ceil(sizeX/2))]
+    pxY = [int(np.floor(centroid[1])-np.ceil(sizeY/2)),int(np.floor(centroid[1])+np.ceil(sizeY/2))]
+
+    dataCropped = data[pxY[0]:pxY[1],pxX[0]:pxX[1]]
+
+    stdDataCropped = stdData[pxY[0]:pxY[1],pxX[0]:pxX[1]]
+
+    return [dataCropped,stdDataCropped]
+
+\end{lstlisting}

@@ -8,6 +8,15 @@ import PSF as psf
 class phaseDiversity3PSFs(object):
 
     def __init__(self,inFoc,outFocpos,outFocneg,deltaZ,lbda,pxsize,F,pupilRadius,jmin,jmax):
+#        
+#        input:
+#        inFoc,outFocpos,outFocneg are the 3 squared PSFs data, (focused, defocused positiv and defocused negative)
+#        deltaZ is the displacement of the detector to acquire the two defocused PSFs
+#        lbda is the wavelength of the incoming light
+#        pxsize is the pixel size of the detector
+#        F is the focal length of the imaging system
+#        pupilRadius is the radius of the exit pupil
+#        jmin and jmax gives the boundary on the js to retrieve
         
         print 'phaseDiversity ...'        
         

@@ -381,12 +381,13 @@ where $S$ is the surface of the pupil.
 
 \section{Phase retrieval}
 
-The phase retrieval is a complicated process since the detectors are only sensitive to the intensity of a wave and not the wave itself, which renders impossible to have a direct relation between phase and image, thus we only have an indirect measurement of the wavefront. It is important to be able to estimate the aberrations of a system in order to correct them in real-time (Adaptive Optics systems) or in post-processing.
+The phase retrieval is a complicated process since the detectors are only sensitive to the intensity of a wave and not the wave itself, which renders impossible to have a direct relation between phase and image, thus we only have an indirect measurement of the wavefront. It is important to be able to estimate the aberrations of a system in order to correct them in real-time (Adaptive Optics systems) or in post-processing (Image restoration).
 
 There are a couple of ways to characterize the form of a wavefront in order to determine the amplitude of the aberrations present in an imaging system. Some uses the optical geometric approximation, which says that locally the light rays are perpendicular to the wavefront. These achromatic methods measure the gradient of the wave surface, such as Shack-Hartmann \citep{hartmann1900,ShackPlatt_1971,fontanella1985}, Curvature sensing \citep{Roddier1988} and Pyramid sensing \citep{ragazzoni1996}. An other kind of methods are called interferometric or focal plane methods, they use the interference patterns of the pupil to determine the form of the wavefront. The Phase Diversity is part of those kind of methods, it was discovered by \citet{Gonsalves_1982}. The most popular method nowadays are the Shack-Hartmann, the curvature and the phase diversity. The latter will be explain in chapter \ref{ch:PDThe} and we will explain the principle of a Shack-Hartmann sensor since we will use it later on.
 
 
 \subsection[Shack-Hartmann]{Shack-Hartmann \citep{hartmann1900,ShackPlatt_1971}}
+\label{subsec:SHprinciple}
 
 \begin{figure}
 \begin{center}
