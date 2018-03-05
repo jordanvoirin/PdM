@@ -22,7 +22,7 @@ nbrImgAveraging = nbrImgAveraging[indSorted]
 ;run phaseRetrieval----------------------------------------------------------------------------
 results = []
 for iFol = 0, Nfolders-1 do begin
-  results = [results,phaseRetrieval(sFolderPaths[indsorted[iFol]]+'\', 200,1,1)]
+  results = [results,phaseRetrieval(sFolderPaths[indsorted[iFol]]+'\', 30,1,1)]
 endfor
 
 
@@ -94,6 +94,9 @@ ajModalstds = stddev2(ajModal,2)
 ajZonalstds = stddev2(ajZonal,2)
 Ajstds = [transpose(ajModalstds),transpose(ajZonalstds)]
 
+pAjstdres = plot(results[0].res.j,ajModalstds,'b-2',xtitle='Zernike polynome j',ytitle = 'a_j [nm]')
+pAjstdzon = plot(results[0].zon.j,ajZonalstds,'r-2',/current,/overplot)
+
 ;A_j Boxplot
 boxDataAjM = CREATEBOXPLOTDATA(ajModal)
 boxDataAjZ = CREATEBOXPLOTDATA(ajZonal)
@@ -103,8 +106,8 @@ zboxes = boxplot(boxDataAjZ,FILL_COLOR='white',color='red',name='Zonal',/overplo
 mboxes.THICK = 2
 !null = LEGEND(target=[mboxes, zboxes])
 
-mboxes.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\noise_study\Boxplot_Aj_j_jmax200.pdf', BORDER=5, RESOLUTION=350
-mboxes.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\noise_study\Boxplot_Aj_j_jmax200.png', BORDER=5, RESOLUTION=350
+;mboxes.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\noise_study\Boxplot_Aj_j_jmax200.pdf', BORDER=5, RESOLUTION=350
+;mboxes.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\noise_study\Boxplot_Aj_j_jmax200.png', BORDER=5, RESOLUTION=350
 
 
 ;Compare wavefront 

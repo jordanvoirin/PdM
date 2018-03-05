@@ -109,7 +109,7 @@ The ONERA algorithm takes at least one focused and one defocused PSFs, as descri
         \label{subfig:28092017AlignementXimeaPSFs}
     \end{subfigure}
     \\
-    \begin{subfigure}{\textwidth}
+    \begin{subfigure}{0.6\textwidth}
         \includegraphics[width=\textwidth]{../../../fig/alignement/28092017AlignementXimeaPos.png}
         \caption{FWHM of the PSFs as a function of the camera's position. The minimum is at $11.55$ mm}
         \label{subfig:28092017AlignementXimeaPos}
@@ -133,7 +133,7 @@ Many functions, used in the two scripts described above, are coded in the script
 \subsection{Shack-Hartmann WFS}
 \label{subsec:acquisSHwfs}
 
-The Shack-Hartmann wavefront sensor acquisition is done with the company software. The acquired data are the Zernike coefficients and the reconstructed wavefront computed following the principle described in section \ref{subsec:SHprinciple}. Their is a few parameters that the user can set : the exposure time (there is also an auto set), the number of averaging images (1 up to 300) and the points reference of the detector. 
+The Shack-Hartmann wavefront sensor acquisition is done with the company software. The acquired data are the Zernike coefficients and the reconstructed wavefront computed following the principle described in section \ref{subsec:SHprinciple}. Their is a few parameters that the user can set : the exposure time (there is also an auto set), the number of averaging images (1 up to 300) and the focus points reference of the micro-lenses array. 
 
 The data are saved manually in a \textit{.csv} file. I coded an IDL script to read and average the Shack-Hartmann data, in order to be able to analyse them and compare the result with the phase diversity, see Appendix \ref{subapp:readAndAverageSHdata} and \ref{subapp:readSHWFSdata}. 
 
@@ -149,17 +149,46 @@ The motivation of this test was to better understand the behaviour of the ONERA 
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.75\textwidth,angle=0]{../../../fig/PD/noise_study/NoiseCurveXimea}
+\includegraphics[width=0.6\textwidth,angle=0]{../../../fig/PD/noise_study/NoiseCurveXimea}
 \decoRule
 \caption{Noise level as a function of the number of averaging images acquired with $\sim$ 300 $\mu$s exposition time. The noise level is computed as the mean of the standard deviation of every pixel divided by the maximum of the focused PSF.}
 \label{fig:NoiseCurve}
 \end{center}
 \end{figure}
 
-The Ximea detector has a noise curve visible in Figure \ref{fig:NoiseCurve}. The noise curve is computed with the noise level of the focused PSFs. It follows an exponential law with the number of averaging images. The noise level varies from $\sim 1\mathrm{e}-3$ to $\sim 8\mathr{e}-5$, for 10 and 5000 images respectively. Having the noise curve of the detector, we can study empirically how it influences the phase diversity results.
+To study the noise, we acquire PSFs with 25 different numbers of averaging images going from 10 to 5000. The noise level is computed as the ratio between the mean pixel standard deviation and the PSF maximum. The Ximea detector has a noise curve visible in Figure \ref{fig:NoiseCurve}. The noise curve is computed with the noise level of the focused PSFs. It follows an exponential law with the number of averaging images. The noise level varies from $\sim 1\mathrm{e}-3$ to $\sim 8\mathrm{e}-5$, for 10 and 5000 images respectively. Having the noise curve of the detector, we can study empirically how it influences the phase diversity results. 
 
+\begin{figure}
+\centering
+    \begin{subfigure}{0.8\textwidth}
+        \includegraphics[width=\textwidth]{../../../fig/PD/noise_study/ZernikeCoef_J_differentNbrAveraging.png}
+        \caption{Zernike coefficients $a_j$ as a function of $j$ the Zernike index of the 25 modal and zonal phase retrievals, in blue and red respectively.}
+        \label{subfig:ZernikeCoef_J_differentNbrAveragingjmax30}
+    \end{subfigure}
+    \\
+    \begin{subfigure}{0.5\textwidth}
+        \includegraphics[width=\textwidth]{../../../fig/PD/noise_study/Boxplot_Aj_j_jmax30.png}
+        \caption{Boxplot of the 25 Zernike coefficients $a_j$ of the different phase retrievals computed with the different averaging numbers of images as a function of the Zernike index $j$.}
+        \label{subfig:Boxplot_Aj_j_jmax30}
+    \end{subfigure}
+    \decoRule
+    \caption{Results of the phase retrievals computed with the 25 different noise levels. The phase retrievals are done with a $j_{max} = 30$}
+\end{figure}
 
+Figures \ref{subfig:ZernikeCoef_J_differentNbrAveragingjmax30} and \ref{subfig:Boxplot_Aj_j_jmax30} presents the results of the 25 different retrievals. As one can see there is some spread due to the different noise levels present in the PSFs given to the algorithm. The biggest standard deviation on a Zernike coefficient is smaller than 6 nm. And there can be up to 20 nm of maximal difference between the $a_j$'s as one can see on Figure \ref{subfig:Boxplot_Aj_j_jmax30}. The spherical aberration, $a_{11}$, has the biggest standard deviation and range of values. This shows that the PSFs noise levels have an impact on the retrieval and that not all Zernike coefficient are affected in the same way. One reassuring point is the good correspondence between the modal and zonal retrievals.
 
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth,angle=0]{../../../fig/PD/noise_study/WavefrontsNoiseStudy}
+\decoRule
+\caption{Reconstructed wavefronts for two different number of averaging images, 10 and 3500, left and right column respectively. The two first line are modal retrieval with $j_{max}=30$ and $j_{max}=200$ and the last line is the zonal retrieval.}
+\label{fig:WavefrontsNoiseStudy}
+\end{center}
+\end{figure}
+
+Furthermore, looking at the reconstructed wavefronts in Figure \ref{fig:WavefrontsNoiseStudy}, one can see the effect of noise in the PSFs and how important is the choice of $j_{max}$ for the modal reconstruction. Indeed, for the wavefronts reconstructed using $j_{max}=30$, the retrieved structures are similar, however for $j_max=200$ there are more structures in the retrieval done on the PSFs with 10 averaging images. This shows that the noise has a signal at high spatial frequencies. The zonal retrieval shows it clearly, the reconstruction is significantly different between 10 and 3500 averaging images. The averaging over a large number of acquisition smooth out the noise structures that perturbs the reconstruction. Also as said above with the Zernike coefficients is still valid for the wavefront, the two retrieval method gives similar results. But Figure \ref{fig:WavefrontsNoiseStudy} shows that the choice of $j_{max}$ is important if one wants to use the reconstructed wavefronts.
+
+\newpage
 \subsection{Parallel plane plate}
 \label{subsec:ParPlanePlate}
 

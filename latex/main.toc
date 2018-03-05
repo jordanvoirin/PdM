@@ -39,25 +39,29 @@
 \contentsline {subsection}{\numberline {3.2.2}Shack-Hartmann WFS}{27}{subsection.116}
 \contentsline {section}{\numberline {3.3}Results}{27}{section.117}
 \contentsline {subsection}{\numberline {3.3.1}ONERA Phase Diversity test}{27}{subsection.118}
-\contentsline {subsection}{\numberline {3.3.2}Parallel plane plate}{27}{subsection.120}
-\contentsline {chapter}{\numberline {A}Optical Component Datasheets}{29}{appendix.121}
-\contentsline {section}{\numberline {A.1}Pigtailed laser diode}{30}{section.122}
-\contentsline {subsection}{\numberline {A.1.1}Power supply modification}{31}{subsection.123}
-\contentsline {section}{\numberline {A.2}Converging lens A220TM-A, f = 11 mm}{31}{section.124}
-\contentsline {section}{\numberline {A.3}Pinhole 10 $\mu $m}{32}{section.125}
-\contentsline {section}{\numberline {A.4}Converging lens AL100200, f = 200 mm}{33}{section.126}
-\contentsline {section}{\numberline {A.5}Converging lens AC254-100-A, f = 100 mm}{34}{section.127}
-\contentsline {section}{\numberline {A.6}Ximea Camera, MQ013MG-E2}{35}{section.128}
-\contentsline {section}{\numberline {A.7}Shack-Hartmann wavefront sensor, WFS150-5C}{36}{section.129}
-\contentsline {chapter}{\numberline {B}Python Code}{37}{appendix.130}
-\contentsline {section}{\numberline {B.1}Phase Diversity analytical algorithm code}{37}{section.131}
-\contentsline {subsection}{\numberline {B.1.1}phaseDiversity3PSFs.py}{37}{subsection.132}
-\contentsline {subsection}{\numberline {B.1.2}fs.py}{39}{subsection.247}
-\contentsline {subsection}{\numberline {B.1.3}myExceptions.py}{42}{subsection.397}
-\contentsline {subsection}{\numberline {B.1.4}zernike.py}{42}{subsection.420}
-\contentsline {subsection}{\numberline {B.1.5}phasor.py}{43}{subsection.479}
-\contentsline {section}{\numberline {B.2}Acquisition Code: Ximea Camera}{44}{section.517}
-\contentsline {subsection}{\numberline {B.2.1}AlignementScriptXimeaCamera.py}{44}{subsection.518}
-\contentsline {subsection}{\numberline {B.2.2}AcquisAndSaveXimea.py}{47}{subsection.684}
-\contentsline {subsection}{\numberline {B.2.3}functionsXimea.py}{50}{subsection.817}
-\contentsline {chapter}{Bibliography}{53}{appendix*.927}
+\contentsline {subsection}{\numberline {3.3.2}Parallel plane plate}{31}{subsection.122}
+\contentsline {chapter}{\numberline {A}Optical Component Datasheets}{33}{appendix.123}
+\contentsline {section}{\numberline {A.1}Pigtailed laser diode}{34}{section.124}
+\contentsline {subsection}{\numberline {A.1.1}Power supply modification}{35}{subsection.125}
+\contentsline {section}{\numberline {A.2}Converging lens A220TM-A, f = 11 mm}{35}{section.126}
+\contentsline {section}{\numberline {A.3}Pinhole 10 $\mu $m}{36}{section.127}
+\contentsline {section}{\numberline {A.4}Converging lens AL100200, f = 200 mm}{37}{section.128}
+\contentsline {section}{\numberline {A.5}Converging lens AC254-100-A, f = 100 mm}{38}{section.129}
+\contentsline {section}{\numberline {A.6}Ximea Camera, MQ013MG-E2}{39}{section.130}
+\contentsline {section}{\numberline {A.7}Shack-Hartmann wavefront sensor, WFS150-5C}{40}{section.131}
+\contentsline {chapter}{\numberline {B}Python Code}{41}{appendix.132}
+\contentsline {section}{\numberline {B.1}Phase Diversity analytical algorithm code}{41}{section.133}
+\contentsline {subsection}{\numberline {B.1.1}phaseDiversity3PSFs.py}{41}{subsection.134}
+\contentsline {subsection}{\numberline {B.1.2}fs.py}{43}{subsection.249}
+\contentsline {subsection}{\numberline {B.1.3}myExceptions.py}{46}{subsection.399}
+\contentsline {subsection}{\numberline {B.1.4}zernike.py}{46}{subsection.422}
+\contentsline {subsection}{\numberline {B.1.5}phasor.py}{47}{subsection.481}
+\contentsline {section}{\numberline {B.2}Acquisition Code: Ximea Camera}{48}{section.519}
+\contentsline {subsection}{\numberline {B.2.1}AlignementScriptXimeaCamera.py}{48}{subsection.520}
+\contentsline {subsection}{\numberline {B.2.2}AcquisAndSaveXimea.py}{51}{subsection.686}
+\contentsline {subsection}{\numberline {B.2.3}functionsXimea.py}{54}{subsection.819}
+\contentsline {chapter}{\numberline {C}IDL Code}{57}{appendix.929}
+\contentsline {section}{\numberline {C.1}Shack-Hartmann Acquisition Code}{57}{section.930}
+\contentsline {subsection}{\numberline {C.1.1}readAndAverageSHdata.pro}{57}{subsection.931}
+\contentsline {subsection}{\numberline {C.1.2}readSHWFSdata.pro}{57}{subsection.957}
+\contentsline {chapter}{Bibliography}{59}{appendix*.1026}
