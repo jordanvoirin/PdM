@@ -133,7 +133,21 @@ Many functions, used in the two scripts described above, are coded in the script
 \subsection{Shack-Hartmann WFS}
 \label{subsec:acquisSHwfs}
 
-The Shack-Hartmann wavefront sensor acquisition is done with the company software. The acquired data are the Zernike coefficients and the reconstructed wavefront computed following the principle described in section \ref{subsec:SHprinciple}. Their is a few parameters that the user can set : the exposure time (there is also an auto set), the number of averaging images (1 up to 300) and the focus points reference of the micro-lenses array. 
+The Shack-Hartmann wavefront sensor is delivered with a software which does the numerical integration to compute
+the wavefront. The GUI shows the spot field (focal points), the beam view (irradiance of the
+CCD), the wavefront measured or reconstructed (where you can choose the Zernike coefficients
+to consider for the integration) and the Zernike coefficients.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth,angle=0]{Figures/SHWFS_GUI}
+\decoRule
+\caption{Shack-Hartmann Software GUI, with the  beam view on the top left, the spot field in the middle and the reconstructed wavefront on the top right.}
+\label{fig:}
+\end{center}
+\end{figure}
+
+The acquisition is done with the company software. The acquired data are the Zernike coefficients and the reconstructed wavefront computed following the principle described in section \ref{subsec:SHprinciple}. Their is a few parameters that the user can set : the exposure time (there is also an auto set), the number of averaging images (1 up to 300) and the focus points reference of the micro-lenses array. 
 
 The data are saved manually in a \textit{.csv} file. I coded an IDL script to read and average the Shack-Hartmann data, in order to be able to analyse them and compare the result with the phase diversity, see Appendix \ref{subapp:readAndAverageSHdata} and \ref{subapp:readSHWFSdata}. 
 
@@ -145,7 +159,7 @@ This section presents the results of the phase diversity experiment, with the in
 \subsection{ONERA Phase Diversity test}
 \label{subsec:ONERAPDtest}
 
-The motivation of this test was to better understand the behaviour of the ONERA phase diversity algorithm with respect to the different parameters that could influence its results, such as the noise present in the PSFs, the number of Zernike coefficients returned for the modal mode and the error on the defocused distance of the PSFs.
+The motivation of this test is to better understand the behaviour of the ONERA phase diversity algorithm with respect to the different parameters that could influence its results, such as the noise present in the PSFs, the number of Zernike coefficients returned for the modal mode and the error on the position of the Ximea camera.
 
 \begin{figure}
 \begin{center}
@@ -160,13 +174,13 @@ To study the noise, we acquire PSFs with 25 different numbers of averaging image
 
 \begin{figure}
 \centering
-    \begin{subfigure}{0.8\textwidth}
+    \begin{subfigure}{\textwidth}
         \includegraphics[width=\textwidth]{../../../fig/PD/noise_study/ZernikeCoef_J_differentNbrAveraging.png}
         \caption{Zernike coefficients $a_j$ as a function of $j$ the Zernike index of the 25 modal and zonal phase retrievals, in blue and red respectively.}
         \label{subfig:ZernikeCoef_J_differentNbrAveragingjmax30}
     \end{subfigure}
     \\
-    \begin{subfigure}{0.5\textwidth}
+    \begin{subfigure}{0.75\textwidth}
         \includegraphics[width=\textwidth]{../../../fig/PD/noise_study/Boxplot_Aj_j_jmax30.png}
         \caption{Boxplot of the 25 Zernike coefficients $a_j$ of the different phase retrievals computed with the different averaging numbers of images as a function of the Zernike index $j$.}
         \label{subfig:Boxplot_Aj_j_jmax30}
@@ -186,10 +200,43 @@ Figures \ref{subfig:ZernikeCoef_J_differentNbrAveragingjmax30} and \ref{subfig:B
 \end{center}
 \end{figure}
 
-Furthermore, looking at the reconstructed wavefronts in Figure \ref{fig:WavefrontsNoiseStudy}, one can see the effect of noise in the PSFs and how important is the choice of $j_{max}$ for the modal reconstruction. Indeed, for the wavefronts reconstructed using $j_{max}=30$, the retrieved structures are similar, however for $j_max=200$ there are more structures in the retrieval done on the PSFs with 10 averaging images. This shows that the noise has a signal at high spatial frequencies. The zonal retrieval shows it clearly, the reconstruction is significantly different between 10 and 3500 averaging images. The averaging over a large number of acquisition smooth out the noise structures that perturbs the reconstruction. Also as said above with the Zernike coefficients is still valid for the wavefront, the two retrieval method gives similar results. But Figure \ref{fig:WavefrontsNoiseStudy} shows that the choice of $j_{max}$ is important if one wants to use the reconstructed wavefronts.
+Furthermore, looking at the reconstructed wavefronts in Figure \ref{fig:WavefrontsNoiseStudy}, one can see the effect of noise in the PSFs and how important is the choice of $j_{max}$ for the modal reconstruction. Indeed, for the wavefronts reconstructed using $j_{max}=30$, the retrieved structures are similar, however for $j_{max}=200$ there are more structures in the retrieval done on the PSFs with 10 averaging images than with 3500 images. This shows that the noise has a signal at high spatial frequencies. The zonal retrieval shows it clearly, the reconstruction is significantly different between 10 and 3500 averaging images. The averaging over a large number of acquisition smooth out the noise structures that perturbs the reconstruction. Looking at the 25 reconstructed wavefront with the zonal method, the noise threshold is at 3500 averaging images to kill the effect of the noise. Also as said above for the Zernike coefficients and still valid for the wavefront, the two retrieval method gives similar results, as one can compare the three retrievals with 3500 images on the left column of Figure \ref{fig:WavefrontsNoiseStudy}. There is structures present on the wavefront reconstructed on 200 Zernike coefficients, but the footprint of the beam is similar to the two other reconstructions.
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth,angle=0]{../../../fig/PD/noise_study/ZernikeCoef_J_differentJmax_5000Imgs.png}
+\decoRule
+\caption{Zernike coefficients $a_j$ as a function of $j$ for the 227 retrievals done for 231 different $j_{max}$ from 4 to 231.}
+\label{fig:ZernikeCoef_J_differentJmax_5000Imgs}
+\end{center}
+\end{figure}
+
+In order to be sure that the number of Zernike coefficient retrieved only influenced the wavefront reconstruction and not the $a_j$'s values, we computed them varying $j_{max}$ from 4 to 231 and found that the spread is negligible, see Figure \ref{fig:ZernikeCoef_J_differentJmax_5000Imgs}. This confirmation is expected since the Zernike polynomials are orthonormal, thus not correlated.
+
+\begin{figure}
+\centering
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{../../../fig/PD/errorDeltaZStudy/Boxplot_Aj_j.png}
+        \caption{Boxplots of the 125 $a_j$'s retrieved with the modal method (blue) and zonal method (red). The PSFs are acquired with 5000 averaging images.}
+        \label{subfig:Boxplot_Aj_j}
+    \end{subfigure}
+    \quad
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{../../../fig/PD/errorDeltaZStudy/Boxplot_stdAj.png}
+        \caption{Boxplots of the 125 standard deviations on the Zernike coefficient for the modal and zonal method.}
+        \label{subfig:Boxplot_stdAj}
+    \end{subfigure}
+    \decoRule
+    \caption{Results of the $\Delta z$ measurement error test. The plots represent the results of the 125 phase retrievals run with all the permutations of errors, $[-2\sigma,-1\sigma,0,1\sigma,2\sigma]$ with $\sigma = 5\mathrm{e}-3$ mm, on the three PSFs position $\Delta z$}.
+\end{figure}
+
+Finally, the last test is to control the impact of a measurement error $\sigma_{\Delta z}$, the error position of the Ximea camera, on the phase retrieval. To do so the latter is run with 125 different permutations of the errors $[-2\sigma,-1\sigma,0,1\sigma,2\sigma]$ on the 3 PSFs position. $\sigma$ is set to represent the best precision we have on the position of the camera. As explained in section \ref{subsec:Detectors}, the camera is mounted on a sliding element moved by a micro metric screw, so $\sigma = 5\mathrm{e}-3$ mm. Figures \ref{subfig:Boxplot_Aj_j} and \ref{subfig:Boxplot_stdAj} present the results. The position error has nearly no effect on the phase retrieval, the median standard deviations are $\sim0.05$ nm and $\sim0.07$ nm for the modal and zonal method respectively.
+
+In conclusion, the ONERA algorithm tests shows that first the two different methods, to retrieve the phase using the JMAP estimator, modal and zonal give similar results. Then, we have seen that the noise levels present in the PSFs influence the retrieval, see Figures \ref{subfig:ZernikeCoef_J_differentNbrAveragingjmax30}, \ref{subfig:Boxplot_Aj_j_jmax30} and \ref{fig:WavefrontsNoiseStudy}. We can consider the noise as an added aberration that touches all the Zernike coefficients. The spherical aberration is the most sensitive one. Also looking at the wavefronts, we see that there is a number of averaging images threshold at 3500 images for the zonal retrieval. Above this threshold the noise seems to be smooth and the retrieval looses the high spatial frequency components. The same thing is true for the modal retrieval, but the smoothing is not as effective at 3500 images. For the rest of this work each PSFs will be acquired with 5000 averaging images. Also we showed that the number of Zernike coefficient $j_{max}$ does not alter the modal retrieval. And finally, the error on the position of the camera also have a negligible impact.
 
 \newpage
 \subsection{Parallel plane plate}
 \label{subsec:ParPlanePlate}
 
-The first source of aberration studied in this work is a tilted parallel plane plate which is used as a calibrated source of astigmatism.
+Now that we know how the algorithm behaves with respect to noise, $j_{max}$, etc... We compare its results to a calibrated aberration. The calibration is computed by simulating the optical system using Zemax. We introduce astigmatism using a plexiglas  parallel plane plate with an angle with respect to the optical axis.

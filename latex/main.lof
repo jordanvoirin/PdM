@@ -17,9 +17,12 @@
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Experimental Setup Schema}}{24}{figure.caption.99}
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Source schema and pinhole effect on the beam.\relax }}{24}{figure.caption.102}
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Example of the results of an alignment procedure\relax }}{26}{figure.caption.111}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Noise level as a function of the number of averaging images acquired with $\sim $ 300 $\mu $s exposition time. The noise level is computed as the mean of the standard deviation of every pixel divided by the maximum of the focused PSF.\relax }}{28}{figure.caption.119}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Results of the phase retrievals computed with the 25 different noise levels. The phase retrievals are done with a $j_{max} = 30$\relax }}{29}{figure.caption.120}
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Reconstructed wavefronts for two different number of averaging images, 10 and 3500, left and right column respectively. The two first line are modal retrieval with $j_{max}=30$ and $j_{max}=200$ and the last line is the zonal retrieval.\relax }}{30}{figure.caption.121}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Shack-Hartmann Software GUI, with the beam view on the top left, the spot field in the middle and the reconstructed wavefront on the top right.\relax }}{27}{figure.caption.117}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Noise level as a function of the number of averaging images acquired with $\sim $ 300 $\mu $s exposition time. The noise level is computed as the mean of the standard deviation of every pixel divided by the maximum of the focused PSF.\relax }}{28}{figure.caption.120}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Results of the phase retrievals computed with the 25 different noise levels. The phase retrievals are done with a $j_{max} = 30$\relax }}{29}{figure.caption.121}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Reconstructed wavefronts for two different number of averaging images, 10 and 3500, left and right column respectively. The two first line are modal retrieval with $j_{max}=30$ and $j_{max}=200$ and the last line is the zonal retrieval.\relax }}{30}{figure.caption.122}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Zernike coefficients $a_j$ as a function of $j$ for the 227 retrievals done for 231 different $j_{max}$ from 4 to 231.\relax }}{31}{figure.caption.123}
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Results of the $\Delta z$ measurement error test. The plots represent the results of the 125 phase retrievals run with all the permutations of errors, $[-2\sigma ,-1\sigma ,0,1\sigma ,2\sigma ]$ with $\sigma = 5\mathrm {e}-3$ mm, on the three PSFs position $\Delta z$\relax }}{32}{figure.caption.124}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

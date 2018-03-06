@@ -20,9 +20,11 @@ indSorted = sort(nbrImgAveraging)
 nbrImgAveraging = nbrImgAveraging[indSorted]
 
 ;run phaseRetrieval----------------------------------------------------------------------------
+jmax = 30
+
 results = []
 for iFol = 0, Nfolders-1 do begin
-  results = [results,phaseRetrieval(sFolderPaths[indsorted[iFol]]+'\', 30,1,1)]
+  results = [results,phaseRetrieval(sFolderPaths[indsorted[iFol]]+'\', jmax,1,1)]
 endfor
 
 
@@ -113,23 +115,32 @@ mboxes.THICK = 2
 ;Compare wavefront 
 resDim = size(results[0].res.wavefront,/dimension)
 imres = image(results[0].res.wavefront,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],$
-  yrange=[0,resDim[1]],title=string(long(nbrImgAveraging[0]))+ ' Modal', MARGIN=marge,layout=[2,1,1])
+  yrange=[0,resDim[1]],title='Modal '+string(long(nbrImgAveraging[0]))+ ' images, jmax = ' + string(long(jmax)), MARGIN=marge,layout=[3,1,1])
 resDim = size(results[NFolders-5].res.wavefront,/dimension)
 imres = image(results[NFolders-5].res.wavefront,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],$
+  yrange=[0,resDim[1]],title = string(long(nbrImgAveraging[NFolders-5]))+ ' images, jmax = ' + string(long(jmax)), MARGIN=marge,/current,$
+  layout=[3,1,2])
+c = COLORBAR(TARGET=imres, ORIENTATION=1,TITLE='[nm]')
+resDim = size(results[NFolders-5].res.wavefront,/dimension)
+imdiffres = image(results[0].res.wavefront-results[NFolders-5].res.wavefront,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],$
   yrange=[0,resDim[1]],title=string(long(nbrImgAveraging[NFolders-5])), MARGIN=marge,/current,$
-  layout=[2,1,2])
-  
+  layout=[3,1,3])
+b = COLORBAR(TARGET=imdiffres, ORIENTATION=1,TITLE='[nm]') 
 ;imres.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\noise_study\WavefrontCompModaljmax30.pdf', BORDER=10, RESOLUTION=350
 ;imres.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\noise_study\WavefrontCompModaljmax30.png', BORDER=10, RESOLUTION=350
 
 zonDim = size(results[0].zon.wavefront,/dimension)
 imzon = image(results[0].zon.wavefront,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],$
-  yrange=[0,resDim[1]],title=string(long(nbrImgAveraging[0]))+ ' Zonal', MARGIN=marge,layout=[2,1,1])
+  yrange=[0,resDim[1]],title='Zonal '+string(long(nbrImgAveraging[0]))+' images, jmax = '+string(long(jmax)) , MARGIN=marge,layout=[3,1,1])
 zonDim = size(results[NFolders-5].zon.wavefront,/dimension)
 imzon = image(results[NFolders-5].zon.wavefront,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],$
+  yrange=[0,resDim[1]],title=string(long(nbrImgAveraging[NFolders-5]))+ ' images, jmax = ' + string(long(jmax)), MARGIN=marge,/current,$
+  layout=[3,1,2])
+c = COLORBAR(TARGET=imzon, ORIENTATION=1,TITLE='[nm]')
+imdiffzon = image(results[0].zon.wavefront-results[NFolders-5].zon.wavefront,rgb_table=34,image_dimensions = zonDim,xrange=[0,zonDim[0]],$
   yrange=[0,resDim[1]],title=string(long(nbrImgAveraging[NFolders-5])), MARGIN=marge,/current,$
-  layout=[2,1,2])
-  
+  layout=[3,1,3])
+b = COLORBAR(TARGET=imdiffzon, ORIENTATION=1,TITLE='[nm]')   
 ;imzon.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\noise_study\WavefrontCompZonaljmax30.pdf', BORDER=10, RESOLUTION=350
 ;imres.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\noise_study\WavefrontCompZonaljmax30.png', BORDER=10, RESOLUTION=350
 

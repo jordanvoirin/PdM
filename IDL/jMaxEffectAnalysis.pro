@@ -1,7 +1,7 @@
 ; Script to analyse the effect of jmax on the retrieval
 ;
 
-sfolderPath = 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\PD\noise_study\50'
+sfolderPath = 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\PD\noise_study\5000'
 
 jmax = (make_array(231, 1, /INTEGER, /INDEX))[4:230] + 1
 Njmax = n_elements(jmax)
