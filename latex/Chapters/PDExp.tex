@@ -4,6 +4,48 @@
 
 Here, we will describe the experiment put in place in the optical laboratory at the HEIG-VD to reconstruct wavefronts with unknown static aberrations introduced using phase screens. At first, we study the  behaviour of the phase diversity algorithm put in place by \citet{mugnier_2006} at ONERA with respect to number of averaging images, in other words noise level, and number of Zernike coefficients retrieved. Then we test the algorithm using a known aberration introduced by a parallel plane plate in the beam comparing the result to Zemax simulation. And finally, we introduce the phase screen to have random aberrations in the pupil and try to compare the phase diversity results with the Shack Hartman wavefront sensor results.
 
+\section[ONERA algorithm]{ONERA algorithm, \citet{mugnier_2006}}
+\label{sec:ONERAalgo}
+
+In this section, we will briefly present the phase diversity algorithm developed at ONERA since we test and use it to retrieve the phase and the aberrations in the experiment conducted in laboratory.
+
+\subsection{Algorithm description}
+\label{subsec:OneraAlgoDesc}
+
+As explained in section \ref{sec:principle}, the phase diversity determines the phase of the wavefront, as well as the unknown object when needed, using two images of the same object with a phase diversity between each image. This gives the following equation system \citep[p.11]{mugnier_2006},
+
+\begin{align}
+\mathbf{i}_f &= \mathbf{h}_f \ast \mathbf{o} + \mathbf{n}_f \\
+\mathbf{i}_d &= \mathbf{h}_d \ast \mathbf{o} + \mathbf{n}_d,
+\label{eqt:systemEQT}
+\end{align}
+
+where the bold letters means that it is the sampled quantities, the indexes f and d means respectively focused and defocused and $\mathbf{n}$ regroups the photon and detector noise present on the image. Using the data available, this algorithm approaches the problem at hand with a statistic point of view. They estimate jointly the aberrations and the object \citep{Paxman1992}, which consist to compute the joint maximum \textit{a posteriori} (JMAP) estimator \citep[p.17]{mugnier_2006},
+
+\begin{align}
+(\hat{\mathbf{o}},\hat{\boldsymbol{\phi}})_{MAP} &= \underset{\mathbf{o},\boldsymbol{\phi}}{\mathrm{arg \ max}} \ p(\mathbf{i}_f,\mathbf{i}_d,\mathbf{o},\boldsymbol{\phi};\boldsymbol{\theta})\nonumber \\
+&= \underset{\mathbf{o},\boldsymbol{\phi}}{\mathrm{arg \ max}} \ p(\mathbf{i}_f|\mathbf{o},\boldsymbol{\phi};\boldsymbol{\theta_n})p(\mathbf{i}_d|\mathbf{o},\boldsymbol{\phi};\boldsymbol{\theta_n})p(\mathbf{o};\boldsymbol{\theta_o})p(\boldsymbol{\phi};\boldsymbol{\theta_{\phi}}), 
+\end{align}
+
+where $p(\mathbf{i}_f,\mathbf{i}_d,\mathbf{o},\boldsymbol{\phi};\boldsymbol{\theta})$ is the joint probability density function of the two images $(\mathbf{i}_f,\mathbf{i}_d)$, the object $\mathbf{o}$ and the phase $\boldsymbol{\phi}$. It can also depend on a set of hyperparameters $\boldsymbol{\theta} = (\boldsymbol{\theta}_n,\boldsymbol{\theta}_o,\boldsymbol{\theta}_{\phi})$. $p(\mathbf{i}_k|\mathbf{o},\boldsymbol{\phi};\boldsymbol{\theta_n})$ is the likelihood of the image $\mathbf{i}_k$. $p(\mathbf{o};\boldsymbol{\theta_o})$ and $p(\boldsymbol{\phi};\boldsymbol{\theta_{\phi}})$ are the \textit{a priori} probability density functions of $\mathbf{o}$ and $\boldsymbol{\phi}$.
+
+They assume that the noise is white and stationary with a variance $\sigma^2$ on each image. They take Gaussian prior probability distributions for the object and for the phase which they decompose on the Zernike polynomial basis, $\boldsymbol{\phi}(\mathbf{a})$, with $\mathbf{a}$ the vector containing the Zernike coefficients from $a_4$ to $a_{j_{max}}$, see \citet[p.18-19]{mugnier_2006} for the detailed expressions. Finally, the phase and the object are retrieved by maximizing the joint probability density function $p(\mathbf{i}_f,\mathbf{i}_d,\mathbf{o},\mathbf{a};\boldsymbol{\theta})$ or taking the logarithm of the latter they retrieve them by minimizing the following criterion,
+
+\begin{align}
+L&_{JMAP}(\mathbf{o},\mathbf{a},\boldsymbol{\theta}) \nonumber\\
+&= -\mathrm{ln} \ p(\mathbf{i}_f,\mathbf{i}_d,\mathbf{o},\mathbf{a};\boldsymbol{\theta}) \nonumber \\
+&= N^2\ \mathrm{ln}\ \sigma^2 + \frac{1}{2}\mathrm{ln}\ \mathrm{det}(R_0) + \frac{1}{2}\mathrm{ln}\ \mathrm{det}(R_a)\nonumber\\
+& \ + \frac{1}{2\sigma^2}(\mathbf{i}_f -H_f\mathbf{o})^t(\mathbf{i}_f -H_f\mathbf{o})+ \frac{1}{2\sigma^2}(\mathbf{i}_d - H_d \mathbf{o})^t(\mathbf{i}_d-H_d\mathbf{o})\nonumber\\
+& \ + \frac{1}{2}(\mathbf{o}-\mathbf{o}_m)^t R_o^{-1}(\mathbf{o}-\mathbf{o}_m) + \frac{1}{2}\mathbf{a}^tR_a^{-1}\mathbf{a} + A,
+\end{align}
+
+where $N^2$ is the number of pixels in the image, $\mathbf{o}_m$ and $R_o$ are the mean object and its covariance matrix, $R_a$ is the covariance matrix of the aberrations, $H_k$ is the matrix representing the discrete convolution by the sampled $\mathbf{h}$ and A is a constant.
+
+In order to simplify and fasten the computation, they rewrite the criterion replacing $\mathbf{o}$ by its estimator $\hat{\mathbf{o}}(\mathbf{a},\boldsymbol{\theta})$ obtained by cancelling the derivative of $L_{JMAP}$ with respect to $\mathbf{o}$, and they move to the Fourier domain, see eqt. (24) of \citet[p.21]{mugnier_2006}.
+
+\subsection{Implementation}
+\label{subsec:OneraAlgoImp}
+
 \section{Experimental Setup}
 \label{sec:ExpSetup}
 \begin{figure}
@@ -195,7 +237,7 @@ Figures \ref{subfig:ZernikeCoef_J_differentNbrAveragingjmax30} and \ref{subfig:B
 \begin{center}
 \includegraphics[width=\textwidth,angle=0]{../../../fig/PD/noise_study/WavefrontsNoiseStudy}
 \decoRule
-\caption{Reconstructed wavefronts for two different number of averaging images, 10 and 3500, left and right column respectively. The two first line are modal retrieval with $j_{max}=30$ and $j_{max}=200$ and the last line is the zonal retrieval.}
+\caption{Reconstructed wavefronts for two different numbers of averaging images, 10 and 3500, and their difference are on the first, second and third column respectively. The two first line are modal retrieval with $j_{max}=30$ and $j_{max}=200$ and the last line is the zonal retrieval.}
 \label{fig:WavefrontsNoiseStudy}
 \end{center}
 \end{figure}
@@ -239,4 +281,40 @@ In conclusion, the ONERA algorithm tests shows that first the two different meth
 \subsection{Parallel plane plate}
 \label{subsec:ParPlanePlate}
 
-Now that we know how the algorithm behaves with respect to noise, $j_{max}$, etc... We compare its results to a calibrated aberration. The calibration is computed by simulating the optical system using Zemax. We introduce astigmatism using a plexiglas  parallel plane plate with an angle with respect to the optical axis.
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth,angle=0]{Figures/parallelPlanePlateWithBS.png}
+\decoRule
+\caption{Zemax simulation of our optical system with the parallel plane plate introducing astigmatism.}
+\label{fig:parallelPlanePlate}
+\end{center}
+\end{figure}
+
+Knowing how the algorithm behaves with respect to noise, $j_{max}$, etc... We compare its results to a calibrated aberration. The calibration is computed by simulating the optical system using Zemax\footnote{\url{https://www.zemax.com/opticstudio}}. We introduce astigmatism using a plexiglas parallel plane plate with an angle with respect to the optical axis. The astigmatism comes from the fact that the incident angle is not the same on the left side of the optical axis than on the right side of the optical axis with respect to $x$. This induces a difference in optical path between the symmetrical rays on the left and right side of the optical axis and thus induces an aberration, called the astigmatism.
+
+In order to have the best correspondence between the simulation and the experiment, the results are the difference between the Zernike coefficient of the parallel plane plate and the Zernike coefficient without the plate. Indeed the Zemax simulation do not have alignment issues and other man introduced imperfections. So by subtracting the aberrations present in the system without the parallel plane plate, in theory we should remove any component that do not come from the plate itself in order to only retrieve the plate effect.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth,angle=0]{../../../fig/PD/astigmatism/angle_study_2/astigmatism_angle_Diversity.png}
+\decoRule
+\caption{Zernike coefficient of the vertical astigmatism $a_6$ as a function of the angle of the plexiglas parallel plane plate. The dashed line correspond to the Zemax simulation result, the blue line to the modal retrieval method and the red line to the zonal retrieval}
+\label{fig:astigmatism_angle_Diversity}
+\end{center}
+\end{figure}
+
+Figure \ref{fig:astigmatism_angle_Diversity} shows the vertical astigmatism Zernike coefficient $a_6$ as a function of the parallel plane plate angle from $10^{\circ}$ to $50^{\circ}$. The two coloured lines correspond to the two phase retrieval methods and the dashed line is the Zemax simulation of the parallel plane plate. As one can see, there is an offset of $\sim 10$ nm between the simulation and the experiment, which correspond to an error of $\sim\frac{\lambda}{64}$. The behaviours of the simulation and the experiment are the same which is reassuring, despite the overestimation of the astigmatism by the phase diversity retrievals. 
+
+The offset is unexpected, because subtracting the results of the phase retrieval on the PSFs acquired without introducing aberration to the results with the parallel plane plate should have eliminate the aberration present in the optical system, since the aberration introduction is a linear phenomenon. This might be due to an alignment error for instance, the alignment of the f=200mm lens that collimates the beam is difficult due to its size. One could change it to a f=200mm lens compatible with the 4-rods mounting on which the 4F system is to guaranty the correct alignment. Or that the simulation is not representing exactly the optical system.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth,angle=0]{../../../fig/PD/astigmatism/angle_study_2/a8astigmatism_angle_Diversity.png}
+\decoRule
+\caption{Zernike coefficient of the horizontal coma $a_8$ as a function of the angle of the plexiglas parallel plane plate. The dashed line correspond to the Zemax simulation result, the blue line to the modal retrieval method and the red line to the zonal retrieval}
+\label{fig:a8astigmatism_angle_Diversity}
+\end{center}
+\end{figure}
+
+To go further and try to understand the difference between simulation and experiment, we compare also the coma introduced by the parallel plane plate, see Figure \ref{fig:a8astigmatism_angle_Diversity}. There is a bigger difference between the simulation and the phase retrieval than for the astigmatism. And for the coma the behaviour of the phase retrieval is not the same as the simulation. 
+

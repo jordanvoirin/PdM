@@ -116,12 +116,12 @@ rmseA8sh = RMSE(zemaxA8Aberration,a8SH[sortedSHInd]*1000.d)
 pA6Angleres = plot(AnglesPD[sortedPDInd],a6res[sortedPDInd]*1000.d,'b-2',xtitle='Parallel Faces Angle [deg]',$
   ytitle = 'a6 [nm]',name='modal RMSE = '+string(rmseA6mod))
 pA6Anglezon = plot(AnglesPD[sortedPDInd],a6zon[sortedPDInd]*1000.d,'r-2',name='zonal RMSE = ' + string(rmseA6zon),/overplot)
-pA6Anglesh = plot(AnglesSH[sortedSHInd],a6SH[sortedSHInd]*1000.d,'g-2',name='SH RMSE = ' + string(rmseA6sh),/overplot)
-pA6Angleshfit = plot(AnglesSH[sortedSHInd],yfit[sortedSHInd],'y-2',name='SH fitted',/overplot)
+;pA6Anglesh = plot(AnglesSH[sortedSHInd],a6SH[sortedSHInd]*1000.d,'g-2',name='SH RMSE = ' + string(rmseA6sh),/overplot)
+;pA6Angleshfit = plot(AnglesSH[sortedSHInd],yfit[sortedSHInd],'y-2',name='SH fitted',/overplot)
 
 ;pAstAnglemod = plot(AnglesModel,thZernikeCoef6,'k-2',name='model',/overplot); factor sqrt(6) to pass from seidel to zernike and /2 to pass from P2V to coef
 pAstAnglezemax = plot(AnglesModel,zemaxA6Aberration,'k--2',name='zemax',/overplot)
-!null = LEGEND(target=[pA6Angleres,pA6Anglezon,pA6Anglesh,pAstAnglezemax],/DATA)
+!null = LEGEND(target=[pA6Angleres,pA6Anglezon],/DATA);,pA6Anglesh,pAstAnglezemax],/DATA)
 
 pA6Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\astigmatism_angle.pdf', BORDER=10, RESOLUTION=350
 pA6Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\astigmatism_angle.png', BORDER=10, RESOLUTION=350
@@ -134,74 +134,80 @@ pA8Anglesh = plot(AnglesSH[sortedSHInd],abs(a8SH[sortedSHInd]*1000.d),'g-2',name
 pA8Anglezemax = plot(AnglesModel,zemaxA8Aberration,'k--2',name='zemax',/overplot)
 !null = LEGEND(target=[pA8Angleres, pA8Anglezon,pA8Anglesh,pA8Anglezemax],/DATA)
 
-pA8Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\coma_angle.pdf', BORDER=10, RESOLUTION=350
-pA8Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\coma_angle.png', BORDER=10, RESOLUTION=350
+;pA8Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\coma_angle.pdf', BORDER=10, RESOLUTION=350
+;pA8Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\coma_angle.png', BORDER=10, RESOLUTION=350
 
 ; plot defocus coeff. vs. angle----------------------------------------------------------------------
 
-pdefocAngleres = plot(AnglesPD[sortedPDInd],defocAjres[sortedPDInd]*1000.d,'b-2',xtitle='Parallel Faces Angle [deg]',ytitle = 'Defocus Coef [nm]',name='modal')
-pdefocAnglezon = plot(AnglesPD[sortedPDInd],defocAjzon[sortedPDInd]*1000.d,'r-2',name='zonal',/overplot)
-pdefocAnglesh = plot(AnglesSH[sortedSHInd],defocAjsh[sortedSHInd]*1000.d,'g-2',name='SH',/overplot)
-!null = LEGEND(target=[pdefocAngleres,pdefocAnglezon,pdefocAnglesh],/DATA)
-pdefocAngleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\defoc_angle.pdf', BORDER=10, RESOLUTION=350
-pdefocAngleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\defoc_angle.png', BORDER=10, RESOLUTION=350
+;pdefocAngleres = plot(AnglesPD[sortedPDInd],defocAjres[sortedPDInd]*1000.d,'b-2',xtitle='Parallel Faces Angle [deg]',ytitle = 'Defocus Coef [nm]',name='modal')
+;pdefocAnglezon = plot(AnglesPD[sortedPDInd],defocAjzon[sortedPDInd]*1000.d,'r-2',name='zonal',/overplot)
+;pdefocAnglesh = plot(AnglesSH[sortedSHInd],defocAjsh[sortedSHInd]*1000.d,'g-2',name='SH',/overplot)
+;!null = LEGEND(target=[pdefocAngleres,pdefocAnglezon,pdefocAnglesh],/DATA)
+;pdefocAngleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\defoc_angle.pdf', BORDER=10, RESOLUTION=350
+;pdefocAngleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\defoc_angle.png', BORDER=10, RESOLUTION=350
 
 
 ;Compare Phase and zernike modal vs. zonal-----------------------------------------------------------
-nbrRows = NPDfolders
-nbrCol = 4
-
-minValue = -200
-maxValue = 30
 
 marge = 0.3
-modwavefront = resultsPD[0].res.wavefront[*,*]*1000
-zonwavefront = resultsPD[0].zon.wavefront[*,*]*1000
-shwavefront = resultsSH[0].wavefront[*,*]*1000
-resDim = size(modwavefront,/dimension)
-imres = image(modwavefront,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],yrange=[0,resDim[1]],min_value=minvalue,max_value = maxValue, $
-  title=string(long(AnglesPD[0]))+ ' Modal', MARGIN=marge,layout=[nbrCol,nbrRows,1])
-zonDim = size(zonwavefront,/dimension)
-imzon = image(zonwavefront,rgb_table=34,image_dimensions=zonDim,xrange=[0,zonDim[0]],yrange=[0,zonDim[1]],min_value=minvalue,max_value = maxValue $
-  ,title='Zonal', MARGIN=marge,/current,layout=[nbrCol,nbrRows,2])
-shDim = size(shwavefront,/dimension)
-imsh = image(shwavefront,rgb_table=34,image_dimensions=shDim,xrange=[0,shDim[0]],yrange=[0,shDim[1]],min_value=minvalue,max_value = maxValue $
-    ,title='SH', MARGIN=marge,/current,layout=[nbrCol,nbrRows,3])
-jmax = max(resultsPD[0].res.j)
-pres = plot(resultsPD[0].res.j,resultsPD[0].res.a_j*1000,'b-2',xtitle='Zernike polynome j',ytitle = 'a_j [nm]',name='modal',xrange = [4,jmax], MARGIN=marge,/current,layout=[nbrCol,nbrRows,4])
-pzon = plot(resultsPD[0].zon.j,resultsPD[0].zon.a_j*1000,'r-2',name='zonal',/overplot)
-psh = plot(resultsSH[0].zernike[0,*],resultsSH[0].zernike[3,*]*1000,'k-2',name='sh',/overplot)
+;modwavefront = resultsPD[0].res.wavefront[*,*]*1000
+;zonwavefront = resultsPD[0].zon.wavefront[*,*]*1000
+;shwavefront = resultsSH[0].wavefront[*,*]*1000
+;resDim = size(modwavefront,/dimension)
+;imres = image(modwavefront,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],yrange=[0,resDim[1]],min_value=minvalue,max_value = maxValue, $
+;  title=string(long(AnglesPD[0]))+ ' Modal', MARGIN=marge,layout=[nbrCol,nbrRows,1])
+;zonDim = size(zonwavefront,/dimension)
+;imzon = image(zonwavefront,rgb_table=34,image_dimensions=zonDim,xrange=[0,zonDim[0]],yrange=[0,zonDim[1]],min_value=minvalue,max_value = maxValue $
+;  ,title='Zonal', MARGIN=marge,/current,layout=[nbrCol,nbrRows,2])
+;shDim = size(shwavefront,/dimension)
+;imsh = image(shwavefront,rgb_table=34,image_dimensions=shDim,xrange=[0,shDim[0]],yrange=[0,shDim[1]],min_value=minvalue,max_value = maxValue $
+;    ,title='SH', MARGIN=marge,/current,layout=[nbrCol,nbrRows,3])
+;jmax = max(resultsPD[0].res.j)
+;pres = plot(resultsPD[0].res.j,resultsPD[0].res.a_j*1000,'b-2',xtitle='Zernike polynome j',ytitle = 'a_j [nm]',name='modal',xrange = [4,jmax], MARGIN=marge,/current,layout=[nbrCol,nbrRows,4])
+;pzon = plot(resultsPD[0].zon.j,resultsPD[0].zon.a_j*1000,'r-2',name='zonal',/overplot)
+;psh = plot(resultsSH[0].zernike[0,*],resultsSH[0].zernike[3,*]*1000,'k-2',name='sh',/overplot)
 
 ;!null = LEGEND(target=[pres, pzon])
 
-for iFol = 1, NPDfolders-1 do begin
+
+folderPath = 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\data\PD\astigmatism\zemax\wavefronts\'
+
+files = file_search(folderPath+'*.txt')
+
+Nfiles = n_elements(files)
+zemaxWavefronts=[]
+zemaxAngle = []
+for ifile = 0, Nfiles-1 do begin
+  sepFilePath = strsplit(files[ifile],'\',/EXTRACT)
+  sFile = sepFilePath[n_elements(sepFilePath)-1]
+  sepsFile = strsplit(sFile,"_.",/EXTRACT)
+  zemaxAngle = [zemaxAngle,double(sepsFile[n_elements(sepsFile)-2])/100]
+
+  rfileData = READ_ASCII(files[ifile], DATA_START=16)
+  zemaxWavefronts = [[[zemaxWavefronts]],[[rfileData.Field001*637.5]]]
+endfor
+
+for iFol = 0, NPDfolders-1 do begin
   modwavefront = resultsPD[iFol].res.wavefront[*,*]*1000
-  zonwavefront = resultsPD[iFol].zon.wavefront[*,*]*1000
-  shwavefront = resultsSH[iFol].wavefront[*,*]*1000
+  ;zonwavefront = resultsPD[iFol].zon.wavefront[*,*]*1000
+  zemaxwavefront = zemaxWavefronts[iFol]
+  minValue = min([modwavefront,zemaxwavefront])
+  maxValue = max([modwavefront,zemaxwavefront])
   resDim = size(modwavefront,/dimension)
   imres = image(modwavefront,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],yrange=[0,resDim[1]]$
-    ,title=string(long(AnglesPD[iFol]))+ ' Modal', MARGIN=marge,min_value=minvalue,max_value = maxValue $
-    ,/current,layout=[nbrCol,nbrRows,(iFol+1)*3+(iFol+1)-3])
-  zonDim = size(zonwavefront,/dimension)
-  imzon = image(zonwavefront,rgb_table=34,image_dimensions=zonDim,xrange=[0,zonDim[0]],yrange=[0,zonDim[1]],min_value=minvalue,max_value = maxValue, $
-    title='Zonal', MARGIN=marge,/current,layout=[nbrCol,nbrRows,(iFol+1)*3+(iFol+1)-2])
-  shDim = size(shwavefront,/dimension)
-  imsh = image(shwavefront,rgb_table=34,image_dimensions=shDim,xrange=[0,shDim[0]],yrange=[0,shDim[1]],min_value=minvalue,max_value = maxValue $
-    ,title='SH', MARGIN=marge,/current,layout=[nbrCol,nbrRows,(iFol+1)*3+(iFol+1)-1])
-
-  If iFol eq 1 then begin
-    c = COLORBAR(TARGET=imres, ORIENTATION=1,TITLE='[nm]',range=[minValue,maxValue])
-  Endif
-
-  jmax = max(resultsPD[iFol].res.j)
-  pres = plot(resultsPD[iFol].res.j,resultsPD[iFol].res.a_j*1000,'b-2',xtitle='Zernike polynome j',ytitle = 'a_j [nm]',name='modal',xrange = [4,jmax], MARGIN=marge,/current,layout=[nbrCol,nbrRows,(iFol+1)*3+(iFol+1)])
-  pzon = plot(resultsPD[iFol].zon.j,resultsPD[iFol].zon.a_j*1000,'r-2',name='zonal',/overplot)
-  psh = plot(resultsSH[iFol].zernike[0,*],resultsSH[iFol].zernike[3,*]*1000,'k-2',name='sh',/overplot)
+    ,title='Modal, angle = '+string(long(AnglesPD[iFol])), MARGIN=marge,min_value=minvalue,max_value = maxValue $
+    ,/current,layout=[3,1,1])
+  zemaxDim = size(zemaxwavefront,/dimension)
+  imzemax = image(zemaxwavefront,rgb_table=34,image_dimensions=shDim,xrange=[0,shDim[0]],yrange=[0,shDim[1]],min_value=minvalue,max_value = maxValue $
+    ,title='Zemax', MARGIN=marge,/current,layout=[3,1,2])
+  diffim = image(modwavefront-zemaxwavefront,rgb_table=34,image_dimensions=shDim,xrange=[0,shDim[0]],yrange=[0,shDim[1]],min_value=minvalue,max_value = maxValue $
+    , MARGIN=marge,/current,layout=[3,1,3])
+  c = COLORBAR(TARGET=imres, ORIENTATION=1,TITLE='[nm]',range=[minValue,maxValue])
 
 endfor
 
-imres.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\phaseModZonZer.pdf', BORDER=10, RESOLUTION=350
-imres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\phaseModZonZer.png', BORDER=10, RESOLUTION=350
+;imres.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\phaseModZonZer.pdf', BORDER=10, RESOLUTION=350
+;imres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\phaseModZonZer.png', BORDER=10, RESOLUTION=350
 
 
 end

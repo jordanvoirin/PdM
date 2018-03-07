@@ -10,19 +10,22 @@
 \contentsline {figure}{\numberline {1.5}{\ignorespaces Gaussian reference sphere vs. aberrated Wavefront}}{9}{figure.caption.45}
 \contentsline {figure}{\numberline {1.7}{\ignorespaces Representation of the 21$^{st}$ Zernike polynomials}}{11}{figure.caption.50}
 \contentsline {figure}{\numberline {1.8}{\ignorespaces Shack-Hartmann principle}}{13}{figure.caption.58}
+\contentsline {figure}{\numberline {1.9}{\ignorespaces Schema of the phase diversity principle. The images from left to right are : the phase arriving on the exit pupil, the focused image and the defocused ($2\pi $) image.\relax }}{14}{figure.caption.62}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Schema of the phase diversity principle. The images from left to right are : the phase arriving on the exit pupil, the focused image and the defocused ($2\pi $) image.\relax }}{16}{figure.caption.62}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Experimental Setup Schema}}{17}{figure.caption.73}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Wavefront curvature}}{17}{figure.caption.75}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Source schema and pinhole effect on the beam.\relax }}{18}{figure.caption.76}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Example of the results of an alignment procedure\relax }}{19}{figure.caption.85}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Shack-Hartmann Software GUI, with the beam view on the top left, the spot field in the middle and the reconstructed wavefront on the top right.\relax }}{20}{figure.caption.91}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Noise level as a function of the number of averaging images acquired with $\sim $ 300 $\mu $s exposition time. The noise level is computed as the mean of the standard deviation of every pixel divided by the maximum of the focused PSF.\relax }}{21}{figure.caption.94}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Results of the phase retrievals computed with the 25 different noise levels. The phase retrievals are done with a $j_{max} = 30$\relax }}{22}{figure.caption.95}
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Reconstructed wavefronts for two different numbers of averaging images, 10 and 3500, and their difference are on the first, second and third column respectively. The two first line are modal retrieval with $j_{max}=30$ and $j_{max}=200$ and the last line is the zonal retrieval.\relax }}{24}{figure.caption.96}
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Zernike coefficients $a_j$ as a function of $j$ for the 227 retrievals done for 231 different $j_{max}$ from 4 to 231.\relax }}{25}{figure.caption.97}
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Results of the $\Delta z$ measurement error test. The plots represent the results of the 125 phase retrievals run with all the permutations of errors, $[-2\sigma ,-1\sigma ,0,1\sigma ,2\sigma ]$ with $\sigma = 5\mathrm {e}-3$ mm, on the three PSFs position $\Delta z$\relax }}{25}{figure.caption.98}
+\contentsline {figure}{\numberline {2.11}{\ignorespaces Zemax simulation of our optical system with the parallel plane plate introducing astigmatism.\relax }}{26}{figure.caption.100}
+\contentsline {figure}{\numberline {2.12}{\ignorespaces Zernike coefficient of the vertical astigmatism $a_6$ as a function of the angle of the plexiglas parallel plane plate. The dashed line correspond to the Zemax simulation result, the blue line to the modal retrieval method and the red line to the zonal retrieval\relax }}{27}{figure.caption.102}
+\contentsline {figure}{\numberline {2.13}{\ignorespaces Zernike coefficient of the horizontal coma $a_8$ as a function of the angle of the plexiglas parallel plane plate. The dashed line correspond to the Zemax simulation result, the blue line to the modal retrieval method and the red line to the zonal retrieval\relax }}{28}{figure.caption.103}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Wavefront curvature}}{23}{figure.caption.101}
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Experimental Setup Schema}}{24}{figure.caption.99}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Source schema and pinhole effect on the beam.\relax }}{24}{figure.caption.102}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Example of the results of an alignment procedure\relax }}{26}{figure.caption.111}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Shack-Hartmann Software GUI, with the beam view on the top left, the spot field in the middle and the reconstructed wavefront on the top right.\relax }}{27}{figure.caption.117}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Noise level as a function of the number of averaging images acquired with $\sim $ 300 $\mu $s exposition time. The noise level is computed as the mean of the standard deviation of every pixel divided by the maximum of the focused PSF.\relax }}{28}{figure.caption.120}
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Results of the phase retrievals computed with the 25 different noise levels. The phase retrievals are done with a $j_{max} = 30$\relax }}{29}{figure.caption.121}
-\contentsline {figure}{\numberline {3.8}{\ignorespaces Reconstructed wavefronts for two different number of averaging images, 10 and 3500, left and right column respectively. The two first line are modal retrieval with $j_{max}=30$ and $j_{max}=200$ and the last line is the zonal retrieval.\relax }}{30}{figure.caption.122}
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Zernike coefficients $a_j$ as a function of $j$ for the 227 retrievals done for 231 different $j_{max}$ from 4 to 231.\relax }}{31}{figure.caption.123}
-\contentsline {figure}{\numberline {3.10}{\ignorespaces Results of the $\Delta z$ measurement error test. The plots represent the results of the 125 phase retrievals run with all the permutations of errors, $[-2\sigma ,-1\sigma ,0,1\sigma ,2\sigma ]$ with $\sigma = 5\mathrm {e}-3$ mm, on the three PSFs position $\Delta z$\relax }}{32}{figure.caption.124}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

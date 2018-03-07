@@ -16,8 +16,8 @@ N = 400
 dxp = lbda*F/(N*pxsize)
 deltaZ = 3.19e-3
 jmin = 4
-jmax = 30
-rmsWFerror = 20.
+jmax = 200
+rmsWFerror = 30.
 noiseStdLevel = 0.001
 
 P2Vdephasing = np.pi*deltaZ/lbda*(2*pupilRadius/F)**2/4.
@@ -78,13 +78,16 @@ plt.errorbar(phaseDivWoutNoise.result['js'],phaseDivWoutNoise.result['ajs']*1e9*
     ,color = 'red',lineStyle='-',label='retrieved wout noise, $\sigma_{WF,rms}$ = %5.3f nm, RMSE = %5.3f nm'
     %(fs.RMSwavefrontError(phaseDivWoutNoise.result['js'],phaseDivWoutNoise.result['ajs']*1e9*lbda/2/np.pi)
     ,fs.RMSE(phaseDivWoutNoise.result['ajs']*1e9*lbda/2/np.pi,ajscomplete*1e9*lbda/2/np.pi)))
-plt.errorbar(phaseDivWthNoise.result['js'],phaseDivWthNoise.result['ajs']*1e9*lbda/2/np.pi,yerr=phaseDivWthNoise.result['ajsSte']*1e9*lbda/2/np.pi
-    ,color = 'green',lineStyle='-',label='retrieved wth noise, $\sigma_{WF,rms}$ = %5.3f nm, RMSE = %5.3f nm'
-    %(fs.RMSwavefrontError(phaseDivWthNoise.result['js'],phaseDivWthNoise.result['ajs']*1e9*lbda/2/np.pi)
-    ,fs.RMSE(phaseDivWthNoise.result['ajs']*1e9*lbda/2/np.pi,ajscomplete*1e9*lbda/2/np.pi)))
+#plt.errorbar(phaseDivWthNoise.result['js'],phaseDivWthNoise.result['ajs']*1e9*lbda/2/np.pi,yerr=phaseDivWthNoise.result['ajsSte']*1e9*lbda/2/np.pi
+#    ,color = 'green',lineStyle='-',label='retrieved wth noise, $\sigma_{WF,rms}$ = %5.3f nm, RMSE = %5.3f nm'
+#    %(fs.RMSwavefrontError(phaseDivWthNoise.result['js'],phaseDivWthNoise.result['ajs']*1e9*lbda/2/np.pi)
+#    ,fs.RMSE(phaseDivWthNoise.result['ajs']*1e9*lbda/2/np.pi,ajscomplete*1e9*lbda/2/np.pi)))
 plt.xlabel('j')
 plt.ylabel('aj [nm]')
 plt.xlim([jscomplete[0],jscomplete[-1]])
 plt.legend(loc='best')
 plt.grid()
 
+fnameajsjs = '../../../fig/PDDev/test/ajs_js_jmax100_WoutN_rmsWFe_%d%s'
+plt.savefig(fnameajsjs % (rmsWFerror,'.png'), dpi=300)
+plt.savefig(fnameajsjs % (rmsWFerror,'.pdf'), dpi=300)

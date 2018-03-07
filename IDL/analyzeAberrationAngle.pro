@@ -36,7 +36,7 @@ for iFol = 0, Nfolders-1 do begin
 endfor
 
 sortedInd = sort(Angles)
-AnglesModel = [20,30,40,50,60,70]
+AnglesModel = [20,30,40,50]
 ;aberrationsModel = (aberrationParallelPlateModel(1.49,1.4e-3,AnglesModel))*1e9
 zemaxA6Aberration = [0.00556993,0.01286776,0.02344080,0.03689211]*637.5
 zemaxA8Aberration = [0.00118594,0.00187701,0.00268449,0.00364058]*637.5

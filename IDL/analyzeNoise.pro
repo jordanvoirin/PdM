@@ -111,36 +111,45 @@ mboxes.THICK = 2
 ;mboxes.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\noise_study\Boxplot_Aj_j_jmax200.pdf', BORDER=5, RESOLUTION=350
 ;mboxes.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\noise_study\Boxplot_Aj_j_jmax200.png', BORDER=5, RESOLUTION=350
 
-
+maxvalue = max([results[0].res.wavefront*1000,results[NFolders-4].res.wavefront*1000])
+minvalue = min([results[0].res.wavefront*1000,results[NFolders-4].res.wavefront*1000])
 ;Compare wavefront 
 resDim = size(results[0].res.wavefront,/dimension)
-imres = image(results[0].res.wavefront,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],$
-  yrange=[0,resDim[1]],title='Modal '+string(long(nbrImgAveraging[0]))+ ' images, jmax = ' + string(long(jmax)), MARGIN=marge,layout=[3,1,1])
-resDim = size(results[NFolders-5].res.wavefront,/dimension)
-imres = image(results[NFolders-5].res.wavefront,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],$
-  yrange=[0,resDim[1]],title = string(long(nbrImgAveraging[NFolders-5]))+ ' images, jmax = ' + string(long(jmax)), MARGIN=marge,/current,$
+imres = image(results[0].res.wavefront*1000,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],$
+  yrange=[0,resDim[1]],title='Modal '+string(long(nbrImgAveraging[0]))+ ' images, jmax = ' + string(long(jmax)),$
+  max_value = maxvalue,min_value = minvalue, MARGIN=marge,layout=[3,1,1])
+a = COLORBAR(TARGET=imres, ORIENTATION=0,TITLE='[nm]')
+resDim = size(results[NFolders-4].res.wavefront,/dimension)
+imres = image(results[NFolders-4].res.wavefront*1000,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],$
+  yrange=[0,resDim[1]],title = string(long(nbrImgAveraging[NFolders-4]))+ ' images, jmax = ' + string(long(jmax)),$
+  max_value = maxvalue,min_value = minvalue, MARGIN=marge,/current,$
   layout=[3,1,2])
-c = COLORBAR(TARGET=imres, ORIENTATION=1,TITLE='[nm]')
+c = COLORBAR(TARGET=imres, ORIENTATION=0,TITLE='[nm]')
 resDim = size(results[NFolders-5].res.wavefront,/dimension)
-imdiffres = image(results[0].res.wavefront-results[NFolders-5].res.wavefront,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],$
-  yrange=[0,resDim[1]],title=string(long(nbrImgAveraging[NFolders-5])), MARGIN=marge,/current,$
+imdiffres = image(results[0].res.wavefront*1000-results[NFolders-4].res.wavefront*1000,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],$
+  yrange=[0,resDim[1]],title=string(long(nbrImgAveraging[NFolders-4])),$
+  max_value = maxvalue,min_value = minvalue, MARGIN=marge,/current,$
   layout=[3,1,3])
-b = COLORBAR(TARGET=imdiffres, ORIENTATION=1,TITLE='[nm]') 
+b = COLORBAR(TARGET=imdiffres, ORIENTATION=0,TITLE='[nm]') 
 ;imres.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\noise_study\WavefrontCompModaljmax30.pdf', BORDER=10, RESOLUTION=350
 ;imres.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\noise_study\WavefrontCompModaljmax30.png', BORDER=10, RESOLUTION=350
 
 zonDim = size(results[0].zon.wavefront,/dimension)
-imzon = image(results[0].zon.wavefront,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],$
-  yrange=[0,resDim[1]],title='Zonal '+string(long(nbrImgAveraging[0]))+' images, jmax = '+string(long(jmax)) , MARGIN=marge,layout=[3,1,1])
-zonDim = size(results[NFolders-5].zon.wavefront,/dimension)
-imzon = image(results[NFolders-5].zon.wavefront,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],$
-  yrange=[0,resDim[1]],title=string(long(nbrImgAveraging[NFolders-5]))+ ' images, jmax = ' + string(long(jmax)), MARGIN=marge,/current,$
+imzon = image(results[0].zon.wavefront*1000,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],$
+  yrange=[0,resDim[1]],title='Zonal '+string(long(nbrImgAveraging[0]))+' images, jmax = '+string(long(jmax)),$
+  max_value = maxvalue,min_value = minvalue , MARGIN=marge,layout=[3,1,1])
+a = COLORBAR(TARGET=imzon, ORIENTATION=0,TITLE='[nm]')
+zonDim = size(results[NFolders-4].zon.wavefront,/dimension)
+imzon = image(results[NFolders-4].zon.wavefront*1000,rgb_table=34,image_dimensions = resDim,xrange=[0,resDim[0]],$
+  yrange=[0,resDim[1]],title=string(long(nbrImgAveraging[NFolders-4]))+ ' images, jmax = ' + string(long(jmax)),$
+  max_value = maxvalue,min_value = minvalue, MARGIN=marge,/current,$
   layout=[3,1,2])
-c = COLORBAR(TARGET=imzon, ORIENTATION=1,TITLE='[nm]')
-imdiffzon = image(results[0].zon.wavefront-results[NFolders-5].zon.wavefront,rgb_table=34,image_dimensions = zonDim,xrange=[0,zonDim[0]],$
-  yrange=[0,resDim[1]],title=string(long(nbrImgAveraging[NFolders-5])), MARGIN=marge,/current,$
+c = COLORBAR(TARGET=imzon, ORIENTATION=0,TITLE='[nm]')
+imdiffzon = image(results[0].zon.wavefront-results[NFolders-4].zon.wavefront*1000,rgb_table=34,image_dimensions = zonDim,xrange=[0,zonDim[0]],$
+  yrange=[0,resDim[1]],title=string(long(nbrImgAveraging[NFolders-4])),$
+  max_value = maxvalue,min_value = minvalue, MARGIN=marge,/current,$
   layout=[3,1,3])
-b = COLORBAR(TARGET=imdiffzon, ORIENTATION=1,TITLE='[nm]')   
+b = COLORBAR(TARGET=imdiffzon, ORIENTATION=0,TITLE='[nm]')   
 ;imzon.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\noise_study\WavefrontCompZonaljmax30.pdf', BORDER=10, RESOLUTION=350
 ;imres.save ,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\noise_study\WavefrontCompZonaljmax30.png', BORDER=10, RESOLUTION=350
 
