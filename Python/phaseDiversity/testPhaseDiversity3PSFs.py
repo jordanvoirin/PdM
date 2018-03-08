@@ -85,7 +85,7 @@ plt.errorbar(phaseDivWoutNoise.result['js'],phaseDivWoutNoise.result['ajs']*1e9*
 plt.xlabel('j')
 plt.ylabel('aj [nm]')
 plt.xlim([jscomplete[0],jscomplete[-1]])
-plt.legend(loc='best')
+plt.legend(loc='upper center')
 plt.grid()
 
 fnameajsjs = '../../../fig/PDDev/test/ajs_js_jmax_%d_WoutN_rmsWFe_%d%s'

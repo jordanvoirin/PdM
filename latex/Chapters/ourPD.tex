@@ -155,13 +155,55 @@ The linear regression is done after having initiated all the elements of the equ
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.9\textwidth,angle=0]{../../../fig/PDDev/test/PhasesAndPSFs_jmaxstudy_WoutN_rmsWFe_30.png}
+\includegraphics[width=0.6\textwidth,angle=0]{../../../fig/PDDev/test/PhasesAndPSFs_jmaxstudy_WoutN_rmsWFe_30.png}
 \decoRule
-\caption{Example of simulated phases and their PSFs to test the analytical algorithm. On the phases plot, first line, the image is not entirely shown, only from pixel 132 to 268 out of 400 pixels, for clarity. The PSFs are zoomed x10 (pixels 180 to 220) in order to be able to compare the spots. From left to right the PSFs are the defocused one, $-\delta\phi$, the focused one and the other defocused one, $\delta\phi$. The imaging system simulates the one we have on the optical bench composed by a 3.6 mm pupil and a focal length of 80 mm at a wavelength of 637.5 nm. The size, N, of the PSF is 400 and the pixel size is 5.3 $\mu m$.}
+\caption{Example of simulated phases and their PSFs to test the analytical algorithm. On the phases plot, first line, the image is not entirely shown, only from pixel 132 to 268 out of 400 pixels, for clarity. The PSFs are zoomed x10 (pixels 180 to 220) in order to be able to compare the spots. From left to right the PSFs are the defocused one, $-\delta\phi$, the focused one and the other defocused one, $\delta\phi$. The wavefront rms error is set to 30 nm. The imaging system simulates the one we have on the optical bench composed by a 3.6 mm pupil and a focal length of 80 mm at a wavelength of 637.5 nm. The size, N, of the PSF is 400 and the pixel size is 5.3 $\mu m$.}
 \label{fig:simPhasesAndPSFs}
 \end{center}
 \end{figure}
+ 
 
-To test the new algorithm, we used simulated PSFs, see Figure \ref{fig:simPhasesAndPSFs}. We constructed the PSFs with random phase function decomposed on the Zernike basis. The algorithm works well, using the PSFs shown in Figure \ref{fig:simPhasesAndPSFs}, we are able to reconstruct the 
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.6\textwidth,angle=0]{../../../fig/PDDev/test/ajs_js_jmax_30_WoutN_rmsWFe_30}
+\decoRule
+\caption{Zernike coefficient $a_j$ in nm as a function of $j$. The blue line are the true $a_j$'s and the red line represent the retrieved one. The phase and the 3 PSFs used to run the retrieval are the ones presented in Figure \ref{fig:simPhasesAndPSFs}.}
+\label{fig:ajs_js_jmax_30_WoutN_rmsWFe_30}
+\end{center}
+\end{figure} 
 
+To test the new algorithm, we used simulated PSFs, see Figure \ref{fig:simPhasesAndPSFs}. The simulated PSFs are computed using eqt. \eqref{eqt:PSF}. We assume a unitary amplitude over the entire pupil, as explained above and we construct the phase by attributing random values to Zernike coefficients from $j_{min}$ to $j_{max}$. Applying the formula of the PSF we get our simulated PSFs. The implementation can be seen in Appendix \ref{subapp:PSF}.
 
+Using the PSFs shown in Figure \ref{fig:simPhasesAndPSFs}, we are able to reconstruct the phase of the incoming wavefront onto the pupil. Figure \ref{fig:ajs_js_jmax_30_WoutN_rmsWFe_30} shows the true Zernike coefficient as well as the retrieved one. The correspondence is good. There is a rms error of 0.603 nm between the retrieved coefficient and the true ones. And the wavefront rms error retrieved is 2.663 nm to small. This is due to the fact that our algorithm is based on an approximation that causes the retrieval to underestimate the aberrations present.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth,angle=0]{../../../fig/PDDev/test/ajs_js_jmaxstudy_WoutN_rmsWFe_30}
+\decoRule
+\caption{Zernike coefficient $a_j$ in nm as a function of $j$. The blue thick line are the true $a_j$'s, the wavefront has a rms error of 30 nm and $j_{max}= 200$. The other lines are the retrieved Zernike coefficients with different $j_max$.}
+\label{fig:ajs_js_jmaxstudy_WoutN_rmsWFe_30}
+\end{center}
+\end{figure}
+
+As for the ONERA algorithm, we want to know if $j_{max}$ has an influence on the results retrieved. In order to study its effect, a phase with $j_max = 200$ is used. Retrievals are done for $j_{max} = 10, 20 , 30, 50,100,150,200$. The results are presented in Figure \ref{fig:ajs_js_jmaxstudy_WoutN_rmsWFe_30}. There is two interesting thing with those results. First, we can see that $j_max$ has a negligible influence on the retrieval. Indeed, the RMSE is similar for all retrieval except for $j_{max}$. This leads to the second interesting result. The phase diversity algorithm is more precise if $j_{max}$ used for the retrieval is equal to the one used to create the simulated PSFs.
+
+\begin{figure}
+\centering
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{../../../fig/PDDev/test/ajs_js_WthE_rmsWFe_30}
+        \caption{}
+        \label{subfig:ajs_js_WthE_rmsWFe_30}
+    \end{subfigure}
+    \quad
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{../../../fig/PDDev/test/bxp_ajs_js_rmsWFe_30}
+        \caption{}
+        \label{subfig:bxp_ajs_js_rmsWFe_30}
+    \end{subfigure}
+    \decoRule
+    \caption{Zernike coefficient as a function of $j$. Noise level is 0.001. The wavefront rms error is 30 nm. The blue line are the true $a_j$'s . The red lines correspond to 100 different retrievals computed with 100 noisy PSFs. The boxplots sum up the 100 retrievals.}
+\end{figure}
+
+Figure \ref{fig:ajs_js_jmax_30_WoutN_rmsWFe_30} and \ref{fig:ajs_js_jmaxstudy_WoutN_rmsWFe_30} show results of retrieval done with noiseless PSFs. But given that the final aim is to use this algorithm to characterize the static aberrations present on the optical path to a scientific detector, the PSFs will have noise due to the detector. To be as close to reality as possible with the simulated PSFs, we need to introduce noise into them. We assume that the noise is white Gaussian as it simpler than adding Poisson noise. The random introduction of noise is done with a \verb!numpy! function called \verb!numpy.random.normal()!\footnote{\url{https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.random.html}}.
+
+Figure \ref{subfig:ajs_js_WthE_rmsWFe_30} and \ref{subfig:bxp_ajs_js_rmsWFe_30} presents the results of 100 phase retrievals computed with 100 different noisy PSFs of the same optical system. The comparison between the true Zernike coefficient and the retrieved ones is good but the performance of the algorithm is decreased due to the noise. The mean RMSE of the 100 retrievals, that equals 8.324 nm, is $\sim10$ times bigger than without noise. However, the boxplots in Figure \ref{subfig:bxp_ajs_js_rmsWFe_30} shows that the spread due to the noise is clearly less than 1 nm. The results are similar for other wavefront rms error and different $j_{max}$. 

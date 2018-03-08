@@ -86,12 +86,12 @@ for ij,jm in enumerate(jmax):
 plt.xlabel('j')
 plt.ylabel('aj [nm]')
 plt.xlim([jscomplete[0],jscomplete[-1]])
-plt.legend(loc='best')
+plt.legend(loc='best',fontsize = 16)
 plt.grid()
 
 fnameajsjs = '../../../fig/PDDev/test/ajs_js_jmaxstudy_WoutN_rmsWFe_%d%s'
-plt.savefig(fnameajsjs % (rmsWFerror,'.png'), dpi=300)
-plt.savefig(fnameajsjs % (rmsWFerror,'.pdf'), dpi=300)
+#plt.savefig(fnameajsjs % (rmsWFerror,'.png'), dpi=300)
+#plt.savefig(fnameajsjs % (rmsWFerror,'.pdf'), dpi=300)
 
 plt.figure()
 plt.subplot(2,3,4)
@@ -174,5 +174,5 @@ plt.tick_params(
     labelleft='off')
 plt.show()
 fnameajsjs = '../../../fig/PDDev/test/PSFs_jmaxstudy_WoutN_rmsWFe_%d%s'
-plt.savefig(fnameajsjs % (rmsWFerror,'.png'), dpi=300)
-plt.savefig(fnameajsjs % (rmsWFerror,'.pdf'), dpi=300)
+#plt.savefig(fnameajsjs % (rmsWFerror,'.png'), dpi=300)
+#plt.savefig(fnameajsjs % (rmsWFerror,'.pdf'), dpi=300)
