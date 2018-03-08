@@ -153,4 +153,15 @@ The linear regression is done after having initiated all the elements of the equ
 \section{Results}
 \label{sec:ourPDresult}
 
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.9\textwidth,angle=0]{../../../fig/PDDev/test/PhasesAndPSFs_jmaxstudy_WoutN_rmsWFe_30.png}
+\decoRule
+\caption{Example of simulated phases and their PSFs to test the analytical algorithm. On the phases plot, first line, the image is not entirely shown, only from pixel 132 to 268 out of 400 pixels, for clarity. The PSFs are zoomed x10 (pixels 180 to 220) in order to be able to compare the spots. From left to right the PSFs are the defocused one, $-\delta\phi$, the focused one and the other defocused one, $\delta\phi$. The imaging system simulates the one we have on the optical bench composed by a 3.6 mm pupil and a focal length of 80 mm at a wavelength of 637.5 nm. The size, N, of the PSF is 400 and the pixel size is 5.3 $\mu m$.}
+\label{fig:simPhasesAndPSFs}
+\end{center}
+\end{figure}
+
+To test the new algorithm, we used simulated PSFs, see Figure \ref{fig:simPhasesAndPSFs}. We constructed the PSFs with random phase function decomposed on the Zernike basis. The algorithm works well, using the PSFs shown in Figure \ref{fig:simPhasesAndPSFs}, we are able to reconstruct the 
+
 
