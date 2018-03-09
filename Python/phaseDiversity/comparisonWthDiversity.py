@@ -98,15 +98,15 @@ for irms,rmsWFdir in enumerate(rmsWFerrorFolderPaths):
 rmsWFerrorMax = np.max(np.append(rmsWFerrorsPyRetrieved,rmsWFeTrue))
 rmsWFerrorMin = np.min(np.append(rmsWFerrorsPyRetrieved,rmsWFeTrue))
 
-fnamerms = '../../../fig/PDDev/compDiversity/rmsWFerrorsretrieved_rmsWFeWthIDL %s'
+fnamerms = '../../../fig/PDDev/compDiversity/rmsWFerrorsretrieved_rmsWFeWthIDL%s'
 fnamermse = '../../../fig/PDDev/compDiversity/rmse_rmsWFeWthIDL%s'
 IxsortIDl = np.argsort(rmsWFeIDLtrue)
 IxsortPy = np.argsort(rmsWFeTruePy)
 fig = plt.figure()
 plt.hold(True)
-plt.plot(rmsWFeTruePy[IxsortPy],rmsWFerrorsPyRetrieved[IxsortPy],label='python')
-plt.plot(rmsWFeIDLtrue[IxsortIDl],rmsWFeIDLmodalretrieved[IxsortIDl],label='IDL modal')
-plt.plot(rmsWFeIDLtrue[IxsortIDl],rmsWFeIDLzonalretrieved[IxsortIDl],label='IDL zonal')
+plt.plot(rmsWFeTruePy[IxsortPy],rmsWFerrorsPyRetrieved[IxsortPy],label='Analytical Algo')
+plt.plot(rmsWFeIDLtrue[IxsortIDl],rmsWFeIDLmodalretrieved[IxsortIDl],label='ONERA modal')
+plt.plot(rmsWFeIDLtrue[IxsortIDl],rmsWFeIDLzonalretrieved[IxsortIDl],label='ONERA zonal')
 plt.plot([rmsWFerrorMin,rmsWFerrorMax],[rmsWFerrorMin,rmsWFerrorMax],linewidth=2,c='grey')
 plt.xlim([rmsWFerrorMin,rmsWFerrorMax])
 plt.ylim([rmsWFerrorMin,rmsWFerrorMax])
@@ -119,9 +119,9 @@ plt.savefig(fnamerms % ('.pdf'), dpi=300)
 #plt.close(fig)
 
 fig = plt.figure()
-plt.plot(rmsWFeTruePy[IxsortPy],rmsePy[IxsortPy],label='python')
-plt.plot(rmsWFeIDLtrue[IxsortIDl],rmsemodal[IxsortIDl],label='IDL modal')
-plt.plot(rmsWFeIDLtrue[IxsortIDl],rmsezonal[IxsortIDl],label='IDL zonal')
+plt.plot(rmsWFeTruePy[IxsortPy],rmsePy[IxsortPy],label='Analytical Algo')
+plt.plot(rmsWFeIDLtrue[IxsortIDl],rmsemodal[IxsortIDl],label='ONERA modal')
+plt.plot(rmsWFeIDLtrue[IxsortIDl],rmsezonal[IxsortIDl],label='ONERA zonal')
 plt.xlim([rmsWFerrorMin,rmsWFerrorMax])
 plt.xlabel('$\sigma_{WF,rms}$ true [nm]')
 plt.ylabel('RMSE [nm]')

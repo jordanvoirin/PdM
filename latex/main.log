@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6400) (preloaded format=pdflatex 2017.10.12)  9 MAR 2018 12:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6400) (preloaded format=pdflatex 2017.10.12)  9 MAR 2018 18:16
 entering extended mode
 **./main.tex
 (main.tex
@@ -2597,48 +2597,56 @@ df  used on input line 199. on input line 199.
 Package pdftex.def Info: Requested size: 181.81184pt x 136.35283pt on input lin
 e 199.
  [36 <./Figures/../../../fig/PDDev/test/ajs_js_jmaxstudy_WoutN_rmsWFe_30.pdf>]
-<Figures/../../../fig/PDDev/test/rmsWFerrorsretrieved_rmsWFe.pdf, id=1083, page
-box=cropbox, 578.16pt x 433.62pt>
-File: Figures/../../../fig/PDDev/test/rmsWFerrorsretrieved_rmsWFe.pdf Graphic f
-ile (type pdf)
-<use Figures/../../../fig/PDDev/test/rmsWFerrorsretrieved_rmsWFe.pdf>
-Package pdftex.def Info: Figures/../../../fig/PDDev/test/rmsWFerrorsretrieved_r
-msWFe.pdf  used on input line 214. on input line 214.
+<Figures/../../../fig/PDDev/compDiversity/rmsWFerrorsretrieved_rmsWFeWthIDL.pdf
+, id=1083, pagebox=cropbox, 578.16pt x 433.62pt>
+File: Figures/../../../fig/PDDev/compDiversity/rmsWFerrorsretrieved_rmsWFeWthID
+L.pdf Graphic file (type pdf)
+<use Figures/../../../fig/PDDev/compDiversity/rmsWFerrorsretrieved_rmsWFeWthIDL
+.pdf>
+Package pdftex.def Info: Figures/../../../fig/PDDev/compDiversity/rmsWFerrorsre
+trieved_rmsWFeWthIDL.pdf  used on input line 214. on input line 214.
 Package pdftex.def Info: Requested size: 181.81184pt x 136.35283pt on input lin
 e 214.
-<Figures/../../../fig/PDDev/test/rmse_rmsWFe.pdf, id=1084, pagebox=cropbox, 578
-.16pt x 433.62pt>
-File: Figures/../../../fig/PDDev/test/rmse_rmsWFe.pdf Graphic file (type pdf)
-<use Figures/../../../fig/PDDev/test/rmse_rmsWFe.pdf>
-Package pdftex.def Info: Figures/../../../fig/PDDev/test/rmse_rmsWFe.pdf  used 
-on input line 220. on input line 220.
+<Figures/../../../fig/PDDev/compDiversity/rmse_rmsWFeWthIDL.pdf, id=1084, pageb
+ox=cropbox, 578.16pt x 433.62pt>
+File: Figures/../../../fig/PDDev/compDiversity/rmse_rmsWFeWthIDL.pdf Graphic fi
+le (type pdf)
+<use Figures/../../../fig/PDDev/compDiversity/rmse_rmsWFeWthIDL.pdf>
+Package pdftex.def Info: Figures/../../../fig/PDDev/compDiversity/rmse_rmsWFeWt
+hIDL.pdf  used on input line 220. on input line 220.
 Package pdftex.def Info: Requested size: 181.81184pt x 136.35283pt on input lin
 e 220.
+
+
+LaTeX Warning: Reference `subfig:rmsWFerrorsretrieved_rmsWFeWthIDL' on page 37 
+undefined on input line 228.
+
+
+LaTeX Warning: Reference `subfig:rmse_rmsWFeWthIDL' on page 37 undefined on inp
+ut line 228.
+
 ) [37 <./Figures/../../../fig/PDDev/test/ajs_js_WthE_rmsWFe_30.pdf> <./Figures/
 ../../../fig/PDDev/test/bxp_ajs_js_rmsWFe_30.pdf
 
 pdfTeX warning: pdflatex (file ./Figures/../../../fig/PDDev/test/bxp_ajs_js_rms
 WFe_30.pdf): PDF inclusion: multiple pdfs with page group included in a single 
 page
-> <./Figures/../../../fig/PDDev/test/rmsWFerrorsretrieved_rmsWFe.pdf
+>] [38 <./Figures/../../../fig/PDDev/compDiversity/rmsWFerrorsretrieved_rmsWFeW
+thIDL.pdf> <./Figures/../../../fig/PDDev/compDiversity/rmse_rmsWFeWthIDL.pdf
 
-pdfTeX warning: pdflatex (file ./Figures/../../../fig/PDDev/test/rmsWFerrorsret
-rieved_rmsWFe.pdf): PDF inclusion: multiple pdfs with page group included in a 
-single page
-> <./Figures/../../../fig/PDDev/test/rmse_rmsWFe.pdf
-
-pdfTeX warning: pdflatex (file ./Figures/../../../fig/PDDev/test/rmse_rmsWFe.pd
-f): PDF inclusion: multiple pdfs with page group included in a single page
+pdfTeX warning: pdflatex (file ./Figures/../../../fig/PDDev/compDiversity/rmse_
+rmsWFeWthIDL.pdf): PDF inclusion: multiple pdfs with page group included in a s
+ingle page
 >]
 \openout2 = `Chapters/Conclusion.aux'.
 
- (Chapters/Conclusion.tex [38
-
-
-
-])
+ (Chapters/Conclusion.tex)
 1: section
-[39]
+[39
+
+
+
+]
 \openout2 = `Appendices/pythonCode.aux'.
 
  (Appendices/pythonCode.tex [40
@@ -2760,7 +2768,7 @@ Appendix B.
 
  (Appendices/AppDataSheet.tex
 Appendix C.
-<../../componentDatasheet/LPS-635-FC-SpecSheet.pdf, id=2449, pagebox=cropbox, 6
+<../../componentDatasheet/LPS-635-FC-SpecSheet.pdf, id=2476, pagebox=cropbox, 6
 14.295pt x 794.97pt>
 File: ../../componentDatasheet/LPS-635-FC-SpecSheet.pdf Graphic file (type pdf)
 
@@ -2779,7 +2787,7 @@ Overfull \vbox (20.46199pt too high) has occurred while \output is active []
 
 
 [60 <../../componentDatasheet/LPS-635-FC-SpecSheet.pdf>]
-<../../componentDatasheet/A220TM-AutoCADPDF.pdf, id=2506, pagebox=cropbox, 794.
+<../../componentDatasheet/A220TM-AutoCADPDF.pdf, id=2533, pagebox=cropbox, 794.
 97pt x 614.295pt>
 File: ../../componentDatasheet/A220TM-AutoCADPDF.pdf Graphic file (type pdf)
 <use ../../componentDatasheet/A220TM-AutoCADPDF.pdf>
@@ -2800,7 +2808,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 22.
 
-<../../componentDatasheet/P10S-AutoCADPDF.pdf, id=2508, pagebox=cropbox, 794.97
+<../../componentDatasheet/P10S-AutoCADPDF.pdf, id=2535, pagebox=cropbox, 794.97
 pt x 614.295pt>
 File: ../../componentDatasheet/P10S-AutoCADPDF.pdf Graphic file (type pdf)
 <use ../../componentDatasheet/P10S-AutoCADPDF.pdf>
@@ -2809,7 +2817,7 @@ input line 24. on input line 24.
 Package pdftex.def Info: Requested size: 404.02908pt x 312.20836pt on input lin
 e 24.
 [61 <../../componentDatasheet/A220TM-AutoCADPDF.pdf>]
-<../../componentDatasheet/AL100200-AutoCADPDF.pdf, id=2539, pagebox=cropbox, 79
+<../../componentDatasheet/AL100200-AutoCADPDF.pdf, id=2566, pagebox=cropbox, 79
 4.97pt x 614.295pt>
 File: ../../componentDatasheet/AL100200-AutoCADPDF.pdf Graphic file (type pdf)
 <use ../../componentDatasheet/AL100200-AutoCADPDF.pdf>
@@ -2818,7 +2826,7 @@ Package pdftex.def Info: ../../componentDatasheet/AL100200-AutoCADPDF.pdf  used
 Package pdftex.def Info: Requested size: 404.02908pt x 312.20836pt on input lin
 e 29.
  [62 <../../componentDatasheet/P10S-AutoCADPDF.pdf>]
-<../../componentDatasheet/AC254-100-A-AutoCADPDF.pdf, id=2570, pagebox=cropbox,
+<../../componentDatasheet/AC254-100-A-AutoCADPDF.pdf, id=2597, pagebox=cropbox,
  794.97pt x 614.295pt>
 File: ../../componentDatasheet/AC254-100-A-AutoCADPDF.pdf Graphic file (type pd
 f)
@@ -2828,14 +2836,14 @@ sed on input line 34. on input line 34.
 Package pdftex.def Info: Requested size: 404.02908pt x 312.20836pt on input lin
 e 34.
  [63 <../../componentDatasheet/AL100200-AutoCADPDF.pdf>]
-<../../componentDatasheet/ximeaPic.png, id=2601, 291.489pt x 234.8775pt>
+<../../componentDatasheet/ximeaPic.png, id=2628, 291.489pt x 234.8775pt>
 File: ../../componentDatasheet/ximeaPic.png Graphic file (type png)
 <use ../../componentDatasheet/ximeaPic.png>
 Package pdftex.def Info: ../../componentDatasheet/ximeaPic.png  used on input l
 ine 40. on input line 40.
 Package pdftex.def Info: Requested size: 202.01454pt x 162.78242pt on input lin
 e 40.
-<../../componentDatasheet/ximeaSpec.png, id=2602, 270.41025pt x 395.67825pt>
+<../../componentDatasheet/ximeaSpec.png, id=2629, 270.41025pt x 395.67825pt>
 File: ../../componentDatasheet/ximeaSpec.png Graphic file (type png)
 <use ../../componentDatasheet/ximeaSpec.png>
 Package pdftex.def Info: ../../componentDatasheet/ximeaSpec.png  used on input 
@@ -2848,7 +2856,7 @@ Overfull \hbox (6.71394pt too wide) in paragraph at lines 43--44
 ducts / usb3-[]vision-[]cameras-[]xiq-[]line / mq013mg-[]e2$[][] 
  []
 
-<../../componentDatasheet/WFS150-5C.png, id=2636, 313.77225pt x 481.19775pt>
+<../../componentDatasheet/WFS150-5C.png, id=2663, 313.77225pt x 481.19775pt>
 File: ../../componentDatasheet/WFS150-5C.png Graphic file (type png)
 <use ../../componentDatasheet/WFS150-5C.png>
 Package pdftex.def Info: ../../componentDatasheet/WFS150-5C.png  used on input 
@@ -2888,21 +2896,20 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 0D485C8A3B65F0AE752DBA5C0C27CC23;10934.
 
 
+LaTeX Warning: There were undefined references.
+
+
 LaTeX Warning: There were multiply-defined labels.
-
-
-Package biblatex Warning: Please rerun LaTeX.
-(biblatex)                Page breaks have changed.
 
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 39505 strings out of 493347
- 772060 string characters out of 3136920
+ 39511 strings out of 493347
+ 772410 string characters out of 3136920
  1056287 words of memory out of 3000000
- 41314 multiletter control sequences out of 15000+200000
+ 41318 multiletter control sequences out of 15000+200000
  619278 words of font info for 202 fonts, out of 3000000 for 9000
  1127 hyphenation exceptions out of 8191
  64i,20n,84p,10379b,3522s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -2922,9 +2929,9 @@ e1/urw/palatino/uplb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/p
 alatino/uplbi8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/palatino
 /uplr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/palatino/uplr8a.
 pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (82 pages, 6086832 bytes).
+Output written on main.pdf (82 pages, 6097260 bytes).
 PDF statistics:
- 2970 PDF objects out of 2984 (max. 8388607)
+ 2997 PDF objects out of 3580 (max. 8388607)
  1156 named destinations out of 1200 (max. 500000)
  770 words of extra memory for PDF output out of 10000 (max. 10000000)
 
