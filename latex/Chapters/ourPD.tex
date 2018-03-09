@@ -1,7 +1,7 @@
 \chapter{Analytical phase diversity algorithm} 
 \label{ch:ourPD}
 
-After having tested and used the ONERA algorithm, we can pass to the main goal of this work, the development of our phase diversity algorithm. In this chapter, we will describe the algorithm and its implementation. And we will present the result of its testing with simulated PSFs. We will present also an approach, that could be used on a telescope equipped with a deformable mirror, increasing the validity domain of the method. And finally we will compare our algorithm with the ONERA algorithm.
+After having tested and used the ONERA algorithm, we can pass to the main goal of this work, the development of our phase diversity algorithm. In this chapter, we will describe the algorithm and its implementation. We will present the result of its testing with simulated PSFs. An approach to expand the validity domain of the method is presented, that could be used on a telescope equipped with a deformable mirror. And finally a comparison between our algorithm and the ONERA algorithm is shown.
 
 \section{Analytical algorithm}
 \label{sec:AnAlgo}
@@ -185,25 +185,44 @@ Using the PSFs shown in Figure \ref{fig:simPhasesAndPSFs}, we are able to recons
 \end{center}
 \end{figure}
 
-As for the ONERA algorithm, we want to know if $j_{max}$ has an influence on the results retrieved. In order to study its effect, a phase with $j_max = 200$ is used. Retrievals are done for $j_{max} = 10, 20 , 30, 50,100,150,200$. The results are presented in Figure \ref{fig:ajs_js_jmaxstudy_WoutN_rmsWFe_30}. There is two interesting thing with those results. First, we can see that $j_max$ has a negligible influence on the retrieval. Indeed, the RMSE is similar for all retrieval except for $j_{max}$. This leads to the second interesting result. The phase diversity algorithm is more precise if $j_{max}$ used for the retrieval is equal to the one used to create the simulated PSFs.
+As for the ONERA algorithm, we want to know if $j_{max}$ has an influence on the results retrieved. In order to study its effect, a phase with $j_max = 200$ is used. Retrievals are done for $j_{max} = 10, 20 , 30, 50,100,150,200$. The results are presented in Figure \ref{fig:ajs_js_jmaxstudy_WoutN_rmsWFe_30}. There is two interesting thing with those results. First, we can see that $j_max$ has a negligible influence on the retrieval. Indeed, the RMSE is similar for all retrieval except for $j_{max} = 200$. This leads to the second interesting result. The phase diversity algorithm is more precise if $j_{max}$ used for the retrieval is equal to the one used to create the simulated PSFs. Indeed, when $j_{max}$ used for the retrieval is smaller than the one used to create the PSFs, in other words when we retrieve less Zernike coefficients than the number of aberrations present in the wavefront, the results tends to overestimate the $a_j$'s due to the fact that there is not enough polynomials to amount for the total budget of aberrations.
 
 \begin{figure}
 \centering
     \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=\textwidth]{../../../fig/PDDev/test/ajs_js_WthE_rmsWFe_30}
-        \caption{}
+        \caption{Zernike coefficient as a function of $j$.  The blue line represents the true $a_j$'s . The red lines correspond to the 100 different retrievals computed with the 100 noisy PSFs.}
         \label{subfig:ajs_js_WthE_rmsWFe_30}
     \end{subfigure}
     \quad
     \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=\textwidth]{../../../fig/PDDev/test/bxp_ajs_js_rmsWFe_30}
-        \caption{}
+        \caption{Boxplots representing the statistics of the 100 Zernike coefficients as a function of $j$. The blue line represents the true ones.}
         \label{subfig:bxp_ajs_js_rmsWFe_30}
     \end{subfigure}
     \decoRule
-    \caption{Zernike coefficient as a function of $j$. Noise level is 0.001. The wavefront rms error is 30 nm. The blue line are the true $a_j$'s . The red lines correspond to 100 different retrievals computed with 100 noisy PSFs. The boxplots sum up the 100 retrievals.}
+    \caption{Noise study results. Noise level is $0.001$. The wavefront rms error is 30 nm.}
 \end{figure}
 
-Figure \ref{fig:ajs_js_jmax_30_WoutN_rmsWFe_30} and \ref{fig:ajs_js_jmaxstudy_WoutN_rmsWFe_30} show results of retrieval done with noiseless PSFs. But given that the final aim is to use this algorithm to characterize the static aberrations present on the optical path to a scientific detector, the PSFs will have noise due to the detector. To be as close to reality as possible with the simulated PSFs, we need to introduce noise into them. We assume that the noise is white Gaussian as it simpler than adding Poisson noise. The random introduction of noise is done with a \verb!numpy! function called \verb!numpy.random.normal()!\footnote{\url{https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.random.html}}.
+Figure \ref{fig:ajs_js_jmax_30_WoutN_rmsWFe_30} and \ref{fig:ajs_js_jmaxstudy_WoutN_rmsWFe_30} show the results of phase retrievals computed with noiseless PSFs. Given that the final aim is to use this algorithm to characterize the static aberrations present on the optical path to a scientific detector, the PSFs will have noise due to the detector. To be as close to reality as possible with the simulated PSFs, we need to introduce noise into them and study its effect on the retrieval. We assume that the noise is white Gaussian as it is simpler than adding Poisson noise and it is a good approximation. The random introduction of noise is done with a \verb!numpy! function called \verb!numpy.random.normal()!\footnote{\url{https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.random.html}}.
 
-Figure \ref{subfig:ajs_js_WthE_rmsWFe_30} and \ref{subfig:bxp_ajs_js_rmsWFe_30} presents the results of 100 phase retrievals computed with 100 different noisy PSFs of the same optical system. The comparison between the true Zernike coefficient and the retrieved ones is good but the performance of the algorithm is decreased due to the noise. The mean RMSE of the 100 retrievals, that equals 8.324 nm, is $\sim10$ times bigger than without noise. However, the boxplots in Figure \ref{subfig:bxp_ajs_js_rmsWFe_30} shows that the spread due to the noise is clearly less than 1 nm. The results are similar for other wavefront rms error and different $j_{max}$. 
+Figure \ref{subfig:ajs_js_WthE_rmsWFe_30} and \ref{subfig:bxp_ajs_js_rmsWFe_30} presents the results of the 100 phase retrievals computed with the 100 different noisy PSFs. The comparison between the true Zernike coefficients and the retrieved ones is good but as expected the performance of the algorithm is decreased. The mean RMSE of the 100 retrievals is equal to 8.324 nm, this is $\sim10$ times bigger than a phase retrieval using noiseless PSFs. However, the boxplots in Figure \ref{subfig:bxp_ajs_js_rmsWFe_30} shows that the spread due to the noise is clearly less than 1 nm, which demonstrates that the noise do not affect the precision but the accuracy of the method. The results are similar for other wavefront rms error and different $j_{max}$.
+
+\begin{figure}
+\centering
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{../../../fig/PDDev/test/rmsWFerrorsretrieved_rmsWFe}
+        \caption{Rms wavefront error retrieved as a function of the true one. The grey line is the one to one line.}
+        \label{subfig:rmsWFerrorsretrieved_rmsWFe}
+    \end{subfigure}
+    \quad
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{../../../fig/PDDev/test/rmse_rmsWFe}
+        \caption{RMSE as a function of the true rms wavefront error.}
+        \label{subfig:rmse_rmsWFe}
+    \end{subfigure}
+    \decoRule
+    \caption{Validity domain study results.}
+\end{figure}
+
+Another important point to treat is the domain of validity of the phase retrieval method that we present. Indeed as explained in section \ref{sec:AnAlgo}, the analytical development used is possible only by assuming weak phase aberrations in order to enable the expansion of the phase term. In order to constrain the validity domain, a series of phase retrievals is computed on noiseless PSFs with random phase having a rms wavefront error going from 1 to 200 nm. 
