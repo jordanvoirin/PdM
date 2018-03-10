@@ -1,7 +1,7 @@
 \chapter{Analytical phase diversity algorithm} 
 \label{ch:ourPD}
 
-After having tested and used the ONERA algorithm, we can pass to the main goal of this work, the development of our phase diversity algorithm. In this chapter, we will describe the algorithm and its implementation. We will present the result of its testing with simulated PSFs. An approach to expand the validity domain of the method is presented, that could be used on a telescope equipped with a deformable mirror. And finally a comparison between our algorithm and the ONERA algorithm is shown.
+After having tested and used the ONERA algorithm, we can pass to the main goal of this work, the development of our phase diversity algorithm. In this chapter, we will describe the algorithm and its implementation. We will present the result of its testing with simulated PSFs. A comparison between our algorithm and the ONERA algorithm is reported. And finally an approach to expand the validity domain of the method is presented, that could be used on a telescope equipped with a deformable mirror.
 
 \section{Analytical algorithm}
 \label{sec:AnAlgo}
@@ -153,6 +153,10 @@ The linear regression is done after having initiated all the elements of the equ
 \section{Results}
 \label{sec:ourPDresult}
 
+This section presents the results of the tests and first use of the analytical algorithm of phase diversity developed in the frame of this project and described above.
+
+\subsection{Algorithm test}
+
 \begin{figure}
 \begin{center}
 \includegraphics[width=0.6\textwidth,angle=0]{../../../fig/PDDev/test/PhasesAndPSFs_jmaxstudy_WoutN_rmsWFe_30.png}
@@ -172,7 +176,7 @@ The linear regression is done after having initiated all the elements of the equ
 \end{center}
 \end{figure} 
 
-To test the new algorithm, we used simulated PSFs, see Figure \ref{fig:simPhasesAndPSFs}. The simulated PSFs are computed using eqt. \eqref{eqt:PSF}. We assume a unitary amplitude over the entire pupil, as explained above and we construct the phase by attributing random values to Zernike coefficients from $j_{min}$ to $j_{max}$. Applying the formula of the PSF we get our simulated PSFs. The implementation can be seen in Appendix \ref{subapp:PSF}.
+To test the new algorithm, we used simulated PSFs, see Figure \ref{fig:simPhasesAndPSFs}. The simulated PSFs are computed using eqt. \eqref{eqt:PSF}. We assume a unitary amplitude over the entire pupil, as explained above and we construct the phase by attributing random values to Zernike coefficients from $j_{min}$ to $j_{max}$ and the two defocused PSFs have a $2\pi$ P2V dephasing. The number of pixel is N = 400 and the pixel size is 5.3 $\mu$m, same as the Ximea Camera. The focal length of the exit pupil is 80 mm and its diameter is set to 3.2 mm. The system simulates the optical system we used in the phase diversity experiment. The implementation can be seen in Appendix \ref{subapp:PSF}. 
 
 Using the PSFs shown in Figure \ref{fig:simPhasesAndPSFs}, we are able to reconstruct the phase of the incoming wavefront onto the pupil. Figure \ref{fig:ajs_js_jmax_30_WoutN_rmsWFe_30} shows the true Zernike coefficient as well as the retrieved one. The correspondence is good. There is a RMS error of 0.603 nm between the retrieved coefficient and the true ones. And the wavefront RMS error retrieved is 2.663 nm to small. This is due to the fact that our algorithm is based on an approximation that causes the retrieval to underestimate the aberrations present.
 
@@ -218,11 +222,46 @@ Figure \ref{subfig:ajs_js_WthE_rmsWFe_30} and \ref{subfig:bxp_ajs_js_rmsWFe_30} 
     \quad
     \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=\textwidth]{../../../fig/PDDev/compDiversity/rmse_rmsWFeWthIDL}
-        \caption{RMSE of the Zernike coefficient retrieved with respect to the true ones as a function of the true RMS wavefront error. The blue line correspond to the analytical algorithm and the green and red lines correspond to the ONERA algorithm, modal and zonal retrieval respectively.$j_{min}=4$ and $j_{max}=30$.}
+        \caption{RMSE of the Zernike coefficient retrieved with respect to the true ones as a function of the true RMS wavefront error. The blue line correspond to the analytical algorithm and the green and red lines correspond to the ONERA algorithm, modal and zonal retrieval respectively. $j_{min}=4$ and $j_{max}=30$.}
         \label{subfig:rmse_rmsWFeWthIDL}
     \end{subfigure}
     \decoRule
     \caption{Validity domain study results.}
 \end{figure}
 
-Another important point is the domain of validity of the phase retrieval method that we present. Indeed as explained in section \ref{sec:AnAlgo}, the analytical development used is possible only by assuming weak phase aberrations in order to enable the expansion of the phase term. In order to constrain the validity domain, a series of phase retrievals is computed on noise less PSFs with random phase having a RMS wavefront error going from 1 to 200 nm. The comparison between the wavefront RMS error retrieved and the true one is visible in Figure \ref{subfig:rmsWFerrorsretrieved_rmsWFeWthIDL}. As expected, the method is underestimating the phase aberrations due to the approximation on which the phase retrieval is based, see eqt. \eqref{eqt:PSFwthPhaseExpand}. The retrieval method is off by more than 10\% and saturates at 50 nm above a true RMS wavefront error of 50 nm. Also the 50 nm threshold is the RMS wavefront error above which the RMSE of the retrieved Zernike becomes significant as seen in Figure \ref{subfig:rmse_rmsWFeWthIDL}.  
+Another important point to look at is the domain of validity of the phase retrieval method. Indeed as explained in section \ref{sec:AnAlgo}, the analytical development used is possible only by assuming weak phase aberrations in order to enable the expansion of the phase term. In order to constrain the validity domain, a series of phase retrievals is computed on noise less PSFs with random phase having a RMS wavefront error going from 1 to 200 nm. The comparison between the wavefront RMS errors retrieved and the true ones is visible in Figure \ref{subfig:rmsWFerrorsretrieved_rmsWFeWthIDL}. We focus first on the blue lines, which represent the analytical algorithm. As expected, the method is underestimating the phase aberrations due to the approximation on which the phase retrieval is based, see eqt. \eqref{eqt:PSFwthPhaseExpand}. The retrieval method is off by more than 10\% and saturates at $\sim 50$ nm when retrieving the aberrations of a wavefront having a true RMS wavefront error above 50 nm. Also the $\sim50$ nm threshold is the RMS wavefront error above which the RMSE of the retrieved Zernike becomes significant as seen in Figure \ref{subfig:rmse_rmsWFeWthIDL}. To have an idea of the performance of the analytical algorithm, the ONERA algorithm modal and zonal RMS wavefront errors retrieved are also shown in Figure \ref{subfig:rmsWFerrorsretrieved_rmsWFeWthIDL}. They are both far better than the analytical algorithm. They go up to $\sim150$ nm really accurately, but above the two retrieval methods also underestimate the RMS wavefront error. So the approximation limits considerably the range of validity of the method.
+
+
+\subsection{Recursive approach}
+\label{subsec:RecApp}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth,angle=0]{../../../fig/PDDev/recursivePD/ajs_jsRecursiveWthNoise_eWFrms_130}
+\decoRule
+\caption{}
+\label{fig:ajs_jsRecursiveWthNoise_eWFrms_130}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\centering
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{../../../fig/PDDev/recursivePD/rmsWFErrorsWthN}
+        \caption{RMS wavefront error retrieved using the recursive approach as a function of the true one. The grey line is the one to one line. $j_{min}=4$ and $j_{max}=30$.}
+        \label{subfig:rmsWFErrorsWthN}
+    \end{subfigure}
+    \quad
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{../../../fig/PDDev/recursivePD/rmseWthN}
+        \caption{RMSE of the Zernike coefficient retrieved, using the recursive approach, with respect to the true ones as a function of the true RMS wavefront error.  $j_{min}=4$ and $j_{max}=30$.}
+        \label{subfig:rmseWthN}
+    \end{subfigure}
+    \decoRule
+    \caption{}
+\end{figure}
+
+The tests have shown that the analytical phase diversity algorithm works well for wavefront having weak aberrations up to 50 nm of RMS error. But in order to use it on a real optical system to correct the static aberrations present, the algorithm should be able to at least correct wavefront with 100-120 nm RMS error. An idea comes then to mind to use the phase retrievals recursively as the aberration phenomenon is linear. Indeed, identifying aberrations in the system and correct them using the deformable mirror present on the telescope, we could reduce the aberrations in the system recursively.
+
+To simulate the deformable mirror, the retrieved Zernike coefficients at each iteration are subtract to the ones used to compute the PSFs as a deformable mirror would remove the aberrations retrieved by the phase diversity. The results of the recursive approach on a wavefront having a RMS error of 130 nm are presented in Figure \ref{fig:ajs_jsRecursiveWthNoise_eWFrms_130}. The dashed line confounded with the thick blue line represent the final result of the recursive phase retrieval. The other thin lines present the different Zernike coefficients retrieved at each iteration. For a 130 nm RMS wavefront, the method needs 6 iterations to converge to the solution. The comparison between the wavefront RMS errors retrieved and the true ones as well as the RMSE as a function of the wavefront RMS error are visible in Figures \ref{subfig:rmsWFErrorsWthN} and \ref{subfig:rmseWthN}. The recursive phase diversity allows to extend the validity domain by 100 nm. The wavefront RMS errors retrieved is correct up to 150 nm and then the method does not work systematically any more. The RMSE shows it also clearly as it is nearly zero and then explodes at 150 nm.
+

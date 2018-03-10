@@ -20,10 +20,13 @@ jmax = 30
 rmsWFerrors = np.array([5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,115,130,200,250])
 rmsWFerrors = np.append(rmsWFerrors,np.linspace(150,175,26))
 
+#rmsWFerrors = np.array([130])
 rmsWFerrors = np.sort(rmsWFerrors)
 
 rmsWFerrorsWoutNret = rmsWFerrors*0.
 rmsWFerrorsWthNret = rmsWFerrors*0.
+rmseWoutNret = rmsWFerrors*0.
+rmseWthNret = rmsWFerrors*0.
 noiseStdLevel = 0.001
 
 P2Vdephasing = np.pi*deltaZ/lbda*(2*pupilRadius/F)**2/4.
@@ -44,7 +47,12 @@ for irms,rmsWFerror in enumerate(rmsWFerrors):
     ajsresultWoutNoise = js*.0
     jswth4 = copy.deepcopy(js)
     
-    rmsWFerrorprevious = fs.RMSwavefrontError(js,ajstrue)*1e9*lbda/2/np.pi    
+    rmsWFerrorprevious = fs.RMSwavefrontError(js,ajstrue)*1e9*lbda/2/np.pi  
+    
+    plt.figure()
+    plt.plot(js,ajscomplete*1e9*lbda/2/np.pi,'b-',linewidth = 2,label='true, $\sigma_{WF,rms}$ = %5.3f nm' %(fs.RMSwavefrontError(js,ajscomplete*1e9*lbda/2/np.pi)))
+    plt.hold()
+    itera = 1
     
     while(fs.RMSwavefrontError(js,ajstrue)*1e9*lbda/2/np.pi > 2.):
         print fs.RMSwavefrontError(js,ajstrue)*1e9*lbda/2/np.pi
@@ -87,16 +95,21 @@ for irms,rmsWFerror in enumerate(rmsWFerrors):
             break
         
         rmsWFerrorprevious = fs.RMSwavefrontError(js,ajstrue)*1e9*lbda/2/np.pi   
-    #    plt.figure()
-    #    plt.plot(js,ajscomplete*1e9*lbda/2/np.pi,'b-',label='true, $\sigma_{WF,rms}$ = %5.3f nm' %(fs.RMSwavefrontError(js,ajscomplete*1e9*lbda/2/np.pi)))
-    #    plt.plot(js,ajsresultWoutNoise*1e9*lbda/2/np.pi,color = 'red',lineStyle='-',label='retrieved wout noise, $\sigma_{WF,rms}$ = %5.3f nm, RMSE = %5.3f nm'
-    #        %(fs.RMSwavefrontError(js,ajsresultWoutNoise*1e9*lbda/2/np.pi)
-    #        ,fs.RMSE(ajsresultWoutNoise*1e9*lbda/2/np.pi,ajscomplete*1e9*lbda/2/np.pi)))
-    #    plt.xlabel('j')
-    #    plt.ylabel('aj [nm]')
-    #    plt.xlim([js[0],js[-1]])
-    #    plt.legend(loc='best')
-    #    plt.grid()
+#        plt.figure()
+#        plt.plot(js,ajscomplete*1e9*lbda/2/np.pi,'b-',label='true, $\sigma_{WF,rms}$ = %5.3f nm' %(fs.RMSwavefrontError(js,ajscomplete*1e9*lbda/2/np.pi)))
+        plt.plot(js,ajsresultWoutNoise*1e9*lbda/2/np.pi,lineStyle='-',label='iteration %d'%itera)
+#            %(fs.RMSwavefrontError(js,ajsresultWoutNoise*1e9*lbda/2/np.pi)
+#            ,fs.RMSE(ajsresultWoutNoise*1e9*lbda/2/np.pi,ajscomplete*1e9*lbda/2/np.pi)))
+        itera += 1
+        
+    plt.plot(js,ajsresultWoutNoise*1e9*lbda/2/np.pi,lineStyle='--',linewidth = 2,label='results')
+    plt.xlabel('j')
+    plt.ylabel('aj [nm]')
+    plt.xlim([js[0],js[-1]])
+    plt.legend(loc='best')
+    plt.grid()
+    
+    
     fnamerms = '../../../fig/PDDev/recursivePD/ajs_jsWoutNoise_eWFrms_%d%s'
     
     fig=plt.figure()
@@ -114,10 +127,13 @@ for irms,rmsWFerror in enumerate(rmsWFerrors):
     plt.close(fig)
     
     rmsWFerrorsWoutNret[irms] = fs.RMSwavefrontError(js,ajsresultWoutNoise*1e9*lbda/2/np.pi)    
-    
+    rmseWoutNret[irms] = fs.RMSE(ajscomplete*1e9*lbda/2/np.pi,ajsresultWoutNoise*1e9*lbda/2/np.pi)
     
     rmsWFerrorprevious = fs.RMSwavefrontError(js,ajstrueWthNoise)*1e9*lbda/2/np.pi
-    
+    plt.figure()
+    plt.plot(js,ajscomplete*1e9*lbda/2/np.pi,'b-',linewidth=2,label='true, $\sigma_{WF,rms}$ = %5.3f nm' %(fs.RMSwavefrontError(js,ajscomplete*1e9*lbda/2/np.pi)))
+    plt.hold()
+    itera = 1
     while(fs.RMSwavefrontError(js,ajstrueWthNoise)*1e9*lbda/2/np.pi > 2.):
         print fs.RMSwavefrontError(js,ajstrueWthNoise)*1e9*lbda/2/np.pi
         
@@ -160,16 +176,22 @@ for irms,rmsWFerror in enumerate(rmsWFerrors):
             break
         
         rmsWFerrorprevious = fs.RMSwavefrontError(js,ajstrueWthNoise)*1e9*lbda/2/np.pi
-    #    plt.figure()
-    #    plt.plot(js,ajscomplete*1e9*lbda/2/np.pi,'b-',label='true, $\sigma_{WF,rms}$ = %5.3f nm' %(fs.RMSwavefrontError(js,ajscomplete*1e9*lbda/2/np.pi)))
-    #    plt.plot(js,ajsresultWthNoise*1e9*lbda/2/np.pi,color = 'red',lineStyle='-',label='retrieved wth noise, $\sigma_{WF,rms}$ = %5.3f nm, RMSE = %5.3f nm'
-    #        %(fs.RMSwavefrontError(js,ajsresultWthNoise*1e9*lbda/2/np.pi)
-    #        ,fs.RMSE(ajsresultWthNoise*1e9*lbda/2/np.pi,ajscomplete*1e9*lbda/2/np.pi)))
-    #    plt.xlabel('j')
-    #    plt.ylabel('aj [nm]')
-    #    plt.xlim([js[0],js[-1]])
-    #    plt.legend(loc='best')
-    #    plt.grid()
+#        plt.figure()
+#        plt.plot(js,ajscomplete*1e9*lbda/2/np.pi,'b-',label='true, $\sigma_{WF,rms}$ = %5.3f nm' %(fs.RMSwavefrontError(js,ajscomplete*1e9*lbda/2/np.pi)))
+        plt.plot(js,ajsresultWthNoise*1e9*lbda/2/np.pi,lineStyle='-',label='iteration %d'%itera)
+#            %(fs.RMSwavefrontError(js,ajsresultWthNoise*1e9*lbda/2/np.pi)
+#            ,fs.RMSE(ajsresultWthNoise*1e9*lbda/2/np.pi,ajscomplete*1e9*lbda/2/np.pi)))
+        itera += 1
+        
+    plt.plot(js,ajsresultWthNoise*1e9*lbda/2/np.pi,lineStyle='--',linewidth = 2,label='results')    
+    plt.xlabel('j')
+    plt.ylabel('aj [nm]')
+    plt.xlim([js[0],js[-1]])
+    plt.legend(loc='best')
+    plt.grid()
+        
+        
+        
     fnamerms = '../../../fig/PDDev/recursivePD/ajs_jsWthNoise_eWFrms_%d%s'
     fig = plt.figure()
     plt.plot(js,ajscomplete*1e9*lbda/2/np.pi,'b-',label='T., $\sigma_{WF,rms}$ = %5.2f nm' %(fs.RMSwavefrontError(js,ajscomplete*1e9*lbda/2/np.pi)))
@@ -185,7 +207,8 @@ for irms,rmsWFerror in enumerate(rmsWFerrors):
     plt.savefig(fnamerms % (rmsWFerror,'.pdf'), dpi=300)
     plt.close(fig)
     
-    rmsWFerrorsWthNret[irms] = fs.RMSwavefrontError(js,ajsresultWthNoise*1e9*lbda/2/np.pi)    
+    rmsWFerrorsWthNret[irms] = fs.RMSwavefrontError(js,ajsresultWthNoise*1e9*lbda/2/np.pi) 
+    rmseWthNret[irms] =  fs.RMSE(ajscomplete*1e9*lbda/2/np.pi,ajsresultWthNoise*1e9*lbda/2/np.pi)
 
 fnamerms = '../../../fig/PDDev/recursivePD/rmsWFErrorsWoutN%s'
 
@@ -223,4 +246,24 @@ plt.ylabel('$\sigma_{WF,rms}$ R. [nm]')
 plt.grid()
 plt.savefig(fnamerms % ('.png'), dpi=300)
 plt.savefig(fnamerms % ('.pdf'), dpi=300)
+plt.close(fig)
+
+fnamermse = '../../../fig/PDDev/recursivePD/rmseWoutN%s'
+fig = plt.figure()
+plt.plot(rmsWFerrors[Ixsorted],rmseWoutNret[Ixsorted])
+plt.xlabel('$\sigma_{WF,rms}$ T. [nm]')
+plt.ylabel('RMSE [nm]')
+plt.grid()
+plt.savefig(fnamermse % ('.png'), dpi=300)
+plt.savefig(fnamermse % ('.pdf'), dpi=300)
+plt.close(fig)
+
+fnamermse = '../../../fig/PDDev/recursivePD/rmseWthN%s'
+fig = plt.figure()
+plt.plot(rmsWFerrors[Ixsorted],rmseWthNret[Ixsorted])
+plt.xlabel('$\sigma_{WF,rms}$ T. [nm]')
+plt.ylabel('RMSE [nm]')
+plt.grid()
+plt.savefig(fnamermse % ('.png'), dpi=300)
+plt.savefig(fnamermse % ('.pdf'), dpi=300)
 plt.close(fig)
