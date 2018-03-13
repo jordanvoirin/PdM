@@ -1,7 +1,28 @@
 
-
 \chapter*{Conclusion}
 \addcontentsline{toc}{chapter}{Conclusion}
 \label{Conclusion}
 
-???
+The wavefront reconstruction is at the forefront of the development of astronomical instruments nowadays. Having bigger and bigger telescope will not bring a lot without methods to counter and correct the effect of the atmosphere. Both the VLT and the ELT as well as the DAG telescope use and will use wavefront sensing and reconstruction to correct the aberrations present and improve the resolution up to the diffraction limit. At the moment phase diversity is still not widely use but its advantages are certain regarding the NCPA and its principle simplicity.
+
+\vspace{1cm}
+
+In our work, we conducted an experiment to test the phase diversity algorithm developed at ONERA by \citet{mugnier_2006}. The results are mixed. The test of the algorithm regarding noise level and $j_{max}$ are interesting. We discovered that, as expected, the noise level in the PSFs has its importance especially in order to reconstruct wavefronts. The zonal method shows that under a noise level of $\sim0.00009$, the high spatial frequencies of the noise are smoothed out and cancelled. For the values of the Zernike coefficient retrieved, the spread is generally small and the noise level is not as critical as to reconstruct the wavefront.
+
+We then computed a Zemax model of our optical system to introduce calibrated astigmatism with a parallel plane plate in Plexiglas. The results are not as expected. The astigmatism retrieved by the phase diversity follows the right behaviour, but there is an offset. Trying to explain it we compared the vertical coma retrieved with the Zemax model, and once again the results were off. We concluded that the most plausible explanation is either that there is an alignment problem or that there is a problem with the usage of the ONERA phase diversity.
+
+The comparison between the Shack-Hartmann and the phase diversity is also not successful. The two wavefront retrieval method shows aberrations of the same amplitude but we have more than 25 nm of difference between the two, which is significant. And we can note conclude anything about the phase diversity as we are unsure about the Shack-Hartmann results after comparing them with the Zemax astigmatism model.
+
+In order to improve the experiment, we would need to take a step back and be sure that we have a way to characterize the system aberrations before trying to use the phase diversity. This means that in the future, we would need to be sure of the Shack-Hartmann results.
+
+\vspace{1cm}
+
+After having tested the ONERA algorithm, the aim was to develop our own phase diversity. It works as expected. And the behaviour with respect to noise and $j_{max}$ are satisfying. An interesting result is the overestimation of the Zernike coefficients when the number of Zernike used by the retrieval is smaller than the one used to construct the simulated PSFs. This overestimation comes from the fact that the algorithm counter-balance for the lost of available components as there is a definite budget of aberrations to spread over a smaller number of Zernike. The validity domain of the method is limited as the method is based on a strong approximation. The method is usable up to a wavefront RMS error of 50 nm. Above the difference becomes too important to be trustworthy. 
+
+A recursive approach has been tested in order to increase the validity domain of the algorithm. This method could be used on a system having a deformable mirror. Th results are really satisfying and we succeeded to multiply by three the validity domain the analytical phase diversity. This is similar to the validity domain of the ONERA algorithm.
+
+Now, before implementing this algorithm on any telescope, we would need to first test it on real PSFs and characterize it as we did for the ONERA algorithm. This could be done after having improved the phase diversity experiment as said above.
+
+\vspace{1cm}
+
+In conclusion, this work was really interesting and I learned the hard way that in science research most of the time it does not go as planned. It was really amazing to do experimental work, as it was the first time I worked as much in the lab. The development of the phase diversity algorithm was a bit more common. But I learned a lot about discrete Fourier transform and their specificity. It has been a great experience. There is still plenty to do especially improving the laboratory experiment in order to correctly test the ONERA algorithm and especially test our own phase diversity on real data. 

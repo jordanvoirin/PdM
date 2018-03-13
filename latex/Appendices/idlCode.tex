@@ -1,6 +1,471 @@
 \chapter{IDL Code}
 \label{AppIDLCode}
 
+\section{ONERA phase diversity}
+\label{app:ONERAPD}
+
+\subsection{Diversity.pro}
+\label{subapp:diversity}
+
+\begin{lstlisting}
+;+
+;FUNCTION DIVERSITY(PSF,DEFOCUS,LAMBDA,FDIST,PXSIZE,THRESHOLD,MODE[,D1=,D2=,JMAX=,/KECK,/LARGEHEX,/SHOW])
+;
+;  A function to retrieve the phase from a set of several in-focus and
+;  out-of-focus PSF (at least two PSF) using a phase diversity algorithm.
+;
+;  =======================================================================
+;  ======== Copyrights : PLEASE DO NOT DISTRIBUTE OUTSIDE OF WMKO ========
+;  ======== The central tool, decoconj_marg.pro is a property of =========
+;  ========== Laurent Mugnier et al. at ONERA, Paris, France =============
+;  =======================================================================
+;
+;INPUTS name | type | unit
+;
+;  PSF | REAL 2D SQUARE ARRAY DIM = [N,N,M] | FREE
+;  A suite of M PSF acquired along the optical axis. It is best to have
+;  at least one PSF close to the focal plane. The PSF must have been
+;  cleaned from bad pixels, cosmic etc, and back-ground
+;  subtracted. Each PSF must be square (DIM NxN) and an even size.
+;
+;  NOTE ON PSF MATRIX SIZE N : N must be at least equal to 118. This is
+;  required to ensure the minimum spatial resolution in the pupil plane
+;  when reconstructing the phase. Indeed, there is a specification on
+;  this spatial resolution which is coming from the AO OTF
+;  computation, and the smallest size for the PSF is the one above.
+;
+;  DEFOCUS | REAL VECTOR WITH M COMPONENTS | MILLIMETERS
+;  Defocus distance for PSF above. Must be of course of the same length as 
+;  the number M of PSF. For instance [0,3,5] for a set of 3 PSF. Positive 
+;  value means the PSF is after the telescope focal plane, along the
+;  optical axis, in the direction of light propagation.
+;  *************************
+;  THE IDEAL VALUE FOR DZ IS DZ = LAMBDA * 8 * (F/D)^2, IN ABSOLUTE
+;  VALUE, BUT IT DOES NOT HAVE TO BE EXACTLY THIS VALUE. HAVING PSF IN
+;  INTERMEDIATE PLANES CAN HELP BUT IS NOT MANDATORY.
+;  NOTE THAT DZ CAN BE NEGATIVE (PSF TAKEN ON BOTH SIDES OF THE FOCAL PLANE).
+;  *************************
+;
+;  LAMBDA | REAL SCALAR > 0 | MICRONS
+;  The central wavelength of the filter associated with the PSF
+;  acquisition. We ignore the filter width here, so we assume
+;  it's a rather narrow filter. Of course if we have a laser
+;  beam then the lambda to give is the laser lambda, and there is
+;  no filter. 
+;  >>>>>>>> DO NOT USE ANY OTHER VALUE OTHERWISE THE COMPUTATION <<<<<<<<
+;  >>>>>>>> IS TOTALLY MESSED UP - EVEN IF IT WILL CONVERGE !! <<<<<<<<<<
+;
+;  FDIST | REAL SCALAR > 0 | METERS
+;  Telescope optics focal distance. (150 m for Keck telescopes).
+;
+;  PXSIZE | REAL SCALAR > 0 | ASEC/PX
+;  Focal plane camera angular pixel size.
+;
+;  THRESHOLD | REAL SCALAR > 0 | 1
+;  A relative convergence threshold for the phase reconstruction.
+;  This value must be at least 1e-3.
+;
+;  MODE | CHAR STRING | -
+;  The computation basis mode. There are two options:
+;
+;  > MODAL, where the basis of the reconstructed phase are the Zernike
+;    polynomials. This mode assumes that the telescope pupil is
+;    circular (or an annulus), and you will be asked to enter the
+;    pupil diameters, and the number of Zernike polynomials you want
+;    to take into account.
+;
+;  > ZONAL, where the basis are the pixels of the matrix that is being
+;    used as the support to reconstruct the phase. The pixel size
+;    depends on the PSF matrix size (DIMPSF), the sky pixel size
+;    (PXSIZE), and the wavelength, and is computed from
+;         dxp = LAMBDA*1e-6/(DIMPSF*PXSIZE)
+;    where of course units have to be homogeneous.
+;
+;    This mode works in principle with any sort of pupil
+;    shape. Now for the Keck application, we only allow for either an
+;    annular pupil (for instance we used circular pupil masks in the
+;    camera) or the full hexagonal telescope pupil.
+;
+;  It is interesting to run the code on both modes (modal/zonal)
+;  when the pupil is circular. Do not be surprised if the
+;  reconstructed phase does not look exactly the same in the two
+;  cases. The phase reconstruction is always a procedure which is very
+;  sensitive to a lots of sometime badly known parameters, for instance
+;  the noise level, and other funny things... 
+;
+;  *************************
+;  THE OTHER INPUTS DEPEND ON THE MODE
+;  *************************
+;
+;OPTIONAL INPUTS name | type | unit | default value
+;
+;  *****************
+;  If MODE = 'MODAL' the following conditions and inputs are required:
+;  *****************
+;
+;  Pupil shape must be a disk or an annulus.
+;
+;  D1 = value | REAL SCALAR > 0 | METERS | none
+;  Telescope primary mirror external diameter.
+;  Syntax: D1=value.
+;
+;  D2 = value | REAL SCALAR >= 0 | METERS | none
+;  Telescope primary mirror central obscuration diameter.
+;  Syntax: D2=value.
+;
+;  JMAX = value | REAL SCALAR > 0 | 1 | 45
+;  The last Zernike polynomial j-index to consider in the reconstruction.
+;  Syntax: JMAX=value.
+;
+;  *****************
+;  If MODE = 'ZONAL' the following conditions and inputs are required:
+;  *****************
+;
+;  --------------------------
+;  If the pupil is an annulus
+;  --------------------------
+;
+;  D1 = value | REAL SCALAR > 0 | METERS | none
+;  Telescope primary mirror external diameter.
+;  Syntax: D1=value.
+;
+;  D2 = value | REAL SCALAR >= 0 | METERS | none
+;  Telescope primary mirror central obscuration diameter.
+;  Syntax: D2=value.
+;
+;  JMAX = value | REAL SCALAR > 0 | 1  | 45
+;  **** OPTIONAL INPUT ****
+;  The last Zernike polynomial j-index to consider in the modal
+;  reconstruction of the zonal reconstructed phase. Do not try to
+;  project on too many modes !
+;  Syntax: JMAX = value.
+;
+;  -------------------------------------------------
+;  If the pupil is the Keck telescope primary mirror
+;  -------------------------------------------------
+;
+;  1/ Set the keyword /KECK,
+;  2/ make the parameter file 'KeckSegmentedPupilArchitecture.sav'
+;     available in the directory where you run the code.
+;
+;KEYWORD
+;
+;  /KECK reconstruct the phase for Keck hexagonal pupil.
+;
+;  /LARGEHEX set if the pupil is the large hexagonal mask of NIRC2 @ KECK.
+;
+;  /SHOW to display the in/out-of-focus OTF and the final phase.
+;
+;OUTPUT NAME | TYPE | UNIT
+;
+;  A structure variable, with the following components (depending on
+;  the computation mode and the pupil)
+;
+;  .PHASE | REAL 2D ARRAY [DIMREC,DIMREC] | RAD
+;  The reconstructed phase, in the pupil plane, projected in M2 plane,
+;  and without tip-tilt.
+;
+;  .LAMBDA | REAL SCALAR | MICROMETERS
+;  The wavelength associated with the phase diversity PSF.
+;
+;  .WAVEFRONT | REAL 2D ARRAY [DIMREC,DIMREC] | MICROMETERS
+;  The reconstructed wavefront = PHASE*LAMBDA/(2*!dpi),
+;  in the primary mirror plane. We need it when we want to use the
+;  static phase for another LAMBDA.
+;
+;  .DIMREC | INTEGER SCALAR | 1
+;  Phase matrix size.
+;
+;  .DXP | REAL SCALAR | M
+;  Phase matrix pixel size.
+;
+;  .MASKPUPIL | BYTE 2D ARRAY | 1
+;  The pupil mask, 1 inside, 0 outside.
+;
+;  >>>>>> IF /KECK KEYWORD NOT SET
+;  .A_J | REAL VECTOR DIM = 187 | MICROMETERS
+;  The Zernike coefficients of the reconstructed phase, starting
+;  with the defocus coefficient a4, up to a_JMAX.
+;  PISTON AND TIP-TILT COEFFICIENTS ARE NOT GIVEN.
+;
+;  .J | INTEGER VECTOR OF LENGTH (JMAX-3) | 1
+;  The Zernike j-indexes associated with .AJ, from j=4 to j=JMAX.
+;  PISTON AND TIP-TILT COEFFICIENTS ARE NOT GIVEN.
+;
+;  >>>>>>> Only in MODAL mode : 
+;  .HIGHPHASE | REAL 2D ARRAY | RAD
+;  The reconstructed phase without the defocus polynomial (Z4).
+;  
+;EXTERNAL CUSTOM ROUTINES AND OTHER REQUIRED FILES
+;
+;  coogrid.pro
+;  discft.pro
+;  hexaft.pro
+;  hexagon.pro
+;  indzer.pro
+;  mathft.pro
+;  pixmatsize.pro
+;  psfotftsc.pro
+;  polzer.pro
+;  rectft.pro
+;  tvsg.pro
+;  valid_input.pro
+;
+;  deco_conjmarg-IDLv7.0.6.sav - the phase diversity codes compiled.
+;
+;  for KECK project : KeckSegmentedPupilArchitecture.sav
+;  for KECK project : LargeHex.sav
+;
+;DEV NOTES
+;
+;  Laurent Jolissaint, HEIG-VD, Switzerland, May 2, 2013.
+;  Oct 01, 2013 LJ included Keck telescope pupil option.
+;  Oct 18, 2013 LJ added pupil mask to the output structure variable
+;  Dec 18, 2013 LJ added projection into the Zernike basis, in zonal mode.
+;  May 16, 2014 LJ rotation of the hexagonal pupil to have the
+;                  elevation axis oriented horizontally, as it should.
+;  Jun 17, 2014 LJ there was a typo and a unit error for DEFOCUS.
+;  Jun 17, 2014 LJ added a reconstruction of the phase map from the
+;                  projected Zernike coefficients, for checking.
+;  Jul 14, 2014 LJ made it possible to use more than 2 PSF on input.
+;  Jul 14, 2014 LJ improved projection onto annular Zernike basis.
+;  Jul 15, 2014 LJ changed input PXSIZE unit from asec to microns.
+;  Sep 30, 2015 LJ changed KECK pupil orientation, now aligned with
+;                  focal plane detector (NIRC2 for instance).
+;  Sep 30, 2015 LJ removed projection onto the Zernike basis, replaced
+;                  with a match of the reconstructed phase resolution
+;                  with the AO structure function resolution.
+;  Oct 01, 2015 LJ reorganized code, added a reconstructed wavefront
+;                  to the output.
+;  May 12, 2016 LJ added LARGEHEX option for KECK.
+;  May 12, 2016 LJ restored PXSIZE unit to asec instead of mu (that was wrong).
+;  May 18, 2016 LJ reset the setting of the phase matrix size to an
+;                  optimum, different from KECK requirement.
+;  May 18, 2016 LJ reintroduced projection onto the Zernike basis (but not
+;                  in KECK mode).
+;  Jun 08, 2016 LJ fully removed the constraint on the spatial
+;                  frequency sampling in the pupil plane. It is better
+;                  to use the value adapted to the input PSF and adapt
+;                  the scaling of the final phase, if needed, using REBIN.
+;  Jun 09, 2016 LJ simplified options in MODAL mode.
+;  Jun 12, 2016 LJ allowed JMAX input in ZONAL mode.
+;  Jun 12, 2016 LJ set the optical axis in between the 4 central pixels in order 
+;                  to follow the same convention than deco_conjmarg.
+;  Jun 13, 2016 LJ removed the segments gaps for Keck pupil mask.
+;  Jun 16, 2016 LJ implemented PSF noise reduction by filtering out the
+;                  OTF above the telescope OTF domain definition.
+;  Jul 11, 2016 LJ added /SHOW to display the OTF and the final phase.
+;  Jul 11, 2016 LJ made the MODAL mode compatible with more than 2
+;                  defocused planes.
+;  Sep 10, 2016 LJ LARGEHEX option had an error in the pupil
+;                  definition.
+;  Sep 21, 2016 LJ I forgot to set a central obscuration in /KECK mode.
+;  Nov 17, 2016 LJ computation of the defocus in radian done in double
+;                  precision, because w/o this it was making a little
+;                  but disturbing difference with L. Mugnier root
+;                  code deco_conjmarg.pro
+;  Nov 30, 2016 LJ added a few warnings for pixel size and wavelength.
+;
+;BUGS write to laurent.jolissaint@heig-vd.ch
+;-
+FUNCTION DIVERSITY,PSF,DEFOCUS,LAMBDA,FDIST,PXSIZE,THRESHOLD,MODE,D1=D1,D2=D2,JMAX=JMAX,KECK=KECK,LARGEHEX=LARGEHEX,SHOW=SHOW
+
+  ;************
+  ;CHECK INPUTS
+  ;************
+  if n_params() ne 7 then message,'THIS FUNCTION REQUIRES 7 INPUTS AND SEVERAL OPTIONAL INPUTS'
+  VALID_INPUT,'DIVERSITY.PRO','PSF',PSF,'real',3,'no','free','free'
+  ss=size(PSF)
+  if ss[1] ne ss[2] then message,'PSF MATRICES MUST BE SQUARE AND EVEN SIZES'
+  if ss[1] mod 2 ne 0 then message,'PSF MATRICES MUST BE SQUARE AND EVEN SIZES'
+  VALID_INPUT,'DIVERSITY.PRO','DEFOCUS',DEFOCUS,'real',[1,ss[3]],'no','free','free'
+  VALID_INPUT,'DIVERSITY.PRO','LAMBDA',LAMBDA,'real',0,'no','++','free'
+  VALID_INPUT,'DIVERSITY.PRO','FDIST',FDIST,'real',0,'no','++','free'
+  VALID_INPUT,'DIVERSITY.PRO','PXSIZE',PXSIZE,'real',0,'no','++','free'
+  VALID_INPUT,'DIVERSITY.PRO','THRESHOLD',THRESHOLD,'real',0,'no','++','free'
+  VALID_INPUT,'DIVERSITY.PRO','MODE',MODE,'string',0,'no',['zonal','modal','ZONAL','MODAL'],'free'
+  if size(D1,/type) ne 0 then VALID_INPUT,'DIVERSITY.PRO','D1',D1,'real',0,'no','++','free'
+  if size(D2,/type) ne 0 then VALID_INPUT,'DIVERSITY.PRO','D2',D2,'real',0,'no','0+','free'
+  if size(JMAX,/type) ne 0 then VALID_INPUT,'DIVERSITY.PRO','JMAX',JMAX,'integer',0,'no','++',1
+  if strlowcase(MODE) eq 'modal' then if size(JMAX,/type) eq 0 then message,'JMAX INPUT IS MANDATORY IF MODE=MODAL'
+  if strlowcase(MODE) eq 'zonal' then begin
+    if not keyword_set(KECK) and not keyword_set(LARGEHEX) then if fix(size(D1,/type) ne 0)+fix(size(D2,/type) ne 0) ne 2 then $
+       message,'IF MODE = ZONAL, EITHER GIVE THE PUPIL DIAMETERS D1 & D2 **OR** SET THE KEYWORDS /KECK OR /LARGEHEX'
+    if keyword_set(KECK) or keyword_set(LARGEHEX) then if fix(size(D1,/type) ne 0)+fix(size(D2,/type) ne 0) ne 0 then $
+       message,'IN /KECK OR /LARGEHEX MODES, D1 AND D2 ARE NOT REQUIRED'
+  endif
+  if PXSIZE gt 100 or PXSIZE lt 0.01 then print,'WARNING: THE PIXEL SIZE LOOKS ODD - CHECK IT. COMPUTATION CONTINUES ANYWAY.'
+
+  ;********
+  ;SETTINGS
+  ;********
+  rad2asec=180*3600.d/!dpi
+  asec2rad=1.d/rad2asec
+  dimmat=n_elements(PSF[*,0,0])
+  dfp=PXSIZE*asec2rad/(LAMBDA*1e-6)
+  dxp=1.d/dfp/dimmat
+  xyrt=COOGRID(dimmat,dimmat,scale=(dimmat-1)*0.5*dxp)
+
+  ;*******************************************
+  ;BUILD PUPIL MASK
+  ;*******************************************
+  if keyword_set(KECK) then begin
+    restore,'KeckSegmentedPupilArchitecture.sav'
+    D1=mir.DEXTMAX
+    D2=2.65d
+    hexa=HEXAGON(mir.ssz,xyrt.x,xyrt.y)
+    maskpupil=bytarr(dimmat,dimmat) ; Below, I have an 'or' instead of a '+' because I want maskpupil to be 0 or 1
+    for i=0,mir.tns-1 do maskpupil = maskpupil or shift(hexa,mir.pos[0,i]/dxp,mir.pos[1,i]/dxp)
+    maskpupil=rotate(maskpupil,6)
+    hexa=HEXAGON(10.39,xyrt.x,xyrt.y) ; this is to remove the segment gaps
+    maskpupil=maskpupil or hexa
+    maskpupil=maskpupil*(xyrt.r ge 0.5*D2)
+  endif
+  if keyword_set(LARGEHEX) then begin
+    restore,'LargeHex.sav'
+    D1=2*b
+    maskpupil=hexagon(2*b,xyrt.x,xyrt.y)*(1-rotate(hexagon(2*a*2/sqrt(3),xyrt.x,xyrt.y),6))
+  endif
+  if not keyword_set(KECK) and not keyword_set(LARGEHEX) then begin
+    maskpupil=xyrt.r le 0.5*D1
+    if D2 gt dxp then maskpupil=maskpupil*(xyrt.r ge 0.5*D2)
+  endif
+  dimrec=fix(D1/dxp)
+  if dimrec mod 2 eq 1 then dimrec=dimrec+1
+  masklarge=maskpupil
+  if dimrec gt dimmat then message,'THERE IS AN ISSUE WITH THE PIXEL SIZE OR THE WAVELENGTH - CHECK THE UNITS'
+  maskpupil=maskpupil[dimmat/2-dimrec/2:dimmat/2+dimrec/2-1,dimmat/2-dimrec/2:dimmat/2+dimrec/2-1]
+
+  ;***********
+  ;PREPARE PSF
+  ;***********
+  ; setting the sky OTF frequencies beyond the telescope OTF domain to 0
+  ; to minimize the noise content in the PSF
+  if keyword_set(KECK) then begin
+    ps=PIXMATSIZE(mir0,PXSIZE,dimmat,LAMBDA)
+    tscpsf=(PSFOTFTSC(mir,ps)).psf
+    tscpsf[1:dimmat-1,1:dimmat-1]=rotate(tscpsf[1:dimmat-1,1:dimmat-1],1)
+  endif else tscpsf=abs(MATHFT(masklarge,dx=dxp,ic=dimmat/2,jc=dimmat/2))^2
+  tscotf=MATHFT(tscpsf,dx=PXSIZE*asec2rad,ic=dimmat/2,jc=dimmat/2)
+  ww=where(abs(tscotf) lt max(abs(tscotf))*1e-4) ; Telescope OTF footprint selection
+  ;sky PSF filtering
+  images=PSF
+  skyotf=PSF*dcomplex(0,1)
+  for i=0,n_elements(images[0,0,*])-1 do begin
+    tmp=MATHFT(images[*,*,i],dx=PXSIZE*asec2rad,ic=dimmat/2,jc=dimmat/2)
+    tmp[ww]=0
+    skyotf[*,*,i]=tmp
+    images[*,*,i]=double(MATHFT(skyotf[*,*,i],dx=PXSIZE*asec2rad,ic=dimmat/2,jc=dimmat/2,/inverse))
+    images[*,*,i]=images[*,*,i]/mean(images[*,*,i])
+  endfor
+
+  ;optionally displaying the OTF
+  if keyword_set(SHOW) then begin
+    rw,800,400,0
+    tmp=abs(skyotf[*,*,0])
+    for i=1,n_elements(images[0,0,*])-1 do tmp=[tmp,abs(skyotf[*,*,i])]
+    shade_surf,tmp
+  endif
+
+  ;************
+  ;STARTING RECONSTRUCTION
+  ;************
+  restore,'C:\Users\Jojo\Desktop\PdM-HEIG\Science\OneraCode\deco_conjmarg-IDLv7.0.6.sav'
+  defoc_array_a4=1d3*DEFOCUS/(16.d*sqrt(3.d)*(FDIST/D1)^2)*2.d*!dpi/LAMBDA
+  pupdiamPX=D1/dxp
+  ;
+  ;************
+  ;OPTION MODAL RECONSTRUCTION
+  ;************
+  if strlowcase(MODE) eq 'modal' then begin
+
+    ai_align = dblarr((n_elements(images[0,0,*])-1)*2)
+    ai_init = dblarr(JMAX-3) ; from Z_4 to Z_{nbmodes+1}
+    sigma2 = 1.0             ; noise variance initial guess / pixel
+
+    DECO_CONJMARG, objet_rec, a_rec, $
+                   IMAGES = images, $
+                   SIGMA2 = sigma2, $ 
+                   OBJ_REGUL_TYPE =  'none', $
+                   PSF_TYPE = 'ai', $
+                   PARAMPSF_GUESS = ai_init, $
+                   DEFOC_ARRAY_A4 = defoc_array_a4, $
+                   PUP_DIAM = pupdiamPX, $
+                   DOUBLE = 1B, $
+                   METHODE = 'conj', $
+                   PUP_MASQ = maskpupil, $
+                   AI_ALIGN = ai_align, $
+                   /VMLM, FSEUIL = THRESHOLD ,/LEQ
+
+    ;build the phase
+    ;
+    ;get Zernike basis
+    zernike=POLZER(dimrec,D1/dxp,4,JMAX-3)
+    ;
+    phase=dblarr(dimrec,dimrec)
+    for i=0,JMAX-4 do phase=phase+a_rec[i]*zernike[*,*,i]*maskpupil
+    highphase=dblarr(dimrec,dimrec)
+    for i=1,JMAX-4 do highphase=highphase+a_rec[i]*zernike[*,*,i]*maskpupil
+
+    return,{phase:phase,highphase:highphase,a_j:a_rec*LAMBDA/2/!dpi,j:indgen(JMAX-3)+4,dxp:dxp,$
+            maskpupil:maskpupil,lambda:LAMBDA,wavefront:LAMBDA/2/!dpi*phase,dimrec:n_elements(phase[*,0])}
+
+  endif
+  ;
+  ;************
+  ;OPTION ZONAL RECONSTRUCTION
+  ;************
+  if strlowcase(MODE) eq 'zonal' then begin
+
+    psf_hyper=600.0 ; this parameter can be adjusted to optimize the computation but this values works best
+    phase_init = dblarr(dimrec, dimrec)
+    sigma2 = 1.0D
+    itmax = 5000L
+
+    DECO_CONJMARG, objet_rec, phase, $
+                   IMAGES = images, $
+                   SIGMA2 = sigma2, $
+                   NOISE_TYPE = 'ls', $ 
+                   OBJ_REGUL_TYPE =  'none', $
+                   PSF_TYPE = 'phase', $
+                   PSF_REGUL_TYPE = 'expifi', $
+                   PSF_HYPER = psf_hyper, $
+                   PARAMPSF_GUESS = phase_init, $ 
+                   DEFOC_ARRAY_A4 = defoc_array_a4, $
+                   PUP_DIAM = pupdiamPX, $
+                   DOUBLE = 1B, $
+                   ITMAX = itmax, $
+                   METHODE = 'conj', $
+                   PUP_MASQ = maskpupil, $
+                   /VMLM, FSEUIL = THRESHOLD
+
+    if not keyword_set(KECK) and not keyword_set(LARGEHEX) then begin
+      ;project reconstructed phase onto the Zernike basis to get the coefficients
+      ;
+      ;get Zernike basis
+      if not keyword_set(JMAX) then JMAX = 45
+      n_modes=JMAX-3
+      zernike=POLZER(dimrec,D1/dxp,4,n_modes)
+      ;
+      ;compute annular pupil Zernike polynomials covariance matrix
+      ;
+      zercov=ZERNIKE_SPATIAL_COVARIANCE_ANNULAR_PUPIL(D2/D1,4,JMAX)
+      ;get B vector
+      b_rec=dblarr(n_modes)
+      for i=0,n_modes-1 do b_rec[i]=total(maskpupil*phase*zernike[*,*,i])*(dxp/(0.5*D1))^2/!dpi
+      ;get solution
+      a_rec=invert(zercov,/double)#b_rec*LAMBDA/2/!dpi
+      return,{phase:phase,dxp:dxp,maskpupil:maskpupil,dimrec:dimrec,lambda:LAMBDA,wavefront:LAMBDA/2/!dpi*phase,a_j:a_rec,j:indgen(n_modes)+4}
+    endif
+
+    return,{phase:phase,dxp:dxp,maskpupil:maskpupil,dimrec:dimrec,lambda:LAMBDA,wavefront:LAMBDA/2/!dpi*phase}
+
+  endif
+
+end
+
+\end{lstlisting}
+
 \section{Shack-Hartmann Acquisition Code}
 \label{app:SHacquisCode}
 

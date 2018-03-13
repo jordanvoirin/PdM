@@ -189,7 +189,7 @@ Using the PSFs shown in Figure \ref{fig:simPhasesAndPSFs}, we are able to recons
 \end{center}
 \end{figure}
 
-As for the ONERA algorithm, we want to know if $j_{max}$ has an influence on the results retrieved. In order to study its effect, a phase with $j_max = 200$ is used. Retrievals are done for $j_{max} = 10, 20 , 30, 50,100,150,200$. The results are presented in Figure \ref{fig:ajs_js_jmaxstudy_WoutN_rmsWFe_30}. There is two interesting thing with those results. First, we can see that $j_max$ has a negligible influence on the retrieval. Indeed, the RMSE is similar for all retrieval except for $j_{max} = 200$. This leads to the second interesting result. The phase diversity algorithm is more precise if $j_{max}$ used for the retrieval is equal to the one used to create the simulated PSFs. Indeed, when $j_{max}$ used for the retrieval is smaller than the one used to create the PSFs, in other words when we retrieve less Zernike coefficients than the number of aberrations present in the wavefront, the results tends to overestimate the $a_j$'s due to the fact that there is not enough polynomials to amount for the total budget of aberrations.
+As for the ONERA algorithm, we want to know if $j_{max}$ has an influence on the results retrieved. In order to study its effect, a phase with $j_{max} = 200$ is used. Retrievals are done for $j_{max} = 10, 20 , 30, 50,100,150,200$. The results are presented in Figure \ref{fig:ajs_js_jmaxstudy_WoutN_rmsWFe_30}. There is two interesting thing with those results. First, we can see that $j_{max}$ has a negligible influence on the retrieval. Indeed, the RMSE is similar for all retrieval except for $j_{max} = 200$. This leads to the second interesting result. The phase diversity algorithm is more precise if $j_{max}$ used for the retrieval is equal to the one used to create the simulated PSFs. Indeed, when $j_{max}$ used for the retrieval is smaller than the one used to create the PSFs, in other words when we retrieve less Zernike coefficients than the number of aberrations present in the wavefront, the results tends to overestimate the $a_j$'s due to the fact that there is not enough polynomials to amount for the total budget of aberrations.
 
 \begin{figure}
 \centering
@@ -210,7 +210,7 @@ As for the ONERA algorithm, we want to know if $j_{max}$ has an influence on the
 
 Figure \ref{fig:ajs_js_jmax_30_WoutN_rmsWFe_30} and \ref{fig:ajs_js_jmaxstudy_WoutN_rmsWFe_30} show the results of phase retrievals computed with noiseless PSFs. Given that the final aim is to use this algorithm to characterize the static aberrations present on the optical path to a scientific detector, the PSFs will have noise due to the detector. To be as close to reality as possible with the simulated PSFs, we need to introduce noise into them and study its effect on the retrieval. We assume that the noise is white Gaussian as it is simpler than adding Poisson noise and it is a good approximation. The random introduction of noise is done with a \verb!numpy! function called \verb!numpy.random.normal()!\footnote{\url{https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.random.html}}.
 
-Figure \ref{subfig:ajs_js_WthE_rmsWFe_30} and \ref{subfig:bxp_ajs_js_rmsWFe_30} presents the results of the 100 phase retrievals computed with the 100 different noisy PSFs. The comparison between the true Zernike coefficients and the retrieved ones is good but as expected the performance of the algorithm is decreased. The mean RMSE of the 100 retrievals is equal to 8.324 nm, this is $\sim10$ times bigger than a phase retrieval using noiseless PSFs. However, the boxplots in Figure \ref{subfig:bxp_ajs_js_rmsWFe_30} shows that the spread due to the noise is clearly less than 1 nm, which demonstrates that the noise do not affect the precision but the accuracy of the method. The results are similar for other wavefront RMS error and different $j_{max}$.
+Figure \ref{subfig:ajs_js_WthE_rmsWFe_30} and \ref{subfig:bxp_ajs_js_rmsWFe_30} presents the results of the 100 phase retrievals computed with the 100 different noisy PSFs. The comparison between the true Zernike coefficients and the retrieved ones is good but as expected the performance of the algorithm is decreased. The mean RMSE of the 100 retrievals is equal to 0.715 nm, which is comparable to the one we have using noiseless PSFs. Plus, the boxplots in Figure \ref{subfig:bxp_ajs_js_rmsWFe_30} shows that the spread due to the noise is clearly less than 1 nm, $\bar{\sigma}_{ajs} = 0.22$ nm, which demonstrates that the noise do not affect the retrieval method. The results are similar for other wavefront RMS error and different $j_{max}$.
 
 \begin{figure}
 \centering
@@ -239,7 +239,7 @@ Another important point to look at is the domain of validity of the phase retrie
 \begin{center}
 \includegraphics[width=\textwidth,angle=0]{../../../fig/PDDev/recursivePD/ajs_jsRecursiveWthNoise_eWFrms_130}
 \decoRule
-\caption{}
+\caption{Zernike coefficient as a function of $j$. The thick blue line represents the true $a_j$'s, the dashed line the retrieved ones after the 6 iterations. The other coloured thin lines represent the retrieved coefficient at each iteration.}
 \label{fig:ajs_jsRecursiveWthNoise_eWFrms_130}
 \end{center}
 \end{figure}
@@ -258,10 +258,20 @@ Another important point to look at is the domain of validity of the phase retrie
         \label{subfig:rmseWthN}
     \end{subfigure}
     \decoRule
-    \caption{}
+    \caption{Results of the recursive approach}
 \end{figure}
 
 The tests have shown that the analytical phase diversity algorithm works well for wavefront having weak aberrations up to 50 nm of RMS error. But in order to use it on a real optical system to correct the static aberrations present, the algorithm should be able to at least correct wavefront with 100-120 nm RMS error. An idea comes then to mind to use the phase retrievals recursively as the aberration phenomenon is linear. Indeed, identifying aberrations in the system and correct them using the deformable mirror present on the telescope, we could reduce the aberrations in the system recursively.
 
 To simulate the deformable mirror, the retrieved Zernike coefficients at each iteration are subtract to the ones used to compute the PSFs as a deformable mirror would remove the aberrations retrieved by the phase diversity. The results of the recursive approach on a wavefront having a RMS error of 130 nm are presented in Figure \ref{fig:ajs_jsRecursiveWthNoise_eWFrms_130}. The dashed line confounded with the thick blue line represent the final result of the recursive phase retrieval. The other thin lines present the different Zernike coefficients retrieved at each iteration. For a 130 nm RMS wavefront, the method needs 6 iterations to converge to the solution. The comparison between the wavefront RMS errors retrieved and the true ones as well as the RMSE as a function of the wavefront RMS error are visible in Figures \ref{subfig:rmsWFErrorsWthN} and \ref{subfig:rmseWthN}. The recursive phase diversity allows to extend the validity domain by 100 nm. The wavefront RMS errors retrieved is correct up to 150 nm and then the method does not work systematically any more. The RMSE shows it also clearly as it is nearly zero and then explodes at 150 nm.
 
+\subsection{Discussion}
+\label{subsec:DiscussionOurPD}
+
+The analytical algorithm works as expected. The phase retrieval is correctly done for weak aberrations using simulated PSFs, see Figure \ref{fig:ajs_js_jmax_30_WoutN_rmsWFe_30}. The test of the algorithm were also satisfying. As for the ONERA algorithm, the number of Zernike over which the reconstruction is done do not influence significantly the results. There is still an interesting behaviour intrinsic to the retrieval method. If the number of Zernike is over which the reconstruction is done is smaller than the number of aberrations present in the PSFs, the algorithm tends to overestimate the Zernike coefficient to counter-balance the lost of components available. The introduction of noise in the PSFs to simulate the effect of the detector does not influence significantly the retrieval, and the mean spread on the $a_j$ values is 0.22 nm. So the algorithm works well and its behaviour is really good with respect to noise and $j_{max}$.
+
+The only down side of the algorithm is its validity domain. The approximation used to expand the phase exponential in the phasor limits significantly the range of RMS wavefront error, the algorithm can reconstruct. Figure \ref{subfig:rmsWFerrorsretrieved_rmsWFeWthIDL} shows that it is usable for $\sigma_{WF,rms} < 50$ nm. This is a third of the ONERA algorithm validity domain.
+
+To increase the validity domain the method, a new approach is looked into. Since the telescope on which this algorithm will be used has a deformable mirror, the latter allows to correct the aberrations present in the system recursively, using the linearity of the phenomenon. Which means that we use the algorithm more than once to retrieve bigger aberrations. The recursive phase diversity simulation gives promising results as we triple the validity domain. At 150 nm, non linear effect enter in play and disturb the retrieval and the algorithm do not converge each time. This result is really good since we are now as good as the ONERA algorithm on simulated PSFs.
+
+The next step would be to test the algorithm using PSFs acquired on the optical bench and if possible introduce a deformable mirror to also test the recursive approach. But as explained in section \ref{subsec:DiscussionOnera}, the experiment does not work as expected and some preliminary work needs to be undertaken before any phase diversity can be tested.

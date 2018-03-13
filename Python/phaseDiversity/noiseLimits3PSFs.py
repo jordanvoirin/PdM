@@ -14,8 +14,9 @@ N = 400
 dxp = lbda*F/(N*pxsize)
 deltaZ = 3.19e-3
 jmin = 4
-jmax = 15
+jmax = 30
 rmsWFerrors = np.array([5,10,15,20,25,30])
+rmsWFerrors = np.array([30])
 Nretrieve = 100
 noiseStdLevel = 0.001
 
@@ -105,7 +106,7 @@ for irmsWFe,rmsWFerror in enumerate(rmsWFerrors):
     plt.title('Nretrieval = %d, $\sigma_{wf,rms}$ = %3.1fnm, noiseStdLevel = %4.3f [maxPSF]'%(Nretrieve,rmsWFerror,noiseStdLevel))
     plt.hold(True)
     for iNretrieve in np.arange(Nretrieve-1):
-        plt.errorbar(jscomplete,ajss[irmsWFe,iNretrieve,:]*1e9*lbda/2/np.pi,linewidth = 0.5,color='red')
+        plt.plot(jscomplete,ajss[irmsWFe,iNretrieve,:]*1e9*lbda/2/np.pi,linewidth = 0.5,color='red')
     plt.plot(jscomplete,ajss[irmsWFe,Nretrieve-1,:]*1e9*lbda/2/np.pi,linewidth = 0.5,color='red',label='Retrieved, $\overline{\sigma_{wf,rms}}$ = %5.3fnm, $\overline{RMSE}$ = %5.3fnm'%(meanrmsWFerror,meanRMSE))
     plt.plot(jscomplete,ajscomplete[irmsWFe,:]*1e9*lbda/2/np.pi,linewidth = 2, color='blue',label='True')
     plt.grid(True)
@@ -121,8 +122,8 @@ for irmsWFe,rmsWFerror in enumerate(rmsWFerrors):
     fig = plt.figure()    
     plt.title('Nretrieval = %d, $\sigma_{wf,rms}$ = %3.1fnm, noiseStdLevel = %4.3f [maxPSF]'%(Nretrieve,rmsWFerror,noiseStdLevel))
     plt.hold(True)
-    plt.boxplot(ajss[irmsWFe,:,:]*1e9*lbda/2/np.pi,positions=jscomplete)    
     plt.plot(jscomplete,ajscomplete[irmsWFe,:]*1e9*lbda/2/np.pi,'b-',linewidth=1.5,label='true, $\overline{\sigma_{wf,rms}}$ = %5.3fnm, $\overline{RMSE}$ = %5.3fnm'%(meanrmsWFerror,meanRMSE))
+    plt.boxplot(ajss[irmsWFe,:,:]*1e9*lbda/2/np.pi,positions=jscomplete.astype(int))    
     plt.xlabel('js')
     plt.ylabel('ajs [nm]')
     plt.legend(loc='best')

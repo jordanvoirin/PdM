@@ -46,8 +46,11 @@ In order to simplify and fasten the computation, they rewrite the criterion repl
 \subsection{Implementation}
 \label{subsec:OneraAlgoImp}
 
+The implementation of the algorithm was done by \citet{mugnier_2006}, the code is called \verb!Deco_ConjMarg!. Dr. Laurent Jolissaint wrote the IDL code to run the ONERA phase diversity, it is called \verb!Diversity.pro! and visible in Appendix \ref{subapp:diversity}. The code takes as input an array of at least two PSFs, one focused and one defocused, the $\Delta z$ of the PSFs, the wavelength of the incoming light, the focal distance of the system, the pixel size in arc second, the threshold of the minimization and the mode of reconstruction. It takes also the pupil diameter, pupil central obscuration diameter if needed and finally $j_{max}$. The code can run in two different mode, \textit{Modal} and \textit{Zonal}. The modal method reconstruct the phase using the Zernike basis. The zonal mode uses the pixels of the phase as the basis to reconstruct and the projection on the Zernike is done after the reconstruction. Both method uses the JMAP estimator, but for the zonal I did not find the exact criterion. The modal method uses the criterion presented in section \ref{subsec:OneraAlgoDesc}. 
+
 \section{Experimental Setup}
 \label{sec:ExpSetup}
+
 \begin{figure}
 \begin{center}
 \includegraphics[width=0.8\textwidth,angle=0]{Figures/setupSchema.JPG}
@@ -290,31 +293,90 @@ In conclusion, the ONERA algorithm tests shows that first the two different meth
 \end{center}
 \end{figure}
 
+%\begin{minipage}{\linewidth}
+%\begin{wrapfigure}{r}{0.5\textwidth}
+%\centering
+%\includegraphics[width=\textwidth]{}
+%\decoRulewrapFig
+%\caption{Plexiglas parallel plane plate used to introduce calibrated aberrations.}
+%\label{fig:}
+%\end{wrapfigure}
+
 Knowing how the algorithm behaves with respect to noise, $j_{max}$, etc... We compare its results to a calibrated aberration. The calibration is computed by simulating the optical system using Zemax\footnote{\url{https://www.zemax.com/opticstudio}}. We introduce astigmatism using a plexiglas parallel plane plate with an angle with respect to the optical axis. The astigmatism comes from the fact that the incident angle is not the same on the left side of the optical axis than on the right side of the optical axis with respect to $x$. This induces a difference in optical path between the symmetrical rays on the left and right side of the optical axis and thus induces an aberration, called the astigmatism.
 
 In order to have the best correspondence between the simulation and the experiment, the results are the difference between the Zernike coefficient of the parallel plane plate and the Zernike coefficient without the plate. Indeed the Zemax simulation do not have alignment issues and other man introduced imperfections. So by subtracting the aberrations present in the system without the parallel plane plate, in theory we should remove any component that do not come from the plate itself in order to only retrieve the plate effect.
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.75\textwidth,angle=0]{../../../fig/PD/astigmatism/angle_study_2/astigmatism_angle_Diversity.png}
+\includegraphics[width=0.65\textwidth,angle=0]{../../../fig/PD/astigmatism/angle_study_2/astigmatism_angle.png}
 \decoRule
-\caption{Zernike coefficient of the vertical astigmatism $a_6$ as a function of the angle of the plexiglas parallel plane plate. The dashed line correspond to the Zemax simulation result, the blue line to the modal retrieval method and the red line to the zonal retrieval}
+\caption{Zernike coefficient of the vertical astigmatism $a_6$ as a function of the angle of the plexiglas parallel plane plate. The dashed line correspond to the Zemax simulation result, the blue line to the modal retrieval method, the red line to the zonal retrieval and the green line to the Shack-Hartmann reconstruction}
 \label{fig:astigmatism_angle_Diversity}
 \end{center}
 \end{figure}
 
-Figure \ref{fig:astigmatism_angle_Diversity} shows the vertical astigmatism Zernike coefficient $a_6$ as a function of the parallel plane plate angle from $10^{\circ}$ to $50^{\circ}$. The two coloured lines correspond to the two phase retrieval methods and the dashed line is the Zemax simulation of the parallel plane plate. As one can see, there is an offset of $\sim 10$ nm between the simulation and the experiment, which correspond to an error of $\sim\frac{\lambda}{64}$. The behaviours of the simulation and the experiment are the same which is reassuring, despite the overestimation of the astigmatism by the phase diversity retrievals. 
+Figure \ref{fig:astigmatism_angle_Diversity} shows the vertical astigmatism Zernike coefficient $a_6$ as a function of the parallel plane plate angle from $10^{\circ}$ to $50^{\circ}$. The two coloured lines correspond to the two phase retrieval methods and the dashed line is the Zemax simulation of the parallel plane plate. As one can see, there is an offset of $\sim 10-15$ nm between the simulation and the experiment, which correspond to an error of $\sim\frac{\lambda}{64}$. The behaviours of the simulation and the experiment are the same which is reassuring, despite the overestimation of the astigmatism by the phase diversity retrievals. The system without an aberration introduction has a $ a_6 = 2.1$ nm. This might show that our system is not perfectly aligned, but it does explain the $\sim 10-15$ nm offset.
 
-The offset is unexpected, because subtracting the results of the phase retrieval on the PSFs acquired without introducing aberration to the results with the parallel plane plate should have eliminate the aberration present in the optical system, since the aberration introduction is a linear phenomenon. This might be due to an alignment error for instance, the alignment of the f=200mm lens that collimates the beam is difficult due to its size. One could change it to a f=200mm lens compatible with the 4-rods mounting on which the 4F system is to guaranty the correct alignment. Or that the simulation is not representing exactly the optical system.
+The offset is unexpected, because subtracting the results of the phase retrieval on the PSFs acquired without introducing aberrations to the results with the parallel plane plate should have eliminate the aberration present in the optical system, since the aberration introduction is a linear phenomenon. This might be due to an significant alignment error that could introduce non-linear effect. For instance the alignment of the f=200mm lens that collimates the beam is difficult due to its size and mounting system. One could change it to a f=200mm lens compatible with the 4-rods mounting on which the 4F system is to guaranty the correct alignment. Or that the simulation is not representing exactly the optical system. To go further and try to understand the difference between simulation and experiment, we compare also the coma introduced by the parallel plane plate which should be negligible in the system as shown by the dashed line in Figure \ref{fig:a8astigmatism_angle_Diversity}. The coma is interesting because it is typical in system with alignment problem. In amateur telescopes with two mirrors, it arises when the M2 is not correctly aligned on the M1.
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.75\textwidth,angle=0]{../../../fig/PD/astigmatism/angle_study_2/a8astigmatism_angle_Diversity.png}
+\includegraphics[width=0.65\textwidth,angle=0]{../../../fig/PD/astigmatism/angle_study_2/coma_angle.png}
 \decoRule
-\caption{Zernike coefficient of the horizontal coma $a_8$ as a function of the angle of the plexiglas parallel plane plate. The dashed line correspond to the Zemax simulation result, the blue line to the modal retrieval method and the red line to the zonal retrieval}
+\caption{Zernike coefficient of the horizontal coma $a_8$ as a function of the angle of the plexiglas parallel plane plate. The dashed line correspond to the Zemax simulation result, the blue line to the modal retrieval method , the red line to the zonal retrieval and the green line to the Shack-Hartmann reconstruction.}
 \label{fig:a8astigmatism_angle_Diversity}
 \end{center}
 \end{figure}
 
-To go further and try to understand the difference between simulation and experiment, we compare also the coma introduced by the parallel plane plate, see Figure \ref{fig:a8astigmatism_angle_Diversity}. There is a bigger difference between the simulation and the phase retrieval than for the astigmatism. And for the coma the behaviour of the phase retrieval is not the same as the simulation. 
+The vertical coma, Zernike coefficient $a_8$, as a function of the parallel plane plate angle is shown in Figure \ref{fig:a8astigmatism_angle_Diversity}. The optical system in presence of the parallel plane plate has a significant coma aberration, up to $\sim15$ according to the phase diversity. Without an aberration introduction, the system has a vertical coma coefficient $a_8=6.4$ nm. All this support the fact that our system is suffering from an alignment problem and that the Zemax simulation is too perfect to be used as a comparison. The only thing really complicated to understand is the non-linearity of the system. It might be do to the fact that the retrieval is done on limited number of Zernike polynomials, $j_{max}=66$ here, which could perturb the retrieval of the wavefront since there is a small spread especially at high spatial frequencies as seen in Figure \ref{fig:ZernikeCoef_J_differentJmax_5000Imgs}. 
+
+\subsection{Shack-Hartmann comparison}
+
+\begin{figure}
+\centering
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{Figures/phaseScreen}
+        \caption{Phase screen used in the experiment.}
+        \label{subfig:phaseScreen}
+    \end{subfigure}
+    \quad
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{Figures/StaticTurbulenceEx}
+        \caption{Neon light with (up) and without (down) phase screen static turbulence.}
+        \label{subfig:StaticTurbulenceEx}
+    \end{subfigure}
+    \decoRule
+    \caption{Phase screen introduction.}
+\end{figure}
+
+Even with the problem of calibration, because it is the final aim of the phase diversity experiment, the comparison of the phase diversity and the Shack-Hartmann is done. The phase screen as we call them are transparent plastic boxes, see Figure \ref{subfig:phaseScreen}, whose fabrication process gives them the property of static turbulent aberrations, see Figure \ref{subfig:StaticTurbulenceEx}. Indeed, the plastic injection follows the typical flux that we can find in the atmosphere and the solidification fix the distribution.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.5\textwidth,angle=0]{../../../fig/PD/phaseScreen/PS2/ZernikeCoef.png}
+\decoRule
+\caption{Zernike coefficients retrieved as a function of $j$. The red and blue line correspond to the zonal and modal retrieval method respectively. The black line represent the Shack-Hartmann results. $j_{min}=4$ and $j_{max}=66$. }
+\label{fig:ZernikeCoef}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.5\textwidth,angle=0]{../../../fig/PD/phaseScreen/PS2/Wavefront.png}
+\decoRule
+\caption{Reconstructed wavefront by the Modal and Zonal method of the phase diversity on 66 Zernike mode on the first line and reconstructed wavefront by the Shack-Hartmann on 66 mode as well, on the second line.}
+\label{fig:Wavefront}
+\end{center}
+\end{figure}
+
+The results of the comparison are presented in Figures \ref{fig:ZernikeCoef} and \ref{fig:Wavefront}. According to both instrument, the phase screen introduces significant aberrations, but the comparison between the two is not satisfying, there is more than 25 nm difference in average between the phase diversity and the Shack-Hartmann. Also the comparison of the wavefronts is not good. The problem is that we do not know which is more cloth to the truth. Indeed, comparing the parallel plane plate results of the Shack-Hartmann and the Zemax model does not help since there is also significant differences between the two, see Figures \ref{fig:astigmatism_angle_Diversity} and \ref{fig:a8astigmatism_angle_Diversity}. However, the vertical coma comparison between the phase diversity and the Shack-Hartmann is better. But we can not really say anything as the astigmatism is completely different. So, it is a shame, but we can not deduct anything with this comparison, at the moment. 
+
+\subsection{Discussion}
+\label{subsec:DiscussionOnera}
+
+The results we have gathered in this experiment are mixed. The algorithm test, section \ref{subsec:ONERAPDtest}, is interesting. We learned a lot of things about the properties and behaviour of the ONERA phase diversity algorithm. The noise present in the PSFs has its importance especially when trying to reconstruct the wavefronts. There seems to be a threshold above which the high spatial frequency component of the noise are neutralized. This threshold is at 3500 images corresponding to a noise level of $\sim0.00009$ as observed in the Zonal reconstruction. Also the number of Zernike over which the retrieval is done, $j_{max}$, does not really matters to recover the Zernike coefficient, but as seen in Figure \ref{fig:WavefrontsNoiseStudy} it has a significant influence on the reconstruction of the wavefronts due to the high spatial frequency component of the noise. And also it confirms that a small error of position of the camera would not perturbed the phase retrieval. 
+
+The parallel plane plate experiment used to compare the phase diversity with a calibrated aberration does not work as expected. The astigmatism introduced by the Plexiglas plate follows the right behaviour, but there is an offset that is not expected of $\sim 10-15$ nm. Comparing the vertical coma from the model with the retrieved one, we see that that a significant amount of coma aberration is present even though it is negligible in the Zemax model. Thus we think that there is an alignment problem, moreover the theoretical linearity of the aberration phenomenon in the paraxial approximation is not respected. This non-linearity shows either that the system imperfections and man-introduced aberrations are really high, but it is unlikely as the system seemed fine looking at the collimation, the spot size of the focused beam, etc... or it could show a problem in the use of the ONERA algorithm. It is complicated to conclude with the information at our disposal at the moment.
+
+Finally, in order to improve our results and be able to conclude anything on the ONERA phase diversity algorithm, we would need to be more prudent at the beginning. We should first have a way to describe the system independently, without the phase diversity. It was the idea behind the use of the Shack-Hartmann. But we went to quickly into trying the phase diversity algorithm and testing it. We need to first be sure of the data collected by the Shack-Hartmann, be able to recover the Zemax prediction with the Shack-Hartmann. And once we know how our system behaves and we have a clear way to characterize it, we can try to compare the phase diversity and the Shack-Hartmann.
 

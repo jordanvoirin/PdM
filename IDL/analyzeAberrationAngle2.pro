@@ -116,12 +116,12 @@ rmseA8sh = RMSE(zemaxA8Aberration,a8SH[sortedSHInd]*1000.d)
 pA6Angleres = plot(AnglesPD[sortedPDInd],a6res[sortedPDInd]*1000.d,'b-2',xtitle='Parallel Faces Angle [deg]',$
   ytitle = 'a6 [nm]',name='modal RMSE = '+string(rmseA6mod))
 pA6Anglezon = plot(AnglesPD[sortedPDInd],a6zon[sortedPDInd]*1000.d,'r-2',name='zonal RMSE = ' + string(rmseA6zon),/overplot)
-;pA6Anglesh = plot(AnglesSH[sortedSHInd],a6SH[sortedSHInd]*1000.d,'g-2',name='SH RMSE = ' + string(rmseA6sh),/overplot)
+pA6Anglesh = plot(AnglesSH[sortedSHInd],a6SH[sortedSHInd]*1000.d,'g-2',name='SH RMSE = ' + string(rmseA6sh),/overplot)
 ;pA6Angleshfit = plot(AnglesSH[sortedSHInd],yfit[sortedSHInd],'y-2',name='SH fitted',/overplot)
 
 ;pAstAnglemod = plot(AnglesModel,thZernikeCoef6,'k-2',name='model',/overplot); factor sqrt(6) to pass from seidel to zernike and /2 to pass from P2V to coef
 pAstAnglezemax = plot(AnglesModel,zemaxA6Aberration,'k--2',name='zemax',/overplot)
-!null = LEGEND(target=[pA6Angleres,pA6Anglezon],/DATA);,pA6Anglesh,pAstAnglezemax],/DATA)
+!null = LEGEND(target=[pA6Angleres,pA6Anglezon,pA6Anglesh],/DATA);,pA6Anglesh,pAstAnglezemax],/DATA)
 
 pA6Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\astigmatism_angle.pdf', BORDER=10, RESOLUTION=350
 pA6Angleres.save, 'C:\Users\Jojo\Desktop\PdM-HEIG\Science\fig\PD\astigmatism\angle_study_2\astigmatism_angle.png', BORDER=10, RESOLUTION=350

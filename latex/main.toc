@@ -4,70 +4,75 @@
 \contentsline {chapter}{Declaration of Authorship}{iii}{section*.1}
 \contentsline {chapter}{Acknowledgements}{vii}{section*.2}
 \contentsline {chapter}{Introduction}{1}{chapter*.6}
-\contentsline {chapter}{\numberline {1}Theoretical background}{3}{chapter.7}
-\contentsline {section}{\numberline {1.1}Scalar Diffraction Theory}{3}{section.8}
-\contentsline {subsection}{\numberline {1.1.1}Scalar Field and Helmholtz equation}{3}{subsection.9}
-\contentsline {subsection}{\numberline {1.1.2}Rayleigh-Sommerfeld integral}{3}{subsection.14}
-\contentsline {subsection}{\numberline {1.1.3}Fresnel approximation}{4}{subsection.19}
-\contentsline {subsection}{\numberline {1.1.4}Fraunhofer approximation}{5}{subsection.23}
-\contentsline {subsection}{\numberline {1.1.5}Converging lens introduction}{5}{subsection.26}
-\contentsline {section}{\numberline {1.2}Imaging system}{6}{section.30}
-\contentsline {subsection}{\numberline {1.2.1}Impulse Response (IR)}{6}{subsection.32}
-\contentsline {subsection}{\numberline {1.2.2}Optical Transfer Function (OTF)}{6}{subsection.34}
-\contentsline {subsection}{\numberline {1.2.3}From Object to Image}{7}{subsection.37}
-\contentsline {section}{\numberline {1.3}Aberrations}{9}{section.44}
-\contentsline {subsection}{\numberline {1.3.1}Sources of aberration}{10}{subsection.48}
-\contentsline {subsection}{\numberline {1.3.2}Zernike polynomials}{10}{subsection.49}
-\contentsline {section}{\numberline {1.4}Phase retrieval}{12}{section.56}
-\contentsline {subsection}{\numberline {1.4.1}Shack-Hartmann}{12}{subsection.57}
-\contentsline {subsection}{\numberline {1.4.2}Phase Diversity}{13}{subsection.60}
-\contentsline {subsubsection}{Principle}{13}{section*.61}
-\contentsline {chapter}{\numberline {2}Phase Diversity Experiment}{17}{chapter.64}
-\contentsline {section}{\numberline {2.1}ONERA algorithm}{17}{section.65}
-\contentsline {subsection}{\numberline {2.1.1}Algorithm description}{17}{subsection.66}
-\contentsline {subsection}{\numberline {2.1.2}Implementation}{18}{subsection.71}
-\contentsline {section}{\numberline {2.2}Experimental Setup}{18}{section.72}
-\contentsline {subsection}{\numberline {2.2.1}Light source}{19}{subsection.74}
-\contentsline {subsection}{\numberline {2.2.2}Entrance pupil}{19}{subsection.77}
-\contentsline {subsection}{\numberline {2.2.3}Pupil imaging system}{20}{subsection.78}
-\contentsline {subsection}{\numberline {2.2.4}Detectors}{20}{subsection.79}
-\contentsline {section}{\numberline {2.3}Data Acquisition}{21}{section.81}
-\contentsline {subsection}{\numberline {2.3.1}Ximea Camera}{21}{subsection.82}
-\contentsline {subsection}{\numberline {2.3.2}Shack-Hartmann WFS}{22}{subsection.90}
-\contentsline {section}{\numberline {2.4}Results}{23}{section.92}
-\contentsline {subsection}{\numberline {2.4.1}ONERA Phase Diversity test}{23}{subsection.93}
-\contentsline {subsection}{\numberline {2.4.2}Parallel plane plate}{28}{subsection.99}
-\contentsline {chapter}{\numberline {3}Analytical phase diversity algorithm}{31}{chapter.104}
-\contentsline {section}{\numberline {3.1}Analytical algorithm}{31}{section.105}
-\contentsline {subsection}{\numberline {3.1.1}Algorithm description}{31}{subsection.106}
-\contentsline {subsection}{\numberline {3.1.2}Implementation}{34}{subsection.128}
-\contentsline {section}{\numberline {3.2}Results}{34}{section.131}
-\contentsline {subsection}{\numberline {3.2.1}Algorithm test}{34}{subsection.132}
-\contentsline {subsection}{\numberline {3.2.2}Recursive approach}{38}{subsection.139}
-\contentsline {chapter}{Conclusion}{41}{chapter*.142}
-\contentsline {chapter}{\numberline {A}Python Code}{43}{appendix.143}
-\contentsline {section}{\numberline {A.1}Phase Diversity analytical algorithm code}{43}{section.144}
-\contentsline {subsection}{\numberline {A.1.1}phaseDiversity3PSFs.py}{43}{subsection.145}
-\contentsline {subsection}{\numberline {A.1.2}fs.py}{45}{subsection.260}
-\contentsline {subsection}{\numberline {A.1.3}myExceptions.py}{48}{subsection.410}
-\contentsline {subsection}{\numberline {A.1.4}zernike.py}{48}{subsection.433}
-\contentsline {subsection}{\numberline {A.1.5}phasor.py}{49}{subsection.492}
-\contentsline {subsection}{\numberline {A.1.6}PSF.py}{50}{subsection.530}
-\contentsline {section}{\numberline {A.2}Acquisition Code: Ximea Camera}{51}{section.546}
-\contentsline {subsection}{\numberline {A.2.1}AlignementScriptXimeaCamera.py}{51}{subsection.547}
-\contentsline {subsection}{\numberline {A.2.2}AcquisAndSaveXimea.py}{54}{subsection.713}
-\contentsline {subsection}{\numberline {A.2.3}functionsXimea.py}{56}{subsection.846}
-\contentsline {chapter}{\numberline {B}IDL Code}{59}{appendix.956}
-\contentsline {section}{\numberline {B.1}Shack-Hartmann Acquisition Code}{59}{section.957}
-\contentsline {subsection}{\numberline {B.1.1}readAndAverageSHdata.pro}{59}{subsection.958}
-\contentsline {subsection}{\numberline {B.1.2}readSHWFSdata.pro}{59}{subsection.984}
-\contentsline {chapter}{\numberline {C}Optical Component Datasheets}{61}{appendix.1053}
-\contentsline {section}{\numberline {C.1}Pigtailed laser diode}{62}{section.1054}
-\contentsline {subsection}{\numberline {C.1.1}Power supply modification}{63}{subsection.1055}
-\contentsline {section}{\numberline {C.2}Converging lens A220TM-A, f = 11 mm}{63}{section.1056}
-\contentsline {section}{\numberline {C.3}Pinhole 10 $\mu $m}{64}{section.1057}
-\contentsline {section}{\numberline {C.4}Converging lens AL100200, f = 200 mm}{65}{section.1058}
-\contentsline {section}{\numberline {C.5}Converging lens AC254-100-A, f = 100 mm}{66}{section.1059}
-\contentsline {section}{\numberline {C.6}Ximea Camera, MQ013MG-E2}{67}{section.1060}
-\contentsline {section}{\numberline {C.7}Shack-Hartmann wavefront sensor, WFS150-5C}{68}{section.1061}
-\contentsline {chapter}{Bibliography}{69}{appendix*.1062}
+\contentsline {chapter}{\numberline {1}Theoretical background}{3}{chapter.9}
+\contentsline {section}{\numberline {1.1}Scalar Diffraction Theory}{3}{section.10}
+\contentsline {subsection}{\numberline {1.1.1}Scalar Field and Helmholtz equation}{3}{subsection.11}
+\contentsline {subsection}{\numberline {1.1.2}Rayleigh-Sommerfeld integral}{3}{subsection.16}
+\contentsline {subsection}{\numberline {1.1.3}Fresnel approximation}{4}{subsection.21}
+\contentsline {subsection}{\numberline {1.1.4}Fraunhofer approximation}{5}{subsection.25}
+\contentsline {subsection}{\numberline {1.1.5}Converging lens introduction}{5}{subsection.28}
+\contentsline {section}{\numberline {1.2}Imaging system}{6}{section.32}
+\contentsline {subsection}{\numberline {1.2.1}Impulse Response (IR)}{6}{subsection.34}
+\contentsline {subsection}{\numberline {1.2.2}Optical Transfer Function (OTF)}{6}{subsection.36}
+\contentsline {subsection}{\numberline {1.2.3}From Object to Image}{7}{subsection.39}
+\contentsline {section}{\numberline {1.3}Aberrations}{9}{section.46}
+\contentsline {subsection}{\numberline {1.3.1}Sources of aberration}{10}{subsection.50}
+\contentsline {subsection}{\numberline {1.3.2}Zernike polynomials}{10}{subsection.51}
+\contentsline {section}{\numberline {1.4}Phase retrieval}{12}{section.58}
+\contentsline {subsection}{\numberline {1.4.1}Shack-Hartmann}{12}{subsection.59}
+\contentsline {subsection}{\numberline {1.4.2}Phase Diversity}{13}{subsection.62}
+\contentsline {subsubsection}{Principle}{13}{section*.63}
+\contentsline {chapter}{\numberline {2}Phase Diversity Experiment}{17}{chapter.66}
+\contentsline {section}{\numberline {2.1}ONERA algorithm}{17}{section.67}
+\contentsline {subsection}{\numberline {2.1.1}Algorithm description}{17}{subsection.68}
+\contentsline {subsection}{\numberline {2.1.2}Implementation}{18}{subsection.73}
+\contentsline {section}{\numberline {2.2}Experimental Setup}{18}{section.74}
+\contentsline {subsection}{\numberline {2.2.1}Light source}{19}{subsection.76}
+\contentsline {subsection}{\numberline {2.2.2}Entrance pupil}{20}{subsection.79}
+\contentsline {subsection}{\numberline {2.2.3}Pupil imaging system}{20}{subsection.80}
+\contentsline {subsection}{\numberline {2.2.4}Detectors}{20}{subsection.81}
+\contentsline {section}{\numberline {2.3}Data Acquisition}{20}{section.83}
+\contentsline {subsection}{\numberline {2.3.1}Ximea Camera}{20}{subsection.84}
+\contentsline {subsection}{\numberline {2.3.2}Shack-Hartmann WFS}{21}{subsection.92}
+\contentsline {section}{\numberline {2.4}Results}{23}{section.94}
+\contentsline {subsection}{\numberline {2.4.1}ONERA Phase Diversity test}{23}{subsection.95}
+\contentsline {subsection}{\numberline {2.4.2}Parallel plane plate}{29}{subsection.101}
+\contentsline {subsection}{\numberline {2.4.3}Shack-Hartmann comparison}{30}{subsection.106}
+\contentsline {subsection}{\numberline {2.4.4}Discussion}{32}{subsection.110}
+\contentsline {chapter}{\numberline {3}Analytical phase diversity algorithm}{35}{chapter.111}
+\contentsline {section}{\numberline {3.1}Analytical algorithm}{35}{section.112}
+\contentsline {subsection}{\numberline {3.1.1}Algorithm description}{35}{subsection.113}
+\contentsline {subsection}{\numberline {3.1.2}Implementation}{38}{subsection.135}
+\contentsline {section}{\numberline {3.2}Results}{38}{section.138}
+\contentsline {subsection}{\numberline {3.2.1}Algorithm test}{38}{subsection.139}
+\contentsline {subsection}{\numberline {3.2.2}Recursive approach}{42}{subsection.146}
+\contentsline {subsection}{\numberline {3.2.3}Discussion}{44}{subsection.149}
+\contentsline {chapter}{Conclusion}{45}{chapter*.150}
+\contentsline {chapter}{\numberline {A}Python Code}{47}{appendix.151}
+\contentsline {section}{\numberline {A.1}Phase Diversity analytical algorithm code}{47}{section.152}
+\contentsline {subsection}{\numberline {A.1.1}phaseDiversity3PSFs.py}{47}{subsection.153}
+\contentsline {subsection}{\numberline {A.1.2}fs.py}{49}{subsection.268}
+\contentsline {subsection}{\numberline {A.1.3}myExceptions.py}{52}{subsection.418}
+\contentsline {subsection}{\numberline {A.1.4}zernike.py}{52}{subsection.441}
+\contentsline {subsection}{\numberline {A.1.5}phasor.py}{53}{subsection.500}
+\contentsline {subsection}{\numberline {A.1.6}PSF.py}{54}{subsection.538}
+\contentsline {section}{\numberline {A.2}Acquisition Code: Ximea Camera}{55}{section.554}
+\contentsline {subsection}{\numberline {A.2.1}AlignementScriptXimeaCamera.py}{55}{subsection.555}
+\contentsline {subsection}{\numberline {A.2.2}AcquisAndSaveXimea.py}{58}{subsection.721}
+\contentsline {subsection}{\numberline {A.2.3}functionsXimea.py}{60}{subsection.854}
+\contentsline {chapter}{\numberline {B}IDL Code}{63}{appendix.964}
+\contentsline {section}{\numberline {B.1}ONERA phase diversity}{63}{section.965}
+\contentsline {subsection}{\numberline {B.1.1}Diversity.pro}{63}{subsection.966}
+\contentsline {section}{\numberline {B.2}Shack-Hartmann Acquisition Code}{71}{section.1424}
+\contentsline {subsection}{\numberline {B.2.1}readAndAverageSHdata.pro}{71}{subsection.1425}
+\contentsline {subsection}{\numberline {B.2.2}readSHWFSdata.pro}{72}{subsection.1451}
+\contentsline {chapter}{\numberline {C}Optical Component Datasheets}{75}{appendix.1520}
+\contentsline {section}{\numberline {C.1}Pigtailed laser diode}{76}{section.1521}
+\contentsline {subsection}{\numberline {C.1.1}Power supply modification}{77}{subsection.1522}
+\contentsline {section}{\numberline {C.2}Converging lens A220TM-A, f = 11 mm}{77}{section.1523}
+\contentsline {section}{\numberline {C.3}Pinhole 10 $\mu $m}{78}{section.1524}
+\contentsline {section}{\numberline {C.4}Converging lens AL100200, f = 200 mm}{79}{section.1525}
+\contentsline {section}{\numberline {C.5}Converging lens AC254-100-A, f = 100 mm}{80}{section.1526}
+\contentsline {section}{\numberline {C.6}Ximea Camera, MQ013MG-E2}{81}{section.1527}
+\contentsline {section}{\numberline {C.7}Shack-Hartmann wavefront sensor, WFS150-5C}{82}{section.1528}
+\contentsline {chapter}{Bibliography}{83}{appendix*.1529}
