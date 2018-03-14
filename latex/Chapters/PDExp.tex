@@ -2,12 +2,12 @@
 \chapter{Phase Diversity Experiment} 
 \label{ch:PDExp}
 
-Here, we will describe the experiment put in place in the optical laboratory at the HEIG-VD to reconstruct wavefronts with unknown static aberrations introduced using phase screens. At first, we study the  behaviour of the phase diversity algorithm put in place by \citet{mugnier_2006} at ONERA with respect to number of averaging images, in other words noise level, and number of Zernike coefficients retrieved. Then we test the algorithm using a known aberration introduced by a parallel plane plate in the beam comparing the result to Zemax simulation. And finally, we introduce the phase screen to have random aberrations in the pupil and try to compare the phase diversity results with the Shack Hartman wavefront sensor results.
+Here, we describe the experiment put in place in the optical laboratory at the HEIG-VD to reconstruct wavefronts with unknown static aberrations introduced using phase screens. At first, we study the  behaviour of the phase diversity algorithm put in place by \citet{mugnier_2006} at ONERA with respect to number of averaging images, in other words noise level, number of Zernike coefficients retrieved, etc... Then we test the algorithm using an calibrated aberration introduced by a parallel plane plate in the beam comparing the result to a Zemax simulation. And finally, we introduce the phase screen to have random aberrations in the pupil and try to compare the phase diversity results with the Shack Hartman wavefront sensor results.
 
 \section[ONERA algorithm]{ONERA algorithm, \citet{mugnier_2006}}
 \label{sec:ONERAalgo}
 
-In this section, we will briefly present the phase diversity algorithm developed at ONERA since we test and use it to retrieve the phase and the aberrations in the experiment conducted in laboratory.
+In this section, we briefly present the phase diversity algorithm developed at ONERA by \citet{mugnier_2006}.
 
 \subsection{Algorithm description}
 \label{subsec:OneraAlgoDesc}
@@ -46,7 +46,7 @@ In order to simplify and fasten the computation, they rewrite the criterion repl
 \subsection{Implementation}
 \label{subsec:OneraAlgoImp}
 
-The implementation of the algorithm was done by \citet{mugnier_2006}, the code is called \verb!Deco_ConjMarg!. Dr. Laurent Jolissaint wrote the IDL code to run the ONERA phase diversity, it is called \verb!Diversity.pro! and visible in Appendix \ref{subapp:diversity}. The code takes as input an array of at least two PSFs, one focused and one defocused, the $\Delta z$ of the PSFs, the wavelength of the incoming light, the focal distance of the system, the pixel size in arc second, the threshold of the minimization and the mode of reconstruction. It takes also the pupil diameter, pupil central obscuration diameter if needed and finally $j_{max}$. The code can run in two different mode, \textit{Modal} and \textit{Zonal}. The modal method reconstruct the phase using the Zernike basis. The zonal mode uses the pixels of the phase as the basis to reconstruct and the projection on the Zernike is done after the reconstruction. Both method uses the JMAP estimator, but for the zonal I did not find the exact criterion. The modal method uses the criterion presented in section \ref{subsec:OneraAlgoDesc}. 
+The implementation of the algorithm was done by \citet{mugnier_2006}, the code is called \verb!Deco_ConjMarg!. Dr. Laurent Jolissaint wrote the IDL code to run the ONERA phase diversity, it is called \verb!Diversity.pro! and visible in Appendix \ref{subapp:diversity}. The code takes as input an array of at least two PSFs, one focused and one defocused, the displacement $\Delta z$ of the PSFs with respect to the focus position, the wavelength of the incoming light, the focal distance of the system, the pixel size in arc second, the threshold of the minimization and the mode of reconstruction. It takes also the pupil diameter, pupil central obscuration diameter if needed and finally $j_{max}$. The code can run in two different mode, \textit{Modal} and \textit{Zonal}. The modal method reconstruct the phase using the Zernike basis. The zonal mode uses the pixels of the phase as the basis to reconstruct and the projection on the Zernike is done after the reconstruction. Both method uses the JMAP estimator.
 
 \section{Experimental Setup}
 \label{sec:ExpSetup}
@@ -76,7 +76,7 @@ The experiment is mounted on a pressurized legs optical table. The assembly cont
 \label{fig:WFdistantSource}
 \end{wrapfigure}
 
-The final application of the phase diversity will be to characterize the optical aberrations induced by the imperfect optical path to a scientific detector of a telescope. For this reason, the light source has to simulate a distant star aberration-free wavefront. A distant star wavefront is considered planar since the object distance, z, is far greater than the telescope size, r, see Fig. \ref{fig:WFdistantSource}. The source of our experiment must then be characterized by a planar wavefront.
+Regarding the final application of the phase diversity, the light source has to simulate a distant star aberration-free wavefront. A distant star wavefront is considered planar since the object distance, $z$, is far greater than the telescope size, $r$, see Fig. \ref{fig:WFdistantSource}. The source of our experiment must then be characterized by a planar wavefront.
 
 In order to obtain such a planar wavefront at the entrance pupil, the light source consist of a "pigtailed laser diode", a f=11mm converging lens, a pinhole and a f=200 mm converging lens, see Table \ref{tab:optComp}. The pigtailed laser diode emits a Gaussian beam centred at 637.5 nm slightly diverging. The converging lens concentrates the beam at the center of the 10$\mu$m pinhole to filter the noise. The second converging lens collimates the beam, obtaining a collimated beam with a planar wavefront, see Fig. \ref{fig:sourceRayTracing} and \ref{fig:pinholeEffect}.
 
@@ -86,7 +86,7 @@ In order to obtain such a planar wavefront at the entrance pupil, the light sour
 \centering
     \begin{subfigure}{0.5\textwidth}
         \includegraphics[width=\textwidth]{Figures/source.png}
-        \caption{Source ray tracing.}
+        \caption{Source ray tracing, \citep{Bouxin_PDM}.}
         \label{fig:sourceRayTracing}
     \end{subfigure}
     \quad
@@ -140,11 +140,7 @@ The image of the entrance pupil, obtained with the 4F system, is focused onto a 
 \subsection{Ximea Camera}
 \label{subsec:acquisXimCam}
 
-The ONERA algorithm takes at least one focused and one defocused PSFs, as described in section \ref{subsec:OneraAlgoImp}. The PSFs are acquired using a python script which uses an open-source library to control the ximea camera, \verb|pyXimea|\footnote{\url{https://github.com/pupil-labs/pyximea}}, available on GitHub. The acquisition is done following these steps : 
-
-\begin{enumerate}
-
-\item The first step in order to acquire PSFs is to determine the position of the camera's focus point using the python script \verb|AlignementScriptXimeaCamera.py|, see Appendix \ref{subapp:AlignementScriptXimeaCamera}. This script let's you acquire consecutively PSFs at different camera's positions and computes their FWHM. It finally returns the minimum FWHM and the camera's position, see Figure \ref{subfig:28092017AlignementXimeaPSFs} and \ref{subfig:28092017AlignementXimeaPos}.
+The ONERA algorithm takes at least one focused and one defocused PSFs, as described in section \ref{subsec:OneraAlgoImp}. The PSFs are acquired using a python script which uses an open-source library to control the ximea camera, \verb|pyXimea|\footnote{\url{https://github.com/pupil-labs/pyximea}}, available on GitHub. The acquisition is done following these steps. The first step in order to acquire PSFs is to determine the position of the camera's focus point using the python script \verb|AlignementScriptXimeaCamera.py|, see Appendix \ref{subapp:AlignementScriptXimeaCamera}. This script let's you acquire consecutively PSFs at different camera's positions and computes their FWHM. It finally returns the minimum FWHM and the camera's position, see Figure \ref{subfig:28092017AlignementXimeaPSFs} and \ref{subfig:28092017AlignementXimeaPos}.
 
 \begin{figure}
 \centering
@@ -163,15 +159,13 @@ The ONERA algorithm takes at least one focused and one defocused PSFs, as descri
     \caption{Example of the results of an alignment procedure}
 \end{figure}
 
-\item Once the focus point position of the camera is determined, the acquisition of the data is possible. The acquisition script is called \verb!AcquisAndSaveXimea.py!, see Appendix \ref{subapp:AcquisAndSaveXimea}.
+Once the focus point position of the camera is determined, the acquisition of the data is possible. The acquisition script is called \verb!AcquisAndSaveXimea.py!, see Appendix \ref{subapp:AcquisAndSaveXimea}.
 
-\item The user needs to set the main parameters before acquiring. They are the number of images on which to average, the size of the final PSFs, the position of the focus point on the sliding system and the initial guess to fit the 2D Gaussian on the PSF to find its center. The initial guess can be made using the Ximea camera software, called \verb!xiCamTool!, with which one gets a live feedback of the camera.
+The user needs to set the main parameters before acquiring. They are the number of images on which to average, the size of the final PSFs, the position of the focus point on the sliding system and the initial guess to fit the 2D Gaussian on the PSF to find its center. The initial guess can be made using the Ximea camera software, called \verb!xiCamTool!, with which one gets a live image of the camera.
 
-\item Then the running program ask the user what he needs to do after having made a sound. The first thing the user needs to do is to place the camera at the focus point and turn on the LED in order to set the optimal exposure time in order to avoid saturation.
+Then the running program ask the user what he needs to do after having made a sound. The first thing the user needs to do is to place the camera at the focus point and turn on the LED in order to set the optimal exposure time in order to avoid saturation.
 
-\item Finally the acquiring sequence begins, the program ask the user to shut down and turn on the source as the user acquire the different images to get the dark images and the PSF images. The user needs to manually displace the camera to get the defocused PSFs. The program computes the positions to get a $2\pi$ P2V defocus dephasing.
-
-\end{enumerate}
+Then the acquiring sequence begins, the program ask the user to shut down and turn on the source as the user acquire the different images to get the dark images and the PSF images. The user needs to manually displace the camera to get the defocused PSFs. The program computes the positions to get a $2\pi$ P2V defocus dephasing. The PSFs are finally saved in \textit{.fits} file.
 
 Many functions, used in the two scripts described above, are coded in the script \verb!functionsXimea.py!, see Appendix \ref{subapp:functionsXimea}.
 
@@ -179,9 +173,9 @@ Many functions, used in the two scripts described above, are coded in the script
 \label{subsec:acquisSHwfs}
 
 The Shack-Hartmann wavefront sensor is delivered with a software which does the numerical integration to compute
-the wavefront. The GUI shows the spot field (focal points), the beam view (irradiance of the
+the wavefront. The GUI shows the spot field (focal points), the beam view (irradiance on the
 CCD), the wavefront measured or reconstructed (where you can choose the Zernike coefficients
-to consider for the integration) and the Zernike coefficients.
+to consider for the integration up to $j_{max}=66$) and the Zernike coefficients.
 
 \begin{figure}
 \begin{center}
@@ -192,14 +186,14 @@ to consider for the integration) and the Zernike coefficients.
 \end{center}
 \end{figure}
 
-The acquisition is done with the company software. The acquired data are the Zernike coefficients and the reconstructed wavefront computed following the principle described in section \ref{subsec:SHprinciple}. Their is a few parameters that the user can set : the exposure time (there is also an auto set), the number of averaging images (1 up to 300) and the focus points reference of the micro-lenses array. 
+The acquisition is done with the company software. The data of interest are the Zernike coefficients and the reconstructed wavefront computed following the principle described in section \ref{subsec:SHprinciple}. Their is a few parameters that the user can set : the exposure time (there is also an auto set), the number of averaging images (1 up to 300) and the focus points reference of the micro-lenses array. 
 
-The data are saved manually in a \textit{.csv} file. I coded an IDL script to read and average the Shack-Hartmann data, in order to be able to analyse them and compare the result with the phase diversity, see Appendix \ref{subapp:readAndAverageSHdata} and \ref{subapp:readSHWFSdata}. 
+The data are saved manually in a \textit{.csv} file. I coded an IDL script to read and average the Shack-Hartmann data, in order to be able to analyse them and compare the results with the phase diversity, see Appendix \ref{subapp:readAndAverageSHdata} and \ref{subapp:readSHWFSdata}. 
 
 \section{Results}
 \label{sec:Results}
 
-This section presents the results of the phase diversity experiment, with the introduction of different sources of aberration. We will first present the results of the ONERA algorithm test, then we will compare the phase diversity retrieval with a calibrated aberration and finally we will introduce random static aberration with the phase screen and compare the results to the Shack-Hartmann wavefront sensor results.
+This section presents the results of the phase diversity experiment, with the introduction of different sources of aberration. We will first present the results of the ONERA algorithm test, then we will compare the phase diversity retrieval with a calibrated aberration and finally we introduce random static aberrations using a phase screen and compare the results with the Shack-Hartmann wavefront sensor results.
 
 \subsection{ONERA Phase Diversity test}
 \label{subsec:ONERAPDtest}
@@ -215,7 +209,7 @@ The motivation of this test is to better understand the behaviour of the ONERA p
 \end{center}
 \end{figure}
 
-To study the noise, we acquire PSFs with 25 different numbers of averaging images going from 10 to 5000. The noise level is computed as the ratio between the mean pixel standard deviation and the PSF maximum. The Ximea detector has a noise curve visible in Figure \ref{fig:NoiseCurve}. The noise curve is computed with the noise level of the focused PSFs. It follows an exponential law with the number of averaging images. The noise level varies from $\sim 1\mathrm{e}-3$ to $\sim 8\mathrm{e}-5$, for 10 and 5000 images respectively. Having the noise curve of the detector, we can study empirically how it influences the phase diversity results. 
+To study the noise, we acquire PSFs with 25 different numbers of averaging images going from 10 to 5000. The noise level is defined as the ratio between the mean pixel standard deviation and the PSF maximum. The Ximea detector has a noise curve visible in Figure \ref{fig:NoiseCurve}. The noise curve is computed with the noise level of the focused PSFs. It follows an exponential law with the number of averaging images. The noise level varies from $\sim 1\mathrm{e}-3$ to $\sim 8\mathrm{e}-5$, for 10 and 5000 images respectively. Having the noise curve of the detector, we can study empirically how it influences the phase diversity results. 
 
 \begin{figure}
 \centering
@@ -234,7 +228,7 @@ To study the noise, we acquire PSFs with 25 different numbers of averaging image
     \caption{Results of the phase retrievals computed with the 25 different noise levels. The phase retrievals are done with a $j_{max} = 30$}
 \end{figure}
 
-Figures \ref{subfig:ZernikeCoef_J_differentNbrAveragingjmax30} and \ref{subfig:Boxplot_Aj_j_jmax30} presents the results of the 25 different retrievals. As one can see there is some spread due to the different noise levels present in the PSFs given to the algorithm. The biggest standard deviation on a Zernike coefficient is smaller than 6 nm. And there can be up to 20 nm of maximal difference between the $a_j$'s as one can see on Figure \ref{subfig:Boxplot_Aj_j_jmax30}. The spherical aberration, $a_{11}$, has the biggest standard deviation and range of values. This shows that the PSFs noise levels have an impact on the retrieval and that not all Zernike coefficient are affected in the same way. One reassuring point is the good correspondence between the modal and zonal retrievals.
+Figures \ref{subfig:ZernikeCoef_J_differentNbrAveragingjmax30} and \ref{subfig:Boxplot_Aj_j_jmax30} presents the results of the 25 different retrievals. As one can see there is some spread due to the different noise levels present in the PSFs given to the algorithm. The biggest standard deviation on a Zernike coefficient is smaller than 6 nm. And there can be up to 20 nm of maximal difference between the $a_j$'s as one can see on Figure \ref{subfig:Boxplot_Aj_j_jmax30}. The spherical aberration, $a_{11}$, has the biggest standard deviation and range of values. This shows that the PSFs noise levels have an impact on the retrieval and that not all Zernike coefficient are affected in the same way. Two important points are the good correspondence between the modal and zonal retrievals and the relatively small spread of the Zernike coefficients.
 
 \begin{figure}
 \begin{center}
@@ -245,7 +239,7 @@ Figures \ref{subfig:ZernikeCoef_J_differentNbrAveragingjmax30} and \ref{subfig:B
 \end{center}
 \end{figure}
 
-Furthermore, looking at the reconstructed wavefronts in Figure \ref{fig:WavefrontsNoiseStudy}, one can see the effect of noise in the PSFs and how important is the choice of $j_{max}$ for the modal reconstruction. Indeed, for the wavefronts reconstructed using $j_{max}=30$, the retrieved structures are similar, however for $j_{max}=200$ there are more structures in the retrieval done on the PSFs with 10 averaging images than with 3500 images. This shows that the noise has a signal at high spatial frequencies. The zonal retrieval shows it clearly, the reconstruction is significantly different between 10 and 3500 averaging images. The averaging over a large number of acquisition smooth out the noise structures that perturbs the reconstruction. Looking at the 25 reconstructed wavefront with the zonal method, the noise threshold is at 3500 averaging images to kill the effect of the noise. Also as said above for the Zernike coefficients and still valid for the wavefront, the two retrieval method gives similar results, as one can compare the three retrievals with 3500 images on the left column of Figure \ref{fig:WavefrontsNoiseStudy}. There is structures present on the wavefront reconstructed on 200 Zernike coefficients, but the footprint of the beam is similar to the two other reconstructions.
+Furthermore, looking at the reconstructed wavefronts in Figure \ref{fig:WavefrontsNoiseStudy}, one can see the effect of noise in the PSFs and how important is the choice of $j_{max}$ for the modal reconstruction. Indeed, for the wavefronts reconstructed using $j_{max}=30$, the retrieved structures are similar with 10 or 3500 averaging images, however for $j_{max}=200$ there are more structures in the retrieval done on the PSFs with 10 averaging images than with 3500 images. This shows that the noise has a strong signal at high spatial frequencies. The zonal retrieval shows it clearly, the reconstruction is significantly different between 10 and 3500 averaging images. The averaging over a large number of acquisition smooth out the noise high frequencies that perturbs the reconstruction. Looking at the 25 reconstructed wavefronts with the zonal method, the noise threshold is at 3500 averaging images, corresponding to a noise level of 0.0009, above it the effect of the noise are reduced. Also as said above for the Zernike coefficients and still valid for the wavefront, the two retrieval method gives similar results, as one can compare the three retrievals with 3500 images on the left column of Figure \ref{fig:WavefrontsNoiseStudy}. There is structures present on the wavefront reconstructed on 200 Zernike coefficients, but the footprint of the beam is similar to the two other reconstructions.
 
 
 \begin{figure}
@@ -273,14 +267,13 @@ In order to be sure that the number of Zernike coefficient retrieved only influe
         \label{subfig:Boxplot_stdAj}
     \end{subfigure}
     \decoRule
-    \caption{Results of the $\Delta z$ measurement error test. The plots represent the results of the 125 phase retrievals run with all the permutations of errors, $[-2\sigma,-1\sigma,0,1\sigma,2\sigma]$ with $\sigma = 5\mathrm{e}-3$ mm, on the three PSFs position $\Delta z$}.
+    \caption{Results of the $\Delta z$ measurement error test. The plots represent the results of the 125 phase retrievals run with all the permutations of errors, $[-2\sigma_{\Delta z},-1\sigma_{\Delta z},0,1\sigma_{\Delta z},2\sigma_{\Delta z}]$ with $\sigma_{\Delta z} = 5\mathrm{e}-3$ mm, on the three PSFs position $\Delta z$}.
 \end{figure}
 
-Finally, the last test is to control the impact of a measurement error $\sigma_{\Delta z}$, the error position of the Ximea camera, on the phase retrieval. To do so the latter is run with 125 different permutations of the errors $[-2\sigma,-1\sigma,0,1\sigma,2\sigma]$ on the 3 PSFs position. $\sigma$ is set to represent the best precision we have on the position of the camera. As explained in section \ref{subsec:Detectors}, the camera is mounted on a sliding element moved by a micro metric screw, so $\sigma = 5\mathrm{e}-3$ mm. Figures \ref{subfig:Boxplot_Aj_j} and \ref{subfig:Boxplot_stdAj} present the results. The position error has nearly no effect on the phase retrieval, the median standard deviations are $\sim0.05$ nm and $\sim0.07$ nm for the modal and zonal method respectively.
+Finally, the last test is the control of the impact of a measurement error $\sigma_{\Delta z}$, the error position of the Ximea camera, on the phase retrieval. To do so the latter is run with 125 different permutations of the errors $[-2\sigma_{\Delta z},-1\sigma_{\Delta z},0,1\sigma_{\Delta z},2\sigma_{\Delta z}]$ on the 3 PSFs position. $\sigma_{\Delta z}$ is set to represent the best precision we have on the position of the camera. As explained in section \ref{subsec:Detectors}, the camera is mounted on a sliding element moved by a micro metric screw, so $\sigma_{\Delta z} = 5\mathrm{e}-3$ mm. Figures \ref{subfig:Boxplot_Aj_j} and \ref{subfig:Boxplot_stdAj} present the results. The position error has nearly no effect on the phase retrieval, the median standard deviations are $\sim0.05$ nm and $\sim0.07$ nm for the modal and zonal method respectively.
 
-In conclusion, the ONERA algorithm tests shows that first the two different methods, to retrieve the phase using the JMAP estimator, modal and zonal give similar results. Then, we have seen that the noise levels present in the PSFs influence the retrieval, see Figures \ref{subfig:ZernikeCoef_J_differentNbrAveragingjmax30}, \ref{subfig:Boxplot_Aj_j_jmax30} and \ref{fig:WavefrontsNoiseStudy}. We can consider the noise as an added aberration that touches all the Zernike coefficients. The spherical aberration is the most sensitive one. Also looking at the wavefronts, we see that there is a number of averaging images threshold at 3500 images for the zonal retrieval. Above this threshold the noise seems to be smooth and the retrieval looses the high spatial frequency components. The same thing is true for the modal retrieval, but the smoothing is not as effective at 3500 images. For the rest of this work each PSFs will be acquired with 5000 averaging images. Also we showed that the number of Zernike coefficient $j_{max}$ does not alter the modal retrieval. And finally, the error on the position of the camera also have a negligible impact.
+In conclusion, the ONERA algorithm tests shows that first the two different methods, to retrieve the phase using the JMAP estimator, modal and zonal give similar results. Then, we have seen that the noise levels present in the PSFs influence the retrieval, see Figures \ref{subfig:ZernikeCoef_J_differentNbrAveragingjmax30}, \ref{subfig:Boxplot_Aj_j_jmax30} and \ref{fig:WavefrontsNoiseStudy}. We can consider the noise as an added aberration that touches all the Zernike coefficients. The spherical aberration is the most sensitive one. Also looking at the wavefronts, we see that there is a number of averaging images threshold at 3500 images for the zonal retrieval. Above this threshold the noise seems to be smooth and the retrieval looses the high spatial frequency components. The same thing is true for the modal retrieval, but the smoothing is not as effective at 3500 images. For the rest of this work each PSFs will be acquired with 5000 averaging images. Also we showed that the number of Zernike coefficient $j_{max}$ does not alter the modal retrieval. And finally, the error on the position of the camera also has a negligible impact.
 
-\newpage
 \subsection{Parallel plane plate}
 \label{subsec:ParPlanePlate}
 
@@ -293,18 +286,20 @@ In conclusion, the ONERA algorithm tests shows that first the two different meth
 \end{center}
 \end{figure}
 
-%\begin{minipage}{\linewidth}
-%\begin{wrapfigure}{r}{0.5\textwidth}
-%\centering
-%\includegraphics[width=\textwidth]{}
-%\decoRulewrapFig
-%\caption{Plexiglas parallel plane plate used to introduce calibrated aberrations.}
-%\label{fig:}
-%\end{wrapfigure}
 
-Knowing how the algorithm behaves with respect to noise, $j_{max}$, etc... We compare its results to a calibrated aberration. The calibration is computed by simulating the optical system using Zemax\footnote{\url{https://www.zemax.com/opticstudio}}. We introduce astigmatism using a plexiglas parallel plane plate with an angle with respect to the optical axis. The astigmatism comes from the fact that the incident angle is not the same on the left side of the optical axis than on the right side of the optical axis with respect to $x$. This induces a difference in optical path between the symmetrical rays on the left and right side of the optical axis and thus induces an aberration, called the astigmatism.
 
-In order to have the best correspondence between the simulation and the experiment, the results are the difference between the Zernike coefficient of the parallel plane plate and the Zernike coefficient without the plate. Indeed the Zemax simulation do not have alignment issues and other man introduced imperfections. So by subtracting the aberrations present in the system without the parallel plane plate, in theory we should remove any component that do not come from the plate itself in order to only retrieve the plate effect.
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.6\textwidth,angle=-90]{Figures/ParPlanePlate.jpg}
+\decoRule
+\caption{Plexiglas parallel plane plate used to introduce calibrated aberrations. The width is equal to 14 mm and the refractive index is $n = 1.49$.}
+\label{fig:ParPlanePlate}
+\end{center}
+\end{figure}
+
+Knowing how the algorithm behaves with respect to noise, $j_{max}$, etc... We compare its results to a calibrated aberration. The calibration is dome by simulating the optical system using Zemax\footnote{\url{https://www.zemax.com/opticstudio}}. We introduce astigmatism using a plexiglas parallel plane plate with an angle with respect to the optical axis, see Figure \ref{fig:ParPlanePlate}. The astigmatism is due to the non symmetric incident angle on the left and right side of the optical axis with respect to $x$. This induces a difference in optical path between the symmetrical rays on the left and right side of the optical axis and thus induces an aberration, called the astigmatism.
+
+In order to have the best correspondence between the simulation and the experiment, the results are the difference between the Zernike coefficient retrieved with the parallel plane plate and the Zernike coefficient without the plate. Indeed, the Zemax simulation do not have alignment issues and other man introduced imperfections. So by subtracting the aberrations present in the system without the parallel plane plate, in theory we should remove any component that do not come from the plate itself in order to only retrieve the plate effect.
 
 \begin{figure}
 \begin{center}
@@ -315,9 +310,7 @@ In order to have the best correspondence between the simulation and the experime
 \end{center}
 \end{figure}
 
-Figure \ref{fig:astigmatism_angle_Diversity} shows the vertical astigmatism Zernike coefficient $a_6$ as a function of the parallel plane plate angle from $10^{\circ}$ to $50^{\circ}$. The two coloured lines correspond to the two phase retrieval methods and the dashed line is the Zemax simulation of the parallel plane plate. As one can see, there is an offset of $\sim 10-15$ nm between the simulation and the experiment, which correspond to an error of $\sim\frac{\lambda}{64}$. The behaviours of the simulation and the experiment are the same which is reassuring, despite the overestimation of the astigmatism by the phase diversity retrievals. The system without an aberration introduction has a $ a_6 = 2.1$ nm. This might show that our system is not perfectly aligned, but it does explain the $\sim 10-15$ nm offset.
-
-The offset is unexpected, because subtracting the results of the phase retrieval on the PSFs acquired without introducing aberrations to the results with the parallel plane plate should have eliminate the aberration present in the optical system, since the aberration introduction is a linear phenomenon. This might be due to an significant alignment error that could introduce non-linear effect. For instance the alignment of the f=200mm lens that collimates the beam is difficult due to its size and mounting system. One could change it to a f=200mm lens compatible with the 4-rods mounting on which the 4F system is to guaranty the correct alignment. Or that the simulation is not representing exactly the optical system. To go further and try to understand the difference between simulation and experiment, we compare also the coma introduced by the parallel plane plate which should be negligible in the system as shown by the dashed line in Figure \ref{fig:a8astigmatism_angle_Diversity}. The coma is interesting because it is typical in system with alignment problem. In amateur telescopes with two mirrors, it arises when the M2 is not correctly aligned on the M1.
+Figure \ref{fig:astigmatism_angle_Diversity} shows the vertical astigmatism Zernike coefficient $a_6$ as a function of the parallel plane plate angle from $10^{\circ}$ to $50^{\circ}$. The two coloured lines correspond to the two phase retrieval methods and the dashed line is the Zemax simulation of the parallel plane plate. As one can see, there is an offset of $\sim 10-15$ nm between the simulation and the experiment, which correspond to an error of $\sim\frac{\lambda}{64}$. The behaviours of the simulation and the experiment are the same which is good, despite the overestimation of the astigmatism by the phase diversity retrievals. The system without the parallel plane plate has a $ a_6 = 2.1$ nm. This might show that our system is not perfectly aligned, but it does explain the $\sim 10-15$ nm offset.
 
 \begin{figure}
 \begin{center}
@@ -328,7 +321,7 @@ The offset is unexpected, because subtracting the results of the phase retrieval
 \end{center}
 \end{figure}
 
-The vertical coma, Zernike coefficient $a_8$, as a function of the parallel plane plate angle is shown in Figure \ref{fig:a8astigmatism_angle_Diversity}. The optical system in presence of the parallel plane plate has a significant coma aberration, up to $\sim15$ according to the phase diversity. Without an aberration introduction, the system has a vertical coma coefficient $a_8=6.4$ nm. All this support the fact that our system is suffering from an alignment problem and that the Zemax simulation is too perfect to be used as a comparison. The only thing really complicated to understand is the non-linearity of the system. It might be do to the fact that the retrieval is done on limited number of Zernike polynomials, $j_{max}=66$ here, which could perturb the retrieval of the wavefront since there is a small spread especially at high spatial frequencies as seen in Figure \ref{fig:ZernikeCoef_J_differentJmax_5000Imgs}. 
+The vertical coma, Zernike coefficient $a_8$, as a function of the parallel plane plate angle is shown in Figure \ref{fig:a8astigmatism_angle_Diversity}. The optical system in presence of the parallel plane plate has a significant coma aberration, up to $\sim15$ nm according to the phase diversity. Without an aberration introduction, the system has a vertical coma coefficient $a_8=6.4$ nm, which also support the fact that our system is not perfectly aligned. 
 
 \subsection{Shack-Hartmann comparison}
 
@@ -349,7 +342,7 @@ The vertical coma, Zernike coefficient $a_8$, as a function of the parallel plan
     \caption{Phase screen introduction.}
 \end{figure}
 
-Even with the problem of calibration, because it is the final aim of the phase diversity experiment, the comparison of the phase diversity and the Shack-Hartmann is done. The phase screen as we call them are transparent plastic boxes, see Figure \ref{subfig:phaseScreen}, whose fabrication process gives them the property of static turbulent aberrations, see Figure \ref{subfig:StaticTurbulenceEx}. Indeed, the plastic injection follows the typical flux that we can find in the atmosphere and the solidification fix the distribution.
+Even with the offset and alignment problems, we compared the phase diversity to the Shack-Hartmann. The comparison is performed with random static aberrations introduced by a phase screen. A phase screen is a transparent plastic box, see Figure \ref{subfig:phaseScreen}, whose fabrication process gives it the property of static turbulent aberrations, see Figure \ref{subfig:StaticTurbulenceEx}. Indeed, the plastic injection follows the typical flux that we can find in the atmosphere and the solidification fix this distribution.
 
 \begin{figure}
 \begin{center}
@@ -369,14 +362,17 @@ Even with the problem of calibration, because it is the final aim of the phase d
 \end{center}
 \end{figure}
 
-The results of the comparison are presented in Figures \ref{fig:ZernikeCoef} and \ref{fig:Wavefront}. According to both instrument, the phase screen introduces significant aberrations, but the comparison between the two is not satisfying, there is more than 25 nm difference in average between the phase diversity and the Shack-Hartmann. Also the comparison of the wavefronts is not good. The problem is that we do not know which is more cloth to the truth. Indeed, comparing the parallel plane plate results of the Shack-Hartmann and the Zemax model does not help since there is also significant differences between the two, see Figures \ref{fig:astigmatism_angle_Diversity} and \ref{fig:a8astigmatism_angle_Diversity}. However, the vertical coma comparison between the phase diversity and the Shack-Hartmann is better. But we can not really say anything as the astigmatism is completely different. So, it is a shame, but we can not deduct anything with this comparison, at the moment. 
+The results of the comparison are presented in Figures \ref{fig:ZernikeCoef} and \ref{fig:Wavefront}. According to both instrument, the phase screen introduces significant aberrations, but the comparison between the two does not seem to support any correlation between the two methods. There is more than a 25 nm difference in average between the phase diversity and the Shack-Hartmann. Also the comparison of the wavefronts is not good. Furthermore, the comparison of the parallel plane plate results of the Shack-Hartmann, the phase diversity and the Zemax model reveals that there is differences between the three, see Figures \ref{fig:astigmatism_angle_Diversity} and \ref{fig:a8astigmatism_angle_Diversity}. However, the vertical coma comparison between the phase diversity and the Shack-Hartmann is better, but it might be a coincidence.
 
 \subsection{Discussion}
 \label{subsec:DiscussionOnera}
 
-The results we have gathered in this experiment are mixed. The algorithm test, section \ref{subsec:ONERAPDtest}, is interesting. We learned a lot of things about the properties and behaviour of the ONERA phase diversity algorithm. The noise present in the PSFs has its importance especially when trying to reconstruct the wavefronts. There seems to be a threshold above which the high spatial frequency component of the noise are neutralized. This threshold is at 3500 images corresponding to a noise level of $\sim0.00009$ as observed in the Zonal reconstruction. Also the number of Zernike over which the retrieval is done, $j_{max}$, does not really matters to recover the Zernike coefficient, but as seen in Figure \ref{fig:WavefrontsNoiseStudy} it has a significant influence on the reconstruction of the wavefronts due to the high spatial frequency component of the noise. And also it confirms that a small error of position of the camera would not perturbed the phase retrieval. 
+The algorithm test, section \ref{subsec:ONERAPDtest}, is interesting. We learned a lot of things about the properties and behaviour of the ONERA phase diversity algorithm. The noise present in the PSFs has its importance especially when trying to reconstruct the wavefronts. There seems to be a threshold above which the high spatial frequency component of the noise are neutralized. This threshold is at 3500 images corresponding to a noise level of $\sim0.00009$ as observed in the Zonal reconstruction. Also the number of Zernike over which the retrieval is done, $j_{max}$, does not really matters to recover the Zernike coefficient, but as seen in Figure \ref{fig:WavefrontsNoiseStudy}, it has a significant influence on the reconstruction of the wavefronts due to the high spatial frequency component of the noise. Finally the test also confirms that a small error on the position of the camera would not perturbed the phase retrieval. 
 
-The parallel plane plate experiment used to compare the phase diversity with a calibrated aberration does not work as expected. The astigmatism introduced by the Plexiglas plate follows the right behaviour, but there is an offset that is not expected of $\sim 10-15$ nm. Comparing the vertical coma from the model with the retrieved one, we see that that a significant amount of coma aberration is present even though it is negligible in the Zemax model. Thus we think that there is an alignment problem, moreover the theoretical linearity of the aberration phenomenon in the paraxial approximation is not respected. This non-linearity shows either that the system imperfections and man-introduced aberrations are really high, but it is unlikely as the system seemed fine looking at the collimation, the spot size of the focused beam, etc... or it could show a problem in the use of the ONERA algorithm. It is complicated to conclude with the information at our disposal at the moment.
+The parallel plane plate experiment used to compare the phase diversity with a calibrated aberration does not work as expected. The astigmatism introduced by the Plexiglas plate follows the right behaviour, but there is an offset that is not expected of $\sim 10-15$ nm. Comparing the vertical coma from the model with the retrieved ones, we see that that a significant amount of coma is present even though it is negligible in the Zemax model. The coma is interesting because it is typical in system with alignment problem. In amateur telescopes with two mirrors, it arises when the M2 is not correctly aligned on the M1. Thus, we conclude that there is an alignment problem. The alignment problem surely comes from the complex setup collimating the beam after the pinhole. One should use a f=200mm lens that goes onto the 4-rods mounting system and attach the source to the rods also. That way any aberrations due to a misalignment of the source with its collimating lens and the rest of the setup could be avoided.
 
-Finally, in order to improve our results and be able to conclude anything on the ONERA phase diversity algorithm, we would need to be more prudent at the beginning. We should first have a way to describe the system independently, without the phase diversity. It was the idea behind the use of the Shack-Hartmann. But we went to quickly into trying the phase diversity algorithm and testing it. We need to first be sure of the data collected by the Shack-Hartmann, be able to recover the Zemax prediction with the Shack-Hartmann. And once we know how our system behaves and we have a clear way to characterize it, we can try to compare the phase diversity and the Shack-Hartmann.
+Now, the problem is the fact that our calibrated aberration modelled by Zemax cannot be reproduced in reality. Indeed, the offset is unexpected, because subtracting the results of the phase retrieval on the PSFs acquired without introducing aberrations to the results with the parallel plane plate should have eliminated the aberrations present in the optical system.  Either the Zemax model is not representing our system correctly. Or the phase diversity algorithm does not respect the linearity of the image formation process. This explanation would also mean that the Shack-Hartmann has a linearity problem. The most plausible explanation is the first one, but we do not know why since all the components introduced in the model correspond to the one we have on the optical bench. An argument supporting the second explanation could be that since we retrieve a limited number of Zernike, non linear effects could arise as the available Zernike could take a bigger amount of aberrations that they truly have.
 
+The second problem is the fact that the phase diversity and the Shack-Hartmann are not similar. This might be due to a misalignment of the wavefront sensor, in other words it might not be on a plane conjugated with the pupil. Indeed, as we argue above, the system seems to have alignment problem. The Shack-Hartmann is placed according to the distance on the plan (Figure \ref{fig:setupSchema}) and cancelled the defocus coefficient $a_4$ to find the correct position. Thus, since the systems already has aberrations the position with no defocus might not be the correct one, explaining the difference between the two retrieval methods. A better way to check the conjugation between the planes would have been to put a rule on the milled entrance pupil and determine the position where it was sharp on the Shack-Hartmann. 
+
+Finally, in order to improve our results and be able to use correctly the ONERA phase diversity algorithm, we would need to be more prudent at the beginning. We should first have a solid way to describe the system independently, without the phase diversity. It was the idea behind the use of the Shack-Hartmann. But we went to quickly into trying the phase diversity algorithm and testing it. We need to first be sure of the data collected by the Shack-Hartmann, be able to recover the Zemax predictions with the Shack-Hartmann. And once we know how our system behaves and we have a clear way to characterize it, we can try to compare the phase diversity and the Shack-Hartmann.

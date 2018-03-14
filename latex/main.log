@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6400) (preloaded format=pdflatex 2017.10.12)  12 MAR 2018 16:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6400) (preloaded format=pdflatex 2017.10.12)  14 MAR 2018 21:03
 entering extended mode
 **./main.tex
 (main.tex
@@ -2161,43 +2161,49 @@ Underfull \hbox (badness 10000) in paragraph at lines 167--168
 
 ]
 --------------------
+ Abstract
+--------------------
+LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 193.
+1: section
+[7] [8
+
+]
+--------------------
  Acknowledgements
 --------------------
 1: section
-[7] [8
+[9] [10
 
 ]
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <24.88> not available
 (Font)              Font shape `T1/ppl/b/n' tried instead on input line 211.
  (main.toc
-LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 4.
-
 1: section
-[9])
+[11])
 \tf@toc=\write6
 \openout6 = `main.toc'.
 
- [10] (main.lof
+ [12] (main.lof
 Overfull \hbox (2.83606pt too wide) in paragraph at lines 24--24
  [][] [][][]\T1/ppl/m/n/10.95 Reconstructed wa-vefronts for two dif-fe-rent num
 -bers of aver-a-ging ima- 
  []
 
 1: section
-[11
+[13
 
 ]
-Overfull \hbox (1.76315pt too wide) in paragraph at lines 32--32
+Overfull \hbox (1.76315pt too wide) in paragraph at lines 33--33
  [][] [][][]\T1/ppl/m/n/10.95 Reconstructed wa-vefront by the Mo-dal and Zo-nal
  met-hod of the phase 
  []
 
-)
+[14])
 \tf@lof=\write7
 \openout7 = `main.lof'.
 
- [12] [13] [14
+ [15] [16
 
 ] (main.lot)
 \tf@lot=\write8
@@ -2205,42 +2211,46 @@ Overfull \hbox (1.76315pt too wide) in paragraph at lines 32--32
 
 
 1: section
-[15] [16
+[17] [18
 
 ]
 1: section
 \openout2 = `Chapters/Introduction.aux'.
 
 (Chapters/Introduction.tex
-<Figures/ao_scheme.jpg, id=593, 404.51125pt x 347.2975pt>
+<Figures/ao_scheme.jpg, id=607, 404.51125pt x 347.2975pt>
 File: Figures/ao_scheme.jpg Graphic file (type jpg)
 <use Figures/ao_scheme.jpg>
 Package pdftex.def Info: Figures/ao_scheme.jpg  used on input line 27. on input
  line 27.
-Package pdftex.def Info: Requested size: 161.60916pt x 138.75226pt on input lin
-e 27.
+Package pdftex.def Info: Requested size: 242.4199pt x 208.13634pt on input line
+ 27.
 LaTeX Font Info:    Try loading font information for T1+cmtt on input line 29.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1cmtt.fd"
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-1: section
-[1
-
-
- <./Figures/ao_scheme.jpg>]
-<Figures/DAGtelescope.jpg, id=603, 770.88pt x 578.16pt>
+<Figures/DAGtelescope.jpg, id=612, 770.88pt x 578.16pt>
 File: Figures/DAGtelescope.jpg Graphic file (type jpg)
 <use Figures/DAGtelescope.jpg>
 Package pdftex.def Info: Figures/DAGtelescope.jpg  used on input line 40. on in
 put line 40.
 Package pdftex.def Info: Requested size: 202.01454pt x 151.50902pt on input lin
 e 40.
-) [2 <./Figures/DAGtelescope.jpg>]
+)
+1: section
+[1
+
+
+] [2 <./Figures/ao_scheme.jpg> <./Figures/DAGtelescope.jpg>] [3]
 \openout2 = `Chapters/Theory.aux'.
 
 
-(Chapters/Theory.tex
+(Chapters/Theory.tex [4
+
+
+
+]
 Chapter 1.
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <17.28> not available
 (Font)              Font shape `T1/ppl/b/n' tried instead on input line 2.
@@ -2248,7 +2258,7 @@ LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/ppl/b/n' tried instead on input line 7.
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <12> not available
 (Font)              Font shape `T1/ppl/b/n' tried instead on input line 10.
-<Figures/Ray_Som_Diff.png, id=613, 309.5565pt x 263.7855pt>
+<Figures/Ray_Som_Diff.png, id=636, 309.5565pt x 263.7855pt>
 File: Figures/Ray_Som_Diff.png Graphic file (type png)
 <use Figures/Ray_Som_Diff.png>
 Package pdftex.def Info: Figures/Ray_Som_Diff.png  used on input line 52. on in
@@ -2260,7 +2270,7 @@ Underfull \hbox (badness 1052) in paragraph at lines 53--53
  []\T1/ppl/m/sc/10 (a) |\T1/ppl/m/n/10 Rayleigh-Sommerfeld for-mu-la- 
  []
 
-<Figures/Diff_Geom.png, id=616, 384.83775pt x 233.673pt>
+<Figures/Diff_Geom.png, id=639, 384.83775pt x 233.673pt>
 File: Figures/Diff_Geom.png Graphic file (type png)
 <use Figures/Diff_Geom.png>
 Package pdftex.def Info: Figures/Diff_Geom.png  used on input line 58. on input
@@ -2274,47 +2284,52 @@ Underfull \hbox (badness 1048) in paragraph at lines 59--59
  []
 
 1: section
-[3
-
-
-
-] [4 <./Figures/Ray_Som_Diff.png> <./Figures/Diff_Geom.png>] [5]
-<Figures/ImagingInstrumentGenSchema.png, id=655, 460.119pt x 224.63925pt>
+[5] [6 <./Figures/Ray_Som_Diff.png> <./Figures/Diff_Geom.png>] [7]
+<Figures/ImagingInstrumentGenSchema.png, id=678, 460.119pt x 224.63925pt>
 File: Figures/ImagingInstrumentGenSchema.png Graphic file (type png)
 <use Figures/ImagingInstrumentGenSchema.png>
 Package pdftex.def Info: Figures/ImagingInstrumentGenSchema.png  used on input 
 line 167. on input line 167.
 Package pdftex.def Info: Requested size: 323.22449pt x 157.81197pt on input lin
 e 167.
-<Figures/OTF.pdf, id=659, pagebox=cropbox, 578.16pt x 430.0065pt>
+<Figures/PSF.pdf, id=682, pagebox=cropbox, 578.16pt x 430.0065pt>
+File: Figures/PSF.pdf Graphic file (type pdf)
+<use Figures/PSF.pdf>
+Package pdftex.def Info: Figures/PSF.pdf  used on input line 187. on input line
+ 187.
+Package pdftex.def Info: Requested size: 181.81184pt x 135.21655pt on input lin
+e 187.
+<Figures/PSFzoom.pdf, id=683, pagebox=cropbox, 578.16pt x 430.0065pt>
+File: Figures/PSFzoom.pdf Graphic file (type pdf)
+<use Figures/PSFzoom.pdf>
+Package pdftex.def Info: Figures/PSFzoom.pdf  used on input line 193. on input 
+line 193.
+Package pdftex.def Info: Requested size: 181.81184pt x 135.21655pt on input lin
+e 193.
+<Figures/OTF.pdf, id=685, pagebox=cropbox, 578.16pt x 430.0065pt>
 File: Figures/OTF.pdf Graphic file (type pdf)
 <use Figures/OTF.pdf>
-Package pdftex.def Info: Figures/OTF.pdf  used on input line 196. on input line
- 196.
+Package pdftex.def Info: Figures/OTF.pdf  used on input line 214. on input line
+ 214.
 Package pdftex.def Info: Requested size: 202.01454pt x 150.24863pt on input lin
-e 196.
- [6 <./Figures/ImagingInstrumentGenSchema.png>]
-Overfull \hbox (1.22441pt too wide) in paragraph at lines 215--216
+e 214.
+ [8 <./Figures/ImagingInstrumentGenSchema.png>] [9 <./Figures/PSF.pdf> <./Figur
+es/PSFzoom.pdf
+
+pdfTeX warning: pdflatex (file ./Figures/PSFzoom.pdf): PDF inclusion: multiple 
+pdfs with page group included in a single page
+> <./Figures/OTF.pdf
+
+pdfTeX warning: pdflatex (file ./Figures/OTF.pdf): PDF inclusion: multiple pdfs
+ with page group included in a single page
+>]
+Overfull \hbox (1.22441pt too wide) in paragraph at lines 233--234
 \T1/ppl/m/n/10.95 A de-tec-tor only sen-ses the energy dis-tri-bu-tion pro-du-c
 ed by an elec-tro-mag-ne-tic wave.
  []
 
-<Figures/PSF.pdf, id=671, pagebox=cropbox, 578.16pt x 430.0065pt>
-File: Figures/PSF.pdf Graphic file (type pdf)
-<use Figures/PSF.pdf>
-Package pdftex.def Info: Figures/PSF.pdf  used on input line 243. on input line
- 243.
-Package pdftex.def Info: Requested size: 181.81184pt x 135.21655pt on input lin
-e 243.
-<Figures/PSFzoom.pdf, id=672, pagebox=cropbox, 578.16pt x 430.0065pt>
-File: Figures/PSFzoom.pdf Graphic file (type pdf)
-<use Figures/PSFzoom.pdf>
-Package pdftex.def Info: Figures/PSFzoom.pdf  used on input line 249. on input 
-line 249.
-Package pdftex.def Info: Requested size: 181.81184pt x 135.21655pt on input lin
-e 249.
-[7 <./Figures/OTF.pdf>]
-<Figures/AbWFvsGausSphWF.png, id=686, 324.0105pt x 271.61475pt>
+[10]
+<Figures/AbWFvsGausSphWF.png, id=723, 324.0105pt x 271.61475pt>
 File: Figures/AbWFvsGausSphWF.png Graphic file (type png)
 <use Figures/AbWFvsGausSphWF.png>
 Package pdftex.def Info: Figures/AbWFvsGausSphWF.png  used on input line 282. o
@@ -2327,56 +2342,54 @@ Package pdftex.def Info: Figures/PSFzoom.pdf  used on input line 301. on input
 line 301.
 Package pdftex.def Info: Requested size: 181.81184pt x 135.21655pt on input lin
 e 301.
-<Figures/PSFzoomWthAb.png, id=691, 578.16pt x 430.0065pt>
+<Figures/PSFzoomWthAb.png, id=728, 578.16pt x 430.0065pt>
 File: Figures/PSFzoomWthAb.png Graphic file (type png)
 <use Figures/PSFzoomWthAb.png>
 Package pdftex.def Info: Figures/PSFzoomWthAb.png  used on input line 307. on i
 nput line 307.
 Package pdftex.def Info: Requested size: 181.81184pt x 135.21655pt on input lin
 e 307.
- [8 <./Figures/PSF.pdf> <./Figures/PSFzoom.pdf
-
-pdfTeX warning: pdflatex (file ./Figures/PSFzoom.pdf): PDF inclusion: multiple 
-pdfs with page group included in a single page
->] [9 <./Figures/PSFzoomWthAb.png> <./Figures/AbWFvsGausSphWF.png>]
-<Figures/Zernike_polynomials.png, id=720, 1573.88pt x 1573.88pt>
+ [11 <./Figures/AbWFvsGausSphWF.png>]
+<Figures/Zernike_polynomials.png, id=745, 1573.88pt x 1573.88pt>
 File: Figures/Zernike_polynomials.png Graphic file (type png)
 <use Figures/Zernike_polynomials.png>
 Package pdftex.def Info: Figures/Zernike_polynomials.png  used on input line 33
 0. on input line 330.
 Package pdftex.def Info: Requested size: 404.02908pt x 404.01181pt on input lin
 e 330.
- [10]
-[11 <./Figures/Zernike_polynomials.png (PNG copy)>]
-<Figures/SHWFSPrinciple.png, id=751, 469.755pt x 240.9pt>
+ [12 <./Figures/PSFzoomWthAb.png>]
+[13 <./Figures/Zernike_polynomials.png (PNG copy)>]
+<Figures/SHWFSPrinciple.png, id=774, 469.755pt x 240.9pt>
 File: Figures/SHWFSPrinciple.png Graphic file (type png)
 <use Figures/SHWFSPrinciple.png>
 Package pdftex.def Info: Figures/SHWFSPrinciple.png  used on input line 394. on
  input line 394.
 Package pdftex.def Info: Requested size: 404.02908pt x 207.19568pt on input lin
 e 394.
- [12]
-<Figures/DiversityPrincipleM.png, id=771, 523.9575pt x 274.626pt>
+ [14]
+<Figures/DiversityPrincipleM.png, id=793, 523.9575pt x 274.626pt>
 File: Figures/DiversityPrincipleM.png Graphic file (type png)
 <use Figures/DiversityPrincipleM.png>
-Package pdftex.def Info: Figures/DiversityPrincipleM.png  used on input line 42
-0. on input line 420.
+Package pdftex.def Info: Figures/DiversityPrincipleM.png  used on input line 41
+7. on input line 417.
 Package pdftex.def Info: Requested size: 323.22449pt x 169.41988pt on input lin
-e 420.
- [13 <./Figures/SHWFSPrinciple.png>] [14 <./Figures/DiversityPrincipleM.png>]) 
-[15]
+e 417.
+ [15 <./Figures/SHWFSPrinciple.png>]) [16 <./Figures/DiversityPrincipleM.png>]
 \openout2 = `Chapters/PDExp.aux'.
 
+ (Chapters/PDExp.tex
+Chapter 2.
 
-(Chapters/PDExp.tex [16
+LaTeX Warning: Reference `sec:principle' on page 17 undefined on input line 15.
+
+
+1: section
+[17
 
 
 
 ]
-Chapter 2.
-1: section
-[17]
-<Figures/setupSchema.JPG, id=821, 670.00313pt x 584.1825pt>
+<Figures/setupSchema.JPG, id=833, 670.00313pt x 584.1825pt>
 File: Figures/setupSchema.JPG Graphic file (type jpg)
 <use Figures/setupSchema.JPG>
 Package pdftex.def Info: Figures/setupSchema.JPG  used on input line 56. on inp
@@ -2384,21 +2397,21 @@ ut line 56.
 Package pdftex.def Info: Requested size: 323.22449pt x 281.82172pt on input lin
 e 56.
  [18]
-<Figures/WFdistantSource.PNG, id=832, 311.66437pt x 116.68594pt>
+<Figures/WFdistantSource.PNG, id=844, 311.66437pt x 116.68594pt>
 File: Figures/WFdistantSource.PNG Graphic file (type png)
 <use Figures/WFdistantSource.PNG>
 Package pdftex.def Info: Figures/WFdistantSource.PNG  used on input line 73. on
  input line 73.
 Package pdftex.def Info: Requested size: 161.60916pt x 60.5061pt on input line 
 73.
-<Figures/source.png, id=837, 794.97pt x 318.43968pt>
+<Figures/source.png, id=849, 794.97pt x 318.43968pt>
 File: Figures/source.png Graphic file (type png)
 <use Figures/source.png>
 Package pdftex.def Info: Figures/source.png  used on input line 88. on input li
 ne 88.
 Package pdftex.def Info: Requested size: 202.01454pt x 80.92165pt on input line
  88.
-<Figures/pinholeEffect.png, id=838, 450.68375pt x 343.2825pt>
+<Figures/pinholeEffect.png, id=852, 450.68375pt x 343.2825pt>
 File: Figures/pinholeEffect.png Graphic file (type png)
 <use Figures/pinholeEffect.png>
 Package pdftex.def Info: Figures/pinholeEffect.png  used on input line 94. on i
@@ -2412,169 +2425,176 @@ ur-face com-po-sed by 1280x1024
  []
 
 [20 <./Figures/source.png> <./Figures/pinholeEffect.png>]
-<Figures/../../../fig/alignement/28092017AlignementXimeaPSFs.png, id=870, 1398.
+<Figures/../../../fig/alignement/28092017AlignementXimeaPSFs.png, id=885, 1398.
 4245pt x 151.767pt>
 File: Figures/../../../fig/alignement/28092017AlignementXimeaPSFs.png Graphic f
 ile (type png)
 <use Figures/../../../fig/alignement/28092017AlignementXimeaPSFs.png>
 Package pdftex.def Info: Figures/../../../fig/alignement/28092017AlignementXime
-aPSFs.png  used on input line 152. on input line 152.
+aPSFs.png  used on input line 148. on input line 148.
 Package pdftex.def Info: Requested size: 404.02908pt x 43.84688pt on input line
- 152.
-<Figures/../../../fig/alignement/28092017AlignementXimeaPos.png, id=871, 578.16
+ 148.
+<Figures/../../../fig/alignement/28092017AlignementXimeaPos.png, id=886, 578.16
 pt x 430.0065pt>
 File: Figures/../../../fig/alignement/28092017AlignementXimeaPos.png Graphic fi
 le (type png)
 <use Figures/../../../fig/alignement/28092017AlignementXimeaPos.png>
 Package pdftex.def Info: Figures/../../../fig/alignement/28092017AlignementXime
-aPos.png  used on input line 158. on input line 158.
+aPos.png  used on input line 154. on input line 154.
 Package pdftex.def Info: Requested size: 242.4199pt x 180.29967pt on input line
- 158.
-<Figures/SHWFS_GUI.png, id=874, 599.841pt x 364.36125pt>
+ 154.
+<Figures/SHWFS_GUI.png, id=889, 599.841pt x 364.36125pt>
 File: Figures/SHWFS_GUI.png Graphic file (type png)
 <use Figures/SHWFS_GUI.png>
-Package pdftex.def Info: Figures/SHWFS_GUI.png  used on input line 188. on inpu
-t line 188.
+Package pdftex.def Info: Figures/SHWFS_GUI.png  used on input line 182. on inpu
+t line 182.
 Package pdftex.def Info: Requested size: 404.02908pt x 245.42729pt on input lin
-e 188.
+e 182.
  [21] [22 <./Figures/../../../fig/alignement/28092017AlignementXimeaPSFs.png> <
 ./Figures/../../../fig/alignement/28092017AlignementXimeaPos.png> <./Figures/SH
 WFS_GUI.png>]
-<Figures/../../../fig/PD/noise_study/NoiseCurveXimea.png, id=894, 578.16pt x 43
+<Figures/../../../fig/PD/noise_study/NoiseCurveXimea.png, id=903, 578.16pt x 43
 0.0065pt>
 File: Figures/../../../fig/PD/noise_study/NoiseCurveXimea.png Graphic file (typ
 e png)
 <use Figures/../../../fig/PD/noise_study/NoiseCurveXimea.png>
 Package pdftex.def Info: Figures/../../../fig/PD/noise_study/NoiseCurveXimea.pn
-g  used on input line 211. on input line 211.
+g  used on input line 205. on input line 205.
 Package pdftex.def Info: Requested size: 242.4199pt x 180.29967pt on input line
- 211.
- [23 <./Figures/../../../fig/PD/noise_study/NoiseCurveXimea.png>]
+ 205.
 <Figures/../../../fig/PD/noise_study/ZernikeCoef_J_differentNbrAveraging.png, i
-d=901, 1151.8207pt x 579.98784pt>
+d=905, 1151.8207pt x 579.98784pt>
 File: Figures/../../../fig/PD/noise_study/ZernikeCoef_J_differentNbrAveraging.p
 ng Graphic file (type png)
 <use Figures/../../../fig/PD/noise_study/ZernikeCoef_J_differentNbrAveraging.pn
 g>
 Package pdftex.def Info: Figures/../../../fig/PD/noise_study/ZernikeCoef_J_diff
-erentNbrAveraging.png  used on input line 223. on input line 223.
+erentNbrAveraging.png  used on input line 217. on input line 217.
 Package pdftex.def Info: Requested size: 404.02908pt x 203.44127pt on input lin
-e 223.
-<Figures/../../../fig/PD/noise_study/Boxplot_Aj_j_jmax30.png, id=902, 478.1865p
+e 217.
+<Figures/../../../fig/PD/noise_study/Boxplot_Aj_j_jmax30.png, id=906, 478.1865p
 t x 379.4175pt>
 File: Figures/../../../fig/PD/noise_study/Boxplot_Aj_j_jmax30.png Graphic file 
 (type png)
 <use Figures/../../../fig/PD/noise_study/Boxplot_Aj_j_jmax30.png>
 Package pdftex.def Info: Figures/../../../fig/PD/noise_study/Boxplot_Aj_j_jmax3
-0.png  used on input line 229. on input line 229.
+0.png  used on input line 223. on input line 223.
 Package pdftex.def Info: Requested size: 303.0218pt x 240.4469pt on input line 
-229.
-<Figures/../../../fig/PD/noise_study/WavefrontsNoiseStudy.png, id=906, 331.8397
+223.
+ [23 <./Figures/../../../fig/PD/noise_study/NoiseCurveXimea.png>] [24 <./Figure
+s/../../../fig/PD/noise_study/ZernikeCoef_J_differentNbrAveraging.png> <./Figur
+es/../../../fig/PD/noise_study/Boxplot_Aj_j_jmax30.png>]
+<Figures/../../../fig/PD/noise_study/WavefrontsNoiseStudy.png, id=920, 331.8397
 5pt x 423.984pt>
 File: Figures/../../../fig/PD/noise_study/WavefrontsNoiseStudy.png Graphic file
  (type png)
 <use Figures/../../../fig/PD/noise_study/WavefrontsNoiseStudy.png>
 Package pdftex.def Info: Figures/../../../fig/PD/noise_study/WavefrontsNoiseStu
-dy.png  used on input line 241. on input line 241.
+dy.png  used on input line 235. on input line 235.
 Package pdftex.def Info: Requested size: 404.02908pt x 516.25693pt on input lin
-e 241.
+e 235.
 <Figures/../../../fig/PD/noise_study/ZernikeCoef_J_differentJmax_5000Imgs.png, 
-id=909, 363.15675pt x 295.1025pt>
+id=923, 363.15675pt x 295.1025pt>
 File: Figures/../../../fig/PD/noise_study/ZernikeCoef_J_differentJmax_5000Imgs.
 png Graphic file (type png)
 <use Figures/../../../fig/PD/noise_study/ZernikeCoef_J_differentJmax_5000Imgs.p
 ng>
 Package pdftex.def Info: Figures/../../../fig/PD/noise_study/ZernikeCoef_J_diff
-erentJmax_5000Imgs.png  used on input line 253. on input line 253.
+erentJmax_5000Imgs.png  used on input line 247. on input line 247.
 Package pdftex.def Info: Requested size: 404.02908pt x 328.34213pt on input lin
-e 253.
-<Figures/../../../fig/PD/errorDeltaZStudy/Boxplot_Aj_j.png, id=911, 349.99329pt
+e 247.
+<Figures/../../../fig/PD/errorDeltaZStudy/Boxplot_Aj_j.png, id=925, 349.99329pt
  x 291.35135pt>
 File: Figures/../../../fig/PD/errorDeltaZStudy/Boxplot_Aj_j.png Graphic file (t
 ype png)
 <use Figures/../../../fig/PD/errorDeltaZStudy/Boxplot_Aj_j.png>
 Package pdftex.def Info: Figures/../../../fig/PD/errorDeltaZStudy/Boxplot_Aj_j.
-png  used on input line 265. on input line 265.
+png  used on input line 259. on input line 259.
 Package pdftex.def Info: Requested size: 181.81184pt x 151.3524pt on input line
- 265.
-<Figures/../../../fig/PD/errorDeltaZStudy/Boxplot_stdAj.png, id=912, 348.3414pt
+ 259.
+<Figures/../../../fig/PD/errorDeltaZStudy/Boxplot_stdAj.png, id=926, 348.3414pt
  x 253.15149pt>
 File: Figures/../../../fig/PD/errorDeltaZStudy/Boxplot_stdAj.png Graphic file (
 type png)
 <use Figures/../../../fig/PD/errorDeltaZStudy/Boxplot_stdAj.png>
 Package pdftex.def Info: Figures/../../../fig/PD/errorDeltaZStudy/Boxplot_stdAj
-.png  used on input line 271. on input line 271.
+.png  used on input line 265. on input line 265.
 Package pdftex.def Info: Requested size: 181.81184pt x 132.13008pt on input lin
-e 271.
- [24] [25 <./Figures/../../../fig/PD/noise_study/ZernikeCoef_J_differentNbrAver
-aging.png> <./Figures/../../../fig/PD/noise_study/Boxplot_Aj_j_jmax30.png>] [26
- <./Figures/../../../fig/PD/noise_study/WavefrontsNoiseStudy.png>] [27 <./Figur
-es/../../../fig/PD/noise_study/ZernikeCoef_J_differentJmax_5000Imgs.png> <./Fig
-ures/../../../fig/PD/errorDeltaZStudy/Boxplot_Aj_j.png> <./Figures/../../../fig
-/PD/errorDeltaZStudy/Boxplot_stdAj.png>] [28]
-<Figures/parallelPlanePlateWithBS.png, id=943, 919.0335pt x 391.4625pt>
+e 265.
+ [25] [26 <./Figures/../../../fig/PD/noise_study/WavefrontsNoiseStudy.png>] [27
+ <./Figures/../../../fig/PD/noise_study/ZernikeCoef_J_differentJmax_5000Imgs.pn
+g> <./Figures/../../../fig/PD/errorDeltaZStudy/Boxplot_Aj_j.png> <./Figures/../
+../../fig/PD/errorDeltaZStudy/Boxplot_stdAj.png>]
+<Figures/parallelPlanePlateWithBS.png, id=948, 919.0335pt x 391.4625pt>
 File: Figures/parallelPlanePlateWithBS.png Graphic file (type png)
 <use Figures/parallelPlanePlateWithBS.png>
 Package pdftex.def Info: Figures/parallelPlanePlateWithBS.png  used on input li
-ne 289. on input line 289.
+ne 282. on input line 282.
 Package pdftex.def Info: Requested size: 404.02908pt x 172.0947pt on input line
- 289.
-<Figures/../../../fig/PD/astigmatism/angle_study_2/astigmatism_angle.png, id=94
-6, 371.58826pt x 296.307pt>
+ 282.
+<Figures/ParPlanePlate.jpg, id=949, 4143.48pt x 3107.61pt>
+File: Figures/ParPlanePlate.jpg Graphic file (type jpg)
+<use Figures/ParPlanePlate.jpg>
+Package pdftex.def Info: Figures/ParPlanePlate.jpg  used on input line 293. on 
+input line 293.
+Package pdftex.def Info: Requested size: 242.4199pt x 181.80156pt on input line
+ 293.
+<Figures/../../../fig/PD/astigmatism/angle_study_2/astigmatism_angle.png, id=95
+3, 371.58826pt x 296.307pt>
 File: Figures/../../../fig/PD/astigmatism/angle_study_2/astigmatism_angle.png G
 raphic file (type png)
 <use Figures/../../../fig/PD/astigmatism/angle_study_2/astigmatism_angle.png>
 Package pdftex.def Info: Figures/../../../fig/PD/astigmatism/angle_study_2/asti
-gmatism_angle.png  used on input line 311. on input line 311.
+gmatism_angle.png  used on input line 306. on input line 306.
 Package pdftex.def Info: Requested size: 262.61642pt x 209.42545pt on input lin
-e 311.
- [29 <./Figures/parallelPlanePlateWithBS.png>]
+e 306.
 <Figures/../../../fig/PD/astigmatism/angle_study_2/coma_angle.png, id=955, 366.
 77025pt x 299.31825pt>
 File: Figures/../../../fig/PD/astigmatism/angle_study_2/coma_angle.png Graphic 
 file (type png)
 <use Figures/../../../fig/PD/astigmatism/angle_study_2/coma_angle.png>
 Package pdftex.def Info: Figures/../../../fig/PD/astigmatism/angle_study_2/coma
-_angle.png  used on input line 324. on input line 324.
+_angle.png  used on input line 317. on input line 317.
 Package pdftex.def Info: Requested size: 262.61642pt x 214.32607pt on input lin
-e 324.
-<Figures/phaseScreen.png, id=958, 263.18324pt x 289.08pt>
+e 317.
+ [28 <./Figures/parallelPlanePlateWithBS.png>] [29 <./Figures/ParPlanePlate.jpg
+> <./Figures/../../../fig/PD/astigmatism/angle_study_2/astigmatism_angle.png>]
+<Figures/phaseScreen.png, id=968, 263.18324pt x 289.08pt>
 File: Figures/phaseScreen.png Graphic file (type png)
 <use Figures/phaseScreen.png>
-Package pdftex.def Info: Figures/phaseScreen.png  used on input line 338. on in
-put line 338.
+Package pdftex.def Info: Figures/phaseScreen.png  used on input line 331. on in
+put line 331.
 Package pdftex.def Info: Requested size: 181.81184pt x 199.70801pt on input lin
-e 338.
-<Figures/StaticTurbulenceEx.png, id=959, 263.7855pt x 308.95425pt>
+e 331.
+<Figures/StaticTurbulenceEx.png, id=969, 263.7855pt x 308.95425pt>
 File: Figures/StaticTurbulenceEx.png Graphic file (type png)
 <use Figures/StaticTurbulenceEx.png>
-Package pdftex.def Info: Figures/StaticTurbulenceEx.png  used on input line 344
-. on input line 344.
+Package pdftex.def Info: Figures/StaticTurbulenceEx.png  used on input line 337
+. on input line 337.
 Package pdftex.def Info: Requested size: 181.81184pt x 212.94295pt on input lin
-e 344.
- [30 <./Figures/../../../fig/PD/astigmatism/angle_study_2/astigmatism_angle.png
->] [31 <./Figures/../../../fig/PD/astigmatism/angle_study_2/coma_angle.png> <./
-Figures/phaseScreen.png> <./Figures/StaticTurbulenceEx.png>]
+e 337.
 <Figures/../../../fig/PD/phaseScreen/PS2/ZernikeCoef.png, id=972, 357.83974pt x
  292.38377pt>
 File: Figures/../../../fig/PD/phaseScreen/PS2/ZernikeCoef.png Graphic file (typ
 e png)
 <use Figures/../../../fig/PD/phaseScreen/PS2/ZernikeCoef.png>
 Package pdftex.def Info: Figures/../../../fig/PD/phaseScreen/PS2/ZernikeCoef.pn
-g  used on input line 356. on input line 356.
+g  used on input line 349. on input line 349.
 Package pdftex.def Info: Requested size: 202.01454pt x 165.06328pt on input lin
-e 356.
+e 349.
 <Figures/../../../fig/PD/phaseScreen/PS2/Wavefront.png, id=973, 320.25934pt x 2
 91.55783pt>
 File: Figures/../../../fig/PD/phaseScreen/PS2/Wavefront.png Graphic file (type 
 png)
 <use Figures/../../../fig/PD/phaseScreen/PS2/Wavefront.png>
 Package pdftex.def Info: Figures/../../../fig/PD/phaseScreen/PS2/Wavefront.png 
- used on input line 365. on input line 365.
+ used on input line 358. on input line 358.
 Package pdftex.def Info: Requested size: 202.01454pt x 183.91374pt on input lin
-e 365.
- [32 <./Figures/../../../fig/PD/phaseScreen/PS2/ZernikeCoef.png>]) [33 <./Figur
-es/../../../fig/PD/phaseScreen/PS2/Wavefront.png>]
+e 358.
+ [30 <./Figures/../../../fig/PD/astigmatism/angle_study_2/coma_angle.png>] [31 
+<./Figures/phaseScreen.png> <./Figures/StaticTurbulenceEx.png> <./Figures/../..
+/../fig/PD/phaseScreen/PS2/ZernikeCoef.png>] [32 <./Figures/../../../fig/PD/pha
+seScreen/PS2/Wavefront.png>]) [33]
 \openout2 = `Chapters/ourPD.aux'.
 
  (Chapters/ourPD.tex [34
@@ -2584,7 +2604,12 @@ es/../../../fig/PD/phaseScreen/PS2/Wavefront.png>]
 ]
 Chapter 3.
 1: section
-[35] [36] [37]
+[35]
+
+LaTeX Warning: Reference `sec:principle' on page 36 undefined on input line 77.
+
+
+[36] [37]
 Overfull \hbox (41.68298pt too wide) in paragraph at lines 148--149
 \T1/ppl/m/n/10.95 pu-ted by the met-hod [][]\T1/cmtt/m/n/10.95 f1j(params) []\T
 1/ppl/m/n/10.95 and the ele-ments of $[][]$ are com-pu-ted by [][]\T1/cmtt/m/n/
@@ -2604,7 +2629,7 @@ Underfull \hbox (badness 1067) in paragraph at lines 151--151
  []
 
 <Figures/../../../fig/PDDev/test/PhasesAndPSFs_jmaxstudy_WoutN_rmsWFe_30.png, i
-d=1051, 578.16pt x 433.62pt>
+d=1061, 578.16pt x 433.62pt>
 File: Figures/../../../fig/PDDev/test/PhasesAndPSFs_jmaxstudy_WoutN_rmsWFe_30.p
 ng Graphic file (type png)
 <use Figures/../../../fig/PDDev/test/PhasesAndPSFs_jmaxstudy_WoutN_rmsWFe_30.pn
@@ -2613,7 +2638,7 @@ Package pdftex.def Info: Figures/../../../fig/PDDev/test/PhasesAndPSFs_jmaxstud
 y_WoutN_rmsWFe_30.png  used on input line 162. on input line 162.
 Package pdftex.def Info: Requested size: 242.4199pt x 181.81479pt on input line
  162.
-<Figures/../../../fig/PDDev/test/ajs_js_jmax_30_WoutN_rmsWFe_30.pdf, id=1052, p
+<Figures/../../../fig/PDDev/test/ajs_js_jmax_30_WoutN_rmsWFe_30.pdf, id=1062, p
 agebox=cropbox, 578.16pt x 433.62pt>
 File: Figures/../../../fig/PDDev/test/ajs_js_jmax_30_WoutN_rmsWFe_30.pdf Graphi
 c file (type pdf)
@@ -2625,7 +2650,7 @@ Package pdftex.def Info: Requested size: 242.4199pt x 181.81479pt on input line
 [38] [39 <./Figures/../../../fig/PDDev/test/PhasesAndPSFs_jmaxstudy_WoutN_rmsWF
 e_30.png> <./Figures/../../../fig/PDDev/test/ajs_js_jmax_30_WoutN_rmsWFe_30.pdf
 >]
-<Figures/../../../fig/PDDev/test/ajs_js_jmaxstudy_WoutN_rmsWFe_30.pdf, id=1125,
+<Figures/../../../fig/PDDev/test/ajs_js_jmaxstudy_WoutN_rmsWFe_30.pdf, id=1134,
  pagebox=cropbox, 1734.48pt x 845.55902pt>
 File: Figures/../../../fig/PDDev/test/ajs_js_jmaxstudy_WoutN_rmsWFe_30.pdf Grap
 hic file (type pdf)
@@ -2634,7 +2659,7 @@ Package pdftex.def Info: Figures/../../../fig/PDDev/test/ajs_js_jmaxstudy_WoutN
 _rmsWFe_30.pdf  used on input line 185. on input line 185.
 Package pdftex.def Info: Requested size: 404.02908pt x 196.9646pt on input line
  185.
-<Figures/../../../fig/PDDev/test/ajs_js_WthE_rmsWFe_30.pdf, id=1127, pagebox=cr
+<Figures/../../../fig/PDDev/test/ajs_js_WthE_rmsWFe_30.pdf, id=1136, pagebox=cr
 opbox, 578.16pt x 433.62pt>
 File: Figures/../../../fig/PDDev/test/ajs_js_WthE_rmsWFe_30.pdf Graphic file (t
 ype pdf)
@@ -2643,7 +2668,7 @@ Package pdftex.def Info: Figures/../../../fig/PDDev/test/ajs_js_WthE_rmsWFe_30.
 pdf  used on input line 197. on input line 197.
 Package pdftex.def Info: Requested size: 181.81184pt x 136.35283pt on input lin
 e 197.
-<Figures/../../../fig/PDDev/test/bxp_ajs_js_rmsWFe_30.pdf, id=1128, pagebox=cro
+<Figures/../../../fig/PDDev/test/bxp_ajs_js_rmsWFe_30.pdf, id=1137, pagebox=cro
 pbox, 578.16pt x 433.62pt>
 File: Figures/../../../fig/PDDev/test/bxp_ajs_js_rmsWFe_30.pdf Graphic file (ty
 pe pdf)
@@ -2654,7 +2679,7 @@ Package pdftex.def Info: Requested size: 181.81184pt x 136.35283pt on input lin
 e 203.
  [40 <./Figures/../../../fig/PDDev/test/ajs_js_jmaxstudy_WoutN_rmsWFe_30.pdf>]
 <Figures/../../../fig/PDDev/compDiversity/rmsWFerrorsretrieved_rmsWFeWthIDL.pdf
-, id=1193, pagebox=cropbox, 578.16pt x 433.62pt>
+, id=1202, pagebox=cropbox, 578.16pt x 433.62pt>
 File: Figures/../../../fig/PDDev/compDiversity/rmsWFerrorsretrieved_rmsWFeWthID
 L.pdf Graphic file (type pdf)
 <use Figures/../../../fig/PDDev/compDiversity/rmsWFerrorsretrieved_rmsWFeWthIDL
@@ -2663,7 +2688,7 @@ Package pdftex.def Info: Figures/../../../fig/PDDev/compDiversity/rmsWFerrorsre
 trieved_rmsWFeWthIDL.pdf  used on input line 218. on input line 218.
 Package pdftex.def Info: Requested size: 181.81184pt x 136.35283pt on input lin
 e 218.
-<Figures/../../../fig/PDDev/compDiversity/rmse_rmsWFeWthIDL.pdf, id=1194, pageb
+<Figures/../../../fig/PDDev/compDiversity/rmse_rmsWFeWthIDL.pdf, id=1203, pageb
 ox=cropbox, 578.16pt x 433.62pt>
 File: Figures/../../../fig/PDDev/compDiversity/rmse_rmsWFeWthIDL.pdf Graphic fi
 le (type pdf)
@@ -2672,15 +2697,8 @@ Package pdftex.def Info: Figures/../../../fig/PDDev/compDiversity/rmse_rmsWFeWt
 hIDL.pdf  used on input line 224. on input line 224.
 Package pdftex.def Info: Requested size: 181.81184pt x 136.35283pt on input lin
 e 224.
- [41 <./Figures/../../../fig/PDDev/test/ajs_js_WthE_rmsWFe_30.pdf> <./Figures/.
-./../../fig/PDDev/test/bxp_ajs_js_rmsWFe_30.pdf
-
-pdfTeX warning: pdflatex (file ./Figures/../../../fig/PDDev/test/bxp_ajs_js_rms
-WFe_30.pdf): PDF inclusion: multiple pdfs with page group included in a single 
-page
->]
 <Figures/../../../fig/PDDev/recursivePD/ajs_jsRecursiveWthNoise_eWFrms_130.pdf,
- id=1525, pagebox=cropbox, 1734.48pt x 845.55902pt>
+ id=1209, pagebox=cropbox, 1734.48pt x 845.55902pt>
 File: Figures/../../../fig/PDDev/recursivePD/ajs_jsRecursiveWthNoise_eWFrms_130
 .pdf Graphic file (type pdf)
 <use Figures/../../../fig/PDDev/recursivePD/ajs_jsRecursiveWthNoise_eWFrms_130.
@@ -2689,7 +2707,14 @@ Package pdftex.def Info: Figures/../../../fig/PDDev/recursivePD/ajs_jsRecursive
 WthNoise_eWFrms_130.pdf  used on input line 240. on input line 240.
 Package pdftex.def Info: Requested size: 404.02908pt x 196.9646pt on input line
  240.
-<Figures/../../../fig/PDDev/recursivePD/rmsWFErrorsWthN.pdf, id=1526, pagebox=c
+ [41 <./Figures/../../../fig/PDDev/test/ajs_js_WthE_rmsWFe_30.pdf> <./Figures/.
+./../../fig/PDDev/test/bxp_ajs_js_rmsWFe_30.pdf
+
+pdfTeX warning: pdflatex (file ./Figures/../../../fig/PDDev/test/bxp_ajs_js_rms
+WFe_30.pdf): PDF inclusion: multiple pdfs with page group included in a single 
+page
+>]
+<Figures/../../../fig/PDDev/recursivePD/rmsWFErrorsWthN.pdf, id=1535, pagebox=c
 ropbox, 578.16pt x 433.62pt>
 File: Figures/../../../fig/PDDev/recursivePD/rmsWFErrorsWthN.pdf Graphic file (
 type pdf)
@@ -2698,7 +2723,7 @@ Package pdftex.def Info: Figures/../../../fig/PDDev/recursivePD/rmsWFErrorsWthN
 .pdf  used on input line 250. on input line 250.
 Package pdftex.def Info: Requested size: 181.81184pt x 136.35283pt on input lin
 e 250.
-<Figures/../../../fig/PDDev/recursivePD/rmseWthN.pdf, id=1527, pagebox=cropbox,
+<Figures/../../../fig/PDDev/recursivePD/rmseWthN.pdf, id=1536, pagebox=cropbox,
  578.16pt x 433.62pt>
 File: Figures/../../../fig/PDDev/recursivePD/rmseWthN.pdf Graphic file (type pd
 f)
@@ -2945,7 +2970,7 @@ Overfull \hbox (171.23026pt too wide) in paragraph at lines 461--463
 
 ]
 Appendix C.
-<../../componentDatasheet/LPS-635-FC-SpecSheet.pdf, id=3213, pagebox=cropbox, 6
+<../../componentDatasheet/LPS-635-FC-SpecSheet.pdf, id=3223, pagebox=cropbox, 6
 14.295pt x 794.97pt>
 File: ../../componentDatasheet/LPS-635-FC-SpecSheet.pdf Graphic file (type pdf)
 
@@ -2960,7 +2985,7 @@ Overfull \vbox (20.46199pt too high) has occurred while \output is active []
 
 
 [76 <../../componentDatasheet/LPS-635-FC-SpecSheet.pdf>]
-<../../componentDatasheet/A220TM-AutoCADPDF.pdf, id=3270, pagebox=cropbox, 794.
+<../../componentDatasheet/A220TM-AutoCADPDF.pdf, id=3279, pagebox=cropbox, 794.
 97pt x 614.295pt>
 File: ../../componentDatasheet/A220TM-AutoCADPDF.pdf Graphic file (type pdf)
 <use ../../componentDatasheet/A220TM-AutoCADPDF.pdf>
@@ -2981,7 +3006,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 22.
 
-<../../componentDatasheet/P10S-AutoCADPDF.pdf, id=3272, pagebox=cropbox, 794.97
+<../../componentDatasheet/P10S-AutoCADPDF.pdf, id=3281, pagebox=cropbox, 794.97
 pt x 614.295pt>
 File: ../../componentDatasheet/P10S-AutoCADPDF.pdf Graphic file (type pdf)
 <use ../../componentDatasheet/P10S-AutoCADPDF.pdf>
@@ -2990,7 +3015,7 @@ input line 24. on input line 24.
 Package pdftex.def Info: Requested size: 404.02908pt x 312.20836pt on input lin
 e 24.
 [77 <../../componentDatasheet/A220TM-AutoCADPDF.pdf>]
-<../../componentDatasheet/AL100200-AutoCADPDF.pdf, id=3303, pagebox=cropbox, 79
+<../../componentDatasheet/AL100200-AutoCADPDF.pdf, id=3312, pagebox=cropbox, 79
 4.97pt x 614.295pt>
 File: ../../componentDatasheet/AL100200-AutoCADPDF.pdf Graphic file (type pdf)
 <use ../../componentDatasheet/AL100200-AutoCADPDF.pdf>
@@ -2999,7 +3024,7 @@ Package pdftex.def Info: ../../componentDatasheet/AL100200-AutoCADPDF.pdf  used
 Package pdftex.def Info: Requested size: 404.02908pt x 312.20836pt on input lin
 e 29.
  [78 <../../componentDatasheet/P10S-AutoCADPDF.pdf>]
-<../../componentDatasheet/AC254-100-A-AutoCADPDF.pdf, id=3334, pagebox=cropbox,
+<../../componentDatasheet/AC254-100-A-AutoCADPDF.pdf, id=3343, pagebox=cropbox,
  794.97pt x 614.295pt>
 File: ../../componentDatasheet/AC254-100-A-AutoCADPDF.pdf Graphic file (type pd
 f)
@@ -3009,14 +3034,14 @@ sed on input line 34. on input line 34.
 Package pdftex.def Info: Requested size: 404.02908pt x 312.20836pt on input lin
 e 34.
  [79 <../../componentDatasheet/AL100200-AutoCADPDF.pdf>]
-<../../componentDatasheet/ximeaPic.png, id=3365, 291.489pt x 234.8775pt>
+<../../componentDatasheet/ximeaPic.png, id=3375, 291.489pt x 234.8775pt>
 File: ../../componentDatasheet/ximeaPic.png Graphic file (type png)
 <use ../../componentDatasheet/ximeaPic.png>
 Package pdftex.def Info: ../../componentDatasheet/ximeaPic.png  used on input l
 ine 40. on input line 40.
 Package pdftex.def Info: Requested size: 202.01454pt x 162.78242pt on input lin
 e 40.
-<../../componentDatasheet/ximeaSpec.png, id=3366, 270.41025pt x 395.67825pt>
+<../../componentDatasheet/ximeaSpec.png, id=3376, 270.41025pt x 395.67825pt>
 File: ../../componentDatasheet/ximeaSpec.png Graphic file (type png)
 <use ../../componentDatasheet/ximeaSpec.png>
 Package pdftex.def Info: ../../componentDatasheet/ximeaSpec.png  used on input 
@@ -3029,7 +3054,7 @@ Overfull \hbox (6.71394pt too wide) in paragraph at lines 43--44
 ducts / usb3-[]vision-[]cameras-[]xiq-[]line / mq013mg-[]e2$[][] 
  []
 
-<../../componentDatasheet/WFS150-5C.png, id=3400, 313.77225pt x 481.19775pt>
+<../../componentDatasheet/WFS150-5C.png, id=3410, 313.77225pt x 481.19775pt>
 File: ../../componentDatasheet/WFS150-5C.png Graphic file (type png)
 <use ../../componentDatasheet/WFS150-5C.png>
 Package pdftex.def Info: ../../componentDatasheet/WFS150-5C.png  used on input 
@@ -3066,7 +3091,10 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 297.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 297.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 297.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 378694CFE34C8FB28AA5A3E8F3619E91;11940.
+(rerunfilecheck)             Checksum: 5B8394786841AFA237F47D07D43C0551;11894.
+
+
+LaTeX Warning: There were undefined references.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -3076,11 +3104,11 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 40302 strings out of 493347
- 783934 string characters out of 3136920
- 1157397 words of memory out of 3000000
- 41607 multiletter control sequences out of 15000+200000
- 619278 words of font info for 202 fonts, out of 3000000 for 9000
+ 40304 strings out of 493347
+ 784021 string characters out of 3136920
+ 1157735 words of memory out of 3000000
+ 41608 multiletter control sequences out of 15000+200000
+ 619819 words of font info for 204 fonts, out of 3000000 for 9000
  1127 hyphenation exceptions out of 8191
  64i,20n,84p,10379b,3524s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/cm-super/cm-super-t1.enc}{
@@ -3099,9 +3127,9 @@ e1/urw/palatino/uplb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/p
 alatino/uplbi8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/palatino
 /uplr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/palatino/uplr8a.
 pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (100 pages, 7291504 bytes).
+Output written on main.pdf (102 pages, 10624675 bytes).
 PDF statistics:
- 3832 PDF objects out of 4296 (max. 8388607)
- 1644 named destinations out of 1728 (max. 500000)
- 871 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 3841 PDF objects out of 4296 (max. 8388607)
+ 1642 named destinations out of 1728 (max. 500000)
+ 876 words of extra memory for PDF output out of 10000 (max. 10000000)
 
