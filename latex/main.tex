@@ -192,7 +192,13 @@
 
 \begin{abstract}
 \addchaptertocentry{\abstractname} % Add the abstract to the table of contents
-The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically so can expand into the blank space above the title too\ldots
+This thesis deals with the aberrations present in an optical system and their corrections. Indeed, nowadays the telescopes are so big that they are limited by the Earth's atmosphere turbulence and their own defects.  Sophisticated method are developed to take into account the aberrations and correct them. We study a retrieval method called phase diversity that uses the image given by the system to correct the aberrations present on the optical path. 
+
+The first part of our work is the test and use of a phase diversity algorithm developed by \citet{mugnier_2006} at ONERA. The algorithm regarding the noise level in the images and the different parameters that could influence, behaves adequately. However, the usage of the phase diversity in comparison with a simulated calibrated aberration and another wavefront sensor highlighted problems with our optical bench and its simulation.
+
+The second part presents the development and test of our phase diversity algorithm. The algorithm is based on a analytical approach unlike the ONERA phase diversity, which is based on a statistical approach. Our algorithm gives good results, however it shows a limited validity domain. A recursive approach is then proposed and tested to increase the validity domain with success up to an RMS wavefront error of $\sim\frac{\lambda}{4}$.
+
+In conclusion, we tested the ONERA phase diversity algorithm successful. But its use highlighted technical problems of our setup. We then developed our own phase diversity algorithm in order to have a method that we fully understand and control. Using a recursive approach we are able to increase by a factor three the validity domain.
 \end{abstract}
 
 %----------------------------------------------------------------------------------------
@@ -201,7 +207,13 @@ The Thesis Abstract is written here (and usually kept to just this page). The pa
 
 \begin{acknowledgements}
 \addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
-The acknowledgements and the people to thank go here, don't forget to include your project advisor\ldots
+I would first like to thank my thesis supervisor Dr. Laurent Jolissaint of the industrial automation institute at the School of Management and Engineering (HEIG-VD) of Yverdon-Les-Bains. 
+
+I would also like to thank the expert : Dr. Jean-Paul Kneib, Director of the astrophysics laboratory of the Ecole Polytechnique Federale de Lausanne (EPFL). Without his passionate participation and input, the validation survey could not have been successfully conducted.
+
+I would also like to thank my colleagues Audrey Bouxin, Scientific collaborator at HEIG-VD and Jeremie Baudet, Scientific collaborator at HEIG-VD for their precious help and inputs during this project.
+
+Finally, I must express my very profound gratitude to my family and to my girlfriend for providing me with unfailing support and continuous encouragement throughout my years of study and through the process of researching and writing this thesis. This accomplishment would not have been possible without them. Thank you.
 \end{acknowledgements}
 
 %----------------------------------------------------------------------------------------
@@ -212,19 +224,35 @@ The acknowledgements and the people to thank go here, don't forget to include yo
 
 \listoffigures % Prints the list of figures
 
-\listoftables % Prints the list of tables
+%\listoftables % Prints the list of tables
 
 %----------------------------------------------------------------------------------------
 %	ABBREVIATIONS
 %----------------------------------------------------------------------------------------
 
-%\begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
-%\textbf{FWHM} & \textbf{F}ull \textbf{W}idth \textbf{H}alf \textbf{M}aximum\\
-%\textbf{PD} & \textbf{P}hase \textbf{D}iversity\\
-%\textbf{PSF} & \textbf{P}oint \textbf{S}read \textbf{F}unction\\
-%\textbf{WFS} & \textbf{W}ave\textbf{F}ront \textbf{S}ensor\\
-%
-%\end{abbreviations}
+\begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
+\textbf{CCD} & \textbf{Charge}-\textbf{Coupled} \textbf{D}evice \\
+\textbf{CMOS} & \textbf{C}omplementary \textbf{M}etal–\textbf{O}xide–\textbf{S}emiconductor \\
+\textbf{DAG} & \textbf{D}ogu \textbf{A}nadolu \textbf{G}ozlemevi, Eastern Anatolia Observatory \\
+\textbf{ELT} & \textbf{E}xtremly \textbf{L}arge \textbf{T}elescope \\
+\textbf{FWHM} & \textbf{F}ull \textbf{W}idth \textbf{H}alf \textbf{M}aximum\\
+\textbf{GUI} & \textbf{G}raphic \textbf{U}ser \textbf{I}nterface \\
+\textbf{HEIG-VD} & \textbf{H}aute \textbf{E}cole d'\textbf{I}ngéniérie et de \textbf{G}estion du canton de \textbf{V}au\textbf{D}\\
+ & School of Management and Engineering \\
+\textbf{IR} & \textbf{I}mpulse \textbf{R}esponse \\
+\textbf{JMAP} & \textbf{J}oint \textbf{M}aximum \textbf{\textit{A}} \textbf{\textit{P}}\textit{osteriori} \\
+\textbf{NCPA} & \textbf{N}on \textbf{C}ommon \textbf{P}ath \textbf{A}berration \\
+\textbf{ONERA} & \textbf{O}ffice \textbf{Nationale} d'\textbf{E}tude et de \textbf{R}echerce \textbf{A}erospatiale \\
+ & French National Aerospace Research Center \\
+\textbf{OTF} & \textbf{O}ptical \textbf{T}ransfer \textbf{F}unction \\
+\textbf{P2V} & \textbf{P}eak \textbf{T}o \textbf{V}alley  \\
+\textbf{PSF} & \textbf{P}oint \textbf{S}pread \textbf{F}unction \\
+\textbf{RMS} & \textbf{R}oot \textbf{M}ean \textbf{S}quare\\
+\textbf{RMSE}& \textbf{R}oot \textbf{M}ean \textbf{S}quare \textbf{Error} \\
+\textbf{VLT} & \textbf{V}ery \textbf{L}arge \textbf{T}elescope \\
+\textbf{WFS} & \textbf{W}ave\textbf{F}ront \textbf{S}ensor \\
+
+\end{abbreviations}
 
 %----------------------------------------------------------------------------------------
 %	PHYSICAL CONSTANTS/OTHER DEFINITIONS

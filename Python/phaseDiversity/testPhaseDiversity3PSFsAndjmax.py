@@ -23,9 +23,9 @@ noiseStdLevel = 0.001
 P2Vdephasing = np.pi*deltaZ/lbda*(2*pupilRadius/F)**2/4.
 a4dephasing = P2Vdephasing/2/np.sqrt(3)
 
-js = np.linspace(jmin,jmax[-1],num=jmax[-1]-3)
+js = np.linspace(jmin,jmax[2],num=jmax[2]-3)
 
-jscomplete = np.linspace(jmin,jmax[-1],num=jmax[-1]-3)
+jscomplete = np.linspace(jmin,jmax[2],num=jmax[2]-3)
 ajscomplete = jscomplete*.0
 
 ajstrue = fsApd.getRandomAjs(js,rmsWFerror)*1e-9/lbda*2*np.pi
@@ -72,20 +72,30 @@ for jm in jmax:
 #print phaseDiv.result['ajs']*1e9*lbda/2/np.pi
 #print ajstrue*1e9*lbda/2/np.pi
 
+jscomplete = np.append(js,np.linspace(31,200,170))
+ajscomplete = np.append(ajscomplete,np.zeros(170))
+
 plt.figure()
 plt.hold(True)
-plt.plot(jscomplete,ajscomplete*1e9*lbda/2/np.pi,'b-',linewidth=2,label='true')
-for ij,jm in enumerate(jmax): 
+plt.plot(jscomplete,ajscomplete*1e9*lbda/2/np.pi,'b-',linewidth=2,label='true, $\sigma_{WF,rms}$ = %5.3f nm'%(fs.RMSwavefrontError(js,ajscomplete*1e9*lbda/2/np.pi)))
+for ij,jm in enumerate(jmax):
+#    if ij>=2 :   
+#        plt.errorbar(phaseDivWoutNoise[ij].result['js'],phaseDivWoutNoise[ij].result['ajs']*1e9*lbda/2/np.pi,yerr=phaseDivWoutNoise[ij].result['ajsSte']*1e9*lbda/2/np.pi
+#            ,lineStyle='-',label='retrieved jmax = %d,  $\sigma_{WF,rms}$ = %5.3f nm, RMSE = %5.3f nm'
+#            %(jm,fs.RMSwavefrontError(phaseDivWoutNoise[ij].result['js'],phaseDivWoutNoise[ij].result['ajs']*1e9*lbda/2/np.pi)
+#            ,fs.RMSE((phaseDivWoutNoise[ij].result['ajs'])[0:jmax[2]-3]*1e9*lbda/2/np.pi,ajscomplete*1e9*lbda/2/np.pi)))
+#    else :
     plt.errorbar(phaseDivWoutNoise[ij].result['js'],phaseDivWoutNoise[ij].result['ajs']*1e9*lbda/2/np.pi,yerr=phaseDivWoutNoise[ij].result['ajsSte']*1e9*lbda/2/np.pi
-        ,lineStyle='-',label='retrieved jmax = %d, RMSE = %5.3f nm'
-        %(jm,fs.RMSE(phaseDivWoutNoise[ij].result['ajs']*1e9*lbda/2/np.pi,ajscomplete[0:jm-3]*1e9*lbda/2/np.pi)))
+        ,lineStyle='-',label='retrieved jmax = %d,  $\sigma_{WF,rms}$ = %5.3f nm, RMSE = %5.3f nm'
+        %(jm,fs.RMSwavefrontError(phaseDivWoutNoise[ij].result['js'],phaseDivWoutNoise[ij].result['ajs']*1e9*lbda/2/np.pi)
+        ,fs.RMSE((phaseDivWoutNoise[ij].result['ajs'])*1e9*lbda/2/np.pi,ajscomplete[0:jm-3]*1e9*lbda/2/np.pi)))
 #plt.errorbar(phaseDivWthNoise.result['js'],phaseDivWthNoise.result['ajs']*1e9*lbda/2/np.pi,yerr=phaseDivWthNoise.result['ajsSte']*1e9*lbda/2/np.pi
 #    ,color = 'green',lineStyle='-',label='retrieved wth noise, $\sigma_{WF,rms}$ = %5.3f nm, RMSE = %5.3f nm'
 #    %(fs.RMSwavefrontError(phaseDivWthNoise.result['js'],phaseDivWthNoise.result['ajs']*1e9*lbda/2/np.pi)
 #    ,fs.RMSE(phaseDivWthNoise.result['ajs']*1e9*lbda/2/np.pi,ajscomplete*1e9*lbda/2/np.pi)))
 plt.xlabel('j')
 plt.ylabel('aj [nm]')
-plt.xlim([jscomplete[0],jscomplete[-1]])
+plt.xlim([np.min(jmax),np.max(jmax)])
 plt.legend(loc='best',fontsize = 16)
 plt.grid()
 

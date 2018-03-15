@@ -2,7 +2,7 @@
 \chapter{Theoretical background} 
 \label{ch:THback}
 
-In this chapter, we present the theory upon which this work is based. First, the light propagation formalism is reminded through the scalar diffraction theory based on the \citet{goodman_1968}. Then we describe in general an imaging system and its properties. And finally we discuss the wavefront aberration theory, and correction method to identify and correct the aberrations.
+In this chapter, the basic theory of our work is presented. First, the light propagation formalism is reminded through the scalar diffraction theory based on the book written by \citet{goodman_1968}. Then the general properties of an imaging system are described. And finally we present the wavefront aberration theory and two different methods to identify and correct the aberrations.
 
 \section{Scalar Diffraction Theory}
 \label{sec:ScaDifTh}
@@ -71,7 +71,7 @@ U(P_0) = \frac{1}{j\lambda} \iint\limits_{\Sigma} U'(P_1)\frac{exp(jkr_{01})}{r_
 \label{eqt:Ray_Som_Formula}
 \end{equation}
 
-$U'(P_1)$ is the complex amplitude on the screen, $cos(\mathbf{n},\mathbf{r_{01}})$ is the cosine of the angle between the aperture plane normal toward the source and the vector $\mathbf{r_{01}} = \mathbf{P_0P_1}$ given by 
+$U'(P_1)$ is the wave field on the screen and $cos(\mathbf{n},\mathbf{r_{01}})$ is the cosine of the angle between the aperture plane normal toward the source and the vector $\mathbf{r_{01}} = \mathbf{P_0P_1}$ given by 
 
 \begin{equation}
 r_{01} = \sqrt{z^2 + (x-\xi)^2 + (y-\eta)^2}.
@@ -97,7 +97,7 @@ r_{01} = z \sqrt{1 + \frac{x-\xi}{z} + \frac{y-\eta}{z}} \approx z \left[1+\frac
 \label{eqt:approx_r01}
 \end{equation}
 
-To obtain the Fresnel approximation, one has to replace $r_{01}$ by eqt. \eqref{eqt:approx_r01} in eqt. \eqref{eqt:Ray_Som_formula_xy_en}. At the denominator, only the first term $z$ is kept, since the introduced error is small, but in the exponential everything is kept. Then the final expression is given by,
+To obtain the Fresnel approximation, one has to replace $r_{01}$ by eqt. \eqref{eqt:approx_r01} in eqt. \eqref{eqt:Ray_Som_formula_xy_en}. At the denominator, only the first term $z$ is kept, since the introduced error is small. But in the exponential everything is kept. Then the final expression is given by,
 
 \begin{equation}
 U(x,y) = \frac{e^{jkz}}{j\lambda z} \iint\limits_{-\infty}^{\infty} U(\xi,\eta)exp \left\lbrace j \frac{k}{2z}\left[(x-\xi)^2+(y-\eta)^2\right]\right\rbrace d\xi d\eta.
@@ -113,7 +113,7 @@ U(x,y) = \frac{e^{jkz}}{j\lambda z} e^{j\frac{k}{2z}(x^2+y^2)} \iint\limits_{-\i
 \label{eqt:fresnel_Approx_FT}
 \end{equation}
 
-it is the Fourier transform of the complex field in the pupil multiplied by a quadratic phase exponential.
+this is the Fourier transform of the complex field in the pupil multiplied by a quadratic phase exponential.
 
 \subsection{Fraunhofer approximation}
 \label{subsec:FraunhoferApprox}
@@ -132,12 +132,12 @@ U(x,y) = \frac{e^{jkz}}{j\lambda z} e^{j\frac{k}{2z}(x^2+y^2)} \iint\limits_{-\i
 \label{eqt:Fraunhofer_approx}  
 \end{equation}
 
-For instance, at a wavelength of 637.5 nm and a pupil diameter of 3.6 mm the Fraunhofer approximation constrain $z$ to be greater than 63 meters to be valid.
+For instance, at a wavelength of 637.5 nm and a pupil diameter of 3.6 mm the Fraunhofer approximation constrains $z$ to be greater than 63 meters to be valid.
 
 \subsection{Converging lens introduction}
 \label{subsec:ConvLensIntro}
 
-The Fraunhofer conditions are severe as shown above, but one can reduce the distance $z$ by observing at the focal plane of a converging lens. Indeed, using the paraxial approximation, i.e. small angles with respect to the optical axis, the lens transmission function is given by,
+The Fraunhofer conditions are severe as shown above, but one can reduce the distance $z$ by observing the focal plane of a converging lens. Indeed, using the paraxial approximation, i.e. small angles with respect to the optical axis, the lens transmission function is given by,
 
 \begin{align}
 t_l(\xi , \eta) &= exp \left[ j k n \Delta_0 \right] exp \left[ -jk \left( n-1 \right)\frac{ \xi^2 + \eta^2 }{2}\left( \frac{1}{R_1} - \frac{1}{R_2}\right) \right] \nonumber \\ 
@@ -145,7 +145,7 @@ t_l(\xi , \eta) &= exp \left[ j k n \Delta_0 \right] exp \left[ -jk \left( n-1 \
 \label{eqt:lensTl}
 \end{align}
 
-where $n$ is the refractive index of the lens material, $R_1$ and $R_2$ are the radii of curvature of the front and back surface of the lens, respectively, and f is the focal length of the lens defined as,
+where $n$ is the refractive index of the lens material, $R_1$ and $R_2$ are the curvature's radii of the front and back surface of the lens, respectively, and f is the lens focal length defined as,
 
 \begin{equation}
 \frac{1}{f} \equiv (n-1)\left(\frac{1}{R_1}-\frac{1}{R_2}. \right)
@@ -171,7 +171,7 @@ U(x,y) &= \frac{e^{jkz}}{j\lambda z} e^{j\frac{k}{2z}(x^2+y^2)}  \mathcal{F}\lef
 \end{center}
 \end{figure}
 
-An imaging system, such as a telescope, is used to acquire images of an object as perfectly as possible. An optical system,  forming an instrument, is composed by lenses, mirrors, etc... and a detector (can be the human eye). A complex optical system can be reduced to a pupil, $P(\xi,\eta)$, and a focal length, $f$. The diffraction of the wave can be determined by the Fraunhofer approximation as long as the paraxial approximation is valid, see subsection \ref{subsec:ConvLensIntro}. And the observed image of an incoherent object at the focal plane of the system is proportional to the square modulus of the complex amplitude $U(x,y)$,
+An imaging system, such as a telescope, is used to acquire images of an object as perfectly as possible, generally working with high magnification to observe far object with details. An optical system, forming an instrument, is composed by lenses, mirrors, etc... and a detector (can be the human eye). A complex optical system can be reduced to a pupil, $P(\xi,\eta)$, and a focal length, $f$. The diffraction of the wave can be determined by the Fraunhofer approximation as long as the paraxial approximation is valid, see subsection \ref{subsec:ConvLensIntro}. And the observed image of an incoherent object at the system's focal plane is proportional to the square modulus of the phasor $U(x,y)$,
 
 %\begin{equation}
 %i(x,y) \alpha |\left[\mathcal{F}\left\lbrace U(\xi,\eta) \right\rbrace\right](x,y)|^2.
@@ -195,11 +195,11 @@ An imaging system, such as a telescope, is used to acquire images of an object a
         \label{subfig:PSFzoom}
     \end{subfigure}
     \decoRule
-    \caption{PSF of a perfect imaging system composed by a 3.6 mm pupil and a focal length of 80 mm at a wavelength of 637.5 nm. The size, N, of the PSF is 400 and the pixel size is 5.3 $\mu m$.}
+    \caption{PSF of a perfect imaging system composed by a 3.6 mm pupil and a focal length of 80 mm at a wavelength of 637.5 nm. The size, N, of the PSF is 400 pixels and the pixel size is 5.3 $\mu m$.}
     \label{fig:PSF}
 \end{figure}
 
-The impulse response or point spread function (PSF), $h(x,y;u,v)$, of an optical system is  the field amplitude induced at coordinates $(x,y)$ by a unit-amplitude point source at object coordinates $(u,v)$. An example of PSF for a incoherent point source object is shown in Figure \ref{fig:PSF}. Using the linearity of the wave propagation, we can write the imaged amplitude as a superposition integral,
+The impulse response or PSF, $h(x,y;u,v)$, of an optical system is  the field amplitude induced at coordinates $(x,y)$ by a unit-amplitude point source at object coordinates $(u,v)$. An example of PSF for a incoherent point source object is shown in Figure \ref{fig:PSF}. Using the linearity of the wave propagation, we can write the imaged amplitude as a superposition integral,
 
 \begin{equation}
 U(x,y) = \iint_{-\infty}^{\infty} h(x,y;u,v)U(u,v)dudv.
@@ -218,14 +218,22 @@ U(x,y) = \iint_{-\infty}^{\infty} h(x,y;u,v)U(u,v)dudv.
 \end{center}
 \end{figure}
 
-The optical transfer function, OTF, is defined as the Fourier transform of the impulse response, an example for an incoherent point source is shown in Figure \ref{fig:OTF} and it correspond to the OTF of the PSF shown in Figure \ref{fig:PSF}. As we will use it later, for incoherent illumination and using the Fourier transform properties it can also be given by the autocorrelation of the pupil function as we will see in section \ref{subsec:FromOtoI} that the impulse response is given by the Fourier transform of the squared pupil function,
+The optical transfer function, OTF, is defined as the Fourier transform of the impulse response,
 
 \begin{equation}
-\widetilde{h}_{optical}(\xi,\eta) = \mathcal{F}\left\lbrace h_{optical}(x,y)\right\rbrace = (P \otimes P)(\xi,\eta),
+\widetilde{h}_{optical}(\xi,\eta) = \mathcal{F}\left\lbrace h_{optical}(x,y)\right\rbrace ,
 \label{eqt:OTF}
 \end{equation}
 
 where $\xi$ and $\eta$ are the conjugate variables of $x$ and $y$ with respect to the Fourier transform.
+
+An example for an incoherent point source is shown in Figure \ref{fig:OTF} and it correspond to the OTF of the PSF shown in Figure \ref{fig:PSF}. For incoherent illumination, using the Fourier transform properties it can also be given by the autocorrelation of the pupil function as we will see in section \ref{subsec:FromOtoI},
+
+\begin{equation}
+\widetilde{h}_{optical}(\xi,\eta) = (P \otimes P)(\xi,\eta).
+\label{eqt:}
+\end{equation}
+
 
 \subsection{Image formation}
 \label{subsec:FromOtoI}
@@ -237,7 +245,9 @@ i(x,y) = |U(x,y)|^2 = |\iint_{-\infty}^{\infty} h(x,y;u,v)U(u,v)dudv|^2.
 \label{eqt:IsqAmplitude}
 \end{equation}
 
-This integral simplifies differently depending on the type of object we are observing. For a \textbf{coherent object}, \citet[Chapter 6.2]{goodman_1968} showed that the imaging is linear in complex amplitude, thus eqt. \eqref{eqt:IsqAmplitude} becomes,
+This integral simplifies differently depending on the type of object we are observing. 
+
+For a \textbf{coherent object}, \citet[Chapter 6.2]{goodman_1968} showed that the imaging is linear in complex amplitude, thus eqt. \eqref{eqt:IsqAmplitude} becomes,
 
 \begin{equation}
 i(x,y) = |\iint_{-\infty}^{\infty} h(x-\widetilde{u},y-\widetilde{v})U(\widetilde{u},\widetilde{v})d\widetilde{u}d\widetilde{v}|^2,
@@ -255,7 +265,7 @@ i(x,y) = \iint_{-\infty}^{\infty}|h(x-\widetilde{u},y-\widetilde{v})|^2o(\wideti
 
 where $o(x,y) = |U(x,y)|^2$. We can recognize the convolution of an object with an intensity impulse response, $h_{optical}(x,y) = |h(x,y)|^2$.
 
-In this study, we will study stars radiation which are object with an incoherent emission. The stars are point source objects given there distances. The image that an optical system gives of a point source is called the point spread function, PSF, or impulse response, IR, of the system, see Figure \ref{fig:PSF}. A point source is characterized by an infinite distance to the instrument and therefore the wave is planar, which means that the phasor is reduced to $U(\xi,\eta) = P(\xi,\eta)$. The PSF or IR is given by,
+In this thesis, we study star-like radiation which are object with an incoherent emission. Stars are point source objects given their distances. The image that an optical system gives of a point source is called the point spread function, PSF, or impulse response, IR, of the system, see Figure \ref{fig:PSF}. A point source is characterized by an infinite distance to the instrument and therefore the wave is planar, which means that the phasor is reduced to $U(\xi,\eta) = P(\xi,\eta)$. The PSF or IR is given by,
 
 \begin{equation}
 h_{optical}(x,y) = |\left[\mathcal{F}\left\lbrace P(\xi,\eta) \right\rbrace\right](x,y)|^2
@@ -271,7 +281,7 @@ In presence of aberrations, which will be discussed in section \ref{sec:Aberrati
 \label{eqt:aberratedPhasor}
 \end{equation}
 
-where $\phi_{Ab}(\xi,\eta)$ is the dephasing caused by the aberration present between the object and the image planes. Replacing the new pupil function in eqt. \eqref{eqt:impulseResponse}, we obtain the PSF of an imaging system having aberrations on the optical path.
+where $\phi_{Ab}(\xi,\eta)$ is the dephasing caused by the aberrations present between the object and the image planes. Replacing the new pupil function in eqt. \eqref{eqt:impulseResponse}, we obtain the PSF of an imaging system having aberrations on the optical path.
 
 \section{Aberrations}
 \label{sec:Aberrations}
@@ -285,7 +295,7 @@ where $\phi_{Ab}(\xi,\eta)$ is the dephasing caused by the aberration present be
 \label{fig:AbWFvsGausSphWF}
 \end{wrapfigure}
 
-The aberrations present on the optical path between the object and the image plane decrease the quality of the resulting image. Indeed, they induce fluctuations of the amplitude and phase of the wave in the pupil plane. Since the amplitude fluctuations are negligible with respect to the phase fluctuations, we focus only on the latter. In figure \ref{fig:AbWFvsGausSphWF}, one can see the effect of the aberrations on an hypothetical spherical wavefront at the exit pupil of an imaging system. And in Figure \ref{fig:ComparisonPSFs}, one can see the effect of aberrations on the PSF of an imaging system. The PSF is blurred due to the defocus and we can well recognize the astigmatism introduced as the shape of the PSF tends towards the ellipse. The Strehl ratio is often used to quantify the importance of the aberrations, it is given by the following expression,
+The aberrations present on the optical path between the object and the image plane decrease the quality of the resulting image. Indeed, they induce fluctuations of the amplitude and phase of the wave in the pupil plane. Since the amplitude fluctuations are negligible with respect to the phase fluctuations, we focus only on the latter. In figure \ref{fig:AbWFvsGausSphWF}, one can see the aberration's effect on an hypothetical spherical wavefront at the exit pupil of an imaging system. And in Figure \ref{fig:ComparisonPSFs}, one can see the effect of aberrations on the PSF of an imaging system. The PSF is blurred due to the defocus and we can well recognize the astigmatism introduced as the PSF's shape tends towards an ellipse. The Strehl ratio is often used to quantify the importance of the aberrations, it is given by the following expression,
 
 \begin{equation}
 SR = \frac{\int \widetilde{h}_{optical}(\xi,\eta)\mathrm{d}\xi \mathrm{d}\eta}{\int \widetilde{h}_{perfect}(\xi,\eta) \mathrm{d}\xi \mathrm{d}\eta},
@@ -305,22 +315,22 @@ where $\widetilde{h}_{perfect}(\xi,\eta)$ is the OTF of the perfect system with 
      \quad
      \begin{subfigure}{0.45\textwidth}
          \includegraphics[width=\textwidth]{Figures/PSFzoomWthAb}
-         \caption{PSF with aberrations ($a_j = 50 \mathrm{nm}$ for $a_{4}$, $a_{6}$and $a_{11}$, see subsec \ref{subsec:ZernikePol} for the definition of $a_j$, zoomed x10)}
+         \caption{PSF with aberrations (The Zernike coefficients are $a_j = 50 \mathrm{nm}$ for $a_{4}$, $a_{6}$and $a_{11}$, see subsec \ref{subsec:ZernikePol} for the definition of $a_j$, zoomed x10)}
          \label{subfig:PSFWthAb}
      \end{subfigure}
      \decoRule
-     \caption{Comparison of perfect PSF and PSF with aberrations of an imaging system composed by a 3.6 mm pupil and a focal length of 80 mm at a wavelength of 637.5 nm. The size, N, of the PSF is 400 and the pixel size is 5.3 $\mu m$.}
+     \caption{Comparison of perfect PSF and PSF with aberrations of an imaging system composed by a 3.6 mm pupil and a focal length of 80 mm at a wavelength of 637.5 nm. The size, N, of the PSF is 400 pixels and the pixel size is 5.3 $\mu m$.}
      \label{fig:ComparisonPSFs}
  \end{figure} 
 
 \subsection{Sources of aberration}
 \label{subsec:SourcesAb}
 
-The phase fluctuations introduced by aberrations are due to different kind of perturbations on the optical path. In ground based astronomy, the main source of aberrations is the \textbf{atmosphere}. Indeed, the atmosphere's temperatures fluctuations coupled with turbulent airflows are at the origin of the variations of the refractive index. Those variations induce then different optical paths, in other words they generate perturbations on an electromagnetic wave passing through the atmosphere. The theory of the Atmospheric Turbulence is beyond the scope of this work, but we redirect the interested reader to \citet{obukhov1949,Tatarski1961,kolmogorov1968}.
+The phase fluctuations introduced by aberrations are due to different kind of perturbations on the optical path. In ground based astronomy, the main source of aberrations is the \textbf{atmosphere}. Indeed, the atmosphere's temperatures fluctuations coupled with turbulent airflows are at the origin of the refractive index's variations. Those variations induce different optical paths, in other words they generate perturbations on an electromagnetic wave passing through the atmosphere. The theory of the Atmospheric Turbulence is beyond the scope of this work, but we redirect the interested reader to \citet{obukhov1949,Tatarski1961,kolmogorov1968}.
 
-The other source of aberrations are the \textbf{defects of the instrument} itself. The defaults can limit the resolution and decrease the quality of a diffraction-limited imaging system. The defects can have multiple origins as described by \citet{Blanc2002}. The first one is a \textbf{default during the fabrication process}, such as mirror polishing. This kind of defect is constant over time and of high spatial frequency. Perturbation of the electromagnetic wave can also be due to \textbf{misalignment of the optical components of the instrument}. For instance, during the first stages of operation of the Hubble telescope, the mirrors were not correctly aligned and the resulting images were blurry. These defects are of low spatial frequencies and vary slowly over time. Finally, there are defects due to \textbf{mechanical stresses of the instrument}. The mirrors have to be held in place by different mechanical components. And under the influence of the gravity, a mirror deformation can arise resulting in an aberration introduction. This kind of defect also evolves slowly through time but has a large spatial frequency domain.
+The other source of aberrations are the \textbf{defects of the instrument} itself. The flaws can limit the resolution and decrease the quality of a diffraction-limited imaging system. The defects can have multiple origins as described by \citet{Blanc2002}. The first one is a \textbf{defect during the fabrication process}, such as mirror polishing. This kind of defect is constant over time and of high spatial frequency. Perturbation of the electromagnetic wave can also be due to \textbf{misalignment of the optical instrument's components}. For instance, during the first stages of operation of the Hubble telescope, the mirrors were not correctly aligned and the resulting images were blurry. These defects are of low spatial frequencies and vary slowly over time. Finally, there are defects due to \textbf{mechanical stresses of the instrument}. The mirrors have to be held in place by different mechanical components. And under the influence of the gravity, a mirror deformation can arise resulting in an aberrations introduction. This kind of defect also evolves slowly through time but has a large spatial frequency domain.
 
-We focus on a method to correct the effect of the instrument defects. The method is particularly suited since it does not require a different path than the path to the scientific instrument, which means that we can correct the aberrations on the entire optical path.
+We focus on a method to correct the effects of the instrument flaws. The method is particularly suited since it does not require a different path than the path to the scientific instrument, which means that we can correct the aberrations on the entire optical path.
 
 \subsection{Zernike polynomials}
 \label{subsec:ZernikePol}
@@ -370,7 +380,7 @@ The decomposition of the phase onto the Zernike polynomials is given by,
 \label{eqt:decompPhase}
 \end{equation}
 
-where the $a_i$'s are the Zernike coefficient. And we characterize a wavefront by its root mean squared error (RMS error or RMSE) which is given by,
+where the $a_i$'s are the Zernike coefficients. And we characterize a wavefront by its root mean squared error (RMS error or RMSE) which is given by,
 
 \begin{equation}
 \sigma_{\phi} = \sqrt{\frac{1}{S}\int\limits_S \phi^2(\mathbf{r})d\mathbf{r}} = \sqrt{\sum\limits_{i=2}^{+\infty}a_i^2},
@@ -381,9 +391,9 @@ where $S$ is the surface of the pupil.
 
 \section{Phase retrieval}
 
-The phase retrieval is a complicated process since the detectors are only sensitive to the intensity of a wave and not the wave itself, which prevents to obtain a direct relation between phase and image. Thus, we only have an indirect measurement of the wavefront. Nevertheless, it is important to be able to estimate the aberrations of a system in order to correct them in real-time (Adaptive Optics systems) or in post-processing (Image restoration).
+The phase retrieval is a complicated process since the detectors are only sensitive to the intensity of a wave and not the wave itself, which prevents us to obtain a direct relation between phase and image. Thus, we only have an indirect measurement of the wavefront. Nevertheless, it is important to be able to estimate the aberrations of a system in order to correct them in real-time (Adaptive Optics systems) or in post-processing (Image restoration).
 
-There are a couple of ways to characterize the form of a wavefront, i.e. to determine the amplitude of the aberrations present in an imaging system. Some uses the optical geometric approximation, which says that locally the light rays are perpendicular to the wavefront. These achromatic methods measure the gradient of the wave surface, such as Shack-Hartmann \citep{hartmann1900,ShackPlatt_1971,fontanella1985}, Curvature sensing \citep{Roddier1988} and Pyramid sensing \citep{ragazzoni1996}. Another kind of methods are called interferometric or focal plane methods. They use the interference patterns of the pupil to determine the form of the wavefront. The \textbf{Phase Diversity} is part of those kind of methods. It was first proposed by \citet{Gonsalves_1982}. The most popular method nowadays are the Shack-Hartmann, the curvature and the phase diversity. We explain the principle of a Shack-Hartmann sensor and phase diversity in the two next subsections.
+There are a couple of ways to characterize the form of a wavefront, i.e. to determine the amplitude of the aberrations present in an imaging system. Some uses the optical geometric approximation, which says that locally the light rays are perpendicular to the wavefront. These achromatic methods measure the gradient of the wave surface, such as Shack-Hartmann \citep{hartmann1900,ShackPlatt_1971,fontanella1985}, Curvature sensing \citep{Roddier1988} and Pyramid sensing \citep{ragazzoni1996}. Another kind of methods is called interferometric or focal plane methods. They use the interference patterns of the pupil to determine the form of the wavefront. The \textbf{Phase Diversity} is part of those kind of methods. It was first proposed by \citet{Gonsalves_1982}. The most popular methods nowadays are the Shack-Hartmann, the curvature sensing and the phase diversity. We explain the principle of a Shack-Hartmann sensor and phase diversity in the two next subsections.
 
 
 \subsection[Shack-Hartmann]{Shack-Hartmann \citep{hartmann1900,ShackPlatt_1971}}
@@ -405,12 +415,12 @@ The Shack-Hartmann wavefront sensor measures the gradient of an aberrant phase. 
 \label{eqt:SHWFSlope}
 \end{equation}
 
-where $s$ is either $x$ or $y$ and S is the surface of a micro-lens and f is the focal length of the micro-lenses. The wavefront is reconstructed by integrating over all the local slope measurements. The advantage of this technique is that it does not require a lot of computation since it is a direct measurement. But it requires an important optical system to acquire the data. It is used in many fields, especially in adaptive optics system to correct for the atmospheric turbulence.
+where $s$ is either $x$ or $y$ and S is the surface of a micro-lens and f is the focal length of the micro-lenses. The wavefront is reconstructed by integrating over all the local slope measurements. The advantage of this technique is that it does not require a lot of computation since it is a direct measurement. But it requires an important optical system to acquire the data. It is used in many fields, especially in adaptive optics systems to correct the atmospheric turbulence.
 
 \subsection{Phase Diversity}
-\label{ch:PDThe}
+\label{subsec:PDprinciple}
 
-The phase diversity was first implemented by R. A. Gonsalves in 1976 \citep{Gonsalves_1976,Gonsalves_1982} to retrieve the phase of a wavefront coming from a point source. It uses two images, one at the focal plane and another one with a diversity introduced, such as defocus, in order to recover the phase of the wavefront.
+The phase diversity was first implemented by R. A. Gonsalves in 1976 \citep{Gonsalves_1976,Gonsalves_1982} to retrieve the phase of a wavefront coming from a point source. It uses two images, one at the focal plane and another one with a diversity introduced, such as a defocus, in order to recover the phase of the wavefront.
 
 \begin{figure}
 \begin{center}
@@ -433,6 +443,6 @@ More specifically by decomposing the phase in its even and odd part and using th
 
 Figure \ref{fig:DiversityPrinciple} shows the principle of the phase diversity. Two images are acquired, one at the focal plane and another with a defocus. We introduce the defocus by sliding the detector along the z-axis, others use a beamsplitter and another detector \citep{mugnier_2006}. We notice that having a more complex system, such has a deformable mirror, one could introduce any other even aberration such as an astigmatism, the only requirement is that the diversity introduced must have an even radial and azimuthal order.
 
-The phase diversity is a technique that is sensitive to chromatism, because it is based on diffraction. The non-linear relation that links the image and the phase depends also on the object. This renders the inverse problem to solve more complicated, but it allows to retrieve the phase, the object or both, when the object is unknown (most of the time). Furthermore, it is very simple optically, does not require a complex optical components to acquire the data, one just uses the detector in place. Thus it depends directly on the images, without any NCPA between the adaptive optic system and the scientific detector.
+The phase diversity is a technique that is sensitive to chromatism, because it is based on diffraction. The non-linear relation that links the image and the phase depends also on the object. This makes the inverse problem to solve more complicated, but it allows to retrieve the phase, the object or both, when the object is unknown (most of the time). Furthermore, it is very simple optically, in other words it does not require complex optical components to acquire the data, one just uses the detector in place. Thus it depends directly on the images, without any NCPA between the adaptive optic system and the scientific detector.
 
-The final application of the phase diversity algorithm is to correct for static aberration in an optical system. We know the object, since it is a point source that we introduce with a laser or choose in the sky (a star).
+The final application of the phase diversity algorithm is to correct for static aberrations in an optical system. We know the object, since it is a point source that we introduce with a laser or choose in the sky (a star).

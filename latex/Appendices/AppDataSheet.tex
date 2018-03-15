@@ -10,9 +10,25 @@ Source : \url{www.thorlabs.com}
 
 \subsection{Power supply modification}
 
-The former student, ??? its name ???, mounted a diode driver card to power it. Unfortunately, for the phase diversity experiment, chapter \label{ch:PDExp}, the power was too high and the Ximea camera was always saturated. So I modified the driver circuit and added two resistances to lower the current so that the detector do not reach the saturation.
-
-!!! mettre la photo du driver et de la modif !!!
+Unfortunately, for the phase diversity experiment, chapter \label{ch:PDExp}, the power supplied by the Diode driver was too high and the Ximea camera was always saturated. So I modified the driver circuit and added a potentiometer and resistance to lower the current so that the detector do not reach the saturation.
+\begin{figure}
+\centering
+    \begin{subfigure}{0.5\textwidth}
+    	\centering
+        \includegraphics[width=\textwidth,angle=0]{Figures/LEDwout.jpg}
+        \caption{LED driver without the modification}
+        \label{subfig:}
+    \end{subfigure}
+    \quad
+    \begin{subfigure}{0.5\textwidth}
+    	\centering
+        \includegraphics[width=\textwidth,angle = 0]{Figures/LEDwth.jpg}
+        \caption{LED driver with the resistance and the potentiometer}
+        \label{subfig:}
+    \end{subfigure}
+    \decoRule
+    \caption{LED driver}
+\end{figure}
 
 \section{Converging lens A220TM-A, f = 11 mm}
 \label{app:CL11}
