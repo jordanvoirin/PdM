@@ -64,7 +64,7 @@ and $\lambda$ is the wavelength in the dielectric medium.
     \label{fig:Diff_Schemas}
 \end{figure}
 
-Rayleigh and Sommerfeld developed a formalism using the Helmholtz equation and Green's Theorem to compute the induced diffraction by a plane screen. Let's suppose that we have a monochromatic source at $\widetilde{P_0}$ on the left of a plane screen with aperture $\Sigma$, the Rayleigh-Sommerfeld formula allows to compute the complex amplitude at $P_0$ on the right of the plane screen (see Figure \ref{subfig:Ray_Som_Diff}).
+Rayleigh and Sommerfeld developed a formalism using the Helmholtz equation and Green's Theorem to compute the induced diffraction by a plane screen. Let's suppose that we have a monochromatic source at $\widetilde{P_0}$ on the left of a plane screen with aperture $\Sigma$, the Rayleigh-Sommerfeld formula allows to compute the wave field at $P_0$ on the right of the plane screen (see Figure \ref{subfig:Ray_Som_Diff}).
 
 \begin{equation}
 U(P_0) = \frac{1}{j\lambda} \iint\limits_{\Sigma} U'(P_1)\frac{exp(jkr_{01})}{r_{01}}cos(\mathbf{n},\mathbf{r_{01}})\mathbf{ds}
@@ -152,7 +152,7 @@ where $n$ is the refractive index of the lens material, $R_1$ and $R_2$ are the 
 \label{eqt:focal_length}
 \end{equation}
 
-We can define $U_l(\xi,\eta) = U(\xi,\eta)t_l(\xi,\eta)$, which represents the complex amplitude passing through a lens. Finally, replacing $U(\xi,\eta)$ by $U_l(\xi,\eta)$ in Fresnel approximation and setting the observing distance to the focal length of the converging lens, we recover the Fraunhofer approximation,
+We can define $U_l(\xi,\eta) = U(\xi,\eta)t_l(\xi,\eta)$, which represents the wave passing through a lens. Finally, replacing $U(\xi,\eta)$ by $U_l(\xi,\eta)$ in Fresnel approximation and setting the observing distance to the focal length of the converging lens, we recover the Fraunhofer approximation,
 
 \begin{align}
 U(x,y) &= \frac{e^{jkz}}{j\lambda z} e^{j\frac{k}{2z}(x^2+y^2)}  \mathcal{F}\left\lbrace U(\xi,\eta) exp\left[j\frac{k}{2}(\xi^2+\eta^2)(\frac{1}{z}-\frac{1}{f})\right]\right\rbrace \nonumber \\
@@ -199,7 +199,7 @@ An imaging system, such as a telescope, is used to acquire images of an object a
     \label{fig:PSF}
 \end{figure}
 
-The impulse response or PSF, $h(x,y;u,v)$, of an optical system is  the field amplitude induced at coordinates $(x,y)$ by a unit-amplitude point source at object coordinates $(u,v)$. An example of PSF for a incoherent point source object is shown in Figure \ref{fig:PSF}. Using the linearity of the wave propagation, we can write the imaged amplitude as a superposition integral,
+The IR or PSF, $h(x,y;u,v)$, of an optical system is  the field amplitude induced at coordinates $(x,y)$ by a unit-amplitude point source at object coordinates $(u,v)$. An example of PSF for a incoherent point source object is shown in Figure \ref{fig:PSF}. Using the linearity of the wave propagation, we can write the imaged amplitude as a superposition integral,
 
 \begin{equation}
 U(x,y) = \iint_{-\infty}^{\infty} h(x,y;u,v)U(u,v)dudv.
@@ -211,7 +211,7 @@ U(x,y) = \iint_{-\infty}^{\infty} h(x,y;u,v)U(u,v)dudv.
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.5\textwidth,angle=0]{Figures/OTF}
+\includegraphics[width=0.5\textwidth,angle=0]{Figures/OTF.png}
 \decoRule
 \caption{OTF of a perfect imaging system composed by a 3.6 mm pupil and a focal length of 80 mm at a wavelength of 637.5 nm.}
 \label{fig:OTF}
@@ -227,7 +227,7 @@ The optical transfer function, OTF, is defined as the Fourier transform of the i
 
 where $\xi$ and $\eta$ are the conjugate variables of $x$ and $y$ with respect to the Fourier transform.
 
-An example for an incoherent point source is shown in Figure \ref{fig:OTF} and it correspond to the OTF of the PSF shown in Figure \ref{fig:PSF}. For incoherent illumination, using the Fourier transform properties it can also be given by the autocorrelation of the pupil function as we will see in section \ref{subsec:FromOtoI},
+An example for an incoherent point source is shown in Figure \ref{fig:OTF} and it correspond to the OTF of the PSF shown in Figure \ref{fig:PSF}. For incoherent illumination, using the Fourier transform properties, it can also be given by the autocorrelation of the pupil function as we will see in section \ref{subsec:FromOtoI},
 
 \begin{equation}
 \widetilde{h}_{optical}(\xi,\eta) = (P \otimes P)(\xi,\eta).
@@ -238,7 +238,7 @@ An example for an incoherent point source is shown in Figure \ref{fig:OTF} and i
 \subsection{Image formation}
 \label{subsec:FromOtoI}
 
-A detector only senses the energy distribution produced by an electromagnetic wave. Therefore, an image is given by the square modulus of the complex amplitude at the focal plane,
+A detector only senses the energy distribution produced by an electromagnetic wave. Therefore, an image is given by the square modulus of the wave field at the focal plane,
 
 \begin{equation}
 i(x,y) = |U(x,y)|^2 = |\iint_{-\infty}^{\infty} h(x,y;u,v)U(u,v)dudv|^2.
@@ -247,14 +247,14 @@ i(x,y) = |U(x,y)|^2 = |\iint_{-\infty}^{\infty} h(x,y;u,v)U(u,v)dudv|^2.
 
 This integral simplifies differently depending on the type of object we are observing. 
 
-For a \textbf{coherent object}, \citet[Chapter 6.2]{goodman_1968} showed that the imaging is linear in complex amplitude, thus eqt. \eqref{eqt:IsqAmplitude} becomes,
+For a \textbf{coherent object}, \citet[Chapter 6.2]{goodman_1968} showed that the imaging is linear in amplitude, thus eqt. \eqref{eqt:IsqAmplitude} becomes,
 
 \begin{equation}
 i(x,y) = |\iint_{-\infty}^{\infty} h(x-\widetilde{u},y-\widetilde{v})U(\widetilde{u},\widetilde{v})d\widetilde{u}d\widetilde{v}|^2,
 \label{eqt:convolution_hUo}
 \end{equation}
 
-where $(\widetilde{u} = Mu,\widetilde{v}= Mv)$ are the normalized object coordinates and $M$ is the magnification of the imaging system. The image is given by the squared modulus of the convolution of the impulse response and the object complex amplitude.
+where $(\widetilde{u} = Mu,\widetilde{v}= Mv)$ are the normalized object coordinates and $M$ is the magnification of the imaging system. The image is given by the squared modulus of the convolution of the impulse response and the object.
 
 For an \textbf{incoherent object},  \citet[Chapter 6.2]{goodman_1968} showed that the imaging is linear in intensity,
 

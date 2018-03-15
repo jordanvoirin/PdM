@@ -21,7 +21,7 @@ yp = xp
 [Xp,Yp]=np.meshgrid(xp,yp) 
 
 
-PSF = psf.PSF([6,11],np.array([50,50])*1e-9/lbda*2*np.pi,N,dxp,pupilRadius)
+PSF = psf.PSF([6,11],np.array([0,0])*1e-9/lbda*2*np.pi,N,dxp,pupilRadius)
 PSFdef = psf.PSF([4,6,11],np.array([637.5,50,50])*1e-9/lbda*2*np.pi,N,dxp,pupilRadius)
 
 otf = OTF(PSF.PSF,dxp)
@@ -100,14 +100,8 @@ plt.show()
 fig = plt.figure()
 ax3d = Axes3D(fig)
 ax = fig.gca(projection='3d')
-surf = ax.plot_surface(Xp*1000, Yp*1000, otf/np.max(otf))
-ax3d.tick_params(
-    axis='both',       # changes apply to the x-axis
-    which='both',      # both major and minor ticks are affected
-    bottom='off',      # ticks along the bottom edge are off
-    top='off',         # ticks along the top edge are off
-    labelbottom='off',
-    labeltop='off',
-    labelright='off',
-    labelleft='off')
+surf = ax.plot_surface(Xp/np.max(Xp), Yp/np.max(Yp), otf/np.max(otf))
+plt.xlim([-1,1])
+plt.ylim([-1,1])
+
 plt.show(fig)

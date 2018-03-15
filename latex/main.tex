@@ -97,6 +97,11 @@
 %for description list to be aligned with the text
 \setlist[description]{leftmargin=0cm}
 
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+
 \begin{document}
 
 \frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
@@ -198,7 +203,7 @@ The first part of our work is the test and use of a phase diversity algorithm de
 
 The second part presents the development and test of our phase diversity algorithm. The algorithm is based on a analytical approach unlike the ONERA phase diversity, which is based on a statistical approach. Our algorithm gives good results, however it shows a limited validity domain. A recursive approach is then proposed and tested to increase the validity domain with success up to an RMS wavefront error of $\sim\frac{\lambda}{4}$.
 
-In conclusion, we tested the ONERA phase diversity algorithm successful. But its use highlighted technical problems of our setup. We then developed our own phase diversity algorithm in order to have a method that we fully understand and control. Using a recursive approach we are able to increase by a factor three the validity domain.
+In conclusion, we tested the ONERA phase diversity algorithm successfully. But its use highlighted technical problems of our setup. We then developed our own phase diversity algorithm in order to have a method that we fully understand and control. Using a recursive approach we were able to increase by a factor three the validity domain of our algorithm.
 \end{abstract}
 
 %----------------------------------------------------------------------------------------
@@ -207,7 +212,7 @@ In conclusion, we tested the ONERA phase diversity algorithm successful. But its
 
 \begin{acknowledgements}
 \addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
-I would first like to thank my thesis supervisor Dr. Laurent Jolissaint of the industrial automation institute at the School of Management and Engineering (HEIG-VD) of Yverdon-Les-Bains. 
+I would first like to thank my thesis supervisor Dr. Laurent Jolissaint of the industrial automation institute at the School of Management and Engineering (HEIG-VD) of Yverdon-Les-Bains who gave me the opportunity to work on this fascinating optical problem and introduce me to the challenging optical laboratory work.. 
 
 I would also like to thank the expert : Dr. Jean-Paul Kneib, Director of the astrophysics laboratory of the Ecole Polytechnique Federale de Lausanne (EPFL). Without his passionate participation and input, the validation survey could not have been successfully conducted.
 
